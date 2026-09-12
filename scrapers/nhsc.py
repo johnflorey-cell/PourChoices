@@ -28,16 +28,16 @@ USER_AGENT = "PourChoicesBot/1.0 (+price comparison directory; respects robots.t
 
 
 def dismiss_age_gate(page):
-    page.goto(BASE, wait_until="networkidle", timeout=30000)
-    verify_link = page.query_selector("a:has-text('Verify')")
+    page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
+    verify_link = page.query_selector("button:has-text('Verify'),a:has-text('Verify')")
     if verify_link:
         verify_link.click()
-        page.wait_for_timeout(1500)
+        page.wait_for_timeout(2500)
 
 
 def scrape_category(page, url):
     results = []
-    page.goto(url, wait_until="networkidle", timeout=30000)
+    page.goto(url, wait_until="domcontentloaded", timeout=30000)
     cards = page.query_selector_all("[class*=product], .item, .product-item, .product-card")
     for card in cards:
         text = card.inner_text()
