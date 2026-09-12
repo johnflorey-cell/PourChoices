@@ -71,7 +71,7 @@ def parse_product_page(url):
     if not name:
         return None
 
-    prices = [float(m) for m in PRICE_RE.findall(resp.text)]
+    prices = [float(m) for m in PRICE_RE.findall(resp.text)if float(m)>0]
     if not prices:
         return None
     # When a sale is running the page shows both the discounted and the original
