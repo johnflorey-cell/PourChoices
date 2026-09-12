@@ -34,7 +34,7 @@ def scrape_term(page, term):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
-        page.goto(url, wait_until="networkidle", timeout=30000)
+        page.goto(url, wait_until="domcontentloaded", timeout=30000)
         cards = page.query_selector_all(".product-thumb, .product-layout")
         if not cards:
             break
@@ -64,7 +64,14 @@ def main():
         page = browser.new_page(user_agent=USER_AGENT)
         for term in SEARCH_TERMS:
             print(f"Searching GBI for '{term}'...", file=sys.stderr)
-            for item in scrape_term(page, term):
+            try:
+             items = scrape_term(page,
+                                  term)
+        except Exception as e:
+          print(f" failed:{e}",
+                file=sys.stderr)
+          items = []
+          for item in items:
                 key = (item["name"], item["url"])
                 if key not in seen:
                     seen.add(key)
