@@ -24,11 +24,12 @@ CATEGORY_URLS = [
     f"{BASE}/wines-wine?limit=100",
     f"{BASE}/wines-wine/sparkling?limit=100",
 ]
-USER_AGENT = "PourChoicesBot/1.0 (+price comparison directory; respects robots.txt)"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 
 def dismiss_age_gate(page):
     page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(1500)
     verify_link = page.query_selector("button:has-text('Verify'),a:has-text('Verify')")
     if verify_link:
         verify_link.click()
@@ -38,6 +39,7 @@ def dismiss_age_gate(page):
 def scrape_category(page, url):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(1500)
     cards = page.query_selector_all("[class*=product], .item, .product-item, .product-card")
     for card in cards:
         text = card.inner_text()
@@ -55,7 +57,7 @@ def main():
     all_results = []
     seen = set()
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
         dismiss_age_gate(page)
         for url in CATEGORY_URLS:
