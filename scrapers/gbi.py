@@ -62,20 +62,20 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(user_agent=USER_AGENT)
-        for term in SEARCH_TERMS:
-            print(f"Searching GBI for '{term}'...", file=sys.stderr)
-            try:
-             items = scrape_term(page,
-                                  term)
-        except Exception as e:
-          print(f" failed:{e}",
-                file=sys.stderr)
-          items = []
+     for term in SEARCH_TERMS:
+          print(f"Searching GBI for '[term]'...",file=sys.stderr)
+          try:
+              items = scrape_term(page,term)
+          except Exception as e:
+               print(f" failed:[e]",file=sys.stderr)
+               items = []
           for item in items:
-                key = (item["name"], item["url"])
-                if key not in seen:
-                    seen.add(key)
-                    all_results.append(item)
+              key = (item["name'],item["url'])
+              if key not in seen:
+                     seen.add(key)
+                     all_results.append(item)
+            
+
         browser.close()
     write_json("gbi.json", all_results)
 
