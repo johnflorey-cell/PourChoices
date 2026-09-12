@@ -22,7 +22,7 @@ BASE = "https://www.africanandeastern.com"
 SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
                 "brandy", "tequila", "liqueur", "cider", "baileys"]
 MAX_PAGES_PER_TERM = 15
-USER_AGENT = "PourChoicesBot/1.0 (+price comparison directory; respects robots.txt)"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 
 def scrape_term(page, term):
@@ -30,6 +30,7 @@ def scrape_term(page, term):
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(1500) 
         cards = page.query_selector_all(".product-thumb, .product-layout, .product-item")
         if not cards:
             break
@@ -54,7 +55,7 @@ def main():
     all_results = []
     seen = set()
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+                browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
         for term in SEARCH_TERMS:
             print(f"Searching A&E for '{term}'...", file=sys.stderr)
