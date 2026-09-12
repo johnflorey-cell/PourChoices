@@ -29,7 +29,7 @@ def scrape_term(page, term):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
-        page.goto(url, wait_until="networkidle", timeout=30000)
+        page.goto(url, wait_until="domcontentloaded", timeout=30000)
         cards = page.query_selector_all(".product-thumb, .product-layout, .product-item")
         if not cards:
             break
