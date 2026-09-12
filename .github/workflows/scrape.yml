@@ -1,0 +1,55 @@
+name: Scrape retailer prices
+
+on:
+  schedule:
+    # 06:00 Bahrain time (UTC+3) = 03:00 UTC, matching the blueprint's original
+    # daily-refresh plan. GitHub Actions cron is UTC.
+    - cron: "0 3 * * *"
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright's browser
+        run: playwright install --with-deps chromium
+
+      - name: Scrape BMMI
+        run: python scrapers/bmmi.py
+        continue-on-error: true   # one retailer's site being briefly down shouldn't block the others
+
+      - name: Scrape African & Eastern
+        run: python scrapers/ae.py
+        continue-on-error: true
+
+      - name: Scrape GBI Express
+        run: python scrapers/gbi.py
+        continue-on-error: true
+
+      - name: Scrape NHSC
+        run: python scrapers/nhsc.py
+        continue-on-error: true
+
+      - name: Merge into one product list
+        run: python scrapers/merge.py
+
+      - name: Commit updated data if it changed
+        run: |
+          git config user.name "pour-choices-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/*.json
+          git diff --cached --quiet && echo "No price changes." || git commit -m "Automated price refresh $(date -u +'%Y-%m-%d')"
+          git push
