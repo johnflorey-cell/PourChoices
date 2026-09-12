@@ -63,7 +63,7 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
-     for term in SEARCH_TERMS:
+        for term in SEARCH_TERMS:
           print(f"Searching GBI for '[term]'...",file=sys.stderr)
           try:
               items = scrape_term(page,term)
