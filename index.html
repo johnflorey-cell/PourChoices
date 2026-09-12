@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pour Choices</title>
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIlBvdXIgQ2hvaWNlcyIsICJzaG9ydF9uYW1lIjogIlBvdXIgQ2hvaWNlcyIsICJkZXNjcmlwdGlvbiI6ICJBbiBpbmRlcGVuZGVudCBhbGNvaG9sIHByaWNlIGNvbXBhcmlzb24gaW5kZXggZm9yIEJhaHJhaW4iLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiIzBGMTcyQSIsICJ0aGVtZV9jb2xvciI6ICIjMEYxNzJBIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQVB2a2xFUVZSNG5PM2RQWkljeHhXRjBRYUNQazFHeUpIUEhXb0YyaUY5T1lxZ3lSVlFCalhFL1BWMFZYWCt2TXg3emdvR1kraCtMd3NVdnQxNDJzKy8vUHJuN0o4QklNMGZ2Ly8yYmZiUHNESy92SU9NUE1BNnhNRmpma0dmTVBZQSt4RUZiL2xsL0ovUkI4Z2hCb0lEd09BRDhDSXhDT0wrd0lZZmdIdVNRaURpRDJyMEFUaHI5eGpZK2c5bitBRjQxcTRoc04wZnl1Z0QwTXRPTWJETkg4VHdBekRLRGlHdy9CL0E4QU13eThvaHNPd1BidmdCcUdMRkVQZysrd2U0d3ZnRFVNbUt1N1JVc2F6NEN3WWd5eXF2QWN1OEFCaC9BRmF3eWw2VnI1UlZmcEVBOEY3bDE0RFNMd0RHSDRDVlZkNnhrbVZTK1JjR0FGZFVldzBvOXdKZy9BSFlVYlY5S3hVQTFYNDVBTkJTcFowcjhSeFI2UmNDQUNQTS9pUXcvUVhBK0FPUWFQYitUUTJBMlg5NEFKaHA1ZzVPQ3dEakR3RHo5bkJLQUJoL0FQaGh4aTRPRHdEakR3QWZqZDdIb1FGZy9BSGd2cEU3T1N3QWpEOEFQRFpxTDRjRWdQRUhnT05HN0diM0FERCtBSEJlNy8zc0dnREdId0N1NjdtajNRTEErQVBBODNydGFaY0FNUDRBMEU2UFhXMGVBTVlmQU5wcnZhL1QvekVnQUdDOHBnSGcrZ2VBZmxydWJMTUFNUDRBMEYrcnZXMFNBTVlmQU1acHNiditEZ0FBQkhvNkFGei9BRERlcy92N1ZBQVlmd0NZNTVrZDlna0FBQUpkRGdEWFB3RE1kM1dQTHdXQThRZUFPcTdzc2s4QUFCRG9kQUM0L2dHZ25yUDdmQ29BakQ4QTFIVm1wMzBDQUlCQWh3UEE5UThBOVIzZGF5OEFBQkRvVUFDNC9nRmdIVWQyMndzQUFBUjZHQUN1ZndCWXo2UDk5Z0lBQUlFRUFBQUUraklBUFA4RHdMcSsybkV2QUFBUTZHNEF1UDRCWUgzMzl0d0xBQUFFRWdBQUVPalRBUEQ4RHdENytHelh2UUFBUUtBUEFlRDZCNEQ5dk45M0x3QUFFRWdBQUVBZ0FRQUFnZDRFZ08vL0FMQ3YxenZ2QlFBQUFna0FBQWowZHdCNC9nZUEvYjNzdlJjQUFBZ2tBQUFna0FBQWdFQUNBQUFDZmJ2ZC9BVkFBRWpqQlFBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDUFRkZndJSUFIbThBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUTZLZlpQd0RBVWYvOTkzOW0vd2dQL2VOZi81ejlJOEFoWGdDQUphd3cvckFTQVFEUWlPdWZsUWdBb0R6WFA3UW5BQUFna0FBQVNsdmwrdmY4ejJvRUFGRFdLdU1QS3hJQUFCQklBQUFsclhUOWUvNW5SUUlBQUFJSkFLQ2NsYTUvV0pVQUFIaUM1MzlXSlFDQVVsei9NSVlBQU1vdy9qQ09BQUM0eVBNL0t4TUFRQW11ZnhoTEFBQkFJQUVBVE9mNmgvRUVBRERWcXVQdit6K3JFd0FBRUVnQUFOT3NldjNERGdRQXdFbWUvOW1CQUFDbWNQM0RYQUlBR003NHczd0NBT0FFei8vc1FnQUFRN24rb1FZQkFBQ0JCQUF3ek9yWHYrZC9kaUlBQUNDUUFBQ0dXUDM2aDkwSUFLQzdIY2JmOHorN0VRQUFFRWdBQUYzdGNQM0RqZ1FBd0FPZS85bVJBQUM2Y2YxRFhRSUE2TUw0UTIwQ0FPQUxudi9abFFBQW1uUDlRMzBDQUFBQ0NRQ2dxWjJ1ZjgvLzdFd0FBTTNzTlA2d093RUFBSUVFQU5ERWJ0ZS81MzkySndBQUlKQUFBSjYyMi9VUENRUUFBQVFTQU1CVGRyeitmZjhuZ1FBQUx0dHgvQ0dGQUFDQVFBSUF1R1RYNjkvelB5a0VBQUFFRWdEQWFidGUvNUJFQUFDbjdEeitudjlKSWdBQUlKQUFBQTdiK2ZxSE5BSUE0T2I1bnp3Q0FEakU5UTk3RVFEQVE4WWY5aU1BZ0hpZS8wa2tBSUF2dWY1aFR3SUFBQUlKQU9DdWhPdmY4eitwQkFBQUJCSUF3S2NTcm45SUpnQ0FEMUxHMy9NL3lRUUFBQVFTQU1BYktkYy9wQk1BUUNUUC82UVRBTURmWFArUVF3QUF0OXZOK0VNYUFRREU4ZndQQWdDNHVmNGhrUUFBZ0VBQ0FNSzUvaUdUQUlCZ2llUHYrei84UlFBQVFDQUJBS0VTcjMvZ0J3RUF4UEQ4RHo4SUFBamsrZ2NFQUFBRUVnQVFKdlg2OS93UGJ3a0FDSkk2L3NCSEFnQUFBZ2tBQ0pGOC9YditoNDhFQUFBRUVnQVFJUG42Qno0bkFHQno2ZVB2K1I4K0p3QUFJSkFBZ0kybFgvL0FmUUlBMkpibmY3aFBBTUNtWFAvQVZ3UUFiTWo0QTQ4SUFHQkxudi9oYXdJQU51UDZCNDRRQUFBUVNBREFSbHovZi9IOEQ0OEpBQUFJSkFCZ0U2NS80QXdCQUJzdy9qOTQvb2RqQkFBQUJCSUFzRGpYUDNDRkFBQ0FRQUlBRnViNmY4djNmemhPQU1DaWpEL3dEQUVBQUlFRUFDekk5ZitSNTM4NFJ3QUFRQ0FCQUl0eC9RTXRDQUJZaVBIL25PZC9PRThBQUVBZ0FRQ0xjUDBETFFrQVlHbWUvK0VhQVFBTGNQMERyUWtBQUFna0FLQTQxLzk5bnYvaE9nRUFoUmwvb0JjQkFBQ0JCQUFVNWZyL211ZC9lSTRBQUlCQUFnQUtjdjBEdlFrQUtNYjRQK2I1SDU0bkFBQWdrQUNBUWx6L3dDZ0NBRmlLNTM5b1F3QkFFYTUvWUNRQkFBVVlmMkEwQVFBc3cvTS90Q01BWURMWFB6Q0RBQUNBUUFJQUpuTDlBN01JQUdBSnZ2OURXd0lBSm5IOUF6TUpBSmpBK0FPekNRQ2dQTS8vMEo0QWdNRmMvMEFGQWdBQUFna0FHTWoxZjU3bmYraERBTUFneGgrb1JBQUFRQ0FCQUFPNC9xL3gvQS85L0RUN0J3QzRSemlKSVByeEFnQ2RHVEd1TXY3MEpBQ2dJK1BQVmNhZjNnUUFBQVFTQU5DSjY1K3JYUCtNSUFBQUNqSCtqQ0lBb0FQWFAxY1lmMFlTQUFBUVNBQkFZNjUvcm5EOU01b0FnSWFNUDFjWWYyWVFBQUFUR1g5bUVRRFFpT3NmV0lrQUFKakU5YzlNQWdBYWNQMXpsdkZuTmdFQVR6TCtuR1g4cVVBQUFFQWdBUUJQY1Axemx1dWZLZ1FBd0NER24wb0VBRnprK3VjTTQwODFBZ0F1TVA3QTZnUUFRR2V1ZnlvU0FIQ1M2NTh6akQ5VkNRQ0FUb3cvbFFrQU9NSDFEK3hDQUFCMDRQcW5PZ0VBQjduK09jcjRzd0lCQUFjWWY0NHkvcXhDQUFCQUlBRUFEN2orT2NyMXowb0VBRUFEeHAvVkNBRDRndXVmSTR3L0svcHA5ZzhBbGFYOUQ3dmdnUnhlQUlEYjdXYjhyMHFMUlBZaEFBQXVNdjZzVEFBQVhHRDhXWjBBQUlCQUFnRHcvZjhrMXo4N0VBQUFKeGgvZGlFQUFBNHkvdXhFQUVBNHovK1FTUUFBSE9ENlp6Y0NBT0FCNDgrT0JBQUU4L3ovbVBGblZ3SUFBQUlKQUlBN1hQL3NUQUFBZk1MNHN6c0JBS0Y4LzcvUCtKTkFBQUJBSUFFQThJcnJueFFDQUFKNS92K2M4U2VKQUFDNEdYL3lDQUFBQ0NRQWdIaXVmeElKQUFqaisvOWJ4cDlVQWdDSVpmeEpKZ0FBSUpBQWdDQ2UvMzl3L1pOT0FBQnhqRDhJQUNDTThZZS9DQUFJNGZrZmVFMEFBREZjLy9DREFBQWlHSDk0U3dBQTJ6UCs4SkVBZ0FDKy93UHZDUUJnYTY1LytKd0FBTFpsL09FK0FRQ2JTMzMrTi83d05RRUFBSUVFQUxBZDF6ODhKZ0NBclJoL09FWUF3TWJTdnY4YmZ6aE9BQUJBSUFFQWJNSDFEK2NJQU5oVTB2Ty84WWZ6QkFDd05PTVAxd2dBQUFna0FHQkRLYy8vcm4rNFRnQUFTekwrOEJ3QkFDekgrTVB6QkFBQUJCSUFzSm5kdi8rNy9xRU5BUUFzdy9oRE93SUFXSUx4aDdZRUFHeGs5K2Qvb0IwQkFKVG4rb2YyQkFCUW12R0hQZ1FBVUpieGgzNEVBR3pDOTMvZ0RBRUFsT1Q2aDc0RUFGQ084WWYrQkFCc1lLZm5mK01QWXdnQUFBZ2tBSUF5WFA4d2pnQ0F4ZTN5L0cvOFlTd0JBRXhuL0dFOEFRQUFnUVFBTUpYckgrWVFBTEN3MWIvL0czK1lSd0FBVXhoL21Fc0FBRUFnQVFDTFd2bjUzL1VQOHdrQVlDampEelVJQUdBWTR3OTFDQUFBQ0NRQVlFRXJmdjkzL1VNdEFnRG96dmhEUFFJQTZNcjRRMDBDQUJhejR2TS9VSThBQUxweC9VTmRBZ0Rvd3ZoRGJRSUFGckxLODcveGgvb0VBQUFFRWdCQVU2NS9XSU1BQUpveC9yQU9BUUNMcVA3OTMvakRXZ1FBQUFRU0FNRFRYUCt3SGdFQUM2ajgvRy84WVUwQ0FMak0rTU82QkFBQUJCSUF3Q1d1ZjFpYkFJRGlLbjcvTi82d1BnRUFuR0w4WVE4Q0FBQUNDUUFvck5yenYrc2Y5aUVBZ0VPTVAreEZBQUFQR1gvWWp3Q0FvcW85L3dON0VRREFsMXovc0NjQkFOeGwvR0ZmQWdENGxQR0h2UWtBS01qM2Y2QTNBUUI4NFBxSC9Ra0E0QTNqRHhrRUFCUXo4L25mK0VNT0FRQUFnUVFBY0x2ZFhQK1FSZ0FBeGg4Q0NRQW9aTWIzZitNUG1RUUFBQVFTQUJETTlRKzVCQUFVTWZyNTMvaEROZ0VBZ1l3L0lBQUFJSkFBZ0FKR1B2Kzcvb0hiVFFCQUZPTVB2QkFBRU1MNEE2OEpBQUFJSkFCZ3NoSGYvMTMvd0hzQ0FEWm4vSUhQQ0FEWW1QRUg3aEVBTU5HTWYvd0g0SFlUQUxBdDF6L3dGUUVBR3pMK3dDTUNBRFpqL0lFakJBQk00dnMvTUpNQWdJMjQvb0dqQkFCc3d2Z0Rad2dBbUtEMTg3L3hCODRTQUFBUVNBREE0bHovd0JVQ0FBWnIrZnh2L0lHckJBQXN5dmdEenhBQUFCQklBTUNDWFAvQXN3UUFETlRpKzcveEIxb1FBTEFRNHcrMElnQUFJSkFBZ0VHZWZmNTMvUU10Q1FCWWdQRUhXaE1BVUp6eEIzb1FBQUFRU0FEQUFGZS8vN3YrZ1Y0RUFCUmwvSUdlQkFBVVpQeUIzZ1FBZE5ieVgvOERhRVVBUURHdWYyQUVBUUNGR0g5Z0ZBRUFIWjE1L2pmK3dFZ0NBQUFDQ1FBb3dQVVBqQ1lBWURMakQ4d2dBS0NUSTkvL2pUOHdpd0FBZ0VBQ0FDWngvUU16Q1FEbzROSHp2L0VIWmhNQU1KanhCeW9RQUFBUVNBREFRSzUvb0FvQkFJM2QrLzV2L0lGS0JBQU1ZUHlCYWdRQUFBUVNBTkRRWjgvL3JuK2dJZ0VBSFJsL29Db0JBSjBZZjZBeUFRQ05IUG5IZndDcUVBRFFnZXNmcUU0QVFHUEdIMWlCQUlDR2pEK3dDZ0VBRGZqK0Q2eEdBRUFqcm45Z0pkOSsvdVhYUDJmL0VBREFXTi8vK1AyM2I3Ti9DQUJnTEo4QUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBMzIrMzI4MS9DZ2dBT2Y3NC9iZHZYZ0FBSUpBQUFJQkFBZ0FBQWdrQUFBajBkd0Q0aTRBQXNMK1h2ZmNDQUFDQkJBQUFCSG9UQUQ0REFNQytYdSs4RndBQUNDUUFBQ0NRQUFDQVFCOEN3TjhEQUlEOXZOOTNMd0FBRU9qVEFQQUtBQUQ3K0d6WHZRQUFRQ0FCQUFDQjdnYUF6d0FBc0w1N2UrNEZBQUFDZlJrQVhnRUFZRjFmN2JnWEFBQUlKQUFBSU5EREFQQVpBQURXODJpL3ZRQUFRS0JEQWVBVkFBRFdjV1MzdlFBQVFLRERBZUFWQUFEcU83clhYZ0FBSU5DcEFQQUtBQUIxbmRucDB5OEFJZ0FBNmptN3p6NEJBRUNnU3dIZ0ZRQUE2cml5eTVkZkFFUUFBTXgzZFk5OUFnQ0FRRThGZ0ZjQUFKam5tUjErK2dWQUJBREFlTS91cjA4QUFCQ29TUUI0QlFDQWNWcnNick1YQUJFQUFQMjEydHVtbndCRUFBRDAwM0puL1IwQUFBalVQQUM4QWdCQWU2MzN0Y3NMZ0FnQWdIWjY3R3EzVHdBaUFBQ2UxMnRQdS80ZEFCRUFBTmYxM05IdWZ3bFFCQURBZWIzM2M4aC9CU0FDQU9DNEViczU3RDhERkFFQThOaW92Uno2L3dNZ0FnRGd2cEU3T2Z6L0NFZ0VBTUJIby9keHl2OFRvQWdBZ0I5bTdPSzAveXRnRVFBQTgvWnc2cjhGSUFJQVNEWnpCNmYvWTBBaUFJQkVzL2V2MVBqKy9NdXZmODcrR1FDZ3A5bkQvMkw2QzhCclZYNHBBTkJEcFowckZRQzNXNjFmRGdDMFVtM2ZTdjB3Ny9ra0FNRHFxZzMvaTNJdkFLOVYvYVVCd0JHVmQ2enNEL2FlMXdBQVZsRjUrRitVZmdGNGJZVmZKZ0Nzc2xkTC9KRHZlUTBBb0pwVmh2L0ZNaThBcjYzMlN3WmdieXZ1MG5JLzhIdGVBd0NZWmNYaGY3SHNELzZlRUFCZ2xKV0gvOFh5ZjREM2hBQUF2ZXd3L0MrMitZTjhSZ3dBOEt5ZFJ2KzFMZjlRN3drQkFNN2FkZmhmYlAySCs0d1lBT0NlM1VmL3RaZy82SHRDQUlBWFNjUC9JdTRQZkk4Z0FNaVJPUGp2eGY4Q1BpTUdBUFpqOU4veXl6aElGQUNzdzlnLzlqK2MzSkplSUJFeHd3QUFBQUJKUlU1RXJrSmdnZz09IiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmciLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<meta name="theme-color" content="#0F172A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pour Choices">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    obsidian: '#0F172A',
+                    charcoal: '#1E293B',
+                    emeraldGlow: '#10B981',
+                    amberGold: '#F59E0B'
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .premium-blur {
+        filter: blur(6px);
+        pointer-events: none;
+        user-select: none;
+    }
+    body { -webkit-tap-highlight-color: transparent; background-color: #0F172A; }
+    .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
+</style>
+</head>
+<body class="bg-obsidian text-white font-sans antialiased min-h-screen pb-24">
+
+    <!-- 1. LEGAL AGE GATE OVERLAY (21+) -->
+    <div id="age-gate" class="fixed inset-0 bg-obsidian z-50 flex flex-col justify-center items-center p-6 text-center">
+        <div class="max-w-md w-full bg-charcoal p-8 rounded-2xl border border-gray-800 shadow-2xl">
+            <span class="text-4xl">🍾</span>
+            <h1 class="text-2xl font-bold mt-4 tracking-tight">Pour Choices</h1>
+            <p class="text-amberGold text-sm mt-2 uppercase tracking-widest font-bold">An Independent Price Comparison Index</p>
+
+            <div class="my-6 border-t border-b border-gray-800 py-4 text-left space-y-3">
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Under Kingdom of Bahrain regulatory frameworks, access to alcohol pricing information is strictly restricted to non-Muslim adults.
+                </p>
+                <p class="text-xs text-amberGold font-medium">
+                    You must be 21 years of age or older to enter this directory.
+                </p>
+            </div>
+
+            <button onclick="verifyAge()" class="w-full bg-amberGold hover:bg-yellow-600 text-obsidian font-bold py-3.5 rounded-xl transition duration-200 tracking-wide text-sm">
+                I am 21+ and a Non-Muslim Resident
+            </button>
+            <p class="text-[10px] text-gray-300 mt-4">By entering, you confirm compliance with local guidelines.</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div class="max-w-md mx-auto px-4 pt-4">
+
+        <!-- HEADER WITH SUBTITLE BYLINE -->
+        <header class="py-2 mb-4 border-b border-gray-800/60 pb-4">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-amberGold text-xl">🍾</span>
+                        <span class="font-bold tracking-tight text-xl uppercase">POUR CHOICES</span>
+                    </div>
+                    <span class="text-[11px] text-amberGold mt-1 font-bold uppercase tracking-widest">An Independent Price Comparison Index</span>
+                </div>
+                <div id="premium-badge" class="bg-charcoal text-[10px] text-gray-200 px-3 py-1.5 rounded-full border border-gray-800 flex items-center space-x-1 font-bold">
+                    <span>🔴 Standard Tier</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- SEARCH BAR -->
+        <div class="relative mb-4">
+            <input type="text" id="search-bar" oninput="filterProducts()" placeholder="Search brands (e.g., Chivas, Heineken...)" class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3.5 pl-4 pr-10 text-sm focus:outline-none focus:border-amberGold transition duration-200">
+            <span class="absolute right-4 top-4 text-gray-500 text-sm">🔍</span>
+        </div>
+
+        <!-- CATEGORY FILTER CHIPS -->
+        <div class="flex space-x-2 overflow-x-auto pb-3 mb-4" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button onclick="filterCategory('All', this)" class="category-chip active px-4 py-2 rounded-xl text-xs whitespace-nowrap transition duration-200">All</button>
+            <button onclick="filterCategory('Whisky', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Whisky</button>
+            <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer</button>
+            <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
+            <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
+            <button onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine</button>
+            <button onclick="filterCategory('Champagne', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Champagne</button>
+            <button onclick="filterCategory('Other Spirits', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Other Spirits</button>
+        </div>
+
+        <!-- FREE TRIAL BANNER -->
+        <div id="trial-banner" class="hidden mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2 text-center leading-relaxed"></div>
+
+        <p class="text-[10px] text-gray-300 text-center -mt-1 mb-3">Prices refresh automatically once a day from each retailer&rsquo;s own site.</p>
+
+        <!-- PRODUCT LIST OVERVIEW -->
+        <div id="product-container" class="space-y-4"></div>
+
+        <!-- STICKY BOTTOM PAYWALL FOOTER -->
+        <div id="paywall-footer" class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-obsidian via-obsidian to-transparent pt-6 pb-4 px-4 max-w-md mx-auto z-40">
+            <button onclick="openPaywallModal()" class="w-full bg-gradient-to-r from-amberGold to-yellow-600 text-obsidian font-bold py-4 rounded-xl shadow-xl flex justify-between items-center px-5 transform active:scale-95 transition duration-150">
+                <span class="flex items-center space-x-2 text-sm tracking-wide">
+                    <span>🔒</span>
+                    <span>UNLOCK ALL LIVE PROMOS</span>
+                </span>
+                <span class="text-xs bg-obsidian bg-opacity-20 px-2 py-1 rounded text-obsidian font-extrabold">500 Fils/MO →</span>
+            </button>
+        </div>
+
+        <!-- LEGAL FOOTER DISCLAIMER -->
+        <footer class="mt-12 text-center text-[10px] text-gray-300 leading-relaxed px-4 pb-8">
+            Disclaimer: This application is an independent price-comparison directory. We are not affiliated with, authorized, or endorsed by BMMI, African &amp; Eastern, GBI Express, or NHSC. We do not sell, store, handle, or deliver alcohol items. All prices are for informational purposes only.
+        </footer>
+    </div>
+
+    <!-- 2. BENEFITPAY TRANSACTION MODAL -->
+    <div id="paywall-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closePaywallModal()"></div>
+            <h3 class="text-lg font-bold">Activate Full Directory Access</h3>
+            <p class="text-xs text-gray-400 mt-1 mb-6">Compare daily prices across all 4 distributors instantly. 500 Fils/month.</p>
+
+            <div class="bg-obsidian border border-gray-800 rounded-xl p-4 mb-4 flex flex-col items-center">
+                <div class="w-32 h-32 bg-gray-800 border-2 border-dashed border-gray-600 rounded-lg flex items-center justify-center mb-3">
+                    <span class="text-xs text-gray-400">[ BenefitPay QR Code ]</span>
+                </div>
+                <p class="text-xs text-gray-300">1. Scan QR code above or send 0.500 BHD (500 Fils) via BenefitPay to <b>Pour Choices</b> (+973 XXXXXXXX)</p>
+            </div>
+
+            <div class="text-left space-y-3">
+                <label class="text-xs font-bold text-gray-400">2. Complete Activation</label>
+                <input type="text" id="promo-code-input" placeholder="Enter Reference Code or type 'BAHRAIN123'" class="w-full bg-obsidian border border-gray-800 text-white rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-amberGold">
+                <button onclick="submitPaymentCode()" class="w-full bg-white text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Submit Verification Request
+                </button>
+            </div>
+            <button onclick="closePaywallModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel and return</button>
+        </div>
+    </div>
+
+    <!-- MAIN ENGINE DATA SCRIPT -->
+    <script>
+        // Live product data: fetched from data/products.json, which the scheduled
+        // scraper pipeline (see .github/workflows/scrape.yml) regenerates on its own
+        // schedule and commits back to this repo. Starts empty; loadProducts() below
+        // fills it in and re-renders once the fetch resolves.
+        let mockProducts = [];
+        let productsLoadFailed = false;
+
+        async function loadProducts() {
+            try {
+                const res = await fetch("data/products.json", { cache: "no-store" });
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                mockProducts = await res.json();
+            } catch (e) {
+                productsLoadFailed = true;
+                console.error("Could not load product data:", e);
+            }
+            renderProducts();
+        }
+
+        // Free-trial + pricing config: free for the first TRIAL_DAYS days after a
+        // visitor's first launch (tracked locally, per device), then MONTHLY_PRICE_FILS.
+        const TRIAL_DAYS = 30;
+        const MONTHLY_PRICE_FILS = 500; // 500 fils = 0.500 BHD
+
+        // Launch-phase switch: while true, the whole app is free and the trial/paywall
+        // logic below is skipped (kept in place, not deleted, so flipping this back to
+        // false re-enables the 30-day-trial-then-500-Fils model exactly as before).
+        // Flip to false once you're ready to start charging.
+        const FREE_MODE = true;
+
+        let isPremium = false; // true whenever access is unlocked, whether paid or trial
+        let isPaid = false;    // true only once a real BenefitPay payment has been verified
+        let activeCategory = "All";
+
+        window.onload = function() {
+            try {
+                if (localStorage.getItem("ageVerified") === "true") { document.getElementById("age-gate").style.display = "none"; }
+                if (!localStorage.getItem("trialStart")) {
+                    localStorage.setItem("trialStart", Date.now().toString());
+                }
+                if (localStorage.getItem("premiumAccess") === "true") { isPaid = true; }
+            } catch (e) { /* storage unavailable, default to gated + standard tier */ }
+            updatePremiumState();
+            loadProducts();
+            registerServiceWorker();
+        }
+
+        function verifyAge() {
+            try { localStorage.setItem("ageVerified", "true"); } catch (e) {}
+            document.getElementById("age-gate").style.display = "none";
+        }
+
+        function getTrialDaysLeft() {
+            try {
+                const start = parseInt(localStorage.getItem("trialStart"), 10);
+                if (!start) return 0;
+                const elapsedDays = (Date.now() - start) / (1000 * 60 * 60 * 24);
+                return Math.max(0, Math.ceil(TRIAL_DAYS - elapsedDays));
+            } catch (e) {
+                return TRIAL_DAYS; // storage unavailable: default to a full trial rather than blocking access
+            }
+        }
+
+        function updatePremiumState() {
+            const badge = document.getElementById("premium-badge");
+            const footer = document.getElementById("paywall-footer");
+            const banner = document.getElementById("trial-banner");
+
+            badge.classList.remove("border-amberGold", "text-amberGold");
+            banner.classList.add("hidden");
+            footer.style.display = "none";
+
+            if (FREE_MODE) {
+                isPremium = true;
+                badge.innerHTML = "<span>✅ Free Access</span>";
+                return;
+            }
+
+            const trialDaysLeft = getTrialDaysLeft();
+            const inTrial = !isPaid && trialDaysLeft > 0;
+            isPremium = isPaid || inTrial;
+
+            if (isPaid) {
+                badge.innerHTML = "<span>👑 Premium Tier</span>";
+                badge.classList.add("border-amberGold", "text-amberGold");
+            } else if (inTrial) {
+                badge.innerHTML = `<span>🎁 Free Trial · ${trialDaysLeft}d left</span>`;
+                banner.textContent = `Free access during launch, no payment needed. ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left, then ${MONTHLY_PRICE_FILS} Fils/month.`;
+                banner.classList.remove("hidden");
+            } else {
+                badge.innerHTML = "<span>🔴 Standard Tier</span>";
+                footer.style.display = "block";
+            }
+        }
+
+        function activatePremiumState() {
+            isPaid = true;
+            try { localStorage.setItem("premiumAccess", "true"); } catch (e) {}
+            updatePremiumState();
+            renderProducts();
+        }
+
+        function handleRetailerRedirect(retailerName, targetUrl) {
+            alert(`Opening the external ${retailerName} menu platform directory.\n\nTo view stock details or arrange a personal pickup/delivery, please ensure you log into your pre-existing registered user account on their official web application layout.`);
+            window.open(targetUrl, '_blank');
+        }
+
+        function renderProducts() {
+            const container = document.getElementById("product-container");
+            container.innerHTML = "";
+
+            if (mockProducts.length === 0) {
+                container.innerHTML = productsLoadFailed
+                    ? `<p class="text-center text-sm text-gray-300 py-8">Couldn't load live prices right now. Please check back shortly.</p>`
+                    : `<p class="text-center text-sm text-gray-300 py-8">Loading live prices...</p>`;
+                return;
+            }
+
+            const query = document.getElementById("search-bar").value.toLowerCase();
+
+            mockProducts.forEach((prod, index) => {
+                if (activeCategory !== "All" && prod.category !== activeCategory) return;
+                if (query && !prod.name.toLowerCase().includes(query)) return;
+
+                const prices = [prod.bmmi, prod.ae, prod.gbi, prod.nhsc].filter(v => v !== null && v !== undefined);
+                const lowestPrice = prices.length ? Math.min(...prices) : null;
+                const shouldBlur = !isPremium && index >= 2;
+
+                const priceClass = (val) => (val !== null && val === lowestPrice) ? 'text-emeraldGlow font-bold text-sm' : 'text-gray-300 font-medium';
+                const formatPrice = (val) => (val === null || val === undefined) ? 'N/A' : val.toFixed(3);
+
+                let cardHTML = `
+                    <div class="bg-charcoal border border-gray-800 rounded-2xl p-4 shadow-md transition duration-200">
+                        <div class="mb-3">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${prod.category}</span>
+                            <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs border-t border-gray-800/50 pt-3 ${shouldBlur ? 'premium-blur' : ''}">
+                            <button onclick="handleRetailerRedirect('BMMI', '${prod.bmmi_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">BMMI</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <span class="${priceClass(prod.bmmi)}">${formatPrice(prod.bmmi)}</span>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('African &amp; Eastern', '${prod.ae_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">A&amp;E</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <span class="${priceClass(prod.ae)}">${formatPrice(prod.ae)}</span>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('GBI Express', '${prod.gbi_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">GBI Exp</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <span class="${priceClass(prod.gbi)}">${formatPrice(prod.gbi)}</span>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('NHSC', '${prod.nhsc_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">NHSC</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <span class="${priceClass(prod.nhsc)}">${formatPrice(prod.nhsc)}</span>
+                            </button>
+                        </div>
+
+                        ${shouldBlur ? `
+                            <div class="mt-2 text-center py-1 bg-obsidian/20 rounded-lg">
+                                <p class="text-[11px] text-amberGold font-medium">🔒 Subscription required to reveal prices &amp; store shortcuts</p>
+                            </div>
+                        ` : `
+                            <div class="mt-3 text-[11px] text-gray-200 border-t border-gray-800/30 pt-2 flex items-center space-x-1">
+                                <span class="text-amberGold">ℹ️</span>
+                                <span class="italic text-gray-200">${prod.note}</span>
+                            </div>
+                        `}
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        function filterProducts() { renderProducts(); }
+
+        function filterCategory(cat, btnEl) {
+            activeCategory = cat;
+            document.querySelectorAll('.category-chip').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('bg-charcoal', 'text-gray-200', 'font-medium');
+            });
+            btnEl.classList.add('active');
+            btnEl.classList.remove('bg-charcoal', 'text-gray-200', 'font-medium');
+            renderProducts();
+        }
+
+        function openPaywallModal() {
+            const modal = document.getElementById("paywall-modal");
+            const content = document.getElementById("modal-content");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closePaywallModal() {
+            const modal = document.getElementById("paywall-modal");
+            const content = document.getElementById("modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        function submitPaymentCode() {
+            const input = document.getElementById("promo-code-input").value;
+            if (input.trim() === "BAHRAIN123") {
+                alert("Payment reference confirmed, premium activated.");
+                closePaywallModal();
+                activatePremiumState();
+            } else {
+                alert("Your verification request has been submitted. Status will update once the Pour Choices BenefitPay ledger matches the receipt.");
+                closePaywallModal();
+            }
+        }
+
+        function registerServiceWorker() {
+            if (!('serviceWorker' in navigator)) return;
+            try {
+                const swCode = `
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => self.clients.claim());
+                `;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl).catch(() => {});
+            } catch (e) { /* installability enhancement only, safe to skip */ }
+        }
+    </script>
+</body>
+</html>

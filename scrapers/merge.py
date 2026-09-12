@@ -1,0 +1,130 @@
+"""
+Merges the 4 retailers' scraped JSON files into one data/products.json in the
+shape the frontend expects, matching the same product across retailers by
+fuzzy name similarity (there's no shared SKU/barcode across these 4 sites, so
+exact matching isn't possible; this is a best-effort automated match, not a
+guarantee every cluster is 100% the same product/size).
+
+Run this after all 4 scrapers have produced their per-retailer JSON files.
+"""
+import json
+import re
+from difflib import SequenceMatcher
+from pathlib import Path
+
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+RETAILER_FILES = {
+    "bmmi": "bmmi.json",
+    "ae": "ae.json",
+    "gbi": "gbi.json",
+    "nhsc": "nhsc.json",
+}
+RETAILER_LABELS = {"bmmi": "BMMI", "ae": "African & Eastern", "gbi": "GBI Express", "nhsc": "NHSC"}
+
+SIZE_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:cl|l|ml)\b|\b\d+[- ]pack\b", re.IGNORECASE)
+NOISE_RE = re.compile(r"\b(non[- ]vintage|vintage|bottle|original)\b", re.IGNORECASE)
+PUNCT_RE = re.compile(r"[^a-z0-9 ]+")
+
+MATCH_THRESHOLD = 0.72
+
+
+def normalize(name):
+    n = name.lower()
+    n = SIZE_RE.sub("", n)
+    n = NOISE_RE.sub("", n)
+    n = PUNCT_RE.sub(" ", n)
+    n = re.sub(r"\s+", " ", n).strip()
+    return n
+
+
+def load_retailer(key):
+    path = DATA_DIR / RETAILER_FILES[key]
+    if not path.exists():
+        return []
+    items = json.loads(path.read_text())
+    # De-dupe within one retailer's own list (a search-based crawl can surface
+    # the same product under more than one search term).
+    seen = set()
+    deduped = []
+    for item in items:
+        dedup_key = item.get("url") or item["name"]
+        if dedup_key in seen:
+            continue
+        seen.add(dedup_key)
+        item["_norm"] = normalize(item["name"])
+        deduped.append(item)
+    return deduped
+
+
+def cluster(retailer_items):
+    """retailer_items: dict of retailer_key -> list of items (each with _norm).
+    Returns a list of clusters, each a dict retailer_key -> item (or absent)."""
+    pool = []
+    for key, items in retailer_items.items():
+        for item in items:
+            pool.append((key, item))
+
+    clusters = []
+    used = set()
+    for i, (key_a, item_a) in enumerate(pool):
+        if i in used:
+            continue
+        cluster_map = {key_a: item_a}
+        used.add(i)
+        for j, (key_b, item_b) in enumerate(pool):
+            if j in used or key_b in cluster_map:
+                continue
+            ratio = SequenceMatcher(None, item_a["_norm"], item_b["_norm"]).ratio()
+            if ratio >= MATCH_THRESHOLD:
+                cluster_map[key_b] = item_b
+                used.add(j)
+        clusters.append(cluster_map)
+    return clusters
+
+
+def build_product_row(idx, cluster_map):
+    # Prefer the longest name as the display name (tends to carry the most detail).
+    display_name = max((item["name"] for item in cluster_map.values()), key=len)
+    categories = [item.get("category") for item in cluster_map.values() if item.get("category")]
+    category = max(set(categories), key=categories.count) if categories else "Other Spirits"
+
+    row = {"id": idx, "name": display_name, "category": category}
+    carried_by, missing_from = [], []
+    for key in RETAILER_FILES:
+        item = cluster_map.get(key)
+        row[key] = item["price_bhd"] if item else None
+        row[f"{key}_url"] = (item.get("url") if item else None) or {
+            "bmmi": "https://www.bmmishops.com",
+            "ae": "https://www.africanandeastern.com",
+            "gbi": "https://www.gbiexpress.com",
+            "nhsc": "https://www.nhscbahrain.com",
+        }[key]
+        (carried_by if item else missing_from).append(RETAILER_LABELS[key])
+
+    if missing_from:
+        row["note"] = f"Not carried by {', '.join(missing_from)} (or not matched by name in the latest scrape)."
+    else:
+        row["note"] = "Carried by all 4 retailers."
+    return row
+
+
+def main():
+    retailer_items = {key: load_retailer(key) for key in RETAILER_FILES}
+    for key, items in retailer_items.items():
+        print(f"{RETAILER_LABELS[key]}: {len(items)} scraped products")
+
+    clusters = cluster(retailer_items)
+    products = [build_product_row(i + 1, c) for i, c in enumerate(clusters)]
+    # Most useful products first: ones carried by more retailers (real price
+    # comparisons) ahead of single-retailer-only listings.
+    products.sort(key=lambda p: sum(1 for k in RETAILER_FILES if p[k] is not None), reverse=True)
+    for i, p in enumerate(products, 1):
+        p["id"] = i
+
+    out_path = DATA_DIR / "products.json"
+    out_path.write_text(json.dumps(products, indent=2))
+    print(f"Merged into {len(products)} products -> {out_path}")
+
+
+if __name__ == "__main__":
+    main()
