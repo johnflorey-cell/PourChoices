@@ -55,7 +55,7 @@ def main():
     all_results = []
     seen = set()
     with sync_playwright() as p:
-                browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
+        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
         for term in SEARCH_TERMS:
             print(f"Searching A&E for '{term}'...", file=sys.stderr)
