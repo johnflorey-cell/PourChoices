@@ -69,12 +69,19 @@ def dismiss_age_gate(page):
         page.wait_for_timeout(2000)
 
 
-def scrape_term(page, term):
+def scrape_term(page, term, debug=False):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(1500) 
+        page.wait_for_timeout(1500)
+        if debug and page_num == 1:
+            print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
+            print(f"  [DEBUG] page title: {page.title()!r}", file=sys.stderr)
+            for sel in [".featured-box", ".product-thumb", ".product-layout", ".product-item"]:
+                print(f"  [DEBUG] selector {sel!r} matches: {len(page.query_selector_all(sel))}", file=sys.stderr)
+            snippet = page.inner_text("body")[:500].replace("\n", " | ")
+            print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
         cards = page.query_selector_all(".featured-box, .product-thumb, .product-layout, .product-item")
         if not cards:
             break
@@ -102,13 +109,16 @@ def main():
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
         dismiss_age_gate(page)
+        print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
+        first = True
         for term in SEARCH_TERMS:
             print(f"Searching A&E for '{term}'...", file=sys.stderr)
             try:
-                items = scrape_term(page, term)
+                items = scrape_term(page, term, debug=first)
             except Exception as e:
                 print(f"  failed: {e}", file=sys.stderr)
                 items = []
+            first = False
             for item in items:
                 key = (item["name"], item["url"])
                 if key not in seen:
