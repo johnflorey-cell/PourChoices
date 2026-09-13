@@ -69,14 +69,15 @@ def dismiss_age_gate(page):
         )
         if submit_btn:
             submit_btn.click()
-        page.wait_for_timeout(2000)def scrape_category(page, url):
+        page.wait_for_timeout(2000)
+def scrape_category(page, url):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_timeout(1500)
-    cards = page.query_selector_all("[class*=product], .item, .product-item, .product-card")
+    cards = page.query_selector_all(".slider-item,[class*=product], .item, .product-item, .product-card")
     for card in cards:
         text = card.inner_text()
-        name_el = card.query_selector("a")
+        name_el = card.query_selector(":scope > a, a")
         name = name_el.inner_text().strip() if name_el else None
         href = name_el.get_attribute("href") if name_el else None
         price = extract_price(text)
