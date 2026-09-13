@@ -29,6 +29,40 @@ SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
 MAX_PAGES_PER_TERM = 15
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
+def dismiss_age_gate(page):
+  page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
+  page.wait_for_timeout(1500)
+  try:
+    page.goto(f"{BASE}/index.php?route=check/age/confirm", wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(1500)
+    return
+  except Exception:
+    pass
+  try:
+    confirm_btn = page.query_selector(
+      "a:has-text('Enter'), button:has-text('Enter'), a:has-text('Verify'), button:has-text('Verify'), a:has-text('Confirm'), button:has-text('Confirm')"
+    )
+    if confirm_btn:
+      confirm_btn.click()
+      page.wait_for_timeout(2000)
+      return
+  except Exception:
+    pass
+  try:
+    day_field = page.query_selector("select[name='day'], input[name='day']")
+    month_field = page.query_selector("select[name='month'], input[name='month']")
+    year_field = page.query_selector("select[name='year'], input[name='year']")
+    if day_field and month_field and year_field:
+      day_field.fill("1")
+      month_field.fill("1")
+      year_field.fill("1990")
+      submit_btn = page.query_selector("button[type='submit'], input[type='submit']")
+      if submit_btn:
+        submit_btn.click()
+        page.wait_for_timeout(2000)
+  except Exception:
+    pass
+
 
 def scrape_term(page, term):
     results = []
@@ -63,6 +97,7 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
+        dismiss_age_gate(page)
         for term in SEARCH_TERMS:
           print(f"Searching GBI for '[term]'...",file=sys.stderr)
           try:
@@ -71,7 +106,7 @@ def main():
                print(f" failed:[e]",file=sys.stderr)
                items = []
           for item in items:
-              key = (item["name'],item["url'])
+              key = (item['name'],item['url'])
               if key not in seen:
                      seen.add(key)
                      all_results.append(item)
