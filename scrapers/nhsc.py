@@ -8,6 +8,10 @@ NHSC's real catalog only renders after a JS-driven "Verify" click on the age
 gate sets a session cookie, so this needs a real browser (Playwright), not a
 plain HTTP fetch. Once the gate is dismissed, its category pages paginate via
 ?limit=100 in the same browser session/cookie.
+
+Card structure confirmed from real page source: each product sits in a
+<div class="slider-item"> containing a <div class="title"><a href="...">NAME</a>
+</div>, matching the pattern used by the other OpenCart-based retailers.
 """
 import sys
 from pathlib import Path
@@ -70,14 +74,22 @@ def dismiss_age_gate(page):
         if submit_btn:
             submit_btn.click()
         page.wait_for_timeout(2000)
-def scrape_category(page, url):
+
+
+def scrape_category(page, url, debug=False):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_timeout(1500)
+    if debug:
+        print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
+        print(f"  [DEBUG] page title: {page.title()!r}", file=sys.stderr)
+        print(f"  [DEBUG] selector '.slider-item' matches: {len(page.query_selector_all('.slider-item'))}", file=sys.stderr)
+        snippet = page.inner_text("body")[:500].replace("\n", " | ")
+        print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
     cards = page.query_selector_all(".slider-item,[class*=product], .item, .product-item, .product-card")
     for card in cards:
         text = card.inner_text()
-        name_el = card.query_selector(":scope > a, a")
+        name_el = card.query_selector(".title a, a")
         name = name_el.inner_text().strip() if name_el else None
         href = name_el.get_attribute("href") if name_el else None
         price = extract_price(text)
@@ -94,13 +106,16 @@ def main():
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
         dismiss_age_gate(page)
+        print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
+        first = True
         for url in CATEGORY_URLS:
             print(f"Scraping NHSC category: {url}", file=sys.stderr)
             try:
-                items = scrape_category(page, url)
+                items = scrape_category(page, url, debug=first)
             except Exception as e:
                 print(f"  failed: {e}", file=sys.stderr)
                 items = []
+            first = False
             for item in items:
                 key = (item["name"], item["url"])
                 if key not in seen:
