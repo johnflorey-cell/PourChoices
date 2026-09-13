@@ -7,7 +7,7 @@ Compliance: robots.txt is permissive (Allow: /, disallows only /beta/, /admin/,
 NHSC's real catalog only renders after a JS-driven "Verify" click on the age
 gate sets a session cookie, so this needs a real browser (Playwright), not a
 plain HTTP fetch. Once the gate is dismissed, its category pages paginate via
-?limit=100 in the same browser session/cookie.
+?limit=100, plus &page=N for later pages, in the same browser session/cookie.
 
 Card structure: each product sits in a <div class="slider-item">. Rather than
 guessing one fixed selector for the name link (which broke twice, since NHSC's
@@ -125,6 +125,9 @@ def scrape_category(page, url, debug=False):
     return results
 
 
+MAX_PAGES_PER_CATEGORY = 20
+
+
 def main():
     all_results = []
     seen = set()
@@ -134,20 +137,37 @@ def main():
         dismiss_age_gate(page)
         print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
         first = True
-        for url in CATEGORY_URLS:
-            print(f"Scraping NHSC category: {url}", file=sys.stderr)
-            try:
-                items = scrape_category(page, url, debug=first)
-            except Exception as e:
-                print(f"  failed: {e}", file=sys.stderr)
-                items = []
-            first = False
-            for item in items:
-                key = (item["name"], item["url"])
-                if key not in seen:
-                    seen.add(key)
-                    all_results.append(item)
-            polite_sleep(1.5)
+        for base_url in CATEGORY_URLS:
+            for page_num in range(1, MAX_PAGES_PER_CATEGORY + 1):
+                # NHSC's OpenCart-style pagination: page 1 is the bare
+                # ?limit=100 URL, later pages add &page=N. A category with
+                # more than 100 products (confirmed happening, e.g. Spirits
+                # showed "203" items across "3 Pages") was previously never
+                # having its later pages requested at all, so anything past
+                # the first 100 per category was silently missed.
+                url = base_url if page_num == 1 else f"{base_url}&page={page_num}"
+                print(f"Scraping NHSC category: {url}", file=sys.stderr)
+                try:
+                    items = scrape_category(page, url, debug=(first and page_num == 1))
+                except Exception as e:
+                    print(f"  failed: {e}", file=sys.stderr)
+                    items = []
+                if page_num == 1:
+                    first = False
+                new_count = 0
+                for item in items:
+                    key = (item["name"], item["url"])
+                    if key not in seen:
+                        seen.add(key)
+                        all_results.append(item)
+                        new_count += 1
+                polite_sleep(1.5)
+                # Stop paginating this category once a page brings back no
+                # products at all, or no NEW ones (some sites clamp an
+                # out-of-range page back to page 1, which would otherwise
+                # loop forever re-adding the same items).
+                if not items or new_count == 0:
+                    break
         browser.close()
     write_json("nhsc.json", all_results)
 
