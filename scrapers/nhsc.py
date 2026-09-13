@@ -9,9 +9,10 @@ gate sets a session cookie, so this needs a real browser (Playwright), not a
 plain HTTP fetch. Once the gate is dismissed, its category pages paginate via
 ?limit=100 in the same browser session/cookie.
 
-Card structure confirmed from real page source: each product sits in a
-<div class="slider-item"> containing a <div class="title"><a href="...">NAME</a>
-</div>, matching the pattern used by the other OpenCart-based retailers.
+Card structure: each product sits in a <div class="slider-item">. Rather than
+guessing one fixed selector for the name link (which broke twice, since NHSC's
+different page templates nest the link differently), scrape_category() scans
+every <a> inside the card and takes the first one with real visible text.
 """
 import sys
 from pathlib import Path
@@ -86,16 +87,41 @@ def scrape_category(page, url, debug=False):
         print(f"  [DEBUG] selector '.slider-item' matches: {len(page.query_selector_all('.slider-item'))}", file=sys.stderr)
         snippet = page.inner_text("body")[:500].replace("\n", " | ")
         print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
-    cards = page.query_selector_all(".slider-item,[class*=product], .item, .product-item, .product-card")
-    for card in cards:
+    cards = page.query_selector_all(".slider-item")
+    if not cards:
+        cards = page.query_selector_all("[class*=product], .item, .product-item, .product-card")
+    skipped_no_name = 0
+    skipped_no_price = 0
+    for i, card in enumerate(cards):
         text = card.inner_text()
-        name_el = card.query_selector(".title a, a")
-        name = name_el.inner_text().strip() if name_el else None
-        href = name_el.get_attribute("href") if name_el else None
+        # Don't guess a single fixed selector for the name link: scan every
+        # <a> inside the card and take the first one that actually has
+        # visible text. (The earlier bug: the card's FIRST <a> was an
+        # image-wrapping link with no text, so a hard-coded ":scope > a, a"
+        # or ".title a, a" selector silently grabbed the wrong, empty anchor
+        # and every product got skipped.)
+        name = None
+        href = None
+        for a in card.query_selector_all("a"):
+            t = a.inner_text().strip()
+            if t:
+                name = t
+                href = a.get_attribute("href")
+                break
         price = extract_price(text)
-        if name and price is not None:
-            results.append({"name": name, "price_bhd": price, "url": href, "retailer": "NHSC",
-                             "category": guess_category(name)})
+        if debug and i < 3:
+            outer = card.evaluate("el => el.outerHTML")[:400]
+            print(f"  [DEBUG] card {i}: name={name!r} price={price!r} outerHTML={outer!r}", file=sys.stderr)
+        if not name:
+            skipped_no_name += 1
+            continue
+        if price is None:
+            skipped_no_price += 1
+            continue
+        results.append({"name": name, "price_bhd": price, "url": href, "retailer": "NHSC",
+                         "category": guess_category(name)})
+    if debug:
+        print(f"  [DEBUG] cards={len(cards)} kept={len(results)} skipped_no_name={skipped_no_name} skipped_no_price={skipped_no_price}", file=sys.stderr)
     return results
 
 
