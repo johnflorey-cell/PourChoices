@@ -24,6 +24,50 @@ SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
 MAX_PAGES_PER_TERM = 15
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
+def dismiss_age_gate(page):
+    page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(1000)
+    try:
+        page.evaluate("document.forms['default'].submit()")
+        page.wait_for_timeout(2000)
+        return
+    except Exception:
+        pass
+
+    confirm_btn = page.query_selector(
+        "button:has-text('Verify'),a:has-text('Verify'),"
+        "button:has-text('Enter'),a:has-text('Enter'),"
+        "button:has-text('Confirm'),a:has-text('Confirm')"
+    )
+    if confirm_btn:
+        confirm_btn.click()
+        page.wait_for_timeout(2000)
+        return
+
+    day_field = page.query_selector("select[name*='day' i], input[name*='day' i]")
+    month_field = page.query_selector("select[name*='month' i], input[name*='month' i]")
+    year_field = page.query_selector("select[name*='year' i], input[name*='year' i]")
+    if day_field and month_field and year_field:
+        try:
+            day_field.select_option("1")
+        except Exception:
+            day_field.fill("1")
+        try:
+            month_field.select_option("1")
+        except Exception:
+            month_field.fill("1")
+        try:
+            year_field.select_option("1990")
+        except Exception:
+            year_field.fill("1990")
+        submit_btn = page.query_selector(
+            "button[type=submit], input[type=submit], "
+            "button:has-text('Submit'),button:has-text('Continue'),button:has-text('Confirm')"
+        )
+        if submit_btn:
+            submit_btn.click()
+        page.wait_for_timeout(2000)
+
 
 def scrape_term(page, term):
     results = []
@@ -57,6 +101,7 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=USER_AGENT)
+        dismiss_age_gate(page)
         for term in SEARCH_TERMS:
             print(f"Searching A&E for '{term}'...", file=sys.stderr)
             try:
