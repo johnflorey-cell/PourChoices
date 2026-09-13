@@ -75,13 +75,13 @@ def scrape_term(page, term):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
         page.wait_for_timeout(1500) 
-        cards = page.query_selector_all(".product-thumb, .product-layout, .product-item")
+        cards = page.query_selector_all(".featured-box, .product-thumb, .product-layout, .product-item")
         if not cards:
             break
         found_any = False
         for card in cards:
             text = card.inner_text()
-            name_el = card.query_selector("h4 a, h3 a, .caption a, a")
+            name_el = card.query_selector(".title a, h4 a, h3 a, .caption a, a")
             name = name_el.inner_text().strip() if name_el else None
             href = name_el.get_attribute("href") if name_el else None
             price = extract_price(text)
