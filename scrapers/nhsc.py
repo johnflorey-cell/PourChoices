@@ -29,14 +29,47 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 def dismiss_age_gate(page):
     page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
-    page.wait_for_timeout(1500)
-    verify_link = page.query_selector("button:has-text('Verify'),a:has-text('Verify')")
-    if verify_link:
-        verify_link.click()
-        page.wait_for_timeout(2500)
+    page.wait_for_timeout(1000)
+    try:
+        page.evaluate("document.forms['default'].submit()")
+        page.wait_for_timeout(2000)
+        return
+    except Exception:
+        pass
 
+    confirm_btn = page.query_selector(
+        "button:has-text('Verify'),a:has-text('Verify'),"
+        "button:has-text('Enter'),a:has-text('Enter'),"
+        "button:has-text('Confirm'),a:has-text('Confirm')"
+    )
+    if confirm_btn:
+        confirm_btn.click()
+        page.wait_for_timeout(2000)
+        return
 
-def scrape_category(page, url):
+    day_field = page.query_selector("select[name*='day' i], input[name*='day' i]")
+    month_field = page.query_selector("select[name*='month' i], input[name*='month' i]")
+    year_field = page.query_selector("select[name*='year' i], input[name*='year' i]")
+    if day_field and month_field and year_field:
+        try:
+            day_field.select_option("1")
+        except Exception:
+            day_field.fill("1")
+        try:
+            month_field.select_option("1")
+        except Exception:
+            month_field.fill("1")
+        try:
+            year_field.select_option("1990")
+        except Exception:
+            year_field.fill("1990")
+        submit_btn = page.query_selector(
+            "button[type=submit], input[type=submit], "
+            "button:has-text('Submit'),button:has-text('Continue'),button:has-text('Confirm')"
+        )
+        if submit_btn:
+            submit_btn.click()
+        page.wait_for_timeout(2000)def scrape_category(page, url):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_timeout(1500)
