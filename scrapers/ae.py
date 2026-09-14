@@ -109,3 +109,84 @@ def dismiss_age_gate(page):
         )
         if submit_btn:
             submit_btn.click()
+        page.wait_for_timeout(4000)
+
+
+def pick_card_name(card):
+    """Return (name, href) for a product card, using the LONGEST non-junk
+    link text instead of the first one, since real product names are
+    reliably longer than the wishlist/compare/etc labels themes add."""
+    best_name, best_href = None, None
+    for a in card.query_selector_all("a"):
+        t = a.inner_text().strip()
+        if not t or t.lower() in NAME_BLOCKLIST:
+            continue
+        if best_name is None or len(t) > len(best_name):
+            best_name = t
+            best_href = a.get_attribute("href")
+    return best_name, best_href
+
+
+def scrape_term(page, term, debug=False):
+    results = []
+    for page_num in range(1, MAX_PAGES_PER_TERM + 1):
+        url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
+        safe_goto(page, url)
+        page.wait_for_timeout(1500)
+        if debug and page_num == 1:
+            print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
+            print(f"  [DEBUG] page title: {page.title()!r}", file=sys.stderr)
+            for sel in [".featured-box", ".product-thumb", ".product-layout", ".product-item"]:
+                print(f"  [DEBUG] selector {sel!r} matches: {len(page.query_selector_all(sel))}", file=sys.stderr)
+            snippet = page.inner_text("body")[:500].replace("\n", " | ")
+            print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
+        cards = page.query_selector_all(".featured-box, .product-thumb, .product-layout, .product-item")
+        if not cards:
+            break
+        if debug and page_num == 1:
+            print(f"  [DEBUG] {len(cards)} card(s) found on page 1, checking each one:", file=sys.stderr)
+        found_any = False
+        for i, card in enumerate(cards):
+            text = card.inner_text()
+            name, href = pick_card_name(card)
+            price = extract_price(text)
+            if debug and page_num == 1:
+                print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
+            if name and price is not None:
+                results.append({"name": name, "price_bhd": price, "url": href, "retailer": "African & Eastern",
+                                 "category": guess_category(term)})
+                found_any = True
+        if not found_any:
+            break
+        polite_sleep(1)
+    return results
+
+
+def main():
+    all_results = []
+    seen = set()
+    with sync_playwright() as p:
+        browser, page = connect_browser(p, USER_AGENT)
+        block_heavy_resources(page)
+        dismiss_age_gate(page)
+        print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
+        first = True
+        for term in SEARCH_TERMS:
+            print(f"Searching A&E for '{term}'...", file=sys.stderr)
+            try:
+                items = scrape_term(page, term, debug=first)
+            except Exception as e:
+                print(f"  failed: {e}", file=sys.stderr)
+                items = []
+            first = False
+            for item in items:
+                key = (item["name"], item["url"])
+                if key not in seen:
+                    seen.add(key)
+                    all_results.append(item)
+        browser.close()
+    write_json("ae.json", all_results)
+
+
+if __name__ == "__main__":
+    main()
