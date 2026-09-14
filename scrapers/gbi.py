@@ -12,12 +12,13 @@ touches allowed, documented site functionality (the same search box a customer
 would use).
 
 Proxy: gbiexpress.com puts a Cloudflare bot-challenge in front of every search
-request when it's hit from GitHub Actions' shared runner IPs (confirmed via
-live runs: page title "Just a moment...", a Cloudflare Ray ID, and 0 products
-every time, regardless of selectors). connect_browser() in _common.py routes
-through Bright Data's Scraping Browser instead, once the BRIGHTDATA_AUTH
-GitHub Actions secret is set; see the setup notes in this repo for how to get
-that credential and add the secret.
+request when it's hit from GitHub Actions' shared runner IPs. connect_browser()
+in _common.py routes through Bright Data's Scraping Browser instead, once the
+BRIGHTDATA_AUTH GitHub Actions secret is set. Confirmed working: a live run got
+past Cloudflare (real page titles and product text came back instead of "Just a
+moment..."), but pages load slowly through the proxy, so navigation timeouts are
+generous here (120 seconds) and a failed page load gets one retry before giving
+up on that page.
 
 Run with: python scrapers/gbi.py
 Requires: playwright (and `playwright install chromium` once, done in CI).
@@ -34,15 +35,27 @@ BASE = "https://www.gbiexpress.com"
 SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
                 "brandy", "tequila", "liqueur", "cider"]
 MAX_PAGES_PER_TERM = 15
+NAV_TIMEOUT = 120000  # proxy adds latency; matches Bright Data's own guidance
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 
-def dismiss_age_gate(page):
-    page.goto(BASE, wait_until="domcontentloaded", timeout=60000)
-    page.wait_for_timeout(1500)
+def safe_goto(page, url, timeout=NAV_TIMEOUT):
+    """page.goto with one retry, so a single slow/interrupted navigation
+    (common when running through a proxy) doesn't throw away an entire
+    search term's results."""
     try:
-        page.goto(f"{BASE}/index.php?route=check/age/confirm", wait_until="domcontentloaded", timeout=60000)
-        page.wait_for_timeout(1500)
+        page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+    except Exception:
+        page.wait_for_timeout(3000)
+        page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+
+
+def dismiss_age_gate(page):
+    safe_goto(page, BASE)
+    page.wait_for_timeout(2000)
+    try:
+        safe_goto(page, f"{BASE}/index.php?route=check/age/confirm")
+        page.wait_for_timeout(2000)
         return
     except Exception:
         pass
@@ -52,7 +65,7 @@ def dismiss_age_gate(page):
         )
         if confirm_btn:
             confirm_btn.click()
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(3000)
             return
     except Exception:
         pass
@@ -67,7 +80,7 @@ def dismiss_age_gate(page):
             submit_btn = page.query_selector("button[type='submit'], input[type='submit']")
             if submit_btn:
                 submit_btn.click()
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(3000)
     except Exception:
         pass
 
@@ -76,7 +89,7 @@ def scrape_term(page, term, debug=False):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
-        page.goto(url, wait_until="domcontentloaded", timeout=60000)
+        safe_goto(page, url)
         page.wait_for_timeout(1500)
         if debug and page_num == 1:
             print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
@@ -91,10 +104,14 @@ def scrape_term(page, term, debug=False):
         found_any = False
         for card in cards:
             text = card.inner_text()
-            name_el = card.query_selector(".title a, h4 a, .caption h4 a, a")
-            name = name_el.inner_text().strip() if name_el else None
-            link_el = card.query_selector(".title a, a")
-            href = link_el.get_attribute("href") if link_el else None
+            name = None
+            href = None
+            for a in card.query_selector_all("a"):
+                t = a.inner_text().strip()
+                if t:
+                    name = t
+                    href = a.get_attribute("href")
+                    break
             price = extract_price(text)
             if name and price is not None:
                 results.append({"name": name, "price_bhd": price, "url": href, "retailer": "GBI Express",
