@@ -54,4 +54,12 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add data/*.json
           git diff --cached --quiet && echo "No price changes." || git commit -m "Automated price refresh $(date -u +'%Y-%m-%d')"
+          # This scraper run can take well over an hour (the proxy adds real
+          # latency). If someone edits a file on GitHub's website while it's
+          # still running, the remote moves ahead of what this runner
+          # started from, and a plain "git push" gets rejected. Pulling with
+          # --rebase first replays our new commit (if any) on top of
+          # whatever changed meanwhile, so the push succeeds either way,
+          # instead of the whole run's scraped data being silently dropped.
+          git pull --rebase origin main
           git push
