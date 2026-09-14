@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "name": "SAVE\n35pct",
+    "price_bhd": 29.9,
+    "url": "https://www.gbiexpress.com/isle-of-jura-12-year-old-70-cl?search=whisky&page=1",
+    "retailer": "GBI Express",
+    "category": "Whisky"
+  },
+  {
+    "name": "3 SAVE\nBD30pct",
+    "price_bhd": 11.2,
+    "url": "https://www.gbiexpress.com/jacobs-creek-double-barrel-cabernet-sauvignon-75-cl?search=whisky&page=2",
+    "retailer": "GBI Express",
+    "category": "Whisky"
+  }
+]
