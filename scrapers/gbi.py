@@ -20,6 +20,13 @@ moment..."), but pages load slowly through the proxy, so navigation timeouts are
 generous here (120 seconds) and a failed page load gets one retry before giving
 up on that page.
 
+Name extraction (2026-09-14): same defensive fix as ae.py, picking the LONGEST
+non-boilerplate link text in each card instead of the first one, since a card
+can carry wishlist/compare/etc links besides the product name. GBI was already
+finding real products (706 on the last run) with the simpler "first link"
+logic, so this is a safety margin against edge cases rather than a fix for a
+known failure here, plus it adds the same per-card debug output as ae.py.
+
 Run with: python scrapers/gbi.py
 Requires: playwright (and `playwright install chromium` once, done in CI).
 """
@@ -37,6 +44,13 @@ SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
 MAX_PAGES_PER_TERM = 15
 NAV_TIMEOUT = 120000  # proxy adds latency; matches Bright Data's own guidance
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+
+NAME_BLOCKLIST = {
+    "wishlist", "wish list", "add to wishlist", "add to wish list",
+    "compare", "add to compare", "add to cart", "cart", "buy now",
+    "quick view", "view", "details", "more info", "more details",
+    "notify me", "out of stock", "add", "share", "",
+}
 
 
 def safe_goto(page, url, timeout=NAV_TIMEOUT):
@@ -85,6 +99,21 @@ def dismiss_age_gate(page):
         pass
 
 
+def pick_card_name(card):
+    """Return (name, href) for a product card, using the LONGEST non-junk
+    link text instead of the first one, since real product names are
+    reliably longer than the wishlist/compare/etc labels themes add."""
+    best_name, best_href = None, None
+    for a in card.query_selector_all("a"):
+        t = a.inner_text().strip()
+        if not t or t.lower() in NAME_BLOCKLIST:
+            continue
+        if best_name is None or len(t) > len(best_name):
+            best_name = t
+            best_href = a.get_attribute("href")
+    return best_name, best_href
+
+
 def scrape_term(page, term, debug=False):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
@@ -101,18 +130,15 @@ def scrape_term(page, term, debug=False):
         cards = page.query_selector_all(".featured-box, .product-thumb, .product-layout")
         if not cards:
             break
+        if debug and page_num == 1:
+            print(f"  [DEBUG] {len(cards)} card(s) found on page 1, checking each one:", file=sys.stderr)
         found_any = False
-        for card in cards:
+        for i, card in enumerate(cards):
             text = card.inner_text()
-            name = None
-            href = None
-            for a in card.query_selector_all("a"):
-                t = a.inner_text().strip()
-                if t:
-                    name = t
-                    href = a.get_attribute("href")
-                    break
+            name, href = pick_card_name(card)
             price = extract_price(text)
+            if debug and page_num == 1:
+                print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
             if name and price is not None:
                 results.append({"name": name, "price_bhd": price, "url": href, "retailer": "GBI Express",
                                  "category": guess_category(term)})
