@@ -5,10 +5,15 @@ fuzzy name similarity (there's no shared SKU/barcode across these 4 sites, so
 exact matching isn't possible; this is a best-effort automated match, not a
 guarantee every cluster is 100% the same product/size).
 
+Also writes data/last_updated.json with the timestamp of this run, which the
+site displays as "Prices last updated: ..." so visitors can see how fresh the
+data is.
+
 Run this after all 4 scrapers have produced their per-retailer JSON files.
 """
 import json
 import re
+from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -124,6 +129,10 @@ def main():
     out_path = DATA_DIR / "products.json"
     out_path.write_text(json.dumps(products, indent=2))
     print(f"Merged into {len(products)} products -> {out_path}")
+
+    last_updated_path = DATA_DIR / "last_updated.json"
+    last_updated_path.write_text(json.dumps({"updated_at": datetime.now(timezone.utc).isoformat()}))
+    print(f"Wrote {last_updated_path}")
 
 
 if __name__ == "__main__":
