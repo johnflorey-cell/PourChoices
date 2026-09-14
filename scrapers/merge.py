@@ -107,7 +107,7 @@ def build_product_row(idx, cluster_map):
         (carried_by if item else missing_from).append(RETAILER_LABELS[key])
 
     if missing_from:
-        row["note"] = f"Not carried by {', '.join(missing_from)} (or not matched by name in the latest scrape)."
+        row["note"] = f"Not carried by {', '.join(missing_from)} (or not matched by name)."
     else:
         row["note"] = "Carried by all 4 retailers."
     return row
