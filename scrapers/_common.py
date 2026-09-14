@@ -11,6 +11,7 @@ discounted item shows both its sale price and its struck-through original price,
 and the smallest is what a customer actually pays.
 """
 import json
+import os
 import re
 import time
 from pathlib import Path
@@ -58,3 +59,45 @@ def write_json(filename, results):
 
 def polite_sleep(seconds=1.5):
     time.sleep(seconds)
+
+
+def connect_browser(p, user_agent):
+    """Start a browser and a page.
+
+    If the BRIGHTDATA_AUTH environment variable is set, use it as the FULL
+    Bright Data Scraping Browser connection string, exactly as copied from
+    the Bright Data dashboard's "Test API" step for Puppeteer/Playwright
+    (the whole "wss://brd-customer-...-zone-...:password@brd.superproxy.io:9222"
+    line, password included, no editing needed). That routes through Bright
+    Data's proxy pool over CDP instead of a plain local Chromium launch,
+    which is what gets past the Cloudflare bot-challenge that blocks African
+    & Eastern and GBI Express on GitHub Actions' own IPs. When BRIGHTDATA_AUTH
+    isn't set (e.g. running locally without a Bright Data account, or for
+    scrapers that don't need a proxy at all), this falls back to the same
+    local launch every scraper used before.
+    """
+    endpoint = os.environ.get("BRIGHTDATA_AUTH")
+    if endpoint:
+        browser = p.chromium.connect_over_cdp(endpoint)
+        page = browser.new_page(user_agent=user_agent)
+        page.set_default_navigation_timeout(120000)  # proxy adds latency; Bright Data's own guidance
+    else:
+        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
+        page = browser.new_page(user_agent=user_agent)
+    return browser, page
+
+
+def block_heavy_resources(page):
+    """Abort image/font/media requests on this page.
+
+    A Bright Data Scraping Browser session is billed by bandwidth (~$8/GB),
+    and none of these scrapers need images or fonts to read a product's name
+    and price, so blocking them keeps real usage far below the free 1GB/month
+    tier. Harmless to call even when not running through a proxy.
+    """
+    def _handle(route):
+        if route.request.resource_type in ("image", "font", "media"):
+            route.abort()
+        else:
+            route.continue_()
+    page.route("**/*", _handle)
