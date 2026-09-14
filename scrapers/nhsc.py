@@ -13,7 +13,15 @@ Card structure: each product sits in a <div class="slider-item">. Rather than
 guessing one fixed selector for the name link (which broke twice, since NHSC's
 different page templates nest the link differently), scrape_category() scans
 every <a> inside the card and takes the first one with real visible text.
+
+Coverage check: NHSC's own category pages print their true total in the page
+text (e.g. "Showing 1 to 100 of 203 (3 Pages)"). extract_reported_total() reads
+that number back out and main() compares it to how many distinct products we
+actually kept for that category, printing a clear OK/WARNING line every run so
+under-scraping (like the earlier 100-item-per-category cap) shows up in the
+log immediately instead of needing a manual card count.
 """
+import re
 import sys
 from pathlib import Path
 
@@ -77,6 +85,18 @@ def dismiss_age_gate(page):
         page.wait_for_timeout(2000)
 
 
+def extract_reported_total(page):
+    """Read NHSC's own "Showing 1 to 100 of 203 (3 Pages)" text back out, so
+    we can compare the site's stated total against what we actually kept."""
+    text = page.inner_text("body")
+    m = re.search(r"of\s+([\d,]+)\s*\(", text)
+    if not m:
+        m = re.search(r"of\s+([\d,]+)\s+item", text, re.IGNORECASE)
+    if m:
+        return int(m.group(1).replace(",", ""))
+    return None
+
+
 def scrape_category(page, url, debug=False):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
@@ -138,6 +158,8 @@ def main():
         print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
         first = True
         for base_url in CATEGORY_URLS:
+            category_new_count = 0
+            reported_total = None
             for page_num in range(1, MAX_PAGES_PER_CATEGORY + 1):
                 # NHSC's OpenCart-style pagination: page 1 is the bare
                 # ?limit=100 URL, later pages add &page=N. A category with
@@ -149,6 +171,8 @@ def main():
                 print(f"Scraping NHSC category: {url}", file=sys.stderr)
                 try:
                     items = scrape_category(page, url, debug=(first and page_num == 1))
+                    if page_num == 1:
+                        reported_total = extract_reported_total(page)
                 except Exception as e:
                     print(f"  failed: {e}", file=sys.stderr)
                     items = []
@@ -161,6 +185,7 @@ def main():
                         seen.add(key)
                         all_results.append(item)
                         new_count += 1
+                category_new_count += new_count
                 polite_sleep(1.5)
                 # Stop paginating this category once a page brings back no
                 # products at all, or no NEW ones (some sites clamp an
@@ -168,6 +193,12 @@ def main():
                 # loop forever re-adding the same items).
                 if not items or new_count == 0:
                     break
+            category_name = base_url.split("?")[0].rsplit("/", 1)[-1]
+            if reported_total is not None:
+                status = "OK" if category_new_count >= reported_total else "WARNING: fewer than site reports, likely incomplete"
+                print(f"  NHSC coverage check [{category_name}]: site reports {reported_total}, captured {category_new_count} -> {status}", file=sys.stderr)
+            else:
+                print(f"  NHSC coverage check [{category_name}]: could not read a site-reported total, captured {category_new_count} (unverified)", file=sys.stderr)
         browser.close()
     write_json("nhsc.json", all_results)
 
