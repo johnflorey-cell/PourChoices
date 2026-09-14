@@ -9,12 +9,20 @@ the same public search box a customer uses. Adjust SEARCH_TERMS or swap in
 confirmed category URLs later if you find a more direct path (e.g. a specific
 /whisky or /beer category listing that supports ?page=N, which earlier manual
 checks did find worked for brand-slug pages like /jacobs-creek/...).
+
+Proxy: africanandeastern.com puts a Cloudflare bot-challenge in front of every
+search request when it's hit from GitHub Actions' shared runner IPs (confirmed
+via live runs: page title "Just a moment...", a Cloudflare Ray ID, and 0
+products every time, regardless of selectors). connect_browser() in _common.py
+routes through Bright Data's Scraping Browser instead, once the BRIGHTDATA_AUTH
+GitHub Actions secret is set; see the setup notes in this repo for how to get
+that credential and add the secret.
 """
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import extract_price, guess_category, write_json, polite_sleep
+from _common import extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources
 
 from playwright.sync_api import sync_playwright
 
@@ -25,7 +33,7 @@ MAX_PAGES_PER_TERM = 15
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 def dismiss_age_gate(page):
-    page.goto(BASE, wait_until="domcontentloaded", timeout=30000)
+    page.goto(BASE, wait_until="domcontentloaded", timeout=60000)
     page.wait_for_timeout(1000)
     try:
         page.evaluate("document.forms['default'].submit()")
@@ -73,7 +81,7 @@ def scrape_term(page, term, debug=False):
     results = []
     for page_num in range(1, MAX_PAGES_PER_TERM + 1):
         url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        page.goto(url, wait_until="domcontentloaded", timeout=60000)
         page.wait_for_timeout(1500)
         if debug and page_num == 1:
             print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
@@ -106,8 +114,8 @@ def main():
     all_results = []
     seen = set()
     with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
-        page = browser.new_page(user_agent=USER_AGENT)
+        browser, page = connect_browser(p, USER_AGENT)
+        block_heavy_resources(page)
         dismiss_age_gate(page)
         print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
         first = True
