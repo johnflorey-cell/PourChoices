@@ -14,6 +14,8 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
     timeout-minutes: 350
+    env:
+      BRIGHTDATA_AUTH: ${{ secrets.BRIGHTDATA_AUTH }}
     steps:
       - uses: actions/checkout@v4
 
