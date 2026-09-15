@@ -20,22 +20,53 @@ that number back out and main() compares it to how many distinct products we
 actually kept for that category, printing a clear OK/WARNING line every run so
 under-scraping (like the earlier 100-item-per-category cap) shows up in the
 log immediately instead of needing a manual card count.
+
+Out-of-stock fix (2026-09-15): added the same shared looks_out_of_stock()
+text-phrase check used in ae.py, so a card whose own text says something
+like "Out of Stock" or "Notify Me" is recorded with in_stock set to false
+instead of looking like a normal, purchasable listing. Unlike A&E, NHSC's
+own out-of-stock wording (if any) wasn't confirmed directly against a live
+example during this round, so treat this as best-effort until a real run's
+debug output has been checked against the live site. A card with a name but
+NO price at all is still skipped entirely, same as before -- there wasn't a
+confirmed example to tell "genuinely out of stock with the price hidden"
+apart from "the price selector just missed it", so that stays a skip rather
+than guessing.
+
+Category-from-retailer fix (2026-09-15): NHSC is the one retailer where we
+already crawl real, distinct category pages (see CATEGORY_URLS below)
+instead of guessing from keywords. It used to throw that context away and
+call guess_category(name) on every item anyway, exactly like the other
+three retailers. Now each entry in CATEGORY_URLS carries its own known
+category label ("Beer" for the beers-and-ciders page, "Wine" for the wine
+page, "Champagne" for the sparkling-wine page), and any item scraped from
+one of those pages is labelled directly from NHSC's own site structure,
+never guessed. The one exception is the "Spirits" page, which NHSC itself
+mixes whisky/vodka/gin/rum/brandy/etc into a single bucket with no further
+split on the category page -- there's no single correct label to assign
+from the URL alone there, so items from that page still fall through to
+guess_category(name) exactly as before. This removes one whole source of
+mis-categorization risk for NHSC's beer and wine listings specifically.
 """
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import extract_price, guess_category, write_json, polite_sleep
+from _common import extract_price, guess_category, write_json, polite_sleep, looks_out_of_stock
 
 from playwright.sync_api import sync_playwright
 
 BASE = "https://www.nhscbahrain.com"
+# Each entry pairs a category page URL with the category NHSC's own site
+# structure already assigns to everything on it (or None when the page
+# itself mixes multiple categories together, in which case we still fall
+# back to guessing from the product's own name).
 CATEGORY_URLS = [
-    f"{BASE}/Spirits-NHSC-bahrain?limit=100",
-    f"{BASE}/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain?limit=100",
-    f"{BASE}/wines-wine?limit=100",
-    f"{BASE}/wines-wine/sparkling?limit=100",
+    (f"{BASE}/Spirits-NHSC-bahrain?limit=100", None),
+    (f"{BASE}/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain?limit=100", "Beer"),
+    (f"{BASE}/wines-wine?limit=100", "Wine"),
+    (f"{BASE}/wines-wine/sparkling?limit=100", "Champagne"),
 ]
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
@@ -97,7 +128,7 @@ def extract_reported_total(page):
     return None
 
 
-def scrape_category(page, url, debug=False):
+def scrape_category(page, url, category_hint=None, debug=False):
     results = []
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     page.wait_for_timeout(1500)
@@ -129,17 +160,19 @@ def scrape_category(page, url, debug=False):
                 href = a.get_attribute("href")
                 break
         price = extract_price(text)
+        out_of_stock = looks_out_of_stock(text)
         if debug and i < 3:
             outer = card.evaluate("el => el.outerHTML")[:400]
-            print(f"  [DEBUG] card {i}: name={name!r} price={price!r} outerHTML={outer!r}", file=sys.stderr)
+            print(f"  [DEBUG] card {i}: name={name!r} price={price!r} out_of_stock={out_of_stock} outerHTML={outer!r}", file=sys.stderr)
         if not name:
             skipped_no_name += 1
             continue
         if price is None:
             skipped_no_price += 1
             continue
-        results.append({"name": name, "price_bhd": price, "url": href, "retailer": "NHSC",
-                         "category": guess_category(name)})
+        category = category_hint if category_hint is not None else guess_category(name)
+        results.append({"name": name, "price_bhd": price, "in_stock": not out_of_stock,
+                         "url": href, "retailer": "NHSC", "category": category})
     if debug:
         print(f"  [DEBUG] cards={len(cards)} kept={len(results)} skipped_no_name={skipped_no_name} skipped_no_price={skipped_no_price}", file=sys.stderr)
     return results
@@ -157,7 +190,7 @@ def main():
         dismiss_age_gate(page)
         print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
         first = True
-        for base_url in CATEGORY_URLS:
+        for base_url, category_hint in CATEGORY_URLS:
             category_new_count = 0
             reported_total = None
             for page_num in range(1, MAX_PAGES_PER_CATEGORY + 1):
@@ -170,7 +203,7 @@ def main():
                 url = base_url if page_num == 1 else f"{base_url}&page={page_num}"
                 print(f"Scraping NHSC category: {url}", file=sys.stderr)
                 try:
-                    items = scrape_category(page, url, debug=(first and page_num == 1))
+                    items = scrape_category(page, url, category_hint=category_hint, debug=(first and page_num == 1))
                     if page_num == 1:
                         reported_total = extract_reported_total(page)
                 except Exception as e:
