@@ -70,6 +70,42 @@ cl/ml/l/ltr/litre) and refusing to merge two items whose sizes are BOTH
 known and clearly different (see sizes_conflict); when a size can't be read
 from one or both names, the existing name-similarity check still decides,
 same as before.
+
+Swapped-word fix (2026-09-15): confirmed live that "Johnnie Walker Black
+Label 75cl" (BMMI, BD 48.725; GBI Express, BD 61.000) had picked up NHSC's
+"JOHNNIE WALKER BLUE LABEL 75CL" (BD 236.500) into the same row -- Black
+Label and Blue Label are two completely different whiskies (roughly 5x the
+price apart), not the same product. The word-overlap check above only asks
+whether MOST of the significant words match (more than half), and "black"
+vs "blue" is just one word out of four ("johnnie", "walker", "___", "label"),
+so it scored 60% overlap and passed, the same way "Red Rose" vs "Red Horse"
+used to before the matching fix higher up in this file. Rather than special-
+casing "black"/"blue" (or "red"/"rose"/"horse", or the next pair someone
+finds), this is fixed generally: whenever BOTH names have at least one
+significant word the other one doesn't (a word was swapped for a different
+word, not just added or dropped), they're now never treated as a match, no
+matter how high the overlap score is otherwise (see words_conflict). A name
+that's simply a fuller/shorter version of the other (e.g. "Famous Grouse"
+vs "Famous Grouse Scotch Whisky", where every word on the short side also
+appears on the long side) is unaffected by this and still governed by the
+existing overlap-ratio check, since nothing was swapped there, only added.
+
+Pack-count fix (2026-09-15): confirmed live that BMMI's "Smirnoff Ice 27.5cl
+[24 Pack]" (BD 48.725) had picked up African & Eastern's "Smirnoff Ice
+[6-Pack]" (BD 16.137) into the same row -- a box of 24 and a box of 6 are
+not the same purchase, never mind the same price. This happened because
+the size check only ever looked at the size of ONE bottle/can (both are
+27.5cl Smirnoff Ice cans), and had no idea how many of them came in the
+box, so a 6-pack and a 24-pack of literally the same can looked identical
+to it. Fixed the same way as the bottle-size fix: extract_pack_count()
+reads the pack size straight out of the name (covers every phrasing seen
+across all 4 sites' real listings: "24 Pack", "6-Pack", "Case of 24", "24 X
+33CL", "Cans X24"), and two listings are never merged when their pack
+counts disagree. Unlike bottle size, a listing that doesn't mention a pack
+count at all is treated as a single bottle/can (pack count 1), since that's
+what "no pack wording" means on every site checked here, so a plain
+single-bottle listing on one site still matches a plain single-bottle
+listing on another.
 """
 import json
 import re
@@ -104,6 +140,19 @@ UNIT_TO_ML = {"cl": 10, "ml": 1, "l": 1000, "ltr": 1000, "litre": 1000, "liter":
 # letting an actually-different size (750ml vs 1000ml, a 33% difference)
 # through as a "match".
 SIZE_TOLERANCE = 0.05
+
+# Recognises how many bottles/cans a listing is FOR, in every phrasing seen
+# across the 4 sites' real product names: "24 Pack", "6-Pack", "4pack",
+# "Case of 24", "24 X 33CL", "Cans X24". Capped at 3 digits (1-999) so it
+# never mistakes a 4-digit vintage year ("...Reserve X 2019") for a pack
+# count. See the "Pack-count fix" note above.
+PACK_TOKEN_RE = re.compile(
+    r"\b(\d{1,3})\s*-?\s*pack\b"
+    r"|\bcase\s+of\s+(\d{1,3})\b"
+    r"|\b(\d{1,3})\s*x\b"
+    r"|\bx\s*(\d{1,3})\b",
+    re.IGNORECASE,
+)
 
 MATCH_THRESHOLD = 0.72
 
@@ -175,6 +224,45 @@ def sizes_conflict(size_a, size_b):
     return abs(size_a - size_b) / max(size_a, size_b) > SIZE_TOLERANCE
 
 
+def extract_pack_count(name):
+    """How many bottles/cans this listing is for (e.g. "24 Pack" -> 24,
+    "Case of 6" -> 6, "24 X 33CL" -> 24). Unlike extract_size_ml, a missing
+    pack indicator defaults to 1 rather than "unknown" -- almost every
+    single-bottle listing across these 4 sites simply doesn't mention a
+    pack count at all, so treating that silence as "this is one bottle" is
+    the safe, common-case reading, and it's what lets a single-bottle
+    listing on one site still match a single-bottle listing on another that
+    also says nothing about pack size."""
+    m = PACK_TOKEN_RE.search(name)
+    if not m:
+        return 1
+    for group in m.groups():
+        if group is not None:
+            try:
+                return int(group)
+            except (TypeError, ValueError):
+                return 1
+    return 1
+
+
+def words_conflict(sig_words_a, sig_words_b):
+    """True when EACH name has at least one significant word the other
+    doesn't -- i.e. a word was swapped for a different one, not just added
+    or dropped. "Johnnie Walker Black Label" vs "Johnnie Walker Blue Label"
+    only differ by "black" vs "blue" (one word out of four), which used to
+    slide through the word-overlap ratio check below at 60% overlap -- the
+    exact same failure mode as "Red Rose" vs "Red Horse" already fixed
+    above, just with a different swapped word. Rather than hard-coding
+    "black"/"blue" (or whichever pair turns up next), any two-sided
+    difference like this is now blocked outright, regardless of how much
+    of the rest of the name still matches. A name that's purely a fuller or
+    shorter version of the other (every word on the short side also appears
+    on the long side, e.g. "Famous Grouse" vs "Famous Grouse Scotch
+    Whisky") has NO two-sided difference, so it's unaffected by this check
+    and still governed by the word-overlap ratio below, same as before."""
+    return bool(sig_words_a - sig_words_b) and bool(sig_words_b - sig_words_a)
+
+
 def _dedupe_key(item):
     """A stable identity for one item within a single retailer's own list.
 
@@ -213,6 +301,7 @@ def load_retailer(key):
         item["_norm"] = normalize(item["name"])
         item["_sig_words"] = significant_words(item["_norm"])
         item["_size_ml"] = extract_size_ml(item["name"])
+        item["_pack_count"] = extract_pack_count(item["name"])
         deduped.append(item)
     return deduped
 
@@ -241,9 +330,18 @@ def cluster(retailer_items):
             overlap = word_overlap(item_a["_sig_words"], item_b["_sig_words"])
             if overlap <= SIGNIFICANT_WORD_OVERLAP_THRESHOLD:
                 continue
+            if words_conflict(item_a["_sig_words"], item_b["_sig_words"]):
+                # A significant word was swapped for a different one (e.g.
+                # "Black" Label vs "Blue" Label) -- see the "Swapped-word
+                # fix" note above. Blocked regardless of the overlap score.
+                continue
             if sizes_conflict(item_a["_size_ml"], item_b["_size_ml"]):
                 # Same-ish name, but a 75cl bottle and a 1L bottle are not
                 # the same product -- see the "Size-blind matching fix" note.
+                continue
+            if item_a["_pack_count"] != item_b["_pack_count"]:
+                # A 6-pack and a 24-pack of the same drink are two different
+                # things to actually buy -- see the "Pack-count fix" note.
                 continue
             cluster_map[key_b] = item_b
             used.add(j)
