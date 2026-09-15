@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -99,6 +100,12 @@
         <!-- FREE TRIAL BANNER -->
         <div id="trial-banner" class="hidden mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2 text-center leading-relaxed"></div>
 
+        <!-- SAVE-TO-HOME-SCREEN BANNER: hidden by default, shown by JS only on a
+             phone that hasn't already installed the app (see showInstallBanner()). -->
+        <button id="install-banner" onclick="handleInstallClick()" class="hidden w-full mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2.5 text-center leading-relaxed font-bold active:scale-[0.98] transition">
+            📲 Tap here to save this app to your home screen
+        </button>
+
         <p id="products-compared" class="text-[11px] text-amberGold text-center font-bold mb-1"></p>
         <p class="text-[10px] text-gray-300 text-center -mt-1 mb-1">Prices refresh automatically once a day from each retailer&rsquo;s own site.</p>
         <p id="last-updated" class="text-[10px] text-gray-400 text-center mb-3"></p>
@@ -145,6 +152,27 @@
                 </button>
             </div>
             <button onclick="closePaywallModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel and return</button>
+        </div>
+    </div>
+
+    <!-- 3. BETA FEEDBACK BUTTON + MODAL -->
+    <button onclick="openFeedbackModal()" class="fixed bottom-5 right-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
+        💬 Feedback
+    </button>
+
+    <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="feedback-modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closeFeedbackModal()"></div>
+            <h3 class="text-lg font-bold">Beta Feedback</h3>
+            <p class="text-xs text-gray-400 mt-1 mb-5">Spotted a glitch, a wrong price, or have a suggestion? This app is in beta, tell us about it here.</p>
+
+            <div class="text-left space-y-3">
+                <textarea id="feedback-text" rows="4" placeholder="Describe the glitch, error, or suggestion..." class="w-full bg-obsidian border border-gray-800 text-white rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-amberGold resize-none"></textarea>
+                <button onclick="sendFeedback()" class="w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Send Feedback
+                </button>
+            </div>
+            <button onclick="closeFeedbackModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel</button>
         </div>
     </div>
 
@@ -236,11 +264,105 @@
             loadProducts();
             loadLastUpdated();
             registerServiceWorker();
+            // iOS never fires the "beforeinstallprompt" event below (Safari has
+            // no such API), so on iPhone/iPad we show the save-to-home-screen
+            // banner right away instead of waiting for an event that will
+            // never come. Android/Chrome gets the banner from that event
+            // instead, once the browser itself says the app is installable.
+            if (isIosDevice() && !isStandaloneApp()) {
+                showInstallBanner();
+            }
         }
 
         function verifyAge() {
             try { localStorage.setItem("ageVerified", "true"); } catch (e) {}
             document.getElementById("age-gate").style.display = "none";
+        }
+
+        // --- Save to home screen ---------------------------------------------
+
+        // True once the app is already running as an installed/home-screen app,
+        // in which case there's nothing left to prompt the visitor to do.
+        function isStandaloneApp() {
+            return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+        }
+
+        function isIosDevice() {
+            return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+        }
+
+        function isMobileDevice() {
+            return /iphone|ipad|ipod|android/i.test(window.navigator.userAgent);
+        }
+
+        function showInstallBanner() {
+            if (isStandaloneApp()) return;
+            const banner = document.getElementById("install-banner");
+            if (banner) banner.classList.remove("hidden");
+        }
+
+        // Chrome/Android fires this when it decides the site is installable.
+        // Capturing the event lets us trigger the native install prompt later,
+        // from our own button, instead of waiting for a browser-native mini-bar.
+        let deferredInstallPrompt = null;
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            if (isMobileDevice()) showInstallBanner();
+        });
+
+        async function handleInstallClick() {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                try { await deferredInstallPrompt.userChoice; } catch (e) { /* ignore */ }
+                deferredInstallPrompt = null;
+                const banner = document.getElementById("install-banner");
+                if (banner) banner.classList.add("hidden");
+                return;
+            }
+            // iOS Safari has no install-prompt API at all, so the only way to
+            // save the app there is the manual Share-sheet route.
+            if (isIosDevice()) {
+                alert("To save this app: tap the Share icon at the bottom of Safari, then tap 'Add to Home Screen'.");
+                return;
+            }
+            alert("Look for \"Install app\" or \"Add to Home Screen\" in your browser's menu.");
+        }
+
+        // --- Beta feedback -----------------------------------------------------
+
+        // Where beta feedback lands. Change this if it should go somewhere else.
+        const FEEDBACK_EMAIL = "johnflorey1@gmail.com";
+
+        function openFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const content = document.getElementById("feedback-modal-content");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closeFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const content = document.getElementById("feedback-modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        // No backend to submit to (this is a static site), so feedback is
+        // handed off to the visitor's own mail app, pre-addressed and
+        // pre-filled, rather than silently going nowhere.
+        function sendFeedback() {
+            const text = document.getElementById("feedback-text").value.trim();
+            if (!text) {
+                alert("Please write something before sending.");
+                return;
+            }
+            const subject = encodeURIComponent("Pour Choices Beta Feedback");
+            const body = encodeURIComponent(text);
+            window.location.href = `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
+            closeFeedbackModal();
+            document.getElementById("feedback-text").value = "";
         }
 
         function getTrialDaysLeft() {
