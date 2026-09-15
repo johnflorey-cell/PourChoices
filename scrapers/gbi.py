@@ -27,6 +27,14 @@ finding real products (706 on the last run) with the simpler "first link"
 logic, so this is a safety margin against edge cases rather than a fix for a
 known failure here, plus it adds the same per-card debug output as ae.py.
 
+Category fix (2026-09-15): this used to categorize every result by whichever
+SEARCH TERM found it (guess_category(term)), not by the product's own name.
+GBI's own search box doesn't only return exact matches, so searching "beer"
+could surface an unrelated product (e.g. a vodka mixer), and that product
+would get permanently labelled "Beer" just because that's the term that found
+it. Now categorizes by the product's actual scraped name instead, same as
+bmmi.py and nhsc.py already did.
+
 Run with: python scrapers/gbi.py
 Requires: playwright (and `playwright install chromium` once, done in CI).
 """
@@ -141,7 +149,7 @@ def scrape_term(page, term, debug=False):
                 print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
             if name and price is not None:
                 results.append({"name": name, "price_bhd": price, "url": href, "retailer": "GBI Express",
-                                 "category": guess_category(term)})
+                                 "category": guess_category(name)})
                 found_any = True
         if not found_any:
             break
