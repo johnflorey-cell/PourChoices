@@ -35,6 +35,15 @@ would get permanently labelled "Beer" just because that's the term that found
 it. Now categorizes by the product's actual scraped name instead, same as
 bmmi.py and nhsc.py already did.
 
+Out-of-stock fix (2026-09-15): GBI's own product cards keep showing a price
+even when an item is out of stock, and unlike A&E there's no "Out of Stock"
+wording on the card at all -- instead the add-to-cart icon's image file
+switches from "cart.svg" to "cart-out.svg" (confirmed on the live "Chivas
+Regal 18 Year Old Blended Whisky" and "Fireball Whisky Liqueur" listings).
+Fixed by checking each card for that icon and recording in_stock
+accordingly, so the site can show "Out of Stock" for GBI instead of a
+live-looking price.
+
 Run with: python scrapers/gbi.py
 Requires: playwright (and `playwright install chromium` once, done in CI).
 """
@@ -145,10 +154,14 @@ def scrape_term(page, term, debug=False):
             text = card.inner_text()
             name, href = pick_card_name(card)
             price = extract_price(text)
+            # GBI marks an unavailable item by swapping the cart icon's image
+            # to "cart-out.svg" instead of any wording on the card itself.
+            out_of_stock = card.query_selector("img[src*='cart-out']") is not None
             if debug and page_num == 1:
-                print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
+                print(f"    [DEBUG] card {i}: name={name!r} price={price!r} out_of_stock={out_of_stock}", file=sys.stderr)
             if name and price is not None:
-                results.append({"name": name, "price_bhd": price, "url": href, "retailer": "GBI Express",
+                results.append({"name": name, "price_bhd": price, "in_stock": not out_of_stock,
+                                 "url": href, "retailer": "GBI Express",
                                  "category": guess_category(name)})
                 found_any = True
         if not found_any:
