@@ -1632,6 +1632,14 @@
     "category": "Whisky"
   },
   {
+    "name": "CISK EXCEL 4.2% 24 X 50CL CANS",
+    "price_bhd": 26.4,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/cisk-excel-4?limit=100",
+    "retailer": "NHSC",
+    "category": "Beer"
+  },
+  {
     "name": "HEINEKEN 24 X 33CL BOTTLES",
     "price_bhd": 35.0,
     "in_stock": true,
@@ -2180,14 +2188,6 @@
     "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine?product_id=1962&limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "LAMOTHE PARROT RESERVE SWEET ROUGE 75CL",
-    "price_bhd": 3.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine?product_id=1961&limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
