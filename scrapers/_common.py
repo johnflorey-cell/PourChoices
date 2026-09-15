@@ -10,13 +10,36 @@ broadly and take the smallest number found near each product card, since a
 discounted item shows both its sale price and its struck-through original price,
 and the smallest is what a customer actually pays.
 
-Category guessing fix (2026-09-15): guess_category() used to check whether a
+Category guessing fix #1 (2026-09-15): guess_category() used to check whether a
 keyword like "ale" appeared ANYWHERE inside the text, including in the middle
 of an unrelated word. That's why wines and other non-beer products were
 showing up under the Beer category: "Ducale", "Salento", "Moncigale", "Whale"
 and "Pale" all contain the letters "ale" as a substring even though none of
 them have anything to do with beer. Fixed by only matching a keyword when it
 appears as its own whole word.
+
+Category guessing fix #2 (2026-09-15): the keyword lists only covered generic
+category words ("beer", "lager", "whisky", ...), so a well-known brand whose
+own product name doesn't happen to include one of those words fell through to
+"Other Spirits" even though any shopper would recognise it instantly: "Heineken
+Can 33cl", "Budweiser Cans 35.5cl", "Carlsberg Cans 50cl" and "Stella Artois
+Cans" all have no literal "beer" or "lager" in the name, and "Johnnie Walker
+Double Black 1LTR" has no literal "whisky" in the name either. Fixed by adding
+the major brand names sold by these 4 retailers directly to the relevant
+category's keyword list, so the brand itself is enough to categorise correctly
+even when the generic category word is missing from that particular listing.
+
+Out-of-stock detection (2026-09-15): BMMI's own fix already skips a product
+with no price left after removing the related-products carousel (see
+bmmi.py) rather than borrowing another product's price, but until now a
+genuinely out-of-stock item on A&E/GBI/NHSC was still recorded as if it were
+a normal, purchasable listing, with no way for the site to tell a visitor
+"this retailer carries it but it's currently out of stock" instead of
+showing a plain price as if it were available right now. Added
+looks_out_of_stock() below as a shared text-phrase check the Playwright
+scrapers can use (each site's own out-of-stock signal still needs checking
+against a real run; see the note in looks_out_of_stock() itself and each
+scraper's own docstring for what's confirmed vs. best-effort per retailer).
 """
 import json
 import os
@@ -30,9 +53,21 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 # Maps a search term or a keyword found in a product name to one of the app's
 # 7 category chips (Whisky, Beer, Gin, Vodka, Wine, Champagne, Other Spirits).
+# Generic category words come first in each list; well-known brand names are
+# appended afterwards so a listing missing the generic word (e.g. "Heineken
+# Can 33cl" has no literal "beer") still lands in the right place.
 CATEGORY_KEYWORDS = [
-    (("whisky", "whiskey", "scotch", "bourbon"), "Whisky"),
-    (("beer", "lager", "ale", "cider", "stout"), "Beer"),
+    (("whisky", "whiskey", "scotch", "bourbon",
+      # Brand names that don't always include "whisky" in the listing itself.
+      "johnnie walker", "jack daniel", "chivas", "jameson", "glenfiddich",
+      "glenlivet", "macallan", "ballantine", "grouse", "bushmills",
+      "teacher", "dewar"), "Whisky"),
+    (("beer", "lager", "ale", "cider", "stout",
+      # Major beer brands whose own product name often skips the word "beer".
+      "heineken", "budweiser", "bud light", "carlsberg", "amstel", "corona",
+      "stella", "guinness", "kingfisher", "san miguel", "tiger", "asahi",
+      "sapporo", "fosters", "coors", "miller", "peroni", "beck",
+      "grolsch", "hoegaarden", "erdinger", "tsingtao", "leffe"), "Beer"),
     (("gin",), "Gin"),
     (("vodka",), "Vodka"),
     (("wine", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
@@ -48,7 +83,9 @@ def guess_category(text):
 
     Matches each keyword as a whole word only (using \\b word boundaries), not
     as a substring, so a keyword like "ale" matches the word "ale" but not
-    the "ale" hiding inside "Ducale", "Salento", "Whale" or "Pale"."""
+    the "ale" hiding inside "Ducale", "Salento", "Whale" or "Pale". A
+    multi-word keyword like "johnnie walker" or "bud light" matches the same
+    way, as a whole phrase with a word boundary on each side."""
     lowered = text.lower()
     for keywords, category in CATEGORY_KEYWORDS:
         for kw in keywords:
@@ -61,6 +98,30 @@ def extract_price(text):
     """Return the smallest BD-style price found in a chunk of text, or None."""
     matches = [float(m) for m in PRICE_RE.findall(text)]
     return min(matches) if matches else None
+
+
+# Phrases these sites use on a product card to say an item can't currently be
+# bought, even though a price is often still shown alongside it (A&E keeps
+# showing the price with "Out Of Stock" printed right next to it). Checked as
+# whole words/phrases, case-insensitive, against the card's own visible text.
+OUT_OF_STOCK_PHRASES = (
+    "out of stock", "sold out", "notify me", "notify when back",
+    "currently unavailable", "unavailable",
+)
+
+
+def looks_out_of_stock(text):
+    """True if any known out-of-stock phrase appears in this card/page's own
+    visible text. Best-effort: confirmed against African & Eastern's own
+    wording ("Out Of Stock" printed on the card); GBI Express instead marks
+    an unavailable item with a different cart-button icon (handled directly
+    in gbi.py, not through this text check) rather than any wording, so this
+    function won't catch GBI's case. NHSC's own wording wasn't confirmed
+    directly, so treat a False from this function for NHSC as "no known
+    out-of-stock phrase seen", not a confirmed in-stock status, until a real
+    run has been eyeballed against the live site."""
+    lowered = text.lower()
+    return any(phrase in lowered for phrase in OUT_OF_STOCK_PHRASES)
 
 
 def write_json(filename, results):
