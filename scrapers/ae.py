@@ -36,12 +36,21 @@ could surface an unrelated product, and that product would get permanently
 labelled "Beer" just because that's the term that found it. Now categorizes
 by the product's actual scraped name instead, same as bmmi.py and nhsc.py
 already did.
+
+Out-of-stock fix (2026-09-15): A&E's own product cards keep showing a price
+even when an item is out of stock, with "Out Of Stock" printed as plain text
+right on the card (confirmed on the live "Fix Beer 33cl [6-Pack]" listing).
+The old code had no way to tell that apart from a normal, purchasable
+listing, so the site showed a price as if you could actually buy it right
+now. Fixed by checking the card's own text for that phrase (via
+looks_out_of_stock() in _common.py) and recording in_stock accordingly,
+so the site can show "Out of Stock" for A&E instead of a live-looking price.
 """
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources
+from _common import extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources, looks_out_of_stock
 
 from playwright.sync_api import sync_playwright
 
@@ -154,10 +163,12 @@ def scrape_term(page, term, debug=False):
             text = card.inner_text()
             name, href = pick_card_name(card)
             price = extract_price(text)
+            out_of_stock = looks_out_of_stock(text)
             if debug and page_num == 1:
-                print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
+                print(f"    [DEBUG] card {i}: name={name!r} price={price!r} out_of_stock={out_of_stock}", file=sys.stderr)
             if name and price is not None:
-                results.append({"name": name, "price_bhd": price, "url": href, "retailer": "African & Eastern",
+                results.append({"name": name, "price_bhd": price, "in_stock": not out_of_stock,
+                                 "url": href, "retailer": "African & Eastern",
                                  "category": guess_category(name)})
                 found_any = True
         if not found_any:
