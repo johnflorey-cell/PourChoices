@@ -40,6 +40,32 @@ looks_out_of_stock() below as a shared text-phrase check the Playwright
 scrapers can use (each site's own out-of-stock signal still needs checking
 against a real run; see the note in looks_out_of_stock() itself and each
 scraper's own docstring for what's confirmed vs. best-effort per retailer).
+
+Category guessing fix #3 (2026-09-15): confirmed live that "Red Horse 50cl
+Cans X 24" and "Red Horse Extra Strong 33cl Cans X24" (both genuine beers --
+GBI's own product page describes "Red Horse" as a "Strong Lager") were
+landing in "Other Spirits" because the product name has no literal "beer" or
+"lager" in it, and "red horse" wasn't in the brand list added by fix #2 above.
+The same scan turned up a dozen more real beer brands sold across these 4
+sites that were falling into the same gap for the same reason: Benediktiner,
+Bira 91 (its "Boom Strong" cans, specifically -- the "Blonde Summer Lager"
+listings already matched on the word "lager"), Bitburger, Budvar, Buzz
+(the canned beer, not "Buzzballz", a separate tequila-based drink that
+doesn't share the whole word "buzz"), Carling, Greenberg, Kalyani, Kilkenny,
+Malayali, Singha, VITALSBERG, and "San Mig" as a shorthand for San Miguel
+(San Miguel itself was already in the list, but "San Mig Light 33cl Bottles
+X24" abbreviates the name enough that it didn't match). All of these are
+added to the Beer brand list below, the same fix as #2, just catching up on
+brands #2 missed rather than a new mechanism.
+
+Note: the product's own page on GBI's site (as opposed to the search-results
+list this scraper actually reads) prints a fuller description that also says
+"Strong Lager" in so many words. That description text isn't available here
+because the scraper only visits GBI's search-results pages -- reading each
+product's own page too would mean one extra page load per product (roughly
+1,700+ more requests through the paid Bright Data proxy every single scrape,
+on top of what's already fetched), so the brand-list approach above is the
+cheaper general fix and was preferred over visiting every product page.
 """
 import json
 import os
@@ -65,9 +91,14 @@ CATEGORY_KEYWORDS = [
     (("beer", "lager", "ale", "cider", "stout",
       # Major beer brands whose own product name often skips the word "beer".
       "heineken", "budweiser", "bud light", "carlsberg", "amstel", "corona",
-      "stella", "guinness", "kingfisher", "san miguel", "tiger", "asahi",
-      "sapporo", "fosters", "coors", "miller", "peroni", "beck",
-      "grolsch", "hoegaarden", "erdinger", "tsingtao", "leffe"), "Beer"),
+      "stella", "guinness", "kingfisher", "san miguel", "san mig", "tiger",
+      "asahi", "sapporo", "fosters", "coors", "miller", "peroni", "beck",
+      "grolsch", "hoegaarden", "erdinger", "tsingtao", "leffe",
+      # Added by category guessing fix #3: more beer brands found missing
+      # the same way (name has no "beer"/"lager" wording of its own).
+      "red horse", "benediktiner", "bira", "bitburger", "budvar", "buzz",
+      "carling", "greenberg", "kalyani", "kilkenny", "malayali", "singha",
+      "vitalsberg"), "Beer"),
     (("gin",), "Gin"),
     (("vodka",), "Vodka"),
     (("wine", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
