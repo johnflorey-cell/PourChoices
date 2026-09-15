@@ -9,6 +9,14 @@ Price parsing: all three sites price in Bahraini Dinar, almost always printed as
 broadly and take the smallest number found near each product card, since a
 discounted item shows both its sale price and its struck-through original price,
 and the smallest is what a customer actually pays.
+
+Category guessing fix (2026-09-15): guess_category() used to check whether a
+keyword like "ale" appeared ANYWHERE inside the text, including in the middle
+of an unrelated word. That's why wines and other non-beer products were
+showing up under the Beer category: "Ducale", "Salento", "Moncigale", "Whale"
+and "Pale" all contain the letters "ale" as a substring even though none of
+them have anything to do with beer. Fixed by only matching a keyword when it
+appears as its own whole word.
 """
 import json
 import os
@@ -36,11 +44,16 @@ CATEGORY_KEYWORDS = [
 
 def guess_category(text):
     """Best-effort category guess from a search term or product name. Falls
-    back to "Other Spirits" (the app's catch-all) when nothing matches."""
+    back to "Other Spirits" (the app's catch-all) when nothing matches.
+
+    Matches each keyword as a whole word only (using \\b word boundaries), not
+    as a substring, so a keyword like "ale" matches the word "ale" but not
+    the "ale" hiding inside "Ducale", "Salento", "Whale" or "Pale"."""
     lowered = text.lower()
     for keywords, category in CATEGORY_KEYWORDS:
-        if any(kw in lowered for kw in keywords):
-            return category
+        for kw in keywords:
+            if re.search(r"\b" + re.escape(kw) + r"\b", lowered):
+                return category
     return "Other Spirits"
 
 
