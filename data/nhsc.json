@@ -25,28 +25,28 @@
     "price_bhd": 8.5,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDER-VODKA-1LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Beer"
+    "category": "Vodka"
   },
   {
     "name": "ALEXANDER VODKA ORANGE 1LTR",
     "price_bhd": 8.5,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDER-VODKA-ORANGE-1LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Beer"
+    "category": "Vodka"
   },
   {
     "name": "ALEXANDRION 5 STAR BRANDY 1LTR",
     "price_bhd": 8.8,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDRION-5-Star-Brandy-1LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Beer"
+    "category": "Other Spirits"
   },
   {
     "name": "ALEXANDRION 7 STAR BRANDY 1LTR",
     "price_bhd": 9.9,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDRION-7-Star-Brandy-1LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Beer"
+    "category": "Other Spirits"
   },
   {
     "name": "AMARULA CREAM LIQUEUR 75CL",
@@ -1166,7 +1166,7 @@
     "price_bhd": 15.0,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Original-Dark-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Gin"
+    "category": "Other Spirits"
   },
   {
     "name": "PLANTATION RUM 5 YEARS OLD 70CL",
@@ -1187,7 +1187,7 @@
     "price_bhd": 15.4,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Stiggins-Pineapple-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Gin"
+    "category": "Other Spirits"
   },
   {
     "name": "POLIAKOV VODKA CARAMEL 70CL",
@@ -1419,13 +1419,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/zero-Hour-Whisky-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Whisky"
-  },
-  {
-    "name": "CISK EXCEL 4.2% 24 X 50CL CANS",
-    "price_bhd": 26.4,
-    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/cisk-excel-4?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
   },
   {
     "name": "HEINEKEN 24 X 33CL BOTTLES",
@@ -2013,7 +2006,7 @@
     "price_bhd": 8.8,
     "url": "https://www.nhscbahrain.com/wines-wine/MASCHIO-PROSECCO-BIOLOGICO-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "MICHAEL DAVID WINERY EARTHQUAKE CABERNET SAUVIGNON 75CL",
@@ -2034,28 +2027,28 @@
     "price_bhd": 9.0,
     "url": "https://www.nhscbahrain.com/wines-wine/Freakshow-Zinfandel-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Other Spirits"
   },
   {
     "name": "MICHAEL DAVID WINERY INKBLOT PETITE VERDOT 75CL",
     "price_bhd": 13.2,
     "url": "https://www.nhscbahrain.com/wines-wine/Inkblot-Petite-Verdot-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Other Spirits"
   },
   {
     "name": "MICHAEL DAVID WINERY LUXURY LUST ZINFANDEL 75CL",
     "price_bhd": 22.0,
     "url": "https://www.nhscbahrain.com/wines-wine/Michael-David-Winery-Luxury-Lust-Zinfandel-75cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Other Spirits"
   },
   {
     "name": "MICHAEL DAVID WINERY PETITE PETIT PETITE SYRAH & PETIT VERDOT 75CL",
     "price_bhd": 8.0,
     "url": "https://www.nhscbahrain.com/wines-wine/Petite-Petit-Petite-Syrah-Petit-Verdot-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Other Spirits"
   },
   {
     "name": "MINIMALISTA ROSE 75CL",
@@ -2342,14 +2335,14 @@
     "price_bhd": 8.8,
     "url": "https://www.nhscbahrain.com/wines-wine/RIUNITE-PROSECCO-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "RIVANI PROSECCO SPUMANTE 75CL",
     "price_bhd": 8.8,
     "url": "https://www.nhscbahrain.com/wines-wine/RIVANI-PROSECCO-SPUMANTE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "SHADOW POINT CHARDONNAY 75CL",
@@ -2503,14 +2496,14 @@
     "price_bhd": 7.7,
     "url": "https://www.nhscbahrain.com/wines-wine/Voga-prosecco-extra-dry-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "VOGA PROSECCO SPUMANTE 75CL",
     "price_bhd": 7.2,
     "url": "https://www.nhscbahrain.com/wines-wine?product_id=1939&limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "VOGA ROSATO DELLE VENEZIE 75CL",
@@ -2622,13 +2615,13 @@
     "price_bhd": 7.7,
     "url": "https://www.nhscbahrain.com/wines-wine/sparkling/Voga-prosecco-extra-dry-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "VOGA PROSECCO SPUMANTE 75CL",
     "price_bhd": 7.2,
     "url": "https://www.nhscbahrain.com/wines-wine/sparkling?product_id=1939&limit=100",
     "retailer": "NHSC",
-    "category": "Wine"
+    "category": "Champagne"
   }
 ]
