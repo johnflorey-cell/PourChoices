@@ -28,6 +28,14 @@ term. Fixed by picking the LONGEST non-boilerplate link text in each card
 (a real product name is reliably longer than "Wishlist"/"Compare"/etc), and
 by printing what each card resolved to on the debug page so a still-empty
 result shows exactly why in the Actions log instead of just a final count.
+
+Category fix (2026-09-15): this used to categorize every result by whichever
+SEARCH TERM found it (guess_category(term)), not by the product's own name.
+A&E's own search box doesn't only return exact matches, so searching "beer"
+could surface an unrelated product, and that product would get permanently
+labelled "Beer" just because that's the term that found it. Now categorizes
+by the product's actual scraped name instead, same as bmmi.py and nhsc.py
+already did.
 """
 import sys
 from pathlib import Path
@@ -55,7 +63,6 @@ NAME_BLOCKLIST = {
     "notify me", "out of stock", "add", "share", "",
 }
 
-
 def safe_goto(page, url, timeout=NAV_TIMEOUT):
     """page.goto with one retry, so a single slow/interrupted navigation
     (common when running through a proxy) doesn't throw away an entire
@@ -65,7 +72,6 @@ def safe_goto(page, url, timeout=NAV_TIMEOUT):
     except Exception:
         page.wait_for_timeout(3000)
         page.goto(url, wait_until="domcontentloaded", timeout=timeout)
-
 
 def dismiss_age_gate(page):
     safe_goto(page, BASE)
@@ -111,7 +117,6 @@ def dismiss_age_gate(page):
             submit_btn.click()
         page.wait_for_timeout(4000)
 
-
 def pick_card_name(card):
     """Return (name, href) for a product card, using the LONGEST non-junk
     link text instead of the first one, since real product names are
@@ -125,7 +130,6 @@ def pick_card_name(card):
             best_name = t
             best_href = a.get_attribute("href")
     return best_name, best_href
-
 
 def scrape_term(page, term, debug=False):
     results = []
@@ -154,13 +158,12 @@ def scrape_term(page, term, debug=False):
                 print(f"    [DEBUG] card {i}: name={name!r} price={price!r}", file=sys.stderr)
             if name and price is not None:
                 results.append({"name": name, "price_bhd": price, "url": href, "retailer": "African & Eastern",
-                                 "category": guess_category(term)})
+                                 "category": guess_category(name)})
                 found_any = True
         if not found_any:
             break
         polite_sleep(1)
     return results
-
 
 def main():
     all_results = []
@@ -186,7 +189,6 @@ def main():
                     all_results.append(item)
         browser.close()
     write_json("ae.json", all_results)
-
 
 if __name__ == "__main__":
     main()
