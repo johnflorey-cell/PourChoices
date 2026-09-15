@@ -12,11 +12,13 @@ Compliance notes (checked against https://www.bmmishops.com/robots.txt on 2026-0
 
 Output: data/bmmi.json, a flat list of {name, price_bhd, url, retailer: "BMMI"}.
 
-Note on selectors: BMMI's product pages have no JSON-LD/structured data, so this
-parses the plain HTML. If BMMI changes their template, the price regex below (it
-matches "BD" followed by a number, e.g. "BD 36.750") is the most likely thing to
-need adjusting; run this once locally and eyeball a few entries against the live
-site before trusting a fresh scrape.
+Note on selectors: every BMMI product page carries a schema.org JSON-LD block
+(`<script type="application/ld+json">` with `"@type": "Product"`) whose
+`offers.price` is that product's own price, scoped to exactly one product
+with no risk of picking up anything else on the page. That is now the
+primary price source (see `jsonld_price` below). The old "BD X.XXX" regex
+scan of the HTML is kept only as a fallback for the rare page where the
+JSON-LD block is missing or malformed.
 
 Price extraction fix (2026-09-15): the site is built on Magento, and every
 product page ends with a "Related Products" carousel that also lists OTHER
@@ -30,16 +32,32 @@ different pack sizes, were all showing the identical price of BHD 5.450: that
 figure belonged to a popular related beer that BMMI's site recommends on lots
 of other beer pages, not to the product itself.
 
-Fixed by narrowing the search to the main product area only: Magento's
-default theme wraps the primary product info (name, price box, add-to-cart)
-in a container with "product-info-main" in its class, which sits separately
-from the "related"/"upsell"/"viewed"/"crosssell" widgets. We now look for
-that container first; if a template change means it isn't found, we fall
-back to removing the related/upsell/viewed/crosssell blocks from the page
-before searching, so a stray related-product price can't be picked up either
-way. A product with no price left after this (e.g. genuinely out of stock,
-showing "BD 0.000" or nothing) is correctly skipped and shows as N/A/"not
-carried" on the site, rather than borrowing someone else's price.
+First attempted fix (2026-09-15, superseded below): narrow the search to the
+main product area only, on the theory that Magento's default theme wraps the
+primary product info (name, price box, add-to-cart) in a container with
+"product-info-main" in its class, separate from the "related"/"upsell"/
+"viewed"/"crosssell" widgets, falling back to stripping those widgets out of
+the whole page if that container wasn't found.
+
+Price extraction fix, part 2 (2026-09-15): the "product-info-main" fix above
+did not actually work, because on this theme the Related Products carousel
+(`<section id="catalog_product_related" ...>`) is nested INSIDE
+"product-info-main", not outside it -- so narrowing to that container still
+included every related product's price, and the fallback-stripping code
+never even ran because the container was always found. Caught when "Paragon
+Timur Berry 48.5cl" scraped as BD 8.700 (a price shared by several unrelated
+Bols-brand liqueurs in its related-products carousel) when the live page's
+own price box, itemprop meta tags, and JSON-LD all agreed on BD 9.800.
+Fixed properly this time by reading the price straight out of the page's
+JSON-LD `offers.price` instead of trying to scope a regex search to a
+container at all -- see `jsonld_price`. The HTML container/regex approach is
+kept only as a last-resort fallback for a page with no usable JSON-LD, and in
+that fallback path the related/upsell/viewed/crosssell widgets are always
+stripped out first (never trusted to a container lookup) so a stray
+related-product price can't be picked up either way. A product with no price
+left after this (e.g. genuinely out of stock, showing "BD 0.000" or nothing)
+is correctly skipped and shows as N/A/"not carried" on the site, rather than
+borrowing someone else's price.
 
 Out-of-stock fix (2026-09-15): "no price left" used to mean the whole
 product was dropped from bmmi.json entirely, which told the site BMMI
@@ -97,15 +115,47 @@ def fetch_sitemap_urls():
     return product_urls
 
 
-def main_product_html(soup):
-    """Return the HTML text to search for THIS product's own price, with any
-    other-product widgets (related/upsell/viewed/crosssell) excluded."""
-    main = soup.find(class_=lambda c: c and "product-info-main" in c)
-    if main:
-        return str(main)
+def jsonld_price(soup):
+    """Return this product's own price (float) from the page's schema.org
+    JSON-LD Product/Offer block, or None if it's missing/unparsable.
 
-    # Template didn't match what we expected; fall back to stripping out any
-    # other-product widget from the whole page before searching it.
+    This is scoped to exactly one product per page by construction -- there
+    is no "Related Products" carousel or other widget to accidentally read
+    from, unlike a regex scan of the rendered HTML."""
+    for tag in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = json.loads(tag.string or "")
+        except (TypeError, ValueError):
+            continue
+        candidates = data if isinstance(data, list) else [data]
+        for candidate in candidates:
+            if not isinstance(candidate, dict):
+                continue
+            if candidate.get("@type") != "Product":
+                continue
+            offers = candidate.get("offers")
+            if isinstance(offers, list):
+                offers = offers[0] if offers else None
+            if not isinstance(offers, dict):
+                continue
+            price = offers.get("price")
+            if price is None:
+                continue
+            try:
+                return float(price)
+            except (TypeError, ValueError):
+                continue
+    return None
+
+
+def main_product_html(soup):
+    """Fallback only (used when the page has no usable JSON-LD): return the
+    HTML text to search for THIS product's own price, with any
+    other-product widgets (related/upsell/viewed/crosssell) excluded.
+
+    Note: on this theme the "product-info-main" container includes the
+    Related Products carousel, so it is NOT a safe way to scope the search --
+    the widgets below are always stripped from the whole page first."""
     for hint in OTHER_PRODUCT_WIDGET_HINTS:
         for el in soup.find_all(id=lambda v: v and hint in v.lower()):
             el.decompose()
@@ -129,18 +179,25 @@ def parse_product_page(url):
     if not name:
         return None
 
-    search_area = main_product_html(soup)
-    prices = [float(m) for m in PRICE_RE.findall(search_area) if float(m) > 0]
-    if not prices:
+    price = jsonld_price(soup)
+    if price is None:
+        # No usable JSON-LD on this page; fall back to a widget-stripped
+        # regex scan of the whole page (see main_product_html).
+        search_area = main_product_html(soup)
+        prices = [float(m) for m in PRICE_RE.findall(search_area) if float(m) > 0]
+        if prices:
+            # When a sale is running the page shows both the discounted and
+            # the original price; the lower of the two is what a customer
+            # actually pays.
+            price = min(prices)
+
+    if price is None or price <= 0:
         # Genuinely out of stock (BMMI shows "Notify Me" with no price), not a
         # parsing failure -- we did find a real product name on a real product
         # page, there's just nothing to buy right now. Record it anyway so the
         # site can say "Out of Stock" for BMMI instead of "Not carried".
         return {"name": name, "price_bhd": None, "in_stock": False, "url": url,
                 "retailer": "BMMI", "category": guess_category(name)}
-    # When a sale is running the page shows both the discounted and the original
-    # price; the lower of the two is what a customer actually pays.
-    price = min(prices)
 
     return {"name": name, "price_bhd": price, "in_stock": True, "url": url,
             "retailer": "BMMI", "category": guess_category(name)}
@@ -158,7 +215,7 @@ def main():
             if item:
                 results.append(item)
                 price_note = f"BD {item['price_bhd']:.3f}" if item["price_bhd"] is not None else "out of stock"
-                print(f"[{i}/{len(product_urls)}] OK  {item['name']} — {price_note}", file=sys.stderr)
+                print(f"[{i}/{len(product_urls)}] OK  {item['name']} - {price_note}", file=sys.stderr)
             else:
                 print(f"[{i}/{len(product_urls)}] SKIP (no product name found) {url}", file=sys.stderr)
         except requests.RequestException as e:
