@@ -479,7 +479,18 @@
             // Strips apostrophes/punctuation before comparing, so typing "Becks"
             // (no apostrophe) still finds "Beck's" (with one) in the catalogue --
             // a plain substring match on the raw text would miss it otherwise.
-            const searchNormalize = (s) => s.toLowerCase().replace(/['’.,]/g, "");
+            //
+            // Accent-folding fix (2026-09-15): also flattens accented letters to
+            // their plain-English equivalent (normalize("NFD") splits a letter
+            // like "ö" into a plain "o" plus a separate invisible accent mark,
+            // then the regex strips that mark off), so typing "Lowenbrau" (or
+            // "Anejo", "Chateau", "Cafe", "Rose", ...) still finds "Löwenbräu"
+            // ("1800 Añejo Tequila", "Château Montlabert", "Bardinet Liqueur
+            // Café", "Carlo Rossi Rosè") in the catalogue -- confirmed live that
+            // over 130 real products in the catalogue have an accented letter in
+            // their proper spelling, and none of them were reachable by typing
+            // the plain-English version of their name before this fix.
+            const searchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
             const query = searchNormalize(document.getElementById("search-bar").value);
 
             // Price range filter: reads the two boxes fresh on every render so
