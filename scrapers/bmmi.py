@@ -40,6 +40,16 @@ before searching, so a stray related-product price can't be picked up either
 way. A product with no price left after this (e.g. genuinely out of stock,
 showing "BD 0.000" or nothing) is correctly skipped and shows as N/A/"not
 carried" on the site, rather than borrowing someone else's price.
+
+Out-of-stock fix (2026-09-15): "no price left" used to mean the whole
+product was dropped from bmmi.json entirely, which told the site BMMI
+doesn't carry it at all, exactly the same as if it genuinely wasn't in
+BMMI's catalog. That's misleading when the real reason is that it's simply
+out of stock right now (BMMI's own page shows "Notify Me" with no price in
+that case, as confirmed on the live "Red Rose Extra Strong Beer" page
+during the earlier price-bug investigation). Fixed by still recording the
+product, with price_bhd set to null and in_stock set to false, so the site
+can show "Out of Stock" for that retailer instead of "Not carried".
 """
 import json
 import re
@@ -122,13 +132,18 @@ def parse_product_page(url):
     search_area = main_product_html(soup)
     prices = [float(m) for m in PRICE_RE.findall(search_area) if float(m) > 0]
     if not prices:
-        return None
+        # Genuinely out of stock (BMMI shows "Notify Me" with no price), not a
+        # parsing failure -- we did find a real product name on a real product
+        # page, there's just nothing to buy right now. Record it anyway so the
+        # site can say "Out of Stock" for BMMI instead of "Not carried".
+        return {"name": name, "price_bhd": None, "in_stock": False, "url": url,
+                "retailer": "BMMI", "category": guess_category(name)}
     # When a sale is running the page shows both the discounted and the original
     # price; the lower of the two is what a customer actually pays.
     price = min(prices)
 
-    return {"name": name, "price_bhd": price, "url": url, "retailer": "BMMI",
-            "category": guess_category(name)}
+    return {"name": name, "price_bhd": price, "in_stock": True, "url": url,
+            "retailer": "BMMI", "category": guess_category(name)}
 
 
 def main():
@@ -142,9 +157,10 @@ def main():
             item = parse_product_page(url)
             if item:
                 results.append(item)
-                print(f"[{i}/{len(product_urls)}] OK  {item['name']} — BD {item['price_bhd']:.3f}", file=sys.stderr)
+                price_note = f"BD {item['price_bhd']:.3f}" if item["price_bhd"] is not None else "out of stock"
+                print(f"[{i}/{len(product_urls)}] OK  {item['name']} — {price_note}", file=sys.stderr)
             else:
-                print(f"[{i}/{len(product_urls)}] SKIP (no name/price found) {url}", file=sys.stderr)
+                print(f"[{i}/{len(product_urls)}] SKIP (no product name found) {url}", file=sys.stderr)
         except requests.RequestException as e:
             print(f"[{i}/{len(product_urls)}] ERROR {url}: {e}", file=sys.stderr)
         time.sleep(SLEEP_SECONDS)
