@@ -68,6 +68,34 @@ that case, as confirmed on the live "Red Rose Extra Strong Beer" page
 during the earlier price-bug investigation). Fixed by still recording the
 product, with price_bhd set to null and in_stock set to false, so the site
 can show "Out of Stock" for that retailer instead of "Not carried".
+
+Price extraction fix, part 3 (2026-09-15): after switching to JSON-LD, a
+fresh run showed the SAME bleed signature again, but much worse and on a
+huge scale: 1,716 products collapsed down to only 58 distinct prices, with
+one single price (BD 4.300) shared by 347 completely unrelated wines. Two
+things were going on. First, product pages that are genuinely out of stock
+(confirmed live: "Grey Goose Vodka Original 37.5cl" and "...4.5L" both show
+"BD 0.000" and a "Notify Me" button) don't carry a JSON-LD Product block at
+all, so every one of them fell through to the old regex fallback, which
+scans the ENTIRE page text for "BD X.XXX" and takes the smallest match --
+and that fallback doesn't just risk the Related Products carousel, it was
+also catching whatever this theme's price-range/layered-navigation filter
+widget prints ("BD 3.300 - BD 4.300" style bucket boundaries), which repeats
+the exact same handful of round numbers across thousands of otherwise
+unrelated pages. That fully explains the 58-distinct-prices pattern.
+Fixed by dropping the whole-page text-regex fallback entirely (it has now
+caused this exact class of bug twice) in favour of a second precise,
+structured source: schema.org microdata (itemprop="price"), which -- unlike
+plain "BD X.XXX" text -- a filter widget has no reason to carry, since
+microdata exists specifically to mark up one real entity's own property,
+not decorative UI text. That microdata search is still scoped to the
+product-info-main container with the related/upsell/viewed/crosssell
+widgets stripped out of a disposable copy first (never trusting the
+container by itself, since it's already confirmed to nest the Related
+Products carousel on this theme), so it inherits the same protection the
+JSON-LD path already has. If NEITHER JSON-LD nor this microdata check finds
+a price, the product is recorded as out of stock/no price rather than
+guessing from raw text again.
 """
 import json
 import re
@@ -95,15 +123,14 @@ PRODUCT_SLUG_RE = re.compile(
     r"-(?:\d+(?:-\d+)?(?:cl|l|ml)|mini-\d+cl|\d+-pack)\.html$", re.IGNORECASE
 )
 
-PRICE_RE = re.compile(r"BD\s*([0-9]+\.[0-9]{3})")
-
 # Magento block naming conventions for the widgets that list OTHER products'
 # prices on a product page (related items, "you may also like" upsells,
 # recently-viewed carousel, cross-sell suggestions in the cart/checkout flow).
 # Any element whose id or class contains one of these must be excluded before
 # we search for a price, so we never mistake one of THEIR prices for this
 # product's own.
-OTHER_PRODUCT_WIDGET_HINTS = ("related", "upsell", "viewed-products", "crosssell")
+OTHER_PRODUCT_WIDGET_HINTS = ("related", "upsell", "viewed-products", "crosssell",
+                               "filter", "layered", "sidebar", "toolbar")
 
 
 def fetch_sitemap_urls():
@@ -115,6 +142,23 @@ def fetch_sitemap_urls():
     return product_urls
 
 
+def _iter_jsonld_nodes(data):
+    """Walk a parsed JSON-LD payload and yield every dict node in it,
+    however it's wrapped: a single object, a list of objects, or an object
+    that bundles several types together under "@graph" (a common pattern
+    when a page emits Product + BreadcrumbList + Organization etc. as one
+    script tag instead of separate ones)."""
+    if isinstance(data, dict):
+        yield data
+        graph = data.get("@graph")
+        if isinstance(graph, list):
+            for node in graph:
+                yield from _iter_jsonld_nodes(node)
+    elif isinstance(data, list):
+        for node in data:
+            yield from _iter_jsonld_nodes(node)
+
+
 def jsonld_price(soup):
     """Return this product's own price (float) from the page's schema.org
     JSON-LD Product/Offer block, or None if it's missing/unparsable.
@@ -124,16 +168,15 @@ def jsonld_price(soup):
     from, unlike a regex scan of the rendered HTML."""
     for tag in soup.find_all("script", type="application/ld+json"):
         try:
-            data = json.loads(tag.string or "")
+            data = json.loads(tag.string or tag.get_text() or "")
         except (TypeError, ValueError):
             continue
-        candidates = data if isinstance(data, list) else [data]
-        for candidate in candidates:
-            if not isinstance(candidate, dict):
+        for node in _iter_jsonld_nodes(data):
+            if not isinstance(node, dict):
                 continue
-            if candidate.get("@type") != "Product":
+            if node.get("@type") != "Product":
                 continue
-            offers = candidate.get("offers")
+            offers = node.get("offers")
             if isinstance(offers, list):
                 offers = offers[0] if offers else None
             if not isinstance(offers, dict):
@@ -148,20 +191,51 @@ def jsonld_price(soup):
     return None
 
 
-def main_product_html(soup):
-    """Fallback only (used when the page has no usable JSON-LD): return the
-    HTML text to search for THIS product's own price, with any
-    other-product widgets (related/upsell/viewed/crosssell) excluded.
-
-    Note: on this theme the "product-info-main" container includes the
-    Related Products carousel, so it is NOT a safe way to scope the search --
-    the widgets below are always stripped from the whole page first."""
+def _widget_stripped_copy(area_html):
+    """Parse area_html into its own disposable soup and strip out any
+    element whose id/class hints at being an OTHER product's widget
+    (related/upsell/viewed/crosssell), so whatever we search next can't
+    accidentally read one of THEIR prices."""
+    area = BeautifulSoup(area_html, "html.parser")
     for hint in OTHER_PRODUCT_WIDGET_HINTS:
-        for el in soup.find_all(id=lambda v: v and hint in v.lower()):
+        for el in area.find_all(id=lambda v: v and hint in v.lower()):
             el.decompose()
-        for el in soup.find_all(class_=lambda v: v and any(hint in c.lower() for c in v)):
+        for el in area.find_all(class_=lambda v: v and any(hint in c.lower() for c in v)):
             el.decompose()
-    return str(soup)
+    return area
+
+
+def microdata_price(soup):
+    """Fallback used only when the page has no usable JSON-LD: look for
+    schema.org microdata (itemprop="price") scoped to the main product only.
+
+    Magento's default theme wraps the primary product info in a container
+    with "product-info-main" in its class, but on this site that same
+    container also nests the Related Products carousel, so the container
+    is never trusted by itself -- the widgets are always stripped from a
+    disposable copy first (see _widget_stripped_copy).
+
+    Deliberately NOT a text regex scan of "BD X.XXX" anywhere on the page:
+    an earlier version of this file did that and it kept reading OTHER
+    things that happen to print that same pattern (the related carousel,
+    and -- confirmed on a live run -- this theme's price-range/layered-
+    navigation filter widget, e.g. "BD 3.300 - BD 4.300", which repeats the
+    same handful of round numbers across thousands of unrelated pages).
+    itemprop="price" is a deliberate, structured marker for one entity's
+    own price, so a filter widget's decorative text has no reason to carry
+    it, which is exactly why this is safe where a raw text scan wasn't."""
+    main = soup.find(class_=lambda c: c and "product-info-main" in c)
+    area = _widget_stripped_copy(str(main) if main else str(soup))
+    tag = area.find(attrs={"itemprop": "price"})
+    if not tag:
+        return None
+    raw = tag.get("content") or tag.get_text(strip=True)
+    if not raw:
+        return None
+    try:
+        return float(re.sub(r"[^0-9.]", "", raw))
+    except (TypeError, ValueError):
+        return None
 
 
 def parse_product_page(url):
@@ -181,15 +255,10 @@ def parse_product_page(url):
 
     price = jsonld_price(soup)
     if price is None:
-        # No usable JSON-LD on this page; fall back to a widget-stripped
-        # regex scan of the whole page (see main_product_html).
-        search_area = main_product_html(soup)
-        prices = [float(m) for m in PRICE_RE.findall(search_area) if float(m) > 0]
-        if prices:
-            # When a sale is running the page shows both the discounted and
-            # the original price; the lower of the two is what a customer
-            # actually pays.
-            price = min(prices)
+        # No usable JSON-LD on this page (confirmed: this is common on
+        # genuinely out-of-stock pages); fall back to the scoped microdata
+        # check instead of scanning the page's text (see microdata_price).
+        price = microdata_price(soup)
 
     if price is None or price <= 0:
         # Genuinely out of stock (BMMI shows "Notify Me" with no price), not a
