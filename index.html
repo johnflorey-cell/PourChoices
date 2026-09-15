@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -158,6 +159,13 @@
     <!-- 3. BETA FEEDBACK BUTTON + MODAL -->
     <button onclick="openFeedbackModal()" class="fixed bottom-5 right-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
         💬 Feedback
+    </button>
+
+    <!-- 4. SHARE BUTTON: uses the phone's native share sheet where available
+         (shareApp() below), and falls back to copying the link on desktop
+         browsers that don't have one. -->
+    <button onclick="shareApp()" class="fixed bottom-5 left-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
+        🔗 Share
     </button>
 
     <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
@@ -327,6 +335,31 @@
                 return;
             }
             alert("Look for \"Install app\" or \"Add to Home Screen\" in your browser's menu.");
+        }
+
+        // --- Share ---------------------------------------------------------------
+
+        // Phones (and most modern browsers) support the native share sheet
+        // (Messages/WhatsApp/Email/etc. picker); older desktop browsers don't,
+        // so there we just copy the link instead.
+        async function shareApp() {
+            const shareData = {
+                title: "Pour Choices",
+                text: "Compare alcohol prices across Bahrain's retailers with Pour Choices.",
+                url: window.location.href,
+            };
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (e) { /* visitor cancelled the share sheet, nothing to do */ }
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(shareData.url);
+                alert("Link copied! Paste it anywhere to share Pour Choices.");
+            } catch (e) {
+                alert("Share this link: " + shareData.url);
+            }
         }
 
         // --- Beta feedback -----------------------------------------------------
