@@ -17,6 +17,29 @@ parses the plain HTML. If BMMI changes their template, the price regex below (it
 matches "BD" followed by a number, e.g. "BD 36.750") is the most likely thing to
 need adjusting; run this once locally and eyeball a few entries against the live
 site before trusting a fresh scrape.
+
+Price extraction fix (2026-09-15): the site is built on Magento, and every
+product page ends with a "Related Products" carousel that also lists OTHER
+products' prices in the exact same "BD X.XXX" format used for the main price.
+The old code searched the WHOLE page for that pattern and took the lowest
+match, which was meant to handle a sale-price-vs-original-price situation on
+ONE product, but instead very often grabbed a cheap RELATED product's price
+off the carousel instead of the actual product's own price (or lack of one).
+This is exactly why many completely different beers, of different brands and
+different pack sizes, were all showing the identical price of BHD 5.450: that
+figure belonged to a popular related beer that BMMI's site recommends on lots
+of other beer pages, not to the product itself.
+
+Fixed by narrowing the search to the main product area only: Magento's
+default theme wraps the primary product info (name, price box, add-to-cart)
+in a container with "product-info-main" in its class, which sits separately
+from the "related"/"upsell"/"viewed"/"crosssell" widgets. We now look for
+that container first; if a template change means it isn't found, we fall
+back to removing the related/upsell/viewed/crosssell blocks from the page
+before searching, so a stray related-product price can't be picked up either
+way. A product with no price left after this (e.g. genuinely out of stock,
+showing "BD 0.000" or nothing) is correctly skipped and shows as N/A/"not
+carried" on the site, rather than borrowing someone else's price.
 """
 import json
 import re
@@ -46,6 +69,14 @@ PRODUCT_SLUG_RE = re.compile(
 
 PRICE_RE = re.compile(r"BD\s*([0-9]+\.[0-9]{3})")
 
+# Magento block naming conventions for the widgets that list OTHER products'
+# prices on a product page (related items, "you may also like" upsells,
+# recently-viewed carousel, cross-sell suggestions in the cart/checkout flow).
+# Any element whose id or class contains one of these must be excluded before
+# we search for a price, so we never mistake one of THEIR prices for this
+# product's own.
+OTHER_PRODUCT_WIDGET_HINTS = ("related", "upsell", "viewed-products", "crosssell")
+
 
 def fetch_sitemap_urls():
     resp = requests.get(SITEMAP_URL, headers=HEADERS, timeout=30)
@@ -54,6 +85,23 @@ def fetch_sitemap_urls():
     urls = [loc.text.strip() for loc in soup.find_all("loc")]
     product_urls = [u for u in urls if PRODUCT_SLUG_RE.search(urlparse(u).path)]
     return product_urls
+
+
+def main_product_html(soup):
+    """Return the HTML text to search for THIS product's own price, with any
+    other-product widgets (related/upsell/viewed/crosssell) excluded."""
+    main = soup.find(class_=lambda c: c and "product-info-main" in c)
+    if main:
+        return str(main)
+
+    # Template didn't match what we expected; fall back to stripping out any
+    # other-product widget from the whole page before searching it.
+    for hint in OTHER_PRODUCT_WIDGET_HINTS:
+        for el in soup.find_all(id=lambda v: v and hint in v.lower()):
+            el.decompose()
+        for el in soup.find_all(class_=lambda v: v and any(hint in c.lower() for c in v)):
+            el.decompose()
+    return str(soup)
 
 
 def parse_product_page(url):
@@ -71,7 +119,8 @@ def parse_product_page(url):
     if not name:
         return None
 
-    prices = [float(m) for m in PRICE_RE.findall(resp.text)if float(m)>0]
+    search_area = main_product_html(soup)
+    prices = [float(m) for m in PRICE_RE.findall(search_area) if float(m) > 0]
     if not prices:
         return None
     # When a sale is running the page shows both the discounted and the original
