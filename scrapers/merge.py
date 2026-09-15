@@ -10,6 +10,23 @@ site displays as "Prices last updated: ..." so visitors can see how fresh the
 data is.
 
 Run this after all 4 scrapers have produced their per-retailer JSON files.
+
+Matching fix (2026-09-15): the old matching only compared full normalized
+names character-by-character (difflib's SequenceMatcher ratio). That let two
+completely different products get merged into one row whenever the SURROUNDING
+words happened to line up closely even if the actual brand name didn't: BMMI's
+"Red Rose Extra Strong Beer 12% Can 50cl [24 Pack]" and GBI Express's
+"Red Horse Extra Strong 33cl Cans x24" scored as a "match" because both share
+"Red", "Extra Strong" and "Can(s)", even though "Rose" and "Horse" are
+different brands entirely. Fixed by also requiring the two names' SIGNIFICANT
+words (ignoring generic filler words like "extra", "strong", "can", "beer",
+"pack") to actually overlap by more than half; "Red Rose" vs "Red Horse" now
+correctly fails this check (their only shared significant word is "red") even
+though the old character-based score still looks close. This is a stricter
+rule than before, so a few genuinely-matching products that used to cluster
+might now show up as separate rows instead; that's the safer trade-off, since
+a wrong price merged into the wrong product is worse than two rows that could
+have been one.
 """
 import json
 import re
@@ -32,6 +49,20 @@ PUNCT_RE = re.compile(r"[^a-z0-9 ]+")
 
 MATCH_THRESHOLD = 0.72
 
+# Generic words that show up across many different brands/products and so
+# don't help tell two DIFFERENT products apart (e.g. both "Red Rose" and
+# "Red Horse" are "Extra Strong" beers sold in "Cans"). Excluded when checking
+# whether two names' significant words actually overlap.
+GENERIC_WORDS = {
+    "extra", "strong", "beer", "beers", "can", "cans", "bottle", "bottles",
+    "pack", "packs", "case", "cases", "x", "of", "the", "and", "a", "in",
+}
+
+# The two names must share more than this fraction of their significant words
+# (Jaccard similarity) on top of the character-level score, or they're treated
+# as different products even if the character score alone looked close.
+SIGNIFICANT_WORD_OVERLAP_THRESHOLD = 0.5
+
 
 def normalize(name):
     n = name.lower()
@@ -40,6 +71,21 @@ def normalize(name):
     n = PUNCT_RE.sub(" ", n)
     n = re.sub(r"\s+", " ", n).strip()
     return n
+
+
+def significant_words(norm_name):
+    return {w for w in norm_name.split() if w not in GENERIC_WORDS}
+
+
+def word_overlap(words_a, words_b):
+    """Jaccard similarity between two sets of significant words. 1.0 if both
+    are empty (nothing to disagree on); 0.0 if one is empty and the other isn't."""
+    if not words_a and not words_b:
+        return 1.0
+    union = words_a | words_b
+    if not union:
+        return 1.0
+    return len(words_a & words_b) / len(union)
 
 
 def load_retailer(key):
@@ -57,6 +103,7 @@ def load_retailer(key):
             continue
         seen.add(dedup_key)
         item["_norm"] = normalize(item["name"])
+        item["_sig_words"] = significant_words(item["_norm"])
         deduped.append(item)
     return deduped
 
@@ -80,9 +127,13 @@ def cluster(retailer_items):
             if j in used or key_b in cluster_map:
                 continue
             ratio = SequenceMatcher(None, item_a["_norm"], item_b["_norm"]).ratio()
-            if ratio >= MATCH_THRESHOLD:
-                cluster_map[key_b] = item_b
-                used.add(j)
+            if ratio < MATCH_THRESHOLD:
+                continue
+            overlap = word_overlap(item_a["_sig_words"], item_b["_sig_words"])
+            if overlap <= SIGNIFICANT_WORD_OVERLAP_THRESHOLD:
+                continue
+            cluster_map[key_b] = item_b
+            used.add(j)
         clusters.append(cluster_map)
     return clusters
 
