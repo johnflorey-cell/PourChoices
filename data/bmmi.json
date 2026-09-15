@@ -925,7 +925,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kilkenny-can-44cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Kilkenny Can 44cl [6 Pack]",
@@ -933,7 +933,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kilkenny-can-44cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Guinness Surger Cans 52cl [24 Pack]",
@@ -1292,6 +1292,30 @@
     "price_bhd": 62.475,
     "in_stock": true,
     "url": "https://www.bmmishops.com/johnnie-walker-gold-label-reserve-75cl.html",
+    "retailer": "BMMI",
+    "category": "Whisky"
+  },
+  {
+    "name": "William Lawson's Scotch Whisky 75cl",
+    "price_bhd": null,
+    "in_stock": false,
+    "url": "https://www.bmmishops.com/william-lawson-s-scotch-whisky-75cl.html",
+    "retailer": "BMMI",
+    "category": "Whisky"
+  },
+  {
+    "name": "Johnnie Walker Double Black 75cl",
+    "price_bhd": 55.65,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/johnnie-walker-double-black-75cl.html",
+    "retailer": "BMMI",
+    "category": "Whisky"
+  },
+  {
+    "name": "Chivas Regal 1L",
+    "price_bhd": 82.275,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/chivas-regal-1l.html",
     "retailer": "BMMI",
     "category": "Whisky"
   },
@@ -3117,7 +3141,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/budvar-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Budvar Bottles 33cl [6 Pack]",
@@ -3125,7 +3149,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/budvar-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Budvar Cans 50cl [24 Pack]",
@@ -3133,7 +3157,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/budvar-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Greenberg Cans 50cl [24 Pack]",
@@ -3141,7 +3165,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/greenberg-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Greenberg Cans 50cl [6 Pack]",
@@ -3149,7 +3173,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/greenberg-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Goan Salute Cashew Fenny 75cl",
@@ -4525,7 +4549,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/greenberg-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Lindeman's Bin 40 Merlot 75cl",
@@ -4637,7 +4661,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kalyani-black-label-strong-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Kalyani Black Label Strong Cans 50cl [24 Pack]",
@@ -4645,7 +4669,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kalyani-black-label-strong-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Smirnoff Ice 27.5cl [12 Pack]",
@@ -5061,7 +5085,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/buzz-cranberry-10-cans-25cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Buzz Cranberry 10% Cans 25cl [6 Pack]",
@@ -5069,7 +5093,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/buzz-cranberry-10-cans-25cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Buzz Classic 10% Cans 25cl [24 Pack]",
@@ -5077,7 +5101,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/buzz-classic-10-cans-25cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Buzz Classic 10% Cans 25cl [6 Pack]",
@@ -5085,7 +5109,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/buzz-classic-10-cans-25cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Chateau Pontet Canet Pauillac 75cl",
@@ -5261,7 +5285,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bira-91-boom-strong-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Penfolds Max's Cabernet Sauvignon 75cl",
@@ -5853,7 +5877,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bira-91-boom-strong-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Kingfisher Blue Strong Cans 50cl [24 Pack]",
@@ -6333,7 +6357,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/greenberg-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Morpheus Blue XO Premium Brandy 75cl",
@@ -7085,7 +7109,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/budvar-cans-50cl-4-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Bacardi 10 Year Old 75cl",
@@ -7125,7 +7149,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/carling-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Absolut Blue Label 1L",
@@ -7405,7 +7429,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/carling-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Bitburger Bottles 33cl [24 Pack]",
@@ -7413,7 +7437,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bitburger-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Bitburger Bottles 33cl [6 Pack]",
@@ -7421,7 +7445,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bitburger-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Bitburger Cans 50cl [24 Pack]",
@@ -7429,7 +7453,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bitburger-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Bitburger Cans 50cl [6 Pack]",
@@ -7437,7 +7461,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bitburger-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Butler's Gin Lemon Mint 10% 27.5cl [24 Pack]",
@@ -7533,7 +7557,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bitburger-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Whispering Angel 75cl",
@@ -9949,7 +9973,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-cans-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Singha Cans 33cl [6 Pack]",
@@ -9957,7 +9981,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-cans-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Singha Cans 49cl [12 Pack]",
@@ -9965,7 +9989,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-cans-49cl-12-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Singha Bottles 33cl [24 Pack]",
@@ -9973,7 +9997,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Singha Bottles 33cl [6 Pack]",
@@ -9981,7 +10005,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Singha Bottles 63cl [12 Pack]",
@@ -9989,7 +10013,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/singha-bottles-63cl-12-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Wild Turkey 101 Bourbon 70cl",
@@ -10525,7 +10549,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/benediktiner-festbeer-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Benediktiner Festbeer Cans 50cl [6 Pack]",
@@ -10533,7 +10557,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/benediktiner-festbeer-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Cody's Citrus & Vodka 5.9% Beer 50cl [24 Pack]",
@@ -12445,7 +12469,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/malayali-power-strong-cans-50cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Malayali Power Strong Cans 50cl [6 Pack]",
@@ -12453,7 +12477,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/malayali-power-strong-cans-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Chateau Du Tertre -les Hauts Du Tertre 75cl",

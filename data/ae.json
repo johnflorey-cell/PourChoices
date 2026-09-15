@@ -18,7 +18,7 @@
   {
     "name": "Ballantine's 17 Year Old Blended Scotch Whisky",
     "price_bhd": 94.6,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Ballantine's-17-Year-Old-Blended-Scotch-Whisky?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -290,7 +290,7 @@
   {
     "name": "Royal Salute Whisky Scotland 30YO Key To The Kingdom 50cl",
     "price_bhd": 471.631,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/royal-salute-whisky-scotland-30yo-key-to-the-kingdom-50cl.html?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -346,7 +346,7 @@
   {
     "name": "The Macallan Rare Cask Single Malt Scotch Whisky",
     "price_bhd": 279.131,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/the-macallan-rare-cask-single-malt-scotch-whisky.html?search=whisky&page=3",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -402,7 +402,7 @@
   {
     "name": "Johnnie Walker Black Label 12 Year Old Blended Scotch Whisky 50cl",
     "price_bhd": 36.575,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Johnnie-Walker-Black-Label-12-Year-Old-Blended-Scotch-Whisky-50cl?search=whisky&page=3",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -3824,6 +3824,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "Glen's Dark Rum 70cl",
+    "price_bhd": 6.3,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Glens-Dark-Rum-70cl?search=rum&page=1",
+    "retailer": "African & Eastern",
+    "category": "Other Spirits"
+  },
+  {
     "name": "Glen's White Rum 70cl",
     "price_bhd": 6.3,
     "in_stock": true,
@@ -3851,7 +3859,7 @@
     "name": "Captain Morgan Original Spiced Gold Rum",
     "price_bhd": 21.04,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Captain-Morgan-Original-Spiced-Gold-Rum?search=rum&page=1",
+    "url": "https://www.africanandeastern.com/Captain-Morgan-Original-Spiced-Gold-Rum?search=rum&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
