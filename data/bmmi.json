@@ -249,8 +249,8 @@
   },
   {
     "name": "Bacardi Breezer Tropical Orange 27.5cl [24 Pack]",
-    "price_bhd": 41.15,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bacardi-breezer-tropical-orange-27-5cl-24-pack.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -313,8 +313,8 @@
   },
   {
     "name": "Bombay Sapphire Gin 75cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 20.025,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/bombay-sapphire-gin-75cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -1529,8 +1529,8 @@
   },
   {
     "name": "Bulleit Bourbon 70cl",
-    "price_bhd": 23.65,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bulleit-bourbon-70cl.html",
     "retailer": "BMMI",
     "category": "Whisky"
@@ -4065,8 +4065,8 @@
   },
   {
     "name": "Titos Vodka 75cl",
-    "price_bhd": 20.8,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/titos-vodka-75cl.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -4089,8 +4089,8 @@
   },
   {
     "name": "Brasseries Chardonnay Cask 5L",
-    "price_bhd": 11.55,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/brasseries-chardonnay-cask-5l.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -5537,8 +5537,8 @@
   },
   {
     "name": "Absolut Blue Label 75cl",
-    "price_bhd": 30.8,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/absolute-blue-label-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -6977,8 +6977,8 @@
   },
   {
     "name": "Chateau Clement Pichon Haut Medoc 75cl",
-    "price_bhd": 24.75,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-clement-pichon-haut-medoc-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -7353,8 +7353,8 @@
   },
   {
     "name": "Bacardi Breezer Tropical Orange 27.5cl [12 Pack]",
-    "price_bhd": 20.725,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bacardi-breezer-tropical-orange-27-5cl-12-pack.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -7993,8 +7993,8 @@
   },
   {
     "name": "Magic Moments Remix Orange Flavoured Vodka 1L",
-    "price_bhd": 8.4,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/magic-moments-orange-vodka-1l.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -10289,8 +10289,8 @@
   },
   {
     "name": "Yarra Valley Estate Vineyard Pinot Noir 75cl",
-    "price_bhd": 12.65,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/yarra-valley-estate-vineyard-pinot-noir-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -13584,6 +13584,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "Torres Vina Esmeralda Rose 75cl",
+    "price_bhd": 9.35,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/torres-vina-esmeralda-rose-75cl.html",
+    "retailer": "BMMI",
+    "category": "Wine"
+  },
+  {
     "name": "Evian Natural Mineral Water Glass 750ml",
     "price_bhd": 1.1,
     "in_stock": true,
@@ -13726,5 +13734,53 @@
     "url": "https://www.bmmishops.com/torres-vina-esmerelda-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
+  },
+  {
+    "name": "Cisk Strong Beer 9% Cans 50cl [24 Pack]",
+    "price_bhd": 23.0,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/cisk-strong-beer-9-cans-50cl-24-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "Cisk Strong Beer 9% Cans 50cl [6 Pack]",
+    "price_bhd": 5.875,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/cisk-strong-beer-9-cans-50cl-6-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "DS Strong Beer 12% Cans 50cl [24 Pack]",
+    "price_bhd": 24.425,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/ds-strong-beer-12-cans-50cl-24-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "DS Strong Beer 12% Cans 50cl [6 Pack]",
+    "price_bhd": 6.3,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/ds-strong-beer-12-cans-50cl-6-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "Evian Natural Mineral Water Glass 330ml",
+    "price_bhd": 0.775,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/evian-natural-mineral-water-glass-330ml.html",
+    "retailer": "BMMI",
+    "category": "Other Spirits"
+  },
+  {
+    "name": "Evian Sparkling Water Glass 330ml",
+    "price_bhd": 0.775,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/evian-sparkling-water-glass-330ml.html",
+    "retailer": "BMMI",
+    "category": "Champagne"
   }
 ]

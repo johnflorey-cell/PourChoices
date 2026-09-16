@@ -1826,7 +1826,7 @@
   {
     "name": "Russian Standard Original Vodka 75cl Bottle",
     "price_bhd": 9.6,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/russian-standard-original-vodka-75-cl-bottle?search=gin&page=10",
     "retailer": "GBI Express",
     "category": "Vodka"
@@ -2650,7 +2650,7 @@
   {
     "name": "Russian Standard Original Vodka 75cl Bottle",
     "price_bhd": 9.6,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/russian-standard-original-vodka-75-cl-bottle?search=vodka&page=2",
     "retailer": "GBI Express",
     "category": "Vodka"
