@@ -304,14 +304,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "BEEHIVE BRANDY VSOP 1LTR",
-    "price_bhd": 8.8,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Beehive-Brandy-Nhsc-1-Bahrain-vsop?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "BEEHIVE BRANDY VSOP 35CL",
     "price_bhd": 3.6,
     "in_stock": true,
@@ -1456,14 +1448,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "ROYAL STAG WHISKY 37.5CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Royal-Stag-Whisky-Nhsc-Bahrain-37?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "SAINT JAMES RUM XO 240 YEARS ANNIVERSARY EDITION 70CL",
     "price_bhd": 165.0,
     "in_stock": true,
@@ -2057,7 +2041,7 @@
   },
   {
     "name": "DROSTDY HOF CLARET CASK 5LTR",
-    "price_bhd": 13.0,
+    "price_bhd": 15.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Drostdy-Hof-Claret-Cask-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2065,7 +2049,7 @@
   },
   {
     "name": "DROSTDY HOF GRAND CRU 5LTR CASK",
-    "price_bhd": 13.0,
+    "price_bhd": 15.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Drostdy-Hof-Grand-Cru-5ltr-Cask-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2220,14 +2204,6 @@
     "price_bhd": 5.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine?product_id=1946&limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "J.C. LE ROUX LE DOMAINE 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine?product_id=1945&limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -3052,14 +3028,6 @@
     "price_bhd": 5.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/sparkling?product_id=1946&limit=100",
-    "retailer": "NHSC",
-    "category": "Champagne"
-  },
-  {
-    "name": "J.C. LE ROUX LE DOMAINE 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/sparkling?product_id=1945&limit=100",
     "retailer": "NHSC",
     "category": "Champagne"
   },
