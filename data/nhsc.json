@@ -24,14 +24,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "ALEXANDER VODKA 1LTR",
-    "price_bhd": 8.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDER-VODKA-1LTR-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
-  },
-  {
     "name": "ALEXANDER VODKA ORANGE 1LTR",
     "price_bhd": 8.5,
     "in_stock": true,
@@ -1856,6 +1848,14 @@
     "category": "Wine"
   },
   {
+    "name": "CHATEAU SMITH HAUT LAFITTE 75CL",
+    "price_bhd": 77.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/wines-wine/Chateau-Smith-Haut-Lafitte-Nhsc-Bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Wine"
+  },
+  {
     "name": "CHATEAU TAYAC MARGAUX 75CL",
     "price_bhd": 16.5,
     "in_stock": true,
@@ -2228,6 +2228,14 @@
     "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine?product_id=1962&limit=100",
+    "retailer": "NHSC",
+    "category": "Wine"
+  },
+  {
+    "name": "LAMOTHE PARROT RESERVE SWEET ROUGE 75CL",
+    "price_bhd": 3.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/wines-wine?product_id=1961&limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -2644,14 +2652,6 @@
     "price_bhd": 4.4,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Radio-Boca-Tempranillo-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "RADIO BOKA VERDEJO 75CL",
-    "price_bhd": 4.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Radio-Boca-Verdejo-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },

@@ -738,7 +738,7 @@
   {
     "name": "Royal Challenge Whisky 37.5cl",
     "price_bhd": 3.3,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/royal-challenge-whisky-37-5cl?search=whisky&page=5",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -1594,7 +1594,7 @@
   {
     "name": "Beefeater London Dry Gin 1L",
     "price_bhd": 18.61,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Beefeater-London-Dry-Gin-1L.html?search=gin&page=1",
     "retailer": "African & Eastern",
     "category": "Gin"
@@ -2450,7 +2450,7 @@
   {
     "name": "Rostov Blue Label Vodka 35cl",
     "price_bhd": 3.3,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/rostov-blue-label-vodka-35cl?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2586,7 +2586,7 @@
   {
     "name": "L'Abeille De Fieuzal Pessac-L\u00e9ognan 2018",
     "price_bhd": 28.06,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/l-abeille-de-fieuzal-pessac-leognan-2018.html?search=wine&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3410,7 +3410,7 @@
   {
     "name": "Elixio by Graffigna Pinot Grigio",
     "price_bhd": 4.75,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/elixio-by-graffigna-pinot-grigio.html?search=wine&page=6",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3786,7 +3786,7 @@
   {
     "name": "Wise Monkey Caf\u00e9 Rum",
     "price_bhd": 9.71,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Wise-Monkey-Cafe-Rum?search=rum&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3858,7 +3858,7 @@
   {
     "name": "Captain Morgan Original Spiced Gold Rum",
     "price_bhd": 21.04,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Captain-Morgan-Original-Spiced-Gold-Rum?search=rum&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
