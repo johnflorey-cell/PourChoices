@@ -4105,8 +4105,8 @@
   },
   {
     "name": "Brasseries Grenache Rose Cask 5L",
-    "price_bhd": 11.55,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/brasseries-grenache-rose-cask-5l.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -10585,8 +10585,8 @@
   },
   {
     "name": "Galliano Autentico 70cl",
-    "price_bhd": 16.6,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/galliano-autentico-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"

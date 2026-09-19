@@ -2418,7 +2418,7 @@
   {
     "name": "Glen's Vodka 1L",
     "price_bhd": 8.4,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/glen-s-vodka-1l.html?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Vodka"
