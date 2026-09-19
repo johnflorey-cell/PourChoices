@@ -161,6 +161,33 @@ identical sets once "scotch"/"whisky" are generic) and "18 Year Old" vs
 "18 YO" (both reduce to identical sets once the age is canonicalised)
 both still match exactly, since they always were equal sets, never
 merely overlapping ones.
+
+Asymmetric pack-wording fix (2026-09-19): confirmed live that BMMI's
+"Guinness Draught 44cl [24 Pack]" and African & Eastern's "Guinness Draught
+44cl [Case of 24]" -- the exact same product, a 24-can case of the same
+44cl Guinness Draught -- were showing up as two separate rows instead of
+one merged row. Root cause: normalize() only ever stripped the pack-count
+wording out of the name when it was phrased as "N Pack"/"N-Pack" (that's
+the only pack phrasing SIZE_RE's `\d+[- ]pack` branch recognises), so "24
+Pack" normalized down to just "guinness draught" (the "24" leaves WITH
+"pack"), but "Case of 24" has no "pack" word next to its digit, so SIZE_RE
+left the "24" sitting in the name untouched, normalizing to "guinness
+draught case of 24" ("case"/"of" are already GENERIC_WORDS, but "24" isn't,
+so it survives into significant_words). That asymmetry meant one side's
+significant-word set was {"guinness", "draught", "24"} and the other's was
+just {"guinness", "draught"} -- not equal sets, so words_conflict() (see
+the "Exact-match-only rewrite" above) correctly refused to merge them, even
+though extract_pack_count() already agreed both listings are a 24-pack.
+Fixed by also running PACK_TOKEN_RE (the same regex extract_pack_count()
+itself uses, so every phrasing it recognises -- "N Pack", "Case of N", "N
+X", "X N" -- is covered here too) over the name during normalize(), so the
+pack-count wording and its digit are stripped from the name consistently
+regardless of which of the 4 sites' phrasings was used, the same way the
+age and size tokens already are above. The pack count itself is still
+compared exactly via extract_pack_count() on the ORIGINAL, unstripped name
+(see cluster()'s separate pack_count check) -- this fix only changes what
+counts as a "significant word" for the name-similarity check, not whether
+two different pack counts can still match (they still can't).
 """
 import json
 import re
@@ -236,6 +263,13 @@ def normalize(name):
     n = name.lower()
     n = AGE_RE.sub(lambda m: m.group(1) + "yo", n)
     n = SIZE_RE.sub("", n)
+    # Strip pack-count wording (every phrasing extract_pack_count() itself
+    # recognises: "N Pack", "Case of N", "N X", "X N") before comparing
+    # names, the same way size and age tokens are stripped above -- see the
+    # "Asymmetric pack-wording fix" note in this file's docstring for why
+    # leaving this out let "24 Pack" and "Case of 24" normalize to different
+    # significant-word sets for the exact same product.
+    n = PACK_TOKEN_RE.sub("", n)
     n = NOISE_RE.sub("", n)
     n = PUNCT_RE.sub(" ", n)
     n = re.sub(r"\s+", " ", n).strip()
