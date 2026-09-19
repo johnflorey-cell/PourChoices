@@ -106,11 +106,65 @@ count at all is treated as a single bottle/can (pack count 1), since that's
 what "no pack wording" means on every site checked here, so a plain
 single-bottle listing on one site still matches a plain single-bottle
 listing on another.
+
+Terse-vs-descriptive name fix (2026-09-16): confirmed live that BMMI's
+"Famous Grouse 75cl" was NOT being merged with the row that GBI's "The
+Famous Grouse Scotch Whisky 75cl" and A&E's own listing had already
+formed, even though every one of these is the same 75cl bottle --
+reported directly, with these exact two names, as one of the app's open
+issues. Root cause: the word-overlap check only counted a word as
+"generic" (ignorable) if it was a wrapping/packaging word like "can" or
+"pack" -- it had no idea that "scotch", "whisky", "whiskey", "scotland"
+and "blended" are just as generic across whisky listings on these sites,
+so BMMI's terse "Famous Grouse" (2 significant words) was being compared
+against GBI's fuller "Famous Grouse Scotch Whisky" (4 significant words)
+as if "scotch" and "whisky" were brand-identifying facts. Fixed by adding
+those five words to GENERIC_WORDS, so both names reduce to the exact same
+significant-word set, {"famous", "grouse"}.
+
+Age-phrasing fix (2026-09-16): the same investigation found "Chivas Regal
+18 Year Old Blended Whisky 75cl" (one retailer's phrasing) failing to
+match "Chivas Regal Scotch Whisky Scotland 18 YO Blended 75cl" (another
+retailer's phrasing for the exact same 18-year-old bottle) -- "18 Year
+Old" tokenizes into three separate words ("18", "year", "old") while "18
+YO" tokenizes into two ("18", "yo"), so "year"/"old" on one side and "yo"
+on the other looked like a swapped/conflicting fact even though they mean
+the same age statement. Fixed by canonicalising every age phrasing found
+in a name -- "18 Year(s) Old", "18 YO", "18 Yrs", "18 Y.O." and
+already-fused "18YO" -- into one consistent "18yo" token before any other
+comparison runs, so different sites' phrasing of the same age reduces to
+the same significant word instead of looking like a factual difference.
+
+Exact-match-only rewrite (2026-09-16): fixing the two cases above by
+loosening word_overlap()'s old ">50% of the words in common" threshold
+opened a worse hole, caught by testing rather than a user report: a bare
+"Chivas Regal 75cl" (no age, no edition stated) started matching BOTH
+"Chivas Regal Scotch Whisky Scotland 12YO Blended 75cl" (a specific age)
+AND completely unrelated "Chivas Regal Ultis Scotch Whisky" (a distinct,
+much pricier limited-edition bottling) -- in both cases the fuller name's
+one extra significant word ("12yo" / "ultis") wasn't enough, on its own,
+to fail a >50%-overlap check, even though it's exactly the kind of fact
+that makes them different products. Whatever that extra word turns out to
+be next time isn't something a fixed word list can anticipate. So rather
+than special-casing it (an age-presence guard alone would have caught the
+12YO case but not "Ultis"), the matching rule is now simply: two names
+must reduce to the EXACT SAME set of significant words to be considered
+the same product at all -- no partial-overlap fraction, no "one name is
+just a shorter version of the other" allowance. This is provably safe
+against every failure mode above: words_conflict() (a plain factual
+swap, like Black Label vs Blue Label) already blocks the case where each
+side has something the other lacks; the only gap was the OTHER case, one
+side's words being a subset of the other's with something extra left
+over, and requiring exact equality closes that gap directly. It doesn't
+lose either real fix above -- "Famous Grouse" (both sides reduce to
+identical sets once "scotch"/"whisky" are generic) and "18 Year Old" vs
+"18 YO" (both reduce to identical sets once the age is canonicalised)
+both still match exactly, since they always were equal sets, never
+merely overlapping ones.
 """
 import json
 import re
 from datetime import datetime, timezone
-from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -123,9 +177,16 @@ RETAILER_FILES = {
 }
 RETAILER_LABELS = {"bmmi": "BMMI", "ae": "African & Eastern", "gbi": "GBI Express", "nhsc": "NHSC"}
 
-SIZE_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:cl|l|ml)\b|\b\d+[- ]pack\b", re.IGNORECASE)
+SIZE_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:cl|ml|ltr|litre|liter|l)s?\b|\b\d+[- ]pack\b", re.IGNORECASE)
 NOISE_RE = re.compile(r"\b(non[- ]vintage|vintage|bottle|original)\b", re.IGNORECASE)
 PUNCT_RE = re.compile(r"[^a-z0-9 ]+")
+
+# Recognises every age phrasing seen across these 4 sites -- "18 Year Old",
+# "18 Years Old", "18 Yrs", "18 YO", "18 Y.O.", already-fused "18YO" -- and
+# canonicalises whichever one appears into a single "18yo"-style token, so
+# two sites describing the same age don't look like they disagree just
+# because they phrased it differently (see "Age-phrasing fix" above).
+AGE_RE = re.compile(r"\b(\d{1,2})\s*(?:years?|yrs?|y\.?o\.?)(?:\s*old)?\b", re.IGNORECASE)
 
 # Recognises a bottle/can size written into the product name itself, in any
 # of the unit spellings the 4 sites use between them (cl, ml, l, ltr, litre,
@@ -154,8 +215,6 @@ PACK_TOKEN_RE = re.compile(
     re.IGNORECASE,
 )
 
-MATCH_THRESHOLD = 0.72
-
 # Generic words that show up across many different brands/products and so
 # don't help tell two DIFFERENT products apart (e.g. both "Red Rose" and
 # "Red Horse" are "Extra Strong" beers sold in "Cans"). Excluded when checking
@@ -163,16 +222,19 @@ MATCH_THRESHOLD = 0.72
 GENERIC_WORDS = {
     "extra", "strong", "beer", "beers", "can", "cans", "bottle", "bottles",
     "pack", "packs", "case", "cases", "x", "of", "the", "and", "a", "in",
+    # Category-generic descriptor words added by the "Terse-vs-descriptive
+    # name fix" -- these just restate the category (every whisky is
+    # "scotch"/"whisky"/"whiskey", most Chivas-style blends say "blended",
+    # "scotland" just names the country), so they don't help tell two
+    # DIFFERENT products apart and were penalising a terse name (e.g. "Famous
+    # Grouse 75cl") against a fuller one (e.g. "The Famous Grouse Scotch
+    # Whisky 75cl") for no real reason.
+    "scotch", "whisky", "whiskey", "scotland", "blended", "irish",
 }
-
-# The two names must share more than this fraction of their significant words
-# (Jaccard similarity) on top of the character-level score, or they're treated
-# as different products even if the character score alone looked close.
-SIGNIFICANT_WORD_OVERLAP_THRESHOLD = 0.5
-
 
 def normalize(name):
     n = name.lower()
+    n = AGE_RE.sub(lambda m: m.group(1) + "yo", n)
     n = SIZE_RE.sub("", n)
     n = NOISE_RE.sub("", n)
     n = PUNCT_RE.sub(" ", n)
@@ -185,8 +247,11 @@ def significant_words(norm_name):
 
 
 def word_overlap(words_a, words_b):
-    """Jaccard similarity between two sets of significant words. 1.0 if both
-    are empty (nothing to disagree on); 0.0 if one is empty and the other isn't."""
+    """Jaccard similarity between two sets of significant words -- kept only
+    for anything that still wants a similarity score to look at (e.g. ad hoc
+    debugging); cluster() itself no longer uses this as a threshold check,
+    see the "Exact-match-only rewrite" note above. 1.0 if both are empty
+    (nothing to disagree on); 0.0 if one is empty and the other isn't."""
     if not words_a and not words_b:
         return 1.0
     union = words_a | words_b
@@ -246,21 +311,20 @@ def extract_pack_count(name):
 
 
 def words_conflict(sig_words_a, sig_words_b):
-    """True when EACH name has at least one significant word the other
-    doesn't -- i.e. a word was swapped for a different one, not just added
-    or dropped. "Johnnie Walker Black Label" vs "Johnnie Walker Blue Label"
-    only differ by "black" vs "blue" (one word out of four), which used to
-    slide through the word-overlap ratio check below at 60% overlap -- the
-    exact same failure mode as "Red Rose" vs "Red Horse" already fixed
-    above, just with a different swapped word. Rather than hard-coding
-    "black"/"blue" (or whichever pair turns up next), any two-sided
-    difference like this is now blocked outright, regardless of how much
-    of the rest of the name still matches. A name that's purely a fuller or
-    shorter version of the other (every word on the short side also appears
-    on the long side, e.g. "Famous Grouse" vs "Famous Grouse Scotch
-    Whisky") has NO two-sided difference, so it's unaffected by this check
-    and still governed by the word-overlap ratio below, same as before."""
-    return bool(sig_words_a - sig_words_b) and bool(sig_words_b - sig_words_a)
+    """True when the two names' significant-word sets aren't identical --
+    either a word was swapped for a different one ("Johnnie Walker Black
+    Label" vs "...Blue Label"), or one side simply has an extra word the
+    other lacks ("Chivas Regal 75cl" vs "Chivas Regal Scotch Whisky
+    Scotland 12YO Blended 75cl", once the generic "scotch"/"whisky"/etc.
+    words are stripped from both, still differ by "12yo"). See the
+    "Exact-match-only rewrite" note above for why this now requires exact
+    equality rather than a partial-overlap fraction: a name that's purely a
+    generic-word-padded version of the other (e.g. "Famous Grouse" vs "The
+    Famous Grouse Scotch Whisky", once "the"/"scotch"/"whisky" are stripped
+    as generic) reduces to the SAME set on both sides, so it still passes
+    here same as before -- only a genuine one-sided extra WORD (not just
+    extra filler) now blocks the match."""
+    return sig_words_a != sig_words_b
 
 
 def _dedupe_key(item):
@@ -324,16 +388,16 @@ def cluster(retailer_items):
         for j, (key_b, item_b) in enumerate(pool):
             if j in used or key_b in cluster_map:
                 continue
-            ratio = SequenceMatcher(None, item_a["_norm"], item_b["_norm"]).ratio()
-            if ratio < MATCH_THRESHOLD:
-                continue
-            overlap = word_overlap(item_a["_sig_words"], item_b["_sig_words"])
-            if overlap <= SIGNIFICANT_WORD_OVERLAP_THRESHOLD:
-                continue
             if words_conflict(item_a["_sig_words"], item_b["_sig_words"]):
-                # A significant word was swapped for a different one (e.g.
-                # "Black" Label vs "Blue" Label) -- see the "Swapped-word
-                # fix" note above. Blocked regardless of the overlap score.
+                # The two names' significant words aren't exactly the same
+                # set -- either a word was swapped for a different one (e.g.
+                # "Black" Label vs "Blue" Label) or one side simply has an
+                # extra word the other doesn't (e.g. a bare "Chivas Regal
+                # 75cl" vs a specific "...12YO..." or "...Ultis..."
+                # bottling). See the "Exact-match-only rewrite" note above --
+                # only two names that reduce to the identical significant-
+                # word set (after generic words and age phrasing are
+                # normalised away) are treated as the same product.
                 continue
             if sizes_conflict(item_a["_size_ml"], item_b["_size_ml"]):
                 # Same-ish name, but a 75cl bottle and a 1L bottle are not
