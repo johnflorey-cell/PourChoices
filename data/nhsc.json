@@ -48,14 +48,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "AMARULA CREAM LIQUEUR 75CL",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Amarula-nhsc-bahrain-r?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "AMARULA CREAM RASPBERRY, CHOCOLATE & BAOBAB LIQUEUR 75CL",
     "price_bhd": 12.1,
     "in_stock": true,
@@ -1716,14 +1708,6 @@
     "price_bhd": 17.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine?product_id=1971&limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "CHATEAU BRANAIRE DU CRU AOC 75CL",
-    "price_bhd": 35.2,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Chateau-Branaire-Du-Cru-AOC-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },

@@ -3410,7 +3410,7 @@
   {
     "name": "Elixio by Graffigna Pinot Grigio",
     "price_bhd": 4.75,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/elixio-by-graffigna-pinot-grigio.html?search=wine&page=6",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4394,7 +4394,7 @@
   {
     "name": "Sierra Gold Tequila Reposado",
     "price_bhd": 7.23,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Sierra-Gold-Tequila-Reposado?search=tequila&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"

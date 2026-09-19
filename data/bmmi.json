@@ -10721,8 +10721,8 @@
   },
   {
     "name": "Coppa Negroni 70cl",
-    "price_bhd": 7.475,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/coppa-negroni-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -13577,8 +13577,8 @@
   },
   {
     "name": "Clos Du Marquis 75cl",
-    "price_bhd": 60.4,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/clos-du-marquis-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
