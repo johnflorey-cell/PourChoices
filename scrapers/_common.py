@@ -66,6 +66,32 @@ product's own page too would mean one extra page load per product (roughly
 1,700+ more requests through the paid Bright Data proxy every single scrape,
 on top of what's already fetched), so the brand-list approach above is the
 cheaper general fix and was preferred over visiting every product page.
+
+Champagne & Sparkling Wines rename (2026-09-18): the category itself is
+still stored/matched here as the plain string "Champagne" -- only the
+NAME shown to a visitor changed to "Champagne & Sparkling Wines" (see
+index.html's CATEGORY_DISPLAY_NAMES), so this rename shows up immediately
+without waiting on a fresh scrape. The keyword list below was broadened at
+the same time with more of the category's real-world vocabulary: Prosecco,
+Sparkling Wine(s), Cremant/Crémant, Spritz, Franciacorta, Asti Spumante,
+Lambrusco, Trentodoc, Cava, Brut, Semi-Brut.
+
+Rose ordering fix (2026-09-18): confirmed live that "Moet & Chandon Imperial
+Brut Rose 75cl" and "Veuve Clicquot Rose 75cl" -- both champagnes -- were
+being categorised as plain "Wine" instead, because the Wine tuple (which
+matches on the bare word "rose") was being checked BEFORE the Champagne
+tuple, and guess_category() returns on the first tuple that matches at all.
+Fixed by moving the Champagne & Sparkling Wines tuple ahead of Wine, so a
+name that says "moet"/"veuve"/"brut"/etc. is caught there first regardless
+of whether it also happens to contain "rose".
+
+Sparkling water fix (2026-09-18): while broadening the keyword list above,
+found that the existing bare "sparkling" keyword was also catching plain
+sparkling WATER, not just sparkling wine -- "Acqua Morelli Sparkling Water
+250ml" was landing in Champagne & Sparkling Wines. Fixed by skipping the
+"sparkling" keyword specifically (only that one; every other keyword in the
+list is unaffected) whenever the name also contains the word "water"
+anywhere in it.
 """
 import json
 import os
@@ -101,11 +127,31 @@ CATEGORY_KEYWORDS = [
       "vitalsberg"), "Beer"),
     (("gin",), "Gin"),
     (("vodka",), "Vodka"),
+    # Champagne & Sparkling Wines is checked BEFORE Wine (see the "Rose
+    # ordering fix" note above): a rosé champagne like "Moet & Chandon
+    # Imperial Brut Rose 75cl" or "Veuve Clicquot Rose 75cl" contains the
+    # Wine tuple's "rose" keyword too, and whichever tuple is checked first
+    # wins, so with Wine ahead of it every rosé champagne/sparkling wine was
+    # being mis-bucketed as plain "Wine" even though "moet"/"veuve"/"brut"
+    # right there in the same name say otherwise.
+    (("champagne", "sparkling wine", "sparkling wines", "prosecco", "cava", "moet", "veuve",
+      "cremant", "crémant", "spritz", "franciacorta", "asti spumante", "lambrusco",
+      "trentodoc", "brut", "semi-brut", "semi brut",
+      # Bare "sparkling" stays last and guarded by looks_like_sparkling_water()
+      # below, not by the plain \b...\b check every other keyword here uses --
+      # see the "Sparkling water fix" note above.
+      "sparkling"), "Champagne"),
     (("wine", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
-    (("champagne", "sparkling", "prosecco", "cava", "moet", "veuve"), "Champagne"),
     (("rum", "brandy", "cognac", "tequila", "liqueur", "baileys", "sambuca", "amaretto",
       "vermouth", "sherry", "absinthe"), "Other Spirits"),
 ]
+
+# "Sparkling" alone also matches non-alcoholic sparkling water (confirmed
+# live: "Hildon Gently Sparkling 330ml", "Acqua Morelli Sparkling Water
+# 250ml" were both landing in Champagne & Sparkling Wines), so that one
+# keyword gets an extra check the rest of the list doesn't need. See the
+# "Sparkling water fix" note above.
+SPARKLING_WATER_RE = re.compile(r"\bsparkling\s+water\b|\bwater\b", re.IGNORECASE)
 
 
 def guess_category(text):
@@ -120,6 +166,11 @@ def guess_category(text):
     lowered = text.lower()
     for keywords, category in CATEGORY_KEYWORDS:
         for kw in keywords:
+            if kw == "sparkling" and SPARKLING_WATER_RE.search(lowered):
+                # Bare "sparkling" is too generic on its own -- see the
+                # "Sparkling water fix" note above -- so it's skipped
+                # whenever the name also says "water" anywhere in it.
+                continue
             if re.search(r"\b" + re.escape(kw) + r"\b", lowered):
                 return category
     return "Other Spirits"
