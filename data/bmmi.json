@@ -117,7 +117,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/moet-and-chandon-rose-imperial-non-vintage-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Moet and Chandon Brut Imperial Non Vintage 37.5cl",
@@ -133,7 +133,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/lindeman-s-bin-30-sparkling-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Francois Montand Brut Magnum 1.5L",
@@ -141,7 +141,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/francois-montand-brut-magnum-1-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Jean-Louis Brut 75cl",
@@ -149,7 +149,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/jean-louis-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Martini Brut 75cl",
@@ -157,7 +157,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/martini-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Martini Rose 75cl",
@@ -2525,7 +2525,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/nerodi-lambrusco-igt-emilia-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Nero dAvola IGT Terre Siciliane Cusumano 75cl",
@@ -3853,7 +3853,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/lambrusco-emilia-i-g-t-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Sasseo Primitivo I.G.T. Salento 75cl",
@@ -4229,7 +4229,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-brut-20cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Vieux Chateau Des Combes 75cl",
@@ -4445,7 +4445,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/de-bortoli-woodfired-heathcote-sparkling-shiraz-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "De Bortoli Noble One 37.5cl",
@@ -4813,7 +4813,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/veuve-clicquot-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Laroche Chardonnay 75cl",
@@ -6629,7 +6629,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/soligo-prosecco-ros-treviso-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Silk & Spice Red 75cl",
@@ -6677,7 +6677,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/jp-chenet-spritz-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Moillard Chardonnay Tradition\u00a075cl",
@@ -6749,7 +6749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/accademia-prosecco-doc-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Accademia Prosecco Spumante DOC Brut 75cl",
@@ -6765,7 +6765,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/bottega-poeti-prosecco-doc-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Bottega\u00a0 Poeti Rose Venezia Spumante DOC Brut 75cl",
@@ -6773,7 +6773,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-poeti-rose-venezia-spumante-doc-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Bottega Rose Gold Spumante 75cl",
@@ -6789,7 +6789,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pommery-brut-royal-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Pommery Rose Royal",
@@ -7669,7 +7669,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-prosecco-doc-spumante-1821-brut-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Zonin Valpolicella Classico Doc 75cl",
@@ -7813,7 +7813,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/just-with-love-prosecco-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "F-Series Sauvignon Blanc 75cl",
@@ -8301,7 +8301,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/tau-sparkling-water-24-pack.html",
     "retailer": "BMMI",
-    "category": "Champagne"
+    "category": "Other Spirits"
   },
   {
     "name": "TAU Sparkling Water 750ml [12 Pack]",
@@ -8309,7 +8309,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/tau-sparkling-water-750ml-12-pack.html",
     "retailer": "BMMI",
-    "category": "Champagne"
+    "category": "Other Spirits"
   },
   {
     "name": "Duckhorn North Napa Valley Chardonnay 75cl",
@@ -8437,7 +8437,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/louis-bouillot-les-lavots-cremant-d-bourg-2017-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Villa Moncigale Cicada L'eveil Cotes De Provence Rose 75cl",
@@ -8925,7 +8925,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/laurent-perrier-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Tsingtao Strong Beer Cans 50cl [24 Pack]",
@@ -8997,7 +8997,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/armand-de-brignac-brut-gold-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "The Pale Rose 75cl",
@@ -9757,7 +9757,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/moet-chandon-imperial-brut-rose-3l.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Casamigos Anejo 70cl",
@@ -10173,7 +10173,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-sunset-spritz-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Jp Chenet 24k Gold Sparkling 75cl",
@@ -10189,7 +10189,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pierlant-blanc-de-blancs-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Pierlant Demi Sec Rose 75cl",
@@ -10229,7 +10229,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chill-bill-spritz-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "De Bortoli Family Selection Brut 75cl",
@@ -10237,7 +10237,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/de-bortoli-family-selection-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Chateau Patache\u00a0 D'aux Medoc 1.5L",
@@ -10533,7 +10533,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/jean-louis-brut-1-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Dewars White Label 5cl",
@@ -10645,7 +10645,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/r-de-ruinart-nv-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Ruinart Rose 75cl",
@@ -10901,7 +10901,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/acqua-morelli-sparkling-water-250ml.html",
     "retailer": "BMMI",
-    "category": "Champagne"
+    "category": "Other Spirits"
   },
   {
     "name": "Acqua Morelli Sparkling Water 750ml",
@@ -10909,7 +10909,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/acqua-morelli-sparkling-water-750ml.html",
     "retailer": "BMMI",
-    "category": "Champagne"
+    "category": "Other Spirits"
   },
   {
     "name": "Coke Sleek Can 330ml",
@@ -11381,7 +11381,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/pommery-royal-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Pommery Royal Brut Rose 75cl",
@@ -11389,7 +11389,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/pommery-royal-brut-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Pommery Pop Extra Dry 20cl",
@@ -11933,7 +11933,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/fantinel-spumanti-cuvee-prestige-brut-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "La Roncaia Fusco Merlot 75cl",
@@ -12005,7 +12005,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/krug-brut-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "The Berry Company Superberry Red Juice Drink Blend 1L",
@@ -12125,7 +12125,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/lyre-s-italian-spritz-0-0-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Lyre's Dry London Spirit 0.0% 70cl",
@@ -12853,7 +12853,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zonin-limoneto-lemon-spritz-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Zonin Limoneto Lemon Spritz 25cl",
@@ -12861,7 +12861,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-limoneto-lemon-spritz-25cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Zonin Pinot Grigio Friuli Doc 25cl",
@@ -13781,6 +13781,6 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/evian-sparkling-water-glass-330ml.html",
     "retailer": "BMMI",
-    "category": "Champagne"
+    "category": "Other Spirits"
   }
 ]
