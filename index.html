@@ -96,6 +96,7 @@
             <button onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine</button>
             <button onclick="filterCategory('Champagne', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Champagne &amp; Sparkling Wines</button>
             <button onclick="filterCategory('Other Spirits', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Other Spirits</button>
+            <button id="favourites-chip" onclick="toggleFavouritesView()" class="category-chip bg-charcoal text-amberGold border border-amberGold/50 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">★ My Favourites</button>
         </div>
 
         <!-- PRICE RANGE FILTER: filters on each product's lowest in-stock price
@@ -121,6 +122,15 @@
         <p id="products-compared" class="text-[11px] text-amberGold text-center font-bold mb-1"></p>
         <p class="text-[10px] text-gray-300 text-center -mt-1 mb-1">Prices refresh automatically once a week from each retailer&rsquo;s own site.</p>
         <p id="last-updated" class="text-[10px] text-gray-400 text-center mb-3"></p>
+
+        <!-- FAVOURITES NOTES BOX: shown only while viewing "My Favourites" (see
+             toggleFavouritesView()). One single note for the whole favourites
+             list, not one per item -- stored locally in the visitor's own
+             browser, same as the favourites themselves, no backend involved. -->
+        <div id="favourites-notes-wrap" class="hidden mb-4">
+            <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
+            <textarea id="favourites-note" rows="6" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
+        </div>
 
         <!-- PRODUCT LIST OVERVIEW -->
         <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
@@ -282,6 +292,118 @@
         const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines" };
         const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
 
+        // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
+        //
+        // A visitor can heart any product to save it to a personal list, plus
+        // one shared notes box for the whole list. Everything lives in the
+        // visitor's own browser (localStorage), the same zero-backend approach
+        // used elsewhere in this app -- a favourite won't follow someone to a
+        // different device/browser, and clearing site data clears it, same
+        // tradeoff as the trial/premium flags above.
+        //
+        // Stable key note: every scraper run reassigns each product's numeric
+        // "id" (see merge.py's sort-then-renumber step in build_product_row/
+        // main), so an id can't be used to remember a favourite across a
+        // scrape -- it would silently point at a different product next week.
+        // The product's own NAME is the only thing that's actually stable
+        // across scrapes in practice, so favourites are keyed by name instead.
+        // A product whose display name genuinely changes between scrapes
+        // (rare -- only happens if a different retailer's fuller name gets
+        // picked as the "longest" name for that cluster) would lose its
+        // favourited status; accepted as a limitation of the no-backend
+        // approach, same one the rest of this app already lives with.
+        //
+        // Gating: reuses the same isPremium flag as the price-blur/paywall
+        // elsewhere in this app. While FREE_MODE is on, isPremium is always
+        // true, so favourites work for everyone during the beta; once
+        // FREE_MODE is turned off, both the heart buttons and the "My
+        // Favourites" view fall behind the same paywall the prices already do.
+        //
+        // Lapse behaviour: if a subscription lapses, access to the favourites
+        // view and notes is gated off (same as prices), but the underlying
+        // saved data is deliberately left intact in localStorage rather than
+        // cleared -- so it simply reappears if that visitor resubscribes
+        // later, instead of making them rebuild their list from scratch.
+
+        let showFavouritesOnly = false;
+
+        function getFavourites() {
+            try {
+                const raw = localStorage.getItem("favourites");
+                return raw ? new Set(JSON.parse(raw)) : new Set();
+            } catch (e) {
+                return new Set();
+            }
+        }
+
+        function saveFavourites(set) {
+            try { localStorage.setItem("favourites", JSON.stringify([...set])); } catch (e) {}
+        }
+
+        function isFavourite(name) {
+            return getFavourites().has(name);
+        }
+
+        // Takes the product's index into mockProducts (assigned by
+        // renderProducts' own forEach below), not the product's changeable
+        // "id" field -- see the stable-key note above. Looking the name up
+        // from the index at click time avoids ever having to embed a raw
+        // product name (which can contain quotes/apostrophes) inside an
+        // inline onclick="..." attribute.
+        function toggleFavourite(index) {
+            if (!isPremium) { openPaywallModal(); return; }
+            const prod = mockProducts[index];
+            if (!prod) return;
+            const favourites = getFavourites();
+            if (favourites.has(prod.name)) {
+                favourites.delete(prod.name);
+            } else {
+                favourites.add(prod.name);
+            }
+            saveFavourites(favourites);
+            updateFavouritesChipLabel();
+            renderProducts();
+        }
+
+        function updateFavouritesChipLabel() {
+            const chip = document.getElementById("favourites-chip");
+            if (!chip) return;
+            const count = getFavourites().size;
+            chip.textContent = count > 0 ? `★ My Favourites (${count})` : "★ My Favourites";
+        }
+
+        function toggleFavouritesView() {
+            if (!isPremium) { openPaywallModal(); return; }
+            showFavouritesOnly = !showFavouritesOnly;
+            const chip = document.getElementById("favourites-chip");
+            const notesWrap = document.getElementById("favourites-notes-wrap");
+            if (chip) {
+                if (showFavouritesOnly) {
+                    chip.classList.add("active");
+                    chip.classList.remove("bg-charcoal", "text-amberGold");
+                } else {
+                    chip.classList.remove("active");
+                    chip.classList.add("bg-charcoal", "text-amberGold");
+                }
+            }
+            if (notesWrap) notesWrap.classList.toggle("hidden", !showFavouritesOnly);
+            renderProducts();
+        }
+
+        function loadFavouritesNote() {
+            try {
+                const note = document.getElementById("favourites-note");
+                if (note) note.value = localStorage.getItem("favouritesNote") || "";
+            } catch (e) {}
+        }
+
+        function saveFavouritesNote() {
+            try {
+                const note = document.getElementById("favourites-note");
+                if (note) localStorage.setItem("favouritesNote", note.value);
+            } catch (e) {}
+        }
+
         window.onload = function() {
             try {
                 if (localStorage.getItem("ageVerified") === "true") { document.getElementById("age-gate").style.display = "none"; }
@@ -291,6 +413,8 @@
                 if (localStorage.getItem("premiumAccess") === "true") { isPaid = true; }
             } catch (e) { /* storage unavailable, default to gated + standard tier */ }
             updatePremiumState();
+            updateFavouritesChipLabel();
+            loadFavouritesNote();
             loadProducts();
             loadLastUpdated();
             registerServiceWorker();
@@ -503,6 +627,14 @@
             const searchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
             const query = searchNormalize(document.getElementById("search-bar").value);
 
+            // Computed once per render rather than once per card (isFavourite()
+            // itself does a localStorage read + JSON.parse) -- with ~2,900
+            // products, calling it twice per card added up to thousands of
+            // redundant reads on every keystroke/filter change, the same class
+            // of avoidable slowdown as the renderProducts() O(n^2) bug fixed
+            // 2026-09-13.
+            const favouritesSet = getFavourites();
+
             // Price range filter: reads the two boxes fresh on every render so
             // it always reflects whatever's currently typed in them. A blank
             // box means "no limit" on that side; a non-numeric value is
@@ -515,7 +647,14 @@
             const cardsHTML = [];
 
             mockProducts.forEach((prod, index) => {
-                if (activeCategory !== "All" && prod.category !== activeCategory) return;
+                // "My Favourites" view replaces the category filter (a
+                // favourited item can be in any category) but still respects
+                // search and the price range boxes below, same as normal.
+                if (showFavouritesOnly) {
+                    if (!favouritesSet.has(prod.name)) return;
+                } else if (activeCategory !== "All" && prod.category !== activeCategory) {
+                    return;
+                }
                 if (query && !searchNormalize(prod.name).includes(query)) return;
 
                 // Only an in-stock price counts toward "lowest price" or gets shown as a
@@ -551,9 +690,12 @@
 
                 let cardHTML = `
                     <div class="bg-charcoal border border-gray-800 rounded-2xl p-4 shadow-md transition duration-200">
-                        <div class="mb-3">
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${categoryLabel(prod.category)}</span>
-                            <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
+                        <div class="mb-3 flex justify-between items-start">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${categoryLabel(prod.category)}</span>
+                                <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
+                            </div>
+                            <button onclick="toggleFavourite(${index})" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 text-xs border-t border-gray-800/50 pt-3 ${shouldBlur ? 'premium-blur' : ''}">
