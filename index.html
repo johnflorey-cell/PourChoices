@@ -238,7 +238,17 @@
 
         async function loadProducts() {
             try {
-                const res = await fetch("data/products.json", { cache: "no-store" });
+                // "no-cache" (not "no-store"): every load still checks with
+                // the server before using anything, so a visitor never sees
+                // stale prices -- but if nothing's changed since their last
+                // visit, the server replies "not modified" and the browser
+                // reuses what it already has instead of re-downloading the
+                // whole ~3,000-product catalogue from scratch every single
+                // time. "no-store" (the old setting) skipped that check
+                // entirely and forced a full re-download on every visit,
+                // which is what was making the app feel slow to open even
+                // on a normal repeat visit, not just first-time loads.
+                const res = await fetch("data/products.json", { cache: "no-cache" });
                 if (!res.ok) throw new Error("HTTP " + res.status);
                 mockProducts = await res.json();
             } catch (e) {
@@ -270,7 +280,7 @@
         // isn't there yet, e.g. before the very first scrape has ever run.
         async function loadLastUpdated() {
             try {
-                const res = await fetch("data/last_updated.json", { cache: "no-store" });
+                const res = await fetch("data/last_updated.json", { cache: "no-cache" });
                 if (!res.ok) throw new Error("HTTP " + res.status);
                 const data = await res.json();
                 const updatedAt = new Date(data.updated_at);
