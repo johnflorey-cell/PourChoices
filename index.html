@@ -37,6 +37,13 @@
     }
     body { -webkit-tap-highlight-color: transparent; background-color: #0F172A; }
     .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
+
+    /* Non-blocking toast (see showToast()): replaces the alert() that used
+       to fire on every retailer-link tap and was freezing the page until
+       dismissed. */
+    @keyframes toastPop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .toast-pop { animation: toastPop 0.2s ease-out; }
+    .toast-fade-out { opacity: 0; transition: opacity 0.25s ease-in; }
 </style>
 </head>
 <body class="bg-obsidian text-white font-sans antialiased min-h-screen pb-24">
@@ -133,7 +140,17 @@
         </div>
 
         <!-- PRODUCT LIST OVERVIEW -->
-        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <!-- min-h-[100vh]: reserves a full viewport of height even while
+             "Loading live prices..." is the only thing in here. Without it,
+             this container is ~40px tall until the products.json fetch
+             resolves, then jumps to thousands of pixels once the grid
+             renders -- pushing the legal <footer> below down by that same
+             amount after the page has already painted. That's exactly the
+             CLS hit the analytics dashboard flagged on the footer (0.278,
+             hit on 27 of 36 visits). Reserving a viewport of space up front
+             means the footer starts off-screen below the fold either way,
+             so the later jump isn't a visible shift. -->
+        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[100vh]"></div>
 
         <!-- STICKY BOTTOM PAYWALL FOOTER -->
         <div id="paywall-footer" class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-obsidian via-obsidian to-transparent pt-6 pb-4 px-4 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto z-40">
@@ -188,6 +205,11 @@
     <button onclick="shareApp()" class="fixed bottom-5 left-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
         🔗 Share
     </button>
+
+    <!-- LIGHTWEIGHT TOAST NOTIFICATION (see showToast()): shows the "opening
+         retailer" notice without blocking the page, unlike the alert() it
+         replaces. -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-sm pointer-events-none flex flex-col items-center space-y-2"></div>
 
     <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
         <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="feedback-modal-content">
@@ -381,6 +403,12 @@
                 if (showFavouritesOnly) {
                     chip.classList.add("active");
                     chip.classList.remove("bg-charcoal", "text-amberGold");
+                    // Clear any category chip's highlight too, so there's no
+                    // leftover selected-looking chip suggesting a category
+                    // filter is also still active while viewing favourites.
+                    document.querySelectorAll('.category-chip').forEach(btn => {
+                        if (btn !== chip) btn.classList.remove('active');
+                    });
                 } else {
                     chip.classList.remove("active");
                     chip.classList.add("bg-charcoal", "text-amberGold");
@@ -451,8 +479,25 @@
 
         function showInstallBanner() {
             if (isStandaloneApp()) return;
+            // Once a visitor has acted on the banner once (installed it, or
+            // seen the manual instructions -- see dismissInstallBanner()),
+            // don't show it again on future visits.
+            try { if (localStorage.getItem("installBannerDismissed") === "true") return; } catch (e) {}
             const banner = document.getElementById("install-banner");
             if (banner) banner.classList.remove("hidden");
+        }
+
+        // Hides the banner and remembers that, so it doesn't come back. This
+        // used to only happen on the successful deferredInstallPrompt path
+        // below -- on a browser that never fires beforeinstallprompt at all
+        // (Samsung Internet is the common one), tapping the banner fell
+        // through to a generic alert() with nothing after it to hide the
+        // banner, so it stayed on screen and reappeared every visit no
+        // matter how many times it was tapped.
+        function dismissInstallBanner() {
+            try { localStorage.setItem("installBannerDismissed", "true"); } catch (e) {}
+            const banner = document.getElementById("install-banner");
+            if (banner) banner.classList.add("hidden");
         }
 
         // Chrome/Android fires this when it decides the site is installable.
@@ -465,22 +510,28 @@
             if (isMobileDevice()) showInstallBanner();
         });
 
+        // Belt-and-suspenders: if the browser's own native install UI is
+        // used instead of our button, this still fires and clears the
+        // banner/flag correctly.
+        window.addEventListener("appinstalled", () => { dismissInstallBanner(); });
+
         async function handleInstallClick() {
             if (deferredInstallPrompt) {
                 deferredInstallPrompt.prompt();
                 try { await deferredInstallPrompt.userChoice; } catch (e) { /* ignore */ }
                 deferredInstallPrompt = null;
-                const banner = document.getElementById("install-banner");
-                if (banner) banner.classList.add("hidden");
+                dismissInstallBanner();
                 return;
             }
             // iOS Safari has no install-prompt API at all, so the only way to
             // save the app there is the manual Share-sheet route.
             if (isIosDevice()) {
                 alert("To save this app: tap the Share icon at the bottom of Safari, then tap 'Add to Home Screen'.");
+                dismissInstallBanner();
                 return;
             }
             alert("Look for \"Install app\" or \"Add to Home Screen\" in your browser's menu.");
+            dismissInstallBanner();
         }
 
         // --- Share ---------------------------------------------------------------
@@ -595,8 +646,31 @@
         }
 
         function handleRetailerRedirect(retailerName, targetUrl) {
-            alert(`Opening the external ${retailerName} menu platform directory.\n\nTo view stock details or arrange a personal pickup/delivery, please ensure you log into your pre-existing registered user account on their official web application layout.`);
+            // Used to be a blocking alert() here. A native alert() freezes
+            // the whole page until the visitor dismisses it, which is why
+            // this exact button was the single worst score on the Core Web
+            // Vitals dashboard (7,080ms INP) -- the "interaction" wasn't
+            // slow JS, it was the browser waiting on a modal it couldn't
+            // paint past. showToast() gives the same heads-up without
+            // blocking anything.
+            showToast(`Opening ${retailerName}. Sign in to your own account there to check stock or arrange pickup/delivery.`);
             window.open(targetUrl, '_blank');
+        }
+
+        // Non-blocking replacement for alert()/confirm() notices. Stacks
+        // multiple toasts if fired in quick succession and self-removes
+        // after `duration` ms.
+        function showToast(message, duration = 4000) {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.className = "toast-pop pointer-events-auto bg-charcoal border border-gray-700 text-gray-100 text-xs rounded-xl shadow-xl px-4 py-3 text-center leading-relaxed";
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add("toast-fade-out");
+                setTimeout(() => toast.remove(), 250);
+            }, duration);
         }
 
         function renderProducts() {
@@ -747,10 +821,52 @@
                 cardsHTML.push(cardHTML);
             });
 
-            container.innerHTML = cardsHTML.join("");
+            renderCardsProgressively(container, cardsHTML);
         }
 
-        function filterProducts() { renderProducts(); }
+        // Writes the grid in small batches across animation frames instead
+        // of one synchronous innerHTML replacement covering every matching
+        // product at once. A category-chip click isn't a good fit for the
+        // debounce used on typed input (see filterProducts()) -- it's a
+        // single deliberate tap, not a burst of keystrokes -- so the fix
+        // here is to stop making the browser build every card in one
+        // uninterruptible task. That single task (up to ~2,900 cards on
+        // "All") is what the analytics debug view measured as 2,656ms INP
+        // on the category chips: the browser can't paint anything until the
+        // whole rebuild finishes. Chunking it lets the browser paint the
+        // first batch (and stay responsive to the next tap or scroll)
+        // while the rest fills in a few frames later; the end result is the
+        // same final grid, just assembled progressively.
+        let renderChunkToken = 0;
+        function renderCardsProgressively(container, cardsHTML) {
+            const myToken = ++renderChunkToken; // supersede any render still in flight
+            container.innerHTML = "";
+            const CHUNK_SIZE = 24;
+            let i = 0;
+            const step = () => {
+                if (myToken !== renderChunkToken) return; // a newer render took over
+                const holder = document.createElement("div");
+                holder.innerHTML = cardsHTML.slice(i, i + CHUNK_SIZE).join("");
+                const frag = document.createDocumentFragment();
+                while (holder.firstChild) frag.appendChild(holder.firstChild);
+                container.appendChild(frag);
+                i += CHUNK_SIZE;
+                if (i < cardsHTML.length) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
+
+        // Debounced (200ms): search-bar and price-min/max all call this on
+        // every keystroke. Undebounced, each keystroke triggered a full
+        // renderProducts() rebuild over the whole (~2,900-item) catalogue --
+        // the analytics debug view measured 1,424ms INP on #search-bar from
+        // exactly this. Waiting for a short pause in typing means a fast
+        // typist triggers one rebuild instead of one per character.
+        let filterDebounceTimer = null;
+        function filterProducts() {
+            clearTimeout(filterDebounceTimer);
+            filterDebounceTimer = setTimeout(renderProducts, 200);
+        }
 
         function clearPriceFilter() {
             const minInput = document.getElementById("price-min");
@@ -762,8 +878,39 @@
 
         function filterCategory(cat, btnEl) {
             activeCategory = cat;
+
+            // Picking a category chip is how a visitor leaves "My
+            // Favourites" view. This used to leave showFavouritesOnly
+            // untouched, and renderProducts() checks showFavouritesOnly
+            // before activeCategory -- so the grid stayed locked to
+            // favourites-only even though the tapped chip highlighted
+            // correctly. That's exactly the "categories not responding" /
+            // "stuck in Favourites, only a full refresh gets me out"
+            // behaviour reported after the 2026-09-20 refresh.
+            if (showFavouritesOnly) {
+                showFavouritesOnly = false;
+                const notesWrap = document.getElementById("favourites-notes-wrap");
+                if (notesWrap) notesWrap.classList.add("hidden");
+            }
+
             document.querySelectorAll('.category-chip').forEach(btn => {
                 btn.classList.remove('active');
+                if (btn.id === 'favourites-chip') {
+                    // Restore its resting gold styling explicitly, rather
+                    // than adding the plain chips' gray/medium-weight
+                    // classes to it (the old code did that unconditionally
+                    // to every .category-chip, stacking gray/medium on top
+                    // of this chip's gold/bold ones every time a category
+                    // was clicked, without ever removing them again). If
+                    // we're leaving favourites view right now,
+                    // toggleFavouritesView() stripped bg-charcoal/
+                    // text-amberGold off this chip while it was active
+                    // (relying on the .category-chip.active CSS rule for
+                    // color instead) -- put them back so it doesn't end up
+                    // with neither its active nor its resting styling.
+                    btn.classList.add('bg-charcoal', 'text-amberGold');
+                    return;
+                }
                 btn.classList.add('bg-charcoal', 'text-gray-200', 'font-medium');
             });
             btnEl.classList.add('active');
