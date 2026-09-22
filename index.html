@@ -97,7 +97,7 @@
         <div class="flex space-x-2 overflow-x-auto pb-3 mb-3" style="-ms-overflow-style: none; scrollbar-width: none;">
             <button onclick="filterCategory('All', this)" class="category-chip active px-4 py-2 rounded-xl text-xs whitespace-nowrap transition duration-200">All</button>
             <button onclick="filterCategory('Whisky', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Whisky</button>
-            <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer</button>
+            <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider</button>
             <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
             <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
             <button onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine</button>
@@ -320,8 +320,11 @@
         // the plain "Champagne" string it always was -- changing that value
         // itself would only take effect on already-scraped products after a
         // fresh scrape, so this keeps the rename visible immediately without
-        // waiting on one.
-        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines" };
+        // waiting on one. Same trick used again 2026-09-22 for "Beer" ->
+        // "Beer & Cider" -- cider products already land in the "Beer" bucket
+        // server-side (scrapers/_common.py's guess_category() already
+        // matches "cider" as a Beer keyword), this is purely a label change.
+        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider" };
         const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
 
         // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
