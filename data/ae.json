@@ -10,7 +10,7 @@
   {
     "name": "Aberlour 16 Year Old Double Cask Malt Whisky",
     "price_bhd": 98.181,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Aberlour-16-Year-Old-Double-Cask-Malt-Whisky?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -18,7 +18,7 @@
   {
     "name": "Ballantine's 17 Year Old Blended Scotch Whisky",
     "price_bhd": 94.6,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Ballantine's-17-Year-Old-Blended-Scotch-Whisky?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -49,7 +49,7 @@
   },
   {
     "name": "Jim Beam Black",
-    "price_bhd": 24.3,
+    "price_bhd": 24.375,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Jim-Beam-Black?search=whisky&page=1",
     "retailer": "African & Eastern",
@@ -65,7 +65,7 @@
   },
   {
     "name": "Jim Beam Black Cherry",
-    "price_bhd": 17.3,
+    "price_bhd": 17.675,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Jim-Black-Black-Cherry?search=whisky&page=1",
     "retailer": "African & Eastern",
@@ -73,15 +73,15 @@
   },
   {
     "name": "Jim Beam Devil's Cut",
-    "price_bhd": 36.801,
-    "in_stock": false,
+    "price_bhd": 36.97,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Jim-Beam-Devils-Cut?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
   {
     "name": "Jim Beam Double Oak",
-    "price_bhd": 38.2,
+    "price_bhd": 39.03,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Jim-Beam-Double-Oak?search=whisky&page=1",
     "retailer": "African & Eastern",
@@ -89,7 +89,7 @@
   },
   {
     "name": "Jim Beam Honey",
-    "price_bhd": 16.7,
+    "price_bhd": 17.05,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Jim-Beam-Honey?search=whisky&page=1",
     "retailer": "African & Eastern",
@@ -170,7 +170,7 @@
   {
     "name": "Fireball Whisky Liqueur 75cl Bottle",
     "price_bhd": 14.163,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Fireball-Whisky-Liqueur-75cl-Bottle?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -194,7 +194,7 @@
   {
     "name": "The Ardmore Legacy Single Malt Scotch Whisky",
     "price_bhd": 31.2,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/the-ardmore-legacy-single-malt-scotch-whisky?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -266,7 +266,7 @@
   {
     "name": "Chivas Regal 13 Extra Oloroso Sherry Cask Scotch Whisky Scotland 70CL",
     "price_bhd": 54.58,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Chivas-Regal-13-Extra-Oloroso-Sherry-Cask-Scotch-Whisky?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -290,7 +290,7 @@
   {
     "name": "Royal Salute Whisky Scotland 30YO Key To The Kingdom 50cl",
     "price_bhd": 471.631,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/royal-salute-whisky-scotland-30yo-key-to-the-kingdom-50cl.html?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -313,16 +313,16 @@
   },
   {
     "name": "Auchentoshan American Oak Single Malt Scotch Whisky",
-    "price_bhd": 36.6,
-    "in_stock": false,
+    "price_bhd": 37.345,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/auchentoshan-american-oak-single-malt-scotch-whisky?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
   {
     "name": "Auchentoshan Three Wood Single Malt Scotch Whisky",
-    "price_bhd": 62.9,
-    "in_stock": false,
+    "price_bhd": 64.17,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/auchentoshan-three-wood-single-malt-scotch-whisky?search=whisky&page=3",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -346,7 +346,7 @@
   {
     "name": "The Macallan Rare Cask Single Malt Scotch Whisky",
     "price_bhd": 279.131,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/the-macallan-rare-cask-single-malt-scotch-whisky.html?search=whisky&page=3",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -520,6 +520,14 @@
     "category": "Whisky"
   },
   {
+    "name": "Blenders Pride Reserve Collection Whisky 75cl",
+    "price_bhd": 11.0,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Blenders-Pride-Reserve-Collection-Whisky-75cl?search=whisky&page=4",
+    "retailer": "African & Eastern",
+    "category": "Whisky"
+  },
+  {
     "name": "High Commissioner Blended Scotch Whisky 35cl",
     "price_bhd": 3.3,
     "in_stock": true,
@@ -635,7 +643,7 @@
     "name": "Chivas Regal Scotch Whisky Scotland 12YO Blended 5cl",
     "price_bhd": 4.26,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/chivas-12-5cl.html?search=whisky&page=4",
+    "url": "https://www.africanandeastern.com/chivas-12-5cl.html?search=whisky&page=5",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
@@ -817,8 +825,8 @@
   },
   {
     "name": "Auchentoshan Three Wood Single Malt Scotch Whisky",
-    "price_bhd": 62.9,
-    "in_stock": false,
+    "price_bhd": 64.17,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/auchentoshan-three-wood-single-malt-scotch-whisky?search=beer&page=1",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -881,7 +889,7 @@
   },
   {
     "name": "Corona Extra Beer Bottles [Case of 24]",
-    "price_bhd": 27.5,
+    "price_bhd": 36.0,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/corona-extra-beer.html?search=beer&page=1",
     "retailer": "African & Eastern",
@@ -889,7 +897,7 @@
   },
   {
     "name": "Corona Extra Beer Bottles [Case of 6]",
-    "price_bhd": 7.201,
+    "price_bhd": 9.451,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Corona-Extra-Beer-Bottles-6?search=beer&page=1",
     "retailer": "African & Eastern",
@@ -993,7 +1001,7 @@
   },
   {
     "name": "Goose Island IPA Craft Beer Bottles",
-    "price_bhd": 44.875,
+    "price_bhd": 45.45,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/goose-island-ipa-craft-beer-bottles.html?search=beer&page=2",
     "retailer": "African & Eastern",
@@ -1001,7 +1009,7 @@
   },
   {
     "name": "Goose Island IPA Craft Beer Bottles [6-Pack]",
-    "price_bhd": 11.458,
+    "price_bhd": 11.999,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/goose-island-ipa-craft-beer-bottles-6-pack?search=beer&page=2",
     "retailer": "African & Eastern",
@@ -1145,7 +1153,7 @@
   },
   {
     "name": "Hoegaarden Ros\u00e9e Beer Cans [Case of 24]",
-    "price_bhd": 34.0,
+    "price_bhd": 34.265,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Hoegaarden-Ros\u00e9e-Beer-Cans?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1169,7 +1177,7 @@
   },
   {
     "name": "Leffe Brun (Dark) Ale Bottles [Case of 6]",
-    "price_bhd": 7.801,
+    "price_bhd": 8.402,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Leffe-Brun-Ale-Bottles-6?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1177,7 +1185,7 @@
   },
   {
     "name": "Leffe Brun (Dark) Ale Bottles [Case of 24]",
-    "price_bhd": 30.6,
+    "price_bhd": 31.93,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/leffe-brun.html?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1225,7 +1233,7 @@
   },
   {
     "name": "Estrella Galicia Beer Bottles [6-Pack]",
-    "price_bhd": 5.999,
+    "price_bhd": 6.6,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/estrella-galicia-beer-bottles-6-pack?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1233,7 +1241,7 @@
   },
   {
     "name": "Estrella Galicia Beer Bottles [Case of 24]",
-    "price_bhd": 23.1,
+    "price_bhd": 24.835,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/estrella-galicia-beer-bottles-case-of-24.html?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1690,7 +1698,7 @@
   {
     "name": "Tanqueray London Dry Gin",
     "price_bhd": 36.3,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Tanqueray-London-Dry-Gin?search=gin&page=2",
     "retailer": "African & Eastern",
     "category": "Gin"
@@ -1698,7 +1706,7 @@
   {
     "name": "Tanqueray No. TEN",
     "price_bhd": 45.1,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/tanqueray-no-ten-1213008537?search=gin&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1985,7 +1993,7 @@
   },
   {
     "name": "Beluga Noble Vodka 1L | FREE Glass",
-    "price_bhd": 63.5,
+    "price_bhd": 65.145,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Beluga-Noble-Vodka-1L-VAP?search=vodka&page=1",
     "retailer": "African & Eastern",
@@ -2009,7 +2017,7 @@
   },
   {
     "name": "Beluga Noble Vodka 70cl",
-    "price_bhd": 48.5,
+    "price_bhd": 48.63,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Beluga-Noble-Vodka-70cl?search=vodka&page=1",
     "retailer": "African & Eastern",
@@ -2082,7 +2090,7 @@
   {
     "name": "McDowell's X Series Premium Vodka 75cl",
     "price_bhd": 8.1,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/McDowells-X-Series-Premium-Vodka-75cl?search=vodka&page=1",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2234,7 +2242,7 @@
   {
     "name": "Absolut Vodka Elyx 75cl",
     "price_bhd": 44.88,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Absolut-Elyx-Vodka-75cl?search=vodka&page=2",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2289,8 +2297,8 @@
   },
   {
     "name": "Roberto Cavalli Vodka",
-    "price_bhd": 39.1,
-    "in_stock": false,
+    "price_bhd": 39.525,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Roberto-Cavalli-Vodka?search=vodka&page=3",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2418,7 +2426,7 @@
   {
     "name": "Glen's Vodka 1L",
     "price_bhd": 8.4,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/glen-s-vodka-1l.html?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2482,7 +2490,7 @@
   {
     "name": "Catena Alta Chardonnay 2021",
     "price_bhd": 24.5,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Catena-Alta-Chardonnay-2021?search=wine&page=1",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -2568,17 +2576,17 @@
     "category": "Other Spirits"
   },
   {
-    "name": "Grand Bateau Rouge 2019",
+    "name": "Grand Bateau Rouge 2020",
     "price_bhd": 15.45,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/grand-bateau-rouge-2019.html?search=wine&page=1",
+    "url": "https://www.africanandeastern.com/grand-bateau-rouge-2020.html?search=wine&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
   {
     "name": "Jermann \"W...Dreams\" Chardonnay",
     "price_bhd": 55.3,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/jermann-w-dreams-chardonnay.html?search=wine&page=1",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -2609,7 +2617,7 @@
   },
   {
     "name": "La Spinetta Barbaresco Bordini",
-    "price_bhd": 43.6,
+    "price_bhd": 49.225,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/la-spinetta-barbaresco-bordini.html?search=wine&page=1",
     "retailer": "African & Eastern",
@@ -2658,7 +2666,7 @@
   {
     "name": "Santa Margherita Pinot Grigio",
     "price_bhd": 11.501,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/santa-margherita-pinot-grigio.html?search=wine&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -2689,7 +2697,7 @@
   },
   {
     "name": "Alamos Seleccion Pinot Noir",
-    "price_bhd": 11.4,
+    "price_bhd": 11.57,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/alamos-seleccion-pinot-noir.html?search=wine&page=2",
     "retailer": "African & Eastern",
@@ -2713,7 +2721,7 @@
   },
   {
     "name": "Beluga Noble Vodka 1L | FREE Glass",
-    "price_bhd": 63.5,
+    "price_bhd": 65.145,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Beluga-Noble-Vodka-1L-VAP?search=wine&page=2",
     "retailer": "African & Eastern",
@@ -2737,7 +2745,7 @@
   },
   {
     "name": "Beluga Noble Vodka 70cl",
-    "price_bhd": 48.5,
+    "price_bhd": 48.63,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Beluga-Noble-Vodka-70cl?search=wine&page=2",
     "retailer": "African & Eastern",
@@ -2842,7 +2850,7 @@
   {
     "name": "Lillet Blanc French Wine Based Aperitif",
     "price_bhd": 19.93,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Lillet-Blanc-French-Wine-Based-Aperitif ?search=wine&page=3",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -2890,7 +2898,7 @@
   {
     "name": "Van Loveren Gewurztraminer",
     "price_bhd": 6.71,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Van-Loveren-Gewurztraminer?search=wine&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3113,7 +3121,7 @@
   },
   {
     "name": "Ultimate Provence Ros\u00e9",
-    "price_bhd": 22.6,
+    "price_bhd": 22.92,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/ultimate-provence-rose?search=wine&page=5",
     "retailer": "African & Eastern",
@@ -3513,8 +3521,8 @@
   },
   {
     "name": "Montes Alpha Merlot",
-    "price_bhd": 17.5,
-    "in_stock": false,
+    "price_bhd": 18.0,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Montes-Alpha-Merlot?search=wine&page=7",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -3722,7 +3730,7 @@
   {
     "name": "Havana Club A\u00f1ejo 3 A\u00f1os Rum",
     "price_bhd": 15.77,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Havana-Club-Anejo-3-Anos-Rum?search=rum&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3746,7 +3754,7 @@
   {
     "name": "McDowell's X Series Premium Citrus Rum 75cl",
     "price_bhd": 8.1,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/McDowells-X-Series-Premium-Citrus-Rum-75cl?search=rum&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3754,7 +3762,7 @@
   {
     "name": "McDowell's X Series Premium Dark Rum 75cl",
     "price_bhd": 8.1,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/McDowells-X-Series-Premium-Dark-Rum-75cl?search=rum&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3850,7 +3858,7 @@
   {
     "name": "Bacardi Carta Blanca Superior White Rum",
     "price_bhd": 22.69,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Bacardi-Carta-Blanca-Superior-White-Rum?search=rum&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3938,7 +3946,7 @@
   {
     "name": "Bounty Coconut Rum Liqueur",
     "price_bhd": 14.9,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/bounty-coconut-rum-liqueur.html?search=rum&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4121,7 +4129,7 @@
   },
   {
     "name": "Clase Azul Tequila Reposado",
-    "price_bhd": 219.499,
+    "price_bhd": 220.26,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Clase-Azul-Tequila-Reposado?search=tequila&page=1",
     "retailer": "African & Eastern",
@@ -4137,17 +4145,9 @@
   },
   {
     "name": "Jose Cuervo Especial Gold Tequila",
-    "price_bhd": 17.3,
-    "in_stock": false,
-    "url": "https://www.africanandeastern.com/Cuervo-Especial-Gold.html?search=tequila&page=1",
-    "retailer": "African & Eastern",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Jose Cuervo Especial Silver Tequila",
-    "price_bhd": 17.3,
+    "price_bhd": 17.9,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Cuervo-Especial-Silver.html?search=tequila&page=1",
+    "url": "https://www.africanandeastern.com/Cuervo-Especial-Gold.html?search=tequila&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -4251,7 +4251,7 @@
     "name": "Maestro Dobel Humito Tequila",
     "price_bhd": 63.1,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/Maestro-Dobel-Humito-Tequila?search=tequila&page=2",
+    "url": "https://www.africanandeastern.com/Maestro-Dobel-Humito-Tequila?search=tequila&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -4337,7 +4337,7 @@
   },
   {
     "name": "Jose Cuervo Reserva de la Familia Tequila",
-    "price_bhd": 112.0,
+    "price_bhd": 112.265,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cuervo-Reserva-de-la-Familia.html?search=tequila&page=2",
     "retailer": "African & Eastern",
@@ -4345,7 +4345,7 @@
   },
   {
     "name": "1800 A\u00f1ejo Tequila",
-    "price_bhd": 40.9,
+    "price_bhd": 41.3,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/1800-anejo.html?search=tequila&page=2",
     "retailer": "African & Eastern",
@@ -4353,7 +4353,7 @@
   },
   {
     "name": "1800 Blanco Tequila",
-    "price_bhd": 37.3,
+    "price_bhd": 37.495,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/1800-silver.html?search=tequila&page=2",
     "retailer": "African & Eastern",
@@ -4385,8 +4385,8 @@
   },
   {
     "name": "1800 Reposado Tequila",
-    "price_bhd": 37.3,
-    "in_stock": false,
+    "price_bhd": 38.535,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/1800-reposado.html?search=tequila&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4411,7 +4411,7 @@
     "name": "Sierra Tequila Antiguo Plata",
     "price_bhd": 26.69,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Sierra-Tequila-Antiguo-Plata?search=tequila&page=3",
+    "url": "https://www.africanandeastern.com/Sierra-Tequila-Antiguo-Plata?search=tequila&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -4425,7 +4425,7 @@
   },
   {
     "name": "Jose Cuervo Especial Silver Tequila 50cl",
-    "price_bhd": 11.525,
+    "price_bhd": 11.666,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cuervo-Especial-Silver-50cl.html?search=tequila&page=3",
     "retailer": "African & Eastern",
@@ -4433,7 +4433,7 @@
   },
   {
     "name": "Jose Cuervo Especial Gold Tequila 50cl",
-    "price_bhd": 11.501,
+    "price_bhd": 11.9,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cuervo-Especial-Gold-50cl.html?search=tequila&page=3",
     "retailer": "African & Eastern",
@@ -4514,7 +4514,7 @@
   {
     "name": "Fireball Whisky Liqueur 75cl Bottle",
     "price_bhd": 14.163,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Fireball-Whisky-Liqueur-75cl-Bottle?search=liqueur&page=1",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -4761,8 +4761,8 @@
   },
   {
     "name": "Auchentoshan Three Wood Single Malt Scotch Whisky",
-    "price_bhd": 62.9,
-    "in_stock": false,
+    "price_bhd": 64.17,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/auchentoshan-three-wood-single-malt-scotch-whisky?search=liqueur&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -4898,7 +4898,7 @@
   {
     "name": "Bounty Coconut Rum Liqueur",
     "price_bhd": 14.9,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/bounty-coconut-rum-liqueur.html?search=liqueur&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
