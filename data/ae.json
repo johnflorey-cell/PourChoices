@@ -66,7 +66,7 @@
   {
     "name": "Jim Beam Black Cherry",
     "price_bhd": 17.675,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Jim-Black-Black-Cherry?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -82,7 +82,7 @@
   {
     "name": "Jim Beam Double Oak",
     "price_bhd": 39.03,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Jim-Beam-Double-Oak?search=whisky&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -152,10 +152,18 @@
     "category": "Whisky"
   },
   {
+    "name": "Chivas Regal Crystalgold 1L",
+    "price_bhd": 86.801,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Chivas-Regal-Crystalgold-1L ?search=whisky&page=1",
+    "retailer": "African & Eastern",
+    "category": "Whisky"
+  },
+  {
     "name": "Chivas Regal Scotch Whisky Scotland 12YO Blended 1L",
     "price_bhd": 67.24,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/chivas-regal-scotch-whisky-scotland-12yo-blended-1l-1584115284?search=whisky&page=1",
+    "url": "https://www.africanandeastern.com/chivas-regal-scotch-whisky-scotland-12yo-blended-1l-1584115284?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
@@ -258,7 +266,7 @@
   {
     "name": "Chivas Regal 13 Extra Bourbon Cask Scotch Whisky Scotland 70CL",
     "price_bhd": 54.58,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Chivas-Regal-13-Extra-Bourbon-Cask-Scotch-Whisky?search=whisky&page=2",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -315,7 +323,7 @@
     "name": "Auchentoshan American Oak Single Malt Scotch Whisky",
     "price_bhd": 37.345,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/auchentoshan-american-oak-single-malt-scotch-whisky?search=whisky&page=2",
+    "url": "https://www.africanandeastern.com/auchentoshan-american-oak-single-malt-scotch-whisky?search=whisky&page=3",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
@@ -475,7 +483,7 @@
     "name": "Ballantine's 10 Year Old Blended Scotch Whisky",
     "price_bhd": 19.5,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/Ballantines-10-Year-Old-Blended-Scotch-Whisky?search=whisky&page=3",
+    "url": "https://www.africanandeastern.com/Ballantines-10-Year-Old-Blended-Scotch-Whisky?search=whisky&page=4",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
@@ -635,7 +643,7 @@
     "name": "Chivas Regal Scotch Whisky Scotland 12YO Blended 37.5cl",
     "price_bhd": 25.61,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/chivas-12-375.html?search=whisky&page=4",
+    "url": "https://www.africanandeastern.com/chivas-12-375.html?search=whisky&page=5",
     "retailer": "African & Eastern",
     "category": "Whisky"
   },
@@ -1233,7 +1241,7 @@
   },
   {
     "name": "Estrella Galicia Beer Bottles [6-Pack]",
-    "price_bhd": 6.6,
+    "price_bhd": 7.887,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/estrella-galicia-beer-bottles-6-pack?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -1241,7 +1249,7 @@
   },
   {
     "name": "Estrella Galicia Beer Bottles [Case of 24]",
-    "price_bhd": 24.835,
+    "price_bhd": 30.0,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/estrella-galicia-beer-bottles-case-of-24.html?search=beer&page=3",
     "retailer": "African & Eastern",
@@ -2024,9 +2032,17 @@
     "category": "Vodka"
   },
   {
+    "name": "Beluga Transatlantic Racing Vodka 1L",
+    "price_bhd": 63.25,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Beluga-Transatlantic-Racing-Vodka-1L?search=vodka&page=1",
+    "retailer": "African & Eastern",
+    "category": "Vodka"
+  },
+  {
     "name": "Belvedere Pure Vodka",
     "price_bhd": 77.76,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Belvedere-Pure-Vodka?search=vodka&page=1",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2058,7 +2074,7 @@
   {
     "name": "Big Time Energy with Vodka Mix [6-Pack]",
     "price_bhd": 5.7,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Big-Time-Energy-Vodka-Mix-6?search=vodka&page=1",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2066,7 +2082,7 @@
   {
     "name": "Big Time Energy with Vodka Mix [Case of 24]",
     "price_bhd": 21.63,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Big-Time-Energy-Vodka-Mix?search=vodka&page=1",
     "retailer": "African & Eastern",
     "category": "Vodka"
@@ -2099,7 +2115,7 @@
     "name": "Red Square Black Ice [Case of 24]",
     "price_bhd": 22.71,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/red-square-black-ice?search=vodka&page=1",
+    "url": "https://www.africanandeastern.com/red-square-black-ice?search=vodka&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -2259,7 +2275,7 @@
     "name": "St\u00eblz Mixed Classics Moscow Mule [4-Pack]",
     "price_bhd": 10.12,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/stelz-mixed-classics-moscow-mule-4-pack.html?search=vodka&page=2",
+    "url": "https://www.africanandeastern.com/stelz-mixed-classics-moscow-mule-4-pack.html?search=vodka&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -2321,7 +2337,7 @@
   },
   {
     "name": "Smirnoff Red No. 21 Vodka",
-    "price_bhd": 19.665,
+    "price_bhd": 22.285,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/smirnoff-red-no-21-vodka.html?search=vodka&page=3",
     "retailer": "African & Eastern",
@@ -2419,7 +2435,7 @@
     "name": "Blue Moon Elite Vodka",
     "price_bhd": 6.3,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Blue-Moon-Elite-Vodka?search=vodka&page=3",
+    "url": "https://www.africanandeastern.com/Blue-Moon-Elite-Vodka?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Vodka"
   },
@@ -2474,7 +2490,7 @@
   {
     "name": "Smirnoff Ice [Case of 24]",
     "price_bhd": 63.215,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Smirnoff-Ice?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -2489,7 +2505,7 @@
   },
   {
     "name": "Catena Alta Chardonnay 2021",
-    "price_bhd": 24.5,
+    "price_bhd": 24.58,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Catena-Alta-Chardonnay-2021?search=wine&page=1",
     "retailer": "African & Eastern",
@@ -2585,7 +2601,7 @@
   },
   {
     "name": "Jermann \"W...Dreams\" Chardonnay",
-    "price_bhd": 55.3,
+    "price_bhd": 59.39,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/jermann-w-dreams-chardonnay.html?search=wine&page=1",
     "retailer": "African & Eastern",
@@ -2665,7 +2681,7 @@
   },
   {
     "name": "Santa Margherita Pinot Grigio",
-    "price_bhd": 11.501,
+    "price_bhd": 11.78,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/santa-margherita-pinot-grigio.html?search=wine&page=2",
     "retailer": "African & Eastern",
@@ -2752,6 +2768,14 @@
     "category": "Vodka"
   },
   {
+    "name": "Beluga Transatlantic Racing Vodka 1L",
+    "price_bhd": 63.25,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Beluga-Transatlantic-Racing-Vodka-1L?search=wine&page=2",
+    "retailer": "African & Eastern",
+    "category": "Vodka"
+  },
+  {
     "name": "Cabalie Vieilles Vignes Red",
     "price_bhd": 7.431,
     "in_stock": true,
@@ -2795,7 +2819,7 @@
     "name": "Clefs Des Papes Chateauneuf Du Pape",
     "price_bhd": 41.01,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Clefs-des-papes-chateauneuf-du-pape?search=wine&page=2",
+    "url": "https://www.africanandeastern.com/Clefs-des-papes-chateauneuf-du-pape?search=wine&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -2955,7 +2979,7 @@
     "name": "Hugel Pinot Noir Grossi Laue",
     "price_bhd": 48.453,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Hugel-Pinot-Noir-Grossi-Laue?search=wine&page=3",
+    "url": "https://www.africanandeastern.com/Hugel-Pinot-Noir-Grossi-Laue?search=wine&page=4",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -3115,7 +3139,7 @@
     "name": "Sideral Blend 2022",
     "price_bhd": 20.447,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Sideral-Blend-2022?search=wine&page=4",
+    "url": "https://www.africanandeastern.com/Sideral-Blend-2022?search=wine&page=5",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -3275,7 +3299,7 @@
     "name": "Cape Auction Classic Ros\u00e9 Natural Sweet 5L",
     "price_bhd": 9.53,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/Cape-Auction-Classic-Rose-5L?search=wine&page=5",
+    "url": "https://www.africanandeastern.com/Cape-Auction-Classic-Rose-5L?search=wine&page=6",
     "retailer": "African & Eastern",
     "category": "Wine"
   },
@@ -3435,7 +3459,7 @@
     "name": "GatoNegro Chardonnay",
     "price_bhd": 4.425,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/gatonegro-chardonnay.html?search=wine&page=6",
+    "url": "https://www.africanandeastern.com/gatonegro-chardonnay.html?search=wine&page=7",
     "retailer": "African & Eastern",
     "category": "Wine"
   },
@@ -3946,7 +3970,7 @@
   {
     "name": "Bounty Coconut Rum Liqueur",
     "price_bhd": 14.9,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/bounty-coconut-rum-liqueur.html?search=rum&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4152,6 +4176,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "Jose Cuervo Especial Silver Tequila",
+    "price_bhd": 17.9,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/Cuervo-Especial-Silver.html?search=tequila&page=1",
+    "retailer": "African & Eastern",
+    "category": "Other Spirits"
+  },
+  {
     "name": "Jose Cuervo Tradicional Tequila Plata",
     "price_bhd": 33.4,
     "in_stock": true,
@@ -4251,7 +4283,7 @@
     "name": "Maestro Dobel Humito Tequila",
     "price_bhd": 63.1,
     "in_stock": false,
-    "url": "https://www.africanandeastern.com/Maestro-Dobel-Humito-Tequila?search=tequila&page=1",
+    "url": "https://www.africanandeastern.com/Maestro-Dobel-Humito-Tequila?search=tequila&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -4298,7 +4330,7 @@
   {
     "name": "Del Maguey Vida Mezcal Mexico",
     "price_bhd": 44.15,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Del-Maguey-Vida-Mezcal-Mexico?search=tequila&page=2",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4411,7 +4443,7 @@
     "name": "Sierra Tequila Antiguo Plata",
     "price_bhd": 26.69,
     "in_stock": true,
-    "url": "https://www.africanandeastern.com/Sierra-Tequila-Antiguo-Plata?search=tequila&page=2",
+    "url": "https://www.africanandeastern.com/Sierra-Tequila-Antiguo-Plata?search=tequila&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },
@@ -4546,7 +4578,7 @@
   {
     "name": "Giffard Fleur De Sureau Sauvage Liqueur - Wild Elderflower",
     "price_bhd": 20.6,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/giffard-fleur-de-sureau-sauvage-liqueur-wild-elderflower.html?search=liqueur&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4826,7 +4858,7 @@
   {
     "name": "Dolin Blanc Vermouth",
     "price_bhd": 12.8,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Dolin-Blanc-Vermouth?search=liqueur&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4880,6 +4912,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "J\u00e4germeister 5cl Miniatures",
+    "price_bhd": 2.31,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/J\u00e4germeister-5cl-Miniatures?search=liqueur&page=3",
+    "retailer": "African & Eastern",
+    "category": "Other Spirits"
+  },
+  {
     "name": "Strawberry Lips Liqueur",
     "price_bhd": 14.98,
     "in_stock": true,
@@ -4889,7 +4929,7 @@
   },
   {
     "name": "Tang Sour Apple",
-    "price_bhd": 15.3,
+    "price_bhd": 20.79,
     "in_stock": true,
     "url": "https://www.africanandeastern.com/tang-sour-apple-shooter-south-africa.html?search=liqueur&page=3",
     "retailer": "African & Eastern",
@@ -4898,7 +4938,7 @@
   {
     "name": "Bounty Coconut Rum Liqueur",
     "price_bhd": 14.9,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/bounty-coconut-rum-liqueur.html?search=liqueur&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4922,7 +4962,7 @@
   {
     "name": "Absinthe Absente 55",
     "price_bhd": 24.65,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/absinthe-absente-55.html?search=liqueur&page=3",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -5140,6 +5180,14 @@
     "price_bhd": 1.3,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/J\u00e4germeister-2cl.html?search=baileys&page=1",
+    "retailer": "African & Eastern",
+    "category": "Other Spirits"
+  },
+  {
+    "name": "J\u00e4germeister 5cl Miniatures",
+    "price_bhd": 2.31,
+    "in_stock": true,
+    "url": "https://www.africanandeastern.com/J\u00e4germeister-5cl-Miniatures?search=baileys&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
   },

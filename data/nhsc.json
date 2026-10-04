@@ -25,7 +25,7 @@
   },
   {
     "name": "ALEXANDER VODKA ORANGE 1LTR",
-    "price_bhd": 8.5,
+    "price_bhd": 11.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDER-VODKA-ORANGE-1LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -360,6 +360,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "BLENDERS PRIDE RESERVE 75CL",
+    "price_bhd": 7.5,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Blenders-Pride-Reserve-Nhsc-Bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Other Spirits"
+  },
+  {
     "name": "BRANCOVEANU XO BRANDY 70CL",
     "price_bhd": 33.0,
     "in_stock": true,
@@ -504,14 +512,6 @@
     "category": "Whisky"
   },
   {
-    "name": "CLANSMAN SCOTCH WHISKY 70CL",
-    "price_bhd": 6.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Clansman-Scotch-Whisky-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "CUTTY SARK SCOTCH WHISKY 70CL",
     "price_bhd": 7.5,
     "in_stock": true,
@@ -569,7 +569,7 @@
   },
   {
     "name": "EMPERADOR HOT SHOT 75CL",
-    "price_bhd": 6.6,
+    "price_bhd": 8.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Emperaodr-Hot-Shot-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -584,14 +584,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "FAMOUS GROUSE SCOTCH WHISKY 1LTR",
-    "price_bhd": 16.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/FAMOUS-GROUSE-1-LTR-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "FLIGHT OF THE FISH EAGLE BRANDY 75CL",
     "price_bhd": 9.4,
     "in_stock": true,
@@ -601,7 +593,7 @@
   },
   {
     "name": "FOUR ROSES BOURBON 35CL",
-    "price_bhd": 5.0,
+    "price_bhd": 7.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/FOUR-ROSES-BOURBON-35CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -681,7 +673,7 @@
   },
   {
     "name": "GINBEY GIN 70CL",
-    "price_bhd": 6.6,
+    "price_bhd": 13.2,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GINBEY-GIN-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -792,6 +784,22 @@
     "category": "Whisky"
   },
   {
+    "name": "GLENMORANGIE LASANTA GB 70CL",
+    "price_bhd": 22.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GLENMORANGIE-LASANTA-GB-70CL-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Other Spirits"
+  },
+  {
+    "name": "GLENMORANGIE NECTAR D'OR 70CL",
+    "price_bhd": 24.2,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GLENMORANGIE-NECTAR-DOR-70CL-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Other Spirits"
+  },
+  {
     "name": "GOSLINGS 151 BLACK SEAL RUM 70CL",
     "price_bhd": 23.21,
     "in_stock": true,
@@ -825,7 +833,7 @@
   },
   {
     "name": "HAYMANS SLOE GIN 70CL",
-    "price_bhd": 11.0,
+    "price_bhd": 19.8,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Haymans-Sloe-Gin-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -849,7 +857,7 @@
   },
   {
     "name": "HINOTORI 5YRS BLEND JAPANESE WHISKY 70CL",
-    "price_bhd": 22.0,
+    "price_bhd": 49.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HINOTORI-5YRS-BLEND-JAPANESE-WHISKY-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -857,7 +865,7 @@
   },
   {
     "name": "HINOTORI GOLDORAK JAPANESE WHISKY 70CL",
-    "price_bhd": 22.0,
+    "price_bhd": 49.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HINOTORI-GOLDORAK-JAPANESE-WHISKY-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -865,7 +873,7 @@
   },
   {
     "name": "HOT SHOT BUBBLE 20% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-BUBBLE-20%-4X30ML-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -873,7 +881,7 @@
   },
   {
     "name": "HOT SHOT DOUDOU 40% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-DOUDOU-40-4x30ML-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -881,7 +889,7 @@
   },
   {
     "name": "HOT SHOT PINA COLADA 17% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-PINA-COLADA-17-4X30ML-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -889,7 +897,7 @@
   },
   {
     "name": "HOT SHOT SAMBUCA 40% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-SAMBUCA-40-4X30ML-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -897,7 +905,7 @@
   },
   {
     "name": "HOT SHOT STRAWBERRY SUNDAE 17% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-STRAWBERRY-SUNDAE-17-4X30ML-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -905,7 +913,7 @@
   },
   {
     "name": "HOT SHOT TEQUILA 40% 4X30ML",
-    "price_bhd": 4.0,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT,TEQUILA,40,4,30,ML,nhsc,bahrain?limit=100",
     "retailer": "NHSC",
@@ -961,7 +969,7 @@
   },
   {
     "name": "JAAR OLOROSO JEREZ WHISKY 70CL",
-    "price_bhd": 11.0,
+    "price_bhd": 22.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/JAAR-OLOROSO-JEREZ--WHISKY-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1049,7 +1057,7 @@
   },
   {
     "name": "KITTY O SHEA IRISH WHISKEY 70CL",
-    "price_bhd": 7.0,
+    "price_bhd": 13.2,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/KITTY-O-SHEA-IRISH-WHISKEY-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1078,14 +1086,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Licor-43-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
-  },
-  {
-    "name": "LORD HYNETT SCOTCH WHISKY 1LTR",
-    "price_bhd": 8.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/LORD-HYNETT-SCOTCH-WHISKY-1Ltr-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
   },
   {
     "name": "LUXARDO MARASCHINO 75CL",
@@ -1212,14 +1212,6 @@
     "price_bhd": 19.8,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Ocho-Tequila-Reposado-100-Agave-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "OLD MONK RUM 1LTR",
-    "price_bhd": 8.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old,Monk,Rum,Nhsc,Bahrain,1ltr?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
@@ -1352,14 +1344,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "RED BOWLER WHISKY 70CL",
-    "price_bhd": 6.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/RED-BOWLER-WHISKY-70CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "RICHELIEU 75CL",
     "price_bhd": 9.9,
     "in_stock": true,
@@ -1393,7 +1377,7 @@
   },
   {
     "name": "ROYAL SALUTE 21 YEARS OLD 70CL",
-    "price_bhd": 77.0,
+    "price_bhd": 148.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Royal-Salute-21-Years-Old-70cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -1432,14 +1416,6 @@
     "category": "Whisky"
   },
   {
-    "name": "SIR EDWARD'S SMOKY SCOTCH WHISKY 1LTR",
-    "price_bhd": 10.56,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/SIR-EDWARD'S-SMOKY-1LTR-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "SIR EDWARD'S SMOKY SCOTCH WHISKY 70CL",
     "price_bhd": 7.92,
     "in_stock": true,
@@ -1473,7 +1449,7 @@
   },
   {
     "name": "SUZE LIQUEUR DE GENTIANE 70CL",
-    "price_bhd": 15.4,
+    "price_bhd": 8.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/SUZE-LIQUEUR-DE-GENTIANE-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1512,16 +1488,8 @@
     "category": "Other Spirits"
   },
   {
-    "name": "TITO'S HANDMADE VODKA 75CL",
-    "price_bhd": 15.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Tito's-Handmade-Vodka-75-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
-  },
-  {
     "name": "TONEIDO FRESH SOJU 36CL",
-    "price_bhd": 2.0,
+    "price_bhd": 1.1,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/SOJU-TONEIDO-FRESH-36CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1529,7 +1497,7 @@
   },
   {
     "name": "TONEIDO STRAWBERRY SOJU 36CL",
-    "price_bhd": 2.0,
+    "price_bhd": 1.1,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TONEIDO-STRAWBERRY-SOJU-36CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1537,17 +1505,9 @@
   },
   {
     "name": "TONEIDO WATERMELON SOJU 36CL",
-    "price_bhd": 2.0,
+    "price_bhd": 1.1,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TONEIDO-WATERMELON-SOJU-36CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "VAT 69 1 LTR",
-    "price_bhd": 13.2,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/VAT-69-1-LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
@@ -1558,30 +1518,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/zero-Hour-Whisky-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Whisky"
-  },
-  {
-    "name": "4TH STREET NATURAL SWEET RED 75CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/4th-Street-Natural-Sweet-Red-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "4TH STREET NATURAL SWEET ROSE 75CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/4th-Street-Natural-Sweet-Rose-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "4TH STREET NATURAL SWEET WHITE 75CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/4th-Street-Natural-Sweet-White-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
   },
   {
     "name": "ADOBE ORGANIC CHARDONNAY 75CL",
@@ -1609,7 +1545,7 @@
   },
   {
     "name": "ALLEGRANZA MONASTRELL 75CL",
-    "price_bhd": 5.5,
+    "price_bhd": 3.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/ALLEGRANZA-MONASTRELL-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1672,6 +1608,14 @@
     "category": "Wine"
   },
   {
+    "name": "CASA DEL CABLE TEMPRANILLO 75CL",
+    "price_bhd": 2.8,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/wines-wine/CASA-DEL-CABLE-TEMPRANILLO-75CL-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Wine"
+  },
+  {
     "name": "CASILLERO DEL DIABLO RESERVA CHARDONNAY 75CL",
     "price_bhd": 7.2,
     "in_stock": true,
@@ -1721,7 +1665,7 @@
   },
   {
     "name": "CHATEAU CEDRE D'ARTHUS BORDEAUX SUPERIEUR ROUGE 75CL",
-    "price_bhd": 6.6,
+    "price_bhd": 11.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Chateau-Cedre-D-Arthus-Bordeaux-Superieur-Rouge-75cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -1969,7 +1913,7 @@
   },
   {
     "name": "CUVEE JEAN PAUL BLANC 75CL",
-    "price_bhd": 4.4,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/CUVEE-JEAN-PAUL-BLANC-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1977,7 +1921,7 @@
   },
   {
     "name": "CUVEE JEAN PAUL ROSE 75CL",
-    "price_bhd": 4.4,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/CUVEE-JEAN-PAUL-ROSE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -1985,7 +1929,7 @@
   },
   {
     "name": "CUVEE JEAN PAUL ROUGE 75CL",
-    "price_bhd": 4.4,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/CUVEE-JEAN-PAUL-ROUGE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2113,7 +2057,7 @@
   },
   {
     "name": "DROSTDY HOF CHENIN BLANC 75CL",
-    "price_bhd": 4.7,
+    "price_bhd": 3.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Drostdy-Hof-Chenin-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2204,14 +2148,6 @@
     "price_bhd": 44.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/DURBANVILLE,HILLS,TANGRAM,BORDEAUX,BLEND,75CL,nhsc,bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "DUTCH HOPE CHENIN VIOGNIER 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/DUTCH-HOPE-CHENIN-VIOGNIER-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -2609,7 +2545,7 @@
   },
   {
     "name": "NEDERBURG RESERVE SAUVIGNON BLANC 75CL",
-    "price_bhd": 4.0,
+    "price_bhd": 7.2,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Nederburg-Reserve-Sauvignon-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2641,7 +2577,7 @@
   },
   {
     "name": "NEDERBURG WINEMASTERS RESERVE ROSE 75CL",
-    "price_bhd": 7.15,
+    "price_bhd": 4.5,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/NEDERBURG-WINEMASTERS-RESERVE-ROSE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2649,7 +2585,7 @@
   },
   {
     "name": "OBIKWA CHARDONNAY 75CL",
-    "price_bhd": 2.9,
+    "price_bhd": 4.4,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Obikwa-Chardonnay-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2697,7 +2633,7 @@
   },
   {
     "name": "PAARL HEIGHTS ROSE 75CL",
-    "price_bhd": 5.5,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/ROSE-PAARL-HEIGHTS-ROSE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2793,7 +2729,7 @@
   },
   {
     "name": "RESERVE BANK CAPE WHITE BLEND 75CL",
-    "price_bhd": 2.5,
+    "price_bhd": 4.4,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/RESERVE-BANK-CAPE-WHITE-BLEND--75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2913,7 +2849,7 @@
   },
   {
     "name": "RIVANI PROSECCO SPUMANTE 75CL",
-    "price_bhd": 8.8,
+    "price_bhd": 6.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/RIVANI-PROSECCO-SPUMANTE-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
@@ -2937,7 +2873,7 @@
   },
   {
     "name": "SIERRA GRANDE CABERNET SAUVIGNON 75CL",
-    "price_bhd": 4.5,
+    "price_bhd": 6.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Sierra-Grande-Cabernet-Sauvignon-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2945,7 +2881,7 @@
   },
   {
     "name": "SIERRA GRANDE MERLOT 75CL",
-    "price_bhd": 4.5,
+    "price_bhd": 6.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Sierra-Grande-Merlot-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -2961,7 +2897,7 @@
   },
   {
     "name": "SIERRA GRANDE SAUVIGNON BLANC 75CL",
-    "price_bhd": 4.5,
+    "price_bhd": 6.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Sierra-Grande-Sauvignon-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -3025,7 +2961,7 @@
   },
   {
     "name": "TABLE MOUNTAIN CABERNET SAUVIGNON 75CL",
-    "price_bhd": 3.2,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Cabernet-Sauvignon-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -3033,7 +2969,7 @@
   },
   {
     "name": "TABLE MOUNTAIN CHARDONNAY 75CL",
-    "price_bhd": 3.2,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Chardonnay-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -3041,23 +2977,15 @@
   },
   {
     "name": "TABLE MOUNTAIN CHENIN BLANC 75CL",
-    "price_bhd": 3.2,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Chenin-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
   {
-    "name": "TABLE MOUNTAIN MERLOT 75CL",
-    "price_bhd": 3.2,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Merlot-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
     "name": "TABLE MOUNTAIN SAUVIGNON BLANC 75CL",
-    "price_bhd": 3.2,
+    "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Sauvignon-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -3065,7 +2993,7 @@
   },
   {
     "name": "THE LISTENING STATION CHARDONNAY 75CL",
-    "price_bhd": 4.5,
+    "price_bhd": 6.6,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/The-Listening-Station-Chardonnay-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
@@ -3140,14 +3068,6 @@
     "price_bhd": 5.999,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Farmers-Of-Wine-Primitivo-Negroamaro-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "VOGA PROSECCO EXTRA DRY 75CL",
-    "price_bhd": 7.7,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Voga-prosecco-extra-dry-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -3308,14 +3228,6 @@
     "price_bhd": 12.1,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/sparkling?product_id=1955&limit=100",
-    "retailer": "NHSC",
-    "category": "Champagne"
-  },
-  {
-    "name": "VOGA PROSECCO EXTRA DRY 75CL",
-    "price_bhd": 7.7,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/sparkling/Voga-prosecco-extra-dry-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Champagne"
   },
