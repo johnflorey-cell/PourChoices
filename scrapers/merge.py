@@ -11,6 +11,16 @@ data is.
 
 Run this after all 4 scrapers have produced their per-retailer JSON files.
 
+Price history (2026-10-05): also reads/writes data/price_history.json, a
+running weekly log of each product's lowest in-stock price, keyed by product
+NAME (the same stable key favourites already use -- the numeric `id` field
+gets reassigned every run, so it can't be used as a key across weeks). Each
+product row written to products.json gets a few extra derived fields
+(price_trend, price_last_seen, price_weeks_tracked, price_is_lowest_ever) so
+index.html can show a "down from last week" / "lowest price yet" badge
+without fetching or cross-referencing a second file. See
+update_price_history() below for the full logic.
+
 Matching fix (2026-09-15): the old matching only compared full normalized
 names character-by-character (difflib's SequenceMatcher ratio). That let two
 completely different products get merged into one row whenever the SURROUNDING
@@ -203,6 +213,12 @@ RETAILER_FILES = {
     "nhsc": "nhsc.json",
 }
 RETAILER_LABELS = {"bmmi": "BMMI", "ae": "African & Eastern", "gbi": "GBI Express", "nhsc": "NHSC"}
+
+HISTORY_PATH = DATA_DIR / "price_history.json"
+# Keep roughly 6 months of weekly snapshots per product before trimming the
+# oldest ones off, enough to show a meaningful trend without letting this
+# file grow forever as the weekly scrape keeps running indefinitely.
+HISTORY_MAX_ENTRIES = 26
 
 SIZE_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:cl|ml|ltr|litre|liter|l)s?\b|\b\d+[- ]pack\b", re.IGNORECASE)
 NOISE_RE = re.compile(r"\b(non[- ]vintage|vintage|bottle|original)\b", re.IGNORECASE)
@@ -482,6 +498,87 @@ def build_product_row(idx, cluster_map):
     return row
 
 
+def best_price(row):
+    """The lowest *currently buyable* price across all 4 retailers for this
+    product, or None if nobody has it in stock right now. Mirrors the same
+    in-stock-only "lowest price" rule index.html already uses for its own
+    green-highlight, so the history built here lines up with what a visitor
+    actually sees on the card."""
+    prices = [
+        row[key] for key in RETAILER_FILES
+        if row.get(key) is not None and row.get(f"{key}_in_stock", True) is not False
+    ]
+    return min(prices) if prices else None
+
+
+def update_price_history(products):
+    """Reads data/price_history.json, appends today's best_price() for every
+    product, trims old entries, writes it back, and stamps each row in
+    `products` (in place) with price_trend / price_last_seen /
+    price_weeks_tracked / price_is_lowest_ever.
+
+    Re-running the scrape twice in one day (a manual re-trigger from the
+    Actions tab) overwrites today's entry instead of adding a second one for
+    the same date, so a retry can't make a product look like it changed
+    price twice in one day when nothing actually happened between the two
+    runs.
+
+    A product whose name-matching shifts between runs (see the matching-fix
+    notes above this file) will look like a "new" product here and lose its
+    prior history, same known, accepted limitation as favourites keying on
+    name instead of id.
+    """
+    today = datetime.now(timezone.utc).date().isoformat()
+
+    history = {}
+    if HISTORY_PATH.exists():
+        try:
+            history = json.loads(HISTORY_PATH.read_text())
+        except (json.JSONDecodeError, OSError):
+            # A corrupted/unreadable history file shouldn't block this
+            # week's scrape from completing over what's only ever a "nice
+            # to have" UI badge, not the core price data -- start fresh.
+            history = {}
+
+    for row in products:
+        entries = history.get(row["name"], [])
+        price_today = best_price(row)
+        prior_entries = list(entries)  # snapshot BEFORE today's entry, for the trend comparison below
+
+        if price_today is not None:
+            if entries and entries[-1]["date"] == today:
+                entries[-1]["price"] = price_today
+                prior_entries = entries[:-1]
+            else:
+                entries.append({"date": today, "price": price_today})
+                entries = entries[-HISTORY_MAX_ENTRIES:]
+            history[row["name"]] = entries
+
+        row["price_weeks_tracked"] = len(entries)
+        if price_today is None or not prior_entries:
+            row["price_trend"] = "new"
+            row["price_last_seen"] = None
+        else:
+            last_price = prior_entries[-1]["price"]
+            row["price_last_seen"] = last_price
+            if price_today < last_price:
+                row["price_trend"] = "down"
+            elif price_today > last_price:
+                row["price_trend"] = "up"
+            else:
+                row["price_trend"] = "same"
+
+        # "Lowest ever" really means "lowest in the tracked window" (the
+        # last HISTORY_MAX_ENTRIES weeks) -- fine for a "good time to buy"
+        # signal, which only needs to be roughly right, not a perfect
+        # all-time record.
+        tracked_prices = [e["price"] for e in entries]
+        row["price_is_lowest_ever"] = bool(tracked_prices) and price_today is not None and price_today <= min(tracked_prices)
+
+    HISTORY_PATH.write_text(json.dumps(history, indent=2))
+    print(f"Updated {HISTORY_PATH} ({len(history)} tracked products)")
+
+
 def main():
     retailer_items = {key: load_retailer(key) for key in RETAILER_FILES}
     for key, items in retailer_items.items():
@@ -494,6 +591,8 @@ def main():
     products.sort(key=lambda p: sum(1 for k in RETAILER_FILES if p[k] is not None), reverse=True)
     for i, p in enumerate(products, 1):
         p["id"] = i
+
+    update_price_history(products)  # stamps price_trend/etc onto each row before it's written below
 
     out_path = DATA_DIR / "products.json"
     out_path.write_text(json.dumps(products, indent=2))
