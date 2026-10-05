@@ -126,9 +126,17 @@
             📲 Tap here to save this app to your home screen
         </button>
 
-        <p id="products-compared" class="text-[11px] text-amberGold text-center font-bold mb-1"></p>
+        <!-- Both of these start empty and get their text filled in once
+             loadProducts()/loadLastUpdated() resolve. Cloudflare's CLS
+             debug view flagged a 0.122 shift on the <footer> below, caused
+             by these two lines popping from zero height to one line of
+             text after load and pushing everything under them (including
+             the footer) down -- the same class of bug as the original
+             product-grid CLS fix, just a smaller leftover case of it.
+             Reserving their line-height up front avoids the shift. -->
+        <p id="products-compared" class="text-[11px] text-amberGold text-center font-bold mb-1 min-h-[14px]"></p>
         <p class="text-[10px] text-gray-300 text-center -mt-1 mb-1">Prices refresh automatically once a week from each retailer&rsquo;s own site.</p>
-        <p id="last-updated" class="text-[10px] text-gray-400 text-center mb-3"></p>
+        <p id="last-updated" class="text-[10px] text-gray-400 text-center mb-3 min-h-[13px]"></p>
 
         <!-- FAVOURITES NOTES BOX: shown only while viewing "My Favourites" (see
              toggleFavouritesView()). One single note for the whole favourites
@@ -446,8 +454,12 @@
         }
 
         window.onload = function() {
+            let alreadyVerified = false;
             try {
-                if (localStorage.getItem("ageVerified") === "true") { document.getElementById("age-gate").style.display = "none"; }
+                if (localStorage.getItem("ageVerified") === "true") {
+                    document.getElementById("age-gate").style.display = "none";
+                    alreadyVerified = true;
+                }
                 if (!localStorage.getItem("trialStart")) {
                     localStorage.setItem("trialStart", Date.now().toString());
                 }
@@ -456,8 +468,6 @@
             updatePremiumState();
             updateFavouritesChipLabel();
             loadFavouritesNote();
-            loadProducts();
-            loadLastUpdated();
             registerServiceWorker();
             // iOS never fires the "beforeinstallprompt" event below (Safari has
             // no such API), so on iPhone/iPad we show the save-to-home-screen
@@ -467,11 +477,28 @@
             if (isIosDevice() && !isStandaloneApp()) {
                 showInstallBanner();
             }
+            // loadProducts() is the heaviest thing this page does (fetch +
+            // parse + render ~2,900 products) and used to always start right
+            // here, immediately on load -- including for a brand-new visitor
+            // who's still looking at the age gate and can't see the product
+            // grid behind it yet anyway. That left it running in the
+            // background right as they tapped "I Confirm", competing for the
+            // main thread at exactly the moment Cloudflare's analytics
+            // measured a 560ms ("Poor") INP on that button. Deferring it to
+            // verifyAge() below removes that contention for a first-time
+            // visitor; a returning, already-verified visitor (gate never
+            // shown) still gets it immediately here, same as before.
+            if (alreadyVerified) {
+                loadProducts();
+                loadLastUpdated();
+            }
         }
 
         function verifyAge() {
             try { localStorage.setItem("ageVerified", "true"); } catch (e) {}
             document.getElementById("age-gate").style.display = "none";
+            loadProducts();
+            loadLastUpdated();
         }
 
         // --- Save to home screen ---------------------------------------------
