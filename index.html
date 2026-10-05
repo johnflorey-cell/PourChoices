@@ -177,13 +177,18 @@
              list, not one per item -- stored locally in the visitor's own
              browser, same as the favourites themselves, no backend involved. -->
         <div id="favourites-notes-wrap" class="hidden mb-4">
-            <div class="flex justify-between items-center mb-1">
-                <label class="text-[11px] text-gray-300 font-medium">Notes for your favourites list</label>
-                <!-- Opens the same QR-code share modal used for sharing the
-                     app itself (see shareFavourites() below), pre-filled with
-                     a link to just THIS visitor's current favourites. -->
-                <button onclick="shareFavourites()" class="text-[11px] font-bold text-amberGold whitespace-nowrap">📤 Share list</button>
-            </div>
+            <!-- Opens the same QR-code share modal used for sharing the app
+                 itself (see shareFavourites() below), pre-filled with a link
+                 to just THIS visitor's current favourites. A full-width
+                 filled button rather than a small text link next to the
+                 notes label -- that version (2026-10-05) turned out too
+                 small/easy to miss sitting quietly next to a label, same
+                 "too small to notice" class of issue as the price-per-litre
+                 text fix the same day. -->
+            <button onclick="shareFavourites()" class="w-full mb-3 flex items-center justify-center space-x-2 bg-amberGold text-obsidian font-bold text-xs py-3 rounded-xl active:scale-[0.98] transition">
+                <span>📤</span><span>Share My Favourites List</span>
+            </button>
+            <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
             <textarea id="favourites-note" rows="6" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
         </div>
 
