@@ -538,7 +538,7 @@
   {
     "name": "High Commissioner Blended Scotch Whisky 35cl",
     "price_bhd": 3.3,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/high-commissioner-blended-scotch-whisky-35cl?search=whisky&page=4",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -2482,7 +2482,7 @@
   {
     "name": "Smirnoff Ice [6-Pack]",
     "price_bhd": 16.137,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Smirnoff-Ice-6?search=vodka&page=4",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4034,7 +4034,7 @@
   {
     "name": "Buffelsfontein Brandewyn/ Brandy 75cl",
     "price_bhd": 12.65,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/buffelsfontein-brandewyn-brandy-75cl?search=brandy&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -4650,7 +4650,7 @@
   {
     "name": "Wild Peach Schnapps",
     "price_bhd": 10.841,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/wild-peach-schnapps.html?search=liqueur&page=1",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
