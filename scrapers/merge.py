@@ -21,6 +21,14 @@ index.html can show a "down from last week" / "lowest price yet" badge
 without fetching or cross-referencing a second file. See
 update_price_history() below for the full logic.
 
+Price per litre (2026-10-05): each row also gets a `volume_litres` field
+(see build_product_row below), so index.html can show price-per-litre next
+to price-per-bottle for comparing different bottle/can/pack sizes of what's
+otherwise the same drink. Reuses the existing extract_size_ml/
+extract_pack_count parser this file already runs for cluster-matching,
+rather than a second copy of that logic; null when the name states no size
+at all.
+
 Matching fix (2026-09-15): the old matching only compared full normalized
 names character-by-character (difflib's SequenceMatcher ratio). That let two
 completely different products get merged into one row whenever the SURROUNDING
@@ -470,6 +478,20 @@ def build_product_row(idx, cluster_map):
     category = max(set(categories), key=categories.count) if categories else "Other Spirits"
 
     row = {"id": idx, "name": display_name, "category": category}
+
+    # Price-per-litre (2026-10-05): reuses the SAME size/pack parser this
+    # file already runs on every name for cluster-matching purposes
+    # (extract_size_ml/extract_pack_count, above), rather than writing a
+    # second one -- a product's bottle size isn't something these two
+    # parsers could disagree on without also breaking the matching they
+    # already do. None when the name states no size at all (about 1 in 6
+    # of this catalogue -- mostly premium spirits like "Glenfiddich 18 Year
+    # Old Single Malt Scotch Whisky" that never print a volume), so the
+    # frontend just omits the per-litre figure for those rather than
+    # guessing a standard bottle size and risking a wrong number.
+    size_ml = extract_size_ml(display_name)
+    row["volume_litres"] = round(size_ml * extract_pack_count(display_name) / 1000, 4) if size_ml is not None else None
+
     carried_by, missing_from, out_of_stock_at = [], [], []
     for key in RETAILER_FILES:
         item = cluster_map.get(key)
