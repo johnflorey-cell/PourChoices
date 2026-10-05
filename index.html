@@ -363,6 +363,24 @@
             return "";
         }
 
+        // --- Price per litre (added 2026-10-05) -------------------------------
+        // scrapers/merge.py stamps each product with volume_litres, parsed from
+        // the product name (null when the name states no size at all -- about 1
+        // in 6 products, mostly premium spirits like "Glenfiddich 18 Year Old
+        // Single Malt Scotch Whisky" that never print a volume). All 4 retailer
+        // cells for one product share the same bottle, so this is just that
+        // cell's own price divided by the one shared volume -- it lets a
+        // shopper tell a cheap-looking small bottle apart from an actually
+        // better-value larger one, and compare that against OTHER listings of
+        // the same drink in a different size (each size is its own card/row).
+        // Deliberately returns "" rather than a guessed figure when the size is
+        // unknown or the cell itself has no buyable price (out of stock/N/A) --
+        // same "don't show a confidently wrong number" rule as priceBadgeHTML.
+        function pricePerLitreHTML(val, inStock, volumeLitres) {
+            if (inStock === false || val === null || val === undefined || !volumeLitres) return "";
+            return `<span class="block text-[8px] text-gray-500 mt-0.5">${(val / volumeLitres).toFixed(3)}/L</span>`;
+        }
+
         // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
         //
         // A visitor can heart any product to save it to a personal list, plus
@@ -854,7 +872,10 @@
                                     <span class="text-gray-300 font-medium text-[10px]">BMMI</span>
                                     <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
                                 </div>
-                                <span class="${cellClass(prod.bmmi, prod.bmmi_in_stock)}">${cellText(prod.bmmi, prod.bmmi_in_stock)}</span>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.bmmi, prod.bmmi_in_stock)}">${cellText(prod.bmmi, prod.bmmi_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.bmmi, prod.bmmi_in_stock, prod.volume_litres)}
+                                </div>
                             </button>
 
                             <button onclick="handleRetailerRedirect('African &amp; Eastern', '${prod.ae_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
@@ -862,7 +883,10 @@
                                     <span class="text-gray-300 font-medium text-[10px]">A&amp;E</span>
                                     <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
                                 </div>
-                                <span class="${cellClass(prod.ae, prod.ae_in_stock)}">${cellText(prod.ae, prod.ae_in_stock)}</span>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.ae, prod.ae_in_stock)}">${cellText(prod.ae, prod.ae_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.ae, prod.ae_in_stock, prod.volume_litres)}
+                                </div>
                             </button>
 
                             <button onclick="handleRetailerRedirect('GBI Express', '${prod.gbi_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
@@ -870,7 +894,10 @@
                                     <span class="text-gray-300 font-medium text-[10px]">GBI Exp</span>
                                     <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
                                 </div>
-                                <span class="${cellClass(prod.gbi, prod.gbi_in_stock)}">${cellText(prod.gbi, prod.gbi_in_stock)}</span>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.gbi, prod.gbi_in_stock)}">${cellText(prod.gbi, prod.gbi_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.gbi, prod.gbi_in_stock, prod.volume_litres)}
+                                </div>
                             </button>
 
                             <button onclick="handleRetailerRedirect('NHSC', '${prod.nhsc_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
@@ -878,7 +905,10 @@
                                     <span class="text-gray-300 font-medium text-[10px]">NHSC</span>
                                     <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
                                 </div>
-                                <span class="${cellClass(prod.nhsc, prod.nhsc_in_stock)}">${cellText(prod.nhsc, prod.nhsc_in_stock)}</span>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.nhsc, prod.nhsc_in_stock)}">${cellText(prod.nhsc, prod.nhsc_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.nhsc, prod.nhsc_in_stock, prod.volume_litres)}
+                                </div>
                             </button>
                         </div>
 
