@@ -335,6 +335,34 @@
         const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider" };
         const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
 
+        // --- Price history badge (added 2026-10-05) ----------------------------
+        // scrapers/merge.py now stamps each product with price_trend ("new" /
+        // "same" / "up" / "down"), price_last_seen (last week's lowest
+        // in-stock price, or null), price_weeks_tracked and
+        // price_is_lowest_ever, built from a running weekly log it keeps in
+        // data/price_history.json. This turns that into the small pill shown
+        // under a card's name -- or an empty string when there's nothing
+        // worth saying yet (a brand-new product with no prior week to
+        // compare against, or a price that's unchanged).
+        //
+        // Deliberately quiet by design: only the two states a shopper would
+        // actually act on are surfaced (a genuine drop, and "this is the
+        // cheapest it's been"), not every "up" or "same" tick -- showing a
+        // badge on every single card would just be noise, not a signal.
+        function priceBadgeHTML(prod) {
+            if (prod.price_weeks_tracked == null || prod.price_weeks_tracked < 2) return "";
+            if (prod.price_is_lowest_ever) {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow">🔥 Lowest price yet</span>`;
+            }
+            if (prod.price_trend === "down" && prod.price_last_seen != null) {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow">↓ Down from ${prod.price_last_seen.toFixed(3)}</span>`;
+            }
+            if (prod.price_trend === "up" && prod.price_last_seen != null) {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-500/15 text-red-400">↑ Up from ${prod.price_last_seen.toFixed(3)}</span>`;
+            }
+            return "";
+        }
+
         // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
         //
         // A visitor can heart any product to save it to a personal list, plus
@@ -815,6 +843,7 @@
                             <div>
                                 <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${categoryLabel(prod.category)}</span>
                                 <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
+                                ${priceBadgeHTML(prod)}
                             </div>
                             <button onclick="toggleFavourite(${index})" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
                         </div>
