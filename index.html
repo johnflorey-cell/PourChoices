@@ -475,7 +475,18 @@
         // same "don't show a confidently wrong number" rule as priceBadgeHTML.
         function pricePerLitreHTML(val, inStock, volumeLitres) {
             if (inStock === false || val === null || val === undefined || !volumeLitres) return "";
-            return `<span class="block text-[8px] text-gray-500 mt-0.5">${(val / volumeLitres).toFixed(3)}/L</span>`;
+            // text-[8px]/gray-500 (the original size/colour here) turned out
+            // too small and too low-contrast against the dark card background
+            // to actually read on a real phone. Bumped the size to 10px, and
+            // given its own colour (sky-300, a light blue not used anywhere
+            // else on the card) rather than reusing gray-300 -- gray-300 is
+            // already the retailer-name label sitting right above it, and
+            // the two blended together instead of reading as two distinct
+            // pieces of information. Blue also keeps it clearly separate
+            // from the price itself (white/emeraldGlow) and from the
+            // amberGold "Click for Retailer" text elsewhere in the same
+            // button.
+            return `<span class="block text-[10px] text-sky-300 font-medium mt-0.5">${(val / volumeLitres).toFixed(3)}/L</span>`;
         }
 
         // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
