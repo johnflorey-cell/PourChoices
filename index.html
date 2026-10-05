@@ -136,6 +136,30 @@
             <span onclick="event.stopPropagation(); dismissPriceDropBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
         </button>
 
+        <!-- SHARED FAVOURITES BANNER: hidden by default. Shown only when this
+             visit's URL had a "?shared=..." link someone else sent (see
+             shareFavourites() below) -- readSharedFavouritesFromUrl() already
+             scrubs that param from the address bar, this banner is just the
+             visible notice that it was there. Tapping the main area switches
+             into the read-only "viewing their list" mode; the ✕ dismisses it
+             without navigating there. -->
+        <button id="shared-favourites-banner" onclick="viewSharedFavourites()" class="hidden w-full mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="shared-favourites-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissSharedFavouritesBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
+        <!-- SHARED-VIEW BAR: shown only while actually viewing someone else's
+             shared list (showSharedOnly). Lets a visitor get back to their
+             own view, or add the whole shared list to their own favourites
+             in one tap. -->
+        <div id="shared-view-bar" class="hidden mb-3 flex items-center justify-between bg-charcoal border border-amberGold/30 rounded-xl px-3 py-2.5">
+            <span class="text-[11px] text-amberGold font-bold">🎁 Viewing a shared list</span>
+            <div class="flex items-center space-x-2">
+                <button onclick="addSharedFavouritesToMine()" class="text-[11px] font-bold text-obsidian bg-amberGold px-3 py-1.5 rounded-lg active:scale-95 transition">+ Add all to mine</button>
+                <button onclick="exitSharedView()" class="text-[11px] font-medium text-gray-300 px-2 py-1.5">Back</button>
+            </div>
+        </div>
+
         <!-- Both of these start empty and get their text filled in once
              loadProducts()/loadLastUpdated() resolve. Cloudflare's CLS
              debug view flagged a 0.122 shift on the <footer> below, caused
@@ -153,7 +177,13 @@
              list, not one per item -- stored locally in the visitor's own
              browser, same as the favourites themselves, no backend involved. -->
         <div id="favourites-notes-wrap" class="hidden mb-4">
-            <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
+            <div class="flex justify-between items-center mb-1">
+                <label class="text-[11px] text-gray-300 font-medium">Notes for your favourites list</label>
+                <!-- Opens the same QR-code share modal used for sharing the
+                     app itself (see shareFavourites() below), pre-filled with
+                     a link to just THIS visitor's current favourites. -->
+                <button onclick="shareFavourites()" class="text-[11px] font-bold text-amberGold whitespace-nowrap">📤 Share list</button>
+            </div>
             <textarea id="favourites-note" rows="6" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
         </div>
 
@@ -217,9 +247,13 @@
         💬 Feedback
     </button>
 
-    <!-- 4. SHARE BUTTON: uses the phone's native share sheet where available
-         (shareApp() below), and falls back to copying the link on desktop
-         browsers that don't have one. -->
+    <!-- 4. SHARE BUTTON: opens the QR-code share modal (see shareApp() and
+         openShareModal() below). QR is the primary option here rather than
+         just the native share sheet -- most real sharing of this app is two
+         people standing next to each other with their own phones, and a
+         scan works the same way regardless of which phone/OS either one has,
+         unlike the native share sheet (no AirDrop between an iPhone and an
+         Android, for instance) or typing a link out by hand. -->
     <button onclick="shareApp()" class="fixed bottom-5 left-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
         🔗 Share
     </button>
@@ -242,6 +276,38 @@
                 </button>
             </div>
             <button onclick="closeFeedbackModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel</button>
+        </div>
+    </div>
+
+    <!-- 5. SHARE MODAL (added 2026-10-05): shared by both the general "Share
+         Pour Choices" button above and "📤 Share list" in My Favourites (see
+         openShareModal() below, which fills in the title/link/QR for
+         whichever one was tapped). QR code image comes from a free, no-key
+         public API (api.qrserver.com) rather than a bundled QR-drawing
+         library -- it's just an <img src>, no new dependency, and if that
+         service is ever slow/unreachable the link text and copy button
+         below it still work on their own. -->
+    <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="share-modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closeShareModal()"></div>
+            <h3 id="share-modal-title" class="text-lg font-bold">Share</h3>
+            <p class="text-xs text-gray-400 mt-1 mb-5">Scan this on the other phone, or copy the link.</p>
+
+            <div class="bg-white rounded-xl p-3 mb-4 flex items-center justify-center">
+                <img id="share-modal-qr" src="" alt="QR code" width="200" height="200" class="w-[200px] h-[200px]">
+            </div>
+
+            <p id="share-modal-link" class="text-[11px] text-gray-300 bg-obsidian border border-gray-800 rounded-xl py-2.5 px-3 mb-4 break-all select-all"></p>
+
+            <div class="space-y-2">
+                <button onclick="copyShareLink()" class="w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Copy Link
+                </button>
+                <button id="share-modal-sheet-btn" onclick="shareViaSheet()" class="hidden w-full bg-white text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Share via...
+                </button>
+            </div>
+            <button onclick="closeShareModal()" class="mt-4 text-xs text-gray-500 font-medium">Close</button>
         </div>
     </div>
 
@@ -276,6 +342,7 @@
             updateProductsComparedCount();
             renderProducts();
             checkFavouritePriceDrops();
+            checkSharedFavourites();
         }
 
         // Shows the total number of products currently in the catalogue, right at
@@ -446,6 +513,40 @@
 
         let showFavouritesOnly = false;
 
+        // --- Shared favourites (added 2026-10-05) -----------------------------
+        // sharedFavouriteNames: the Set of product names from a "?shared=..."
+        // link someone else sent (see shareFavourites() below), or null if
+        // this visit has none. showSharedOnly: whether that list is the one
+        // currently being viewed (its own mode, separate from this visitor's
+        // OWN favourites/showFavouritesOnly, since it's someone else's list).
+        let sharedFavouriteNames = null;
+        let showSharedOnly = false;
+        // Read as soon as the script runs (not deferred to window.onload),
+        // so the URL gets scrubbed immediately regardless of whether this
+        // visitor still needs to pass the age gate first.
+        sharedFavouriteNames = readSharedFavouritesFromUrl();
+
+        // Reads a "?shared=name1,name2,..." link (each name percent-encoded
+        // individually, so a literal comma inside a product's own name can
+        // never be mistaken for the separator) into a Set of names, and
+        // immediately scrubs the query string from the address bar -- the
+        // names are already captured in memory by then, so a later refresh
+        // or bookmark of this page won't keep re-showing "someone shared
+        // this with you" forever just because the link is still sitting in
+        // the URL.
+        function readSharedFavouritesFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const raw = params.get("shared");
+                if (!raw) return null;
+                const names = raw.split(",").map(decodeURIComponent).filter(Boolean);
+                window.history.replaceState({}, "", window.location.origin + window.location.pathname);
+                return names.length ? new Set(names) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
         function getFavourites() {
             try {
                 const raw = localStorage.getItem("favourites");
@@ -493,6 +594,17 @@
 
         function toggleFavouritesView() {
             if (!isPremium) { openPaywallModal(); return; }
+            // Leaving a shared-list view the same way entering/leaving "My
+            // Favourites" already resets activeCategory below -- otherwise
+            // showSharedOnly would still be true underneath and win out over
+            // showFavouritesOnly in renderProducts()'s filter order, same
+            // class of "stuck filter" bug fixed for categories back in the
+            // fourth bug-fixing round.
+            if (showSharedOnly) {
+                showSharedOnly = false;
+                const bar = document.getElementById("shared-view-bar");
+                if (bar) bar.classList.add("hidden");
+            }
             showFavouritesOnly = !showFavouritesOnly;
             const chip = document.getElementById("favourites-chip");
             const notesWrap = document.getElementById("favourites-notes-wrap");
@@ -746,29 +858,152 @@
             dismissInstallBanner();
         }
 
-        // --- Share ---------------------------------------------------------------
+        // --- Share (rebuilt 2026-10-05 around a QR code) --------------------------
+        //
+        // Most real-world sharing of this app is two people standing next to
+        // each other, each on their own phone -- "check this out" in person,
+        // not a message sent across town. The native share sheet (the old
+        // behaviour here) doesn't actually help with that: it's a picker for
+        // sending a link through an app (Messages, WhatsApp, email...), which
+        // still needs the other person to be reachable through one of those,
+        // and does nothing at all for an iPhone-to-Android pair (no AirDrop
+        // between those two). A QR code sidesteps all of that -- the other
+        // phone just needs a camera, works for any platform on either side,
+        // and needs no network path between the two phones, just whatever
+        // network each one already has to reach pour-choices.com itself.
+        //
+        // The QR image itself comes from a free, no-signup public API
+        // (api.qrserver.com/create-qr-code) rather than bundling a whole
+        // QR-drawing library for this one image -- it's just an <img src>,
+        // and the link text + Copy Link button below it still work even if
+        // that service is ever briefly down.
+        function buildQrImageUrl(data, sizePx) {
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${sizePx}x${sizePx}&data=${encodeURIComponent(data)}`;
+        }
 
-        // Phones (and most modern browsers) support the native share sheet
-        // (Messages/WhatsApp/Email/etc. picker); older desktop browsers don't,
-        // so there we just copy the link instead.
-        async function shareApp() {
-            const shareData = {
-                title: "Pour Choices",
-                text: "Compare alcohol prices across Bahrain's retailers with Pour Choices.",
-                url: window.location.href,
-            };
-            if (navigator.share) {
-                try {
-                    await navigator.share(shareData);
-                } catch (e) { /* visitor cancelled the share sheet, nothing to do */ }
+        function openShareModal(url, title) {
+            const modal = document.getElementById("share-modal");
+            const content = document.getElementById("share-modal-content");
+            document.getElementById("share-modal-title").textContent = title;
+            document.getElementById("share-modal-link").textContent = url;
+            document.getElementById("share-modal-qr").src = buildQrImageUrl(url, 200);
+            document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
+            modal.dataset.url = url;
+            // navigator.share only exists on phones/browsers that actually
+            // have a share sheet to open -- offered as a secondary option
+            // underneath the QR code and Copy Link, not in place of them.
+            document.getElementById("share-modal-sheet-btn").classList.toggle("hidden", !navigator.share);
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById("share-modal");
+            const content = document.getElementById("share-modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        async function copyShareLink() {
+            const url = document.getElementById("share-modal").dataset.url || "";
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast("Link copied!");
+            } catch (e) {
+                showToast("Couldn't copy automatically -- the link above is selectable.");
+            }
+        }
+
+        async function shareViaSheet() {
+            const url = document.getElementById("share-modal").dataset.url || "";
+            if (!navigator.share) return;
+            try {
+                await navigator.share({ title: "Pour Choices", url });
+            } catch (e) { /* visitor cancelled the share sheet, nothing to do */ }
+        }
+
+        function shareApp() {
+            // Always the plain app URL, not whatever happens to be in the
+            // address bar right now (a stray "?shared=..." or test query
+            // param) -- see readSharedFavouritesFromUrl() above for why that
+            // param specifically is scrubbed immediately anyway, but this
+            // stays explicit rather than relying on that timing.
+            const url = window.location.origin + window.location.pathname;
+            openShareModal(url, "Share Pour Choices");
+        }
+
+        // --- Share my favourites (added 2026-10-05) ---------------------------
+        // Encodes this visitor's OWN favourites list into a link (each name
+        // percent-encoded individually, joined with plain commas as the
+        // separator -- see readSharedFavouritesFromUrl() above for the
+        // matching decode) and opens the same QR modal used for the app
+        // itself. No backend, no account, no expiry -- the link just carries
+        // the list itself, so it keeps working for as long as those product
+        // names still exist in the catalogue.
+        function shareFavourites() {
+            if (!isPremium) { openPaywallModal(); return; }
+            const favourites = getFavourites();
+            if (favourites.size === 0) {
+                showToast("Add a few favourites first, then share your list.");
                 return;
             }
-            try {
-                await navigator.clipboard.writeText(shareData.url);
-                alert("Link copied! Paste it anywhere to share Pour Choices.");
-            } catch (e) {
-                alert("Share this link: " + shareData.url);
-            }
+            const namesParam = [...favourites].map(encodeURIComponent).join(",");
+            const url = `${window.location.origin}${window.location.pathname}?shared=${namesParam}`;
+            const count = favourites.size;
+            openShareModal(url, `Share ${count} favourite${count === 1 ? "" : "s"}`);
+        }
+
+        // --- Viewing a list someone else shared (added 2026-10-05) -----------
+        // sharedFavouriteNames (read once, at script load, by
+        // readSharedFavouritesFromUrl() above) is a SEPARATE list from this
+        // visitor's own favourites -- it's purely a snapshot of names from a
+        // link, not anything saved for them until they explicitly tap "Add
+        // all to mine" below.
+        function checkSharedFavourites() {
+            if (!sharedFavouriteNames || sharedFavouriteNames.size === 0) return;
+            const banner = document.getElementById("shared-favourites-banner");
+            const textEl = document.getElementById("shared-favourites-banner-text");
+            if (!banner || !textEl) return;
+            const n = sharedFavouriteNames.size;
+            textEl.textContent = `🎁 Someone shared ${n} favourite${n === 1 ? "" : "s"} with you -- tap to view`;
+            banner.classList.remove("hidden");
+        }
+
+        function dismissSharedFavouritesBanner() {
+            const banner = document.getElementById("shared-favourites-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        // Switches into the read-only "viewing their list" mode: replaces
+        // whatever filter was active (category, search stays respected, same
+        // pattern as "My Favourites"), shows the shared-view bar, and leaves
+        // this visitor's OWN favourites/category selection untouched
+        // underneath so exitSharedView() can restore it exactly.
+        function viewSharedFavourites() {
+            if (!sharedFavouriteNames) return;
+            dismissSharedFavouritesBanner();
+            showSharedOnly = true;
+            const bar = document.getElementById("shared-view-bar");
+            if (bar) bar.classList.remove("hidden");
+            renderProducts();
+        }
+
+        function exitSharedView() {
+            showSharedOnly = false;
+            const bar = document.getElementById("shared-view-bar");
+            if (bar) bar.classList.add("hidden");
+            renderProducts();
+        }
+
+        function addSharedFavouritesToMine() {
+            if (!sharedFavouriteNames) return;
+            if (!isPremium) { openPaywallModal(); return; }
+            const mine = getFavourites();
+            sharedFavouriteNames.forEach((n) => mine.add(n));
+            saveFavourites(mine);
+            updateFavouritesChipLabel();
+            showToast("Added to your favourites!");
         }
 
         // --- Beta feedback -----------------------------------------------------
@@ -933,10 +1168,17 @@
             const cardsHTML = [];
 
             mockProducts.forEach((prod, index) => {
-                // "My Favourites" view replaces the category filter (a
-                // favourited item can be in any category) but still respects
-                // search and the price range boxes below, same as normal.
-                if (showFavouritesOnly) {
+                // Viewing a link someone else shared (see "Share my
+                // favourites" below) takes priority over everything else the
+                // same way "My Favourites" does -- it's its own separate list
+                // of names, unrelated to this visitor's own favourites or
+                // category selection.
+                if (showSharedOnly) {
+                    if (!sharedFavouriteNames || !sharedFavouriteNames.has(prod.name)) return;
+                } else if (showFavouritesOnly) {
+                    // "My Favourites" view replaces the category filter (a
+                    // favourited item can be in any category) but still respects
+                    // search and the price range boxes below, same as normal.
                     if (!favouritesSet.has(prod.name)) return;
                 } else if (activeCategory !== "All" && prod.category !== activeCategory) {
                     return;
@@ -1097,6 +1339,16 @@
 
         function filterCategory(cat, btnEl) {
             activeCategory = cat;
+
+            // Same "stuck filter" class of bug as showFavouritesOnly below --
+            // a shared-list view (showSharedOnly) also has to be explicitly
+            // cleared here, or it'd keep winning over the category filter in
+            // renderProducts() even after a category chip is tapped.
+            if (showSharedOnly) {
+                showSharedOnly = false;
+                const bar = document.getElementById("shared-view-bar");
+                if (bar) bar.classList.add("hidden");
+            }
 
             // Picking a category chip is how a visitor leaves "My
             // Favourites" view. This used to leave showFavouritesOnly
