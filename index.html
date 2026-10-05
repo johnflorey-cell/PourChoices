@@ -126,6 +126,16 @@
             📲 Tap here to save this app to your home screen
         </button>
 
+        <!-- FAVOURITE PRICE-DROP BANNER: hidden by default, filled in and shown
+             by checkFavouritePriceDrops() only when something on this visitor's
+             OWN favourites list has a fresh, not-yet-seen price drop. Tapping
+             the main area jumps to the My Favourites view; the ✕ just
+             dismisses it without navigating. -->
+        <button id="price-drop-banner" onclick="viewFavouriteDrops()" class="hidden w-full mb-3 text-[11px] text-emeraldGlow bg-emeraldGlow/10 border border-emeraldGlow/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="price-drop-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissPriceDropBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
         <!-- Both of these start empty and get their text filled in once
              loadProducts()/loadLastUpdated() resolve. Cloudflare's CLS
              debug view flagged a 0.122 shift on the <footer> below, caused
@@ -265,6 +275,7 @@
             }
             updateProductsComparedCount();
             renderProducts();
+            checkFavouritePriceDrops();
         }
 
         // Shows the total number of products currently in the catalogue, right at
@@ -334,6 +345,25 @@
         // matches "cider" as a Beer keyword), this is purely a label change.
         const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider" };
         const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
+
+        // The 4 retailers this app compares, in the fixed order their price
+        // cells always render in. Shared by renderProducts() (lowest-price
+        // highlight + min/max filter) and checkFavouritePriceDrops() below --
+        // factored out 2026-10-05 so there's one single definition of "this
+        // product's current lowest in-stock price" rather than two copies
+        // that could quietly drift apart.
+        const RETAILER_KEYS = ["bmmi", "ae", "gbi", "nhsc"];
+
+        // Only an in-stock price counts toward "lowest price" -- a retailer
+        // whose own scraper flagged an item as out of stock (prod.X_in_stock
+        // === false) still has its last-seen price sitting in prod.X, but
+        // that's not a price you can actually pay today.
+        function getLowestInStockPrice(prod) {
+            const inStockPrices = RETAILER_KEYS
+                .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
+                .map(k => prod[k]);
+            return inStockPrices.length ? Math.min(...inStockPrices) : null;
+        }
 
         // --- Price history badge (added 2026-10-05) ----------------------------
         // scrapers/merge.py now stamps each product with price_trend ("new" /
@@ -497,6 +527,95 @@
                 const note = document.getElementById("favourites-note");
                 if (note) localStorage.setItem("favouritesNote", note.value);
             } catch (e) {}
+        }
+
+        // --- Favourite price-drop banner (added 2026-10-05) -------------------
+        // Tells a visitor, the next time they open the app, when something on
+        // their OWN favourites list has genuinely gotten cheaper since last
+        // week. Deliberately built with zero new infrastructure: everything
+        // it needs (prod.price_trend/price_last_seen from scrapers/merge.py's
+        // weekly history, and the visitor's own favourites list) is already
+        // sitting in data this page already loads -- no push subscriptions, no
+        // server to send anything, no new backend. It's a real OS-level push
+        // notification's smaller, free sibling: a same-session notice, not an
+        // alert that can reach someone while the app is closed.
+        //
+        // Dedup: without tracking anything, the SAME drop would re-announce
+        // itself on every single visit for the rest of the week, since
+        // price_trend doesn't change again until the next scrape -- noisy,
+        // not a signal. priceDropAcknowledged (localStorage) remembers, per
+        // favourited product name, the lowest price this banner has already
+        // shown for it, so a repeat visit against that same price stays
+        // quiet; only a price at or below what was last shown (this week's
+        // drop, or an even cheaper later one) counts as fresh.
+        function getPriceDropAcknowledged() {
+            try {
+                const raw = localStorage.getItem("priceDropAcknowledged");
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function savePriceDropAcknowledged(map) {
+            try { localStorage.setItem("priceDropAcknowledged", JSON.stringify(map)); } catch (e) {}
+        }
+
+        function checkFavouritePriceDrops() {
+            if (!isPremium) return; // same gating as favourites themselves
+            const favourites = getFavourites();
+            if (favourites.size === 0) return;
+
+            const acknowledged = getPriceDropAcknowledged();
+            const freshDrops = [];
+
+            mockProducts.forEach((prod) => {
+                if (!favourites.has(prod.name)) return;
+                // price_trend/price_last_seen come from merge.py's weekly
+                // history (see the price-history feature) -- "down" means
+                // strictly cheaper than the most recent PRIOR week, not just
+                // "has a price", so a brand-new favourite with no history yet
+                // ("new") never triggers this.
+                if (prod.price_trend !== "down" || prod.price_last_seen == null) return;
+
+                const lowestPrice = getLowestInStockPrice(prod);
+                if (lowestPrice === null) return;
+
+                // Already shown a drop to at least this price before? Stay quiet.
+                const lastShown = acknowledged[prod.name];
+                if (lastShown !== undefined && lowestPrice >= lastShown) return;
+
+                freshDrops.push(prod.name);
+                acknowledged[prod.name] = lowestPrice;
+            });
+
+            if (freshDrops.length === 0) return;
+            savePriceDropAcknowledged(acknowledged);
+
+            const banner = document.getElementById("price-drop-banner");
+            const textEl = document.getElementById("price-drop-banner-text");
+            if (!banner || !textEl) return;
+
+            const label = freshDrops.length === 1
+                ? `🔥 Price drop on your favourite: ${freshDrops[0]}`
+                : freshDrops.length === 2
+                    ? `🔥 Price drop on 2 of your favourites: ${freshDrops[0]} and ${freshDrops[1]}`
+                    : `🔥 Price drop on ${freshDrops.length} of your favourites: ${freshDrops[0]}, ${freshDrops[1]} and ${freshDrops.length - 2} more`;
+            textEl.textContent = label;
+            banner.classList.remove("hidden");
+        }
+
+        function dismissPriceDropBanner() {
+            const banner = document.getElementById("price-drop-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        // Tapping the banner's main area jumps straight to the My Favourites
+        // view so a visitor can see exactly which item(s) dropped, then hides
+        // the banner the same as a dismiss -- they've now seen it either way.
+        function viewFavouriteDrops() {
+            dismissPriceDropBanner();
+            if (!showFavouritesOnly) toggleFavouritesView();
         }
 
         window.onload = function() {
@@ -824,15 +943,9 @@
                 }
                 if (query && !searchNormalize(prod.name).includes(query)) return;
 
-                // Only an in-stock price counts toward "lowest price" or gets shown as a
-                // real number -- a retailer whose own scraper flagged an item as out of
-                // stock (prod.X_in_stock === false) still has its last-seen price sitting
-                // in prod.X, but that's not a price you can actually pay today.
-                const retailerKeys = ["bmmi", "ae", "gbi", "nhsc"];
-                const inStockPrices = retailerKeys
-                    .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
-                    .map(k => prod[k]);
-                const lowestPrice = inStockPrices.length ? Math.min(...inStockPrices) : null;
+                // See getLowestInStockPrice() above for why only in-stock
+                // prices count toward this.
+                const lowestPrice = getLowestInStockPrice(prod);
 
                 // A price filter is only meaningful against a product that
                 // actually has a buyable price right now, so a min/max filter
