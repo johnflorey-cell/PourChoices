@@ -1,13 +1,5 @@
 [
   {
-    "name": "8 PM RARE BLEND WHISKY 75CL",
-    "price_bhd": 6.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/8-PM-RARE-BLEND-WHISKY-75CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "ABSOLUT VODKA BLUE 1LTR",
     "price_bhd": 24.2,
     "in_stock": true,
@@ -944,14 +936,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "HOT SHOT SAMBUCA 40% 4X30ML",
-    "price_bhd": 3.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-SAMBUCA-40-4X30ML-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "HOT SHOT STRAWBERRY SUNDAE 17% 4X30ML",
     "price_bhd": 3.0,
     "in_stock": true,
@@ -1076,6 +1060,14 @@
     "price_bhd": 69.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Johnnie-walker-gold-reserve-70cl-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Whisky"
+  },
+  {
+    "name": "JOHNNIE WALKER RED LABEL 75CL",
+    "price_bhd": 23.4,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/JOHNNIE-WALKER-RED-LABEL-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Whisky"
   },
@@ -1732,14 +1724,6 @@
     "price_bhd": 9.68,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Campo-Fiorito-Chardonnay-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "CASA DEL CABLE TEMPRANILLO 75CL",
-    "price_bhd": 2.8,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/CASA-DEL-CABLE-TEMPRANILLO-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -3156,6 +3140,14 @@
     "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Chenin-Blanc-Nhsc-Bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Wine"
+  },
+  {
+    "name": "TABLE MOUNTAIN MERLOT 75CL",
+    "price_bhd": 3.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Merlot-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
