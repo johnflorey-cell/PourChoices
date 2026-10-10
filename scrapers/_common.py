@@ -92,10 +92,27 @@ sparkling WATER, not just sparkling wine -- "Acqua Morelli Sparkling Water
 "sparkling" keyword specifically (only that one; every other keyword in the
 list is unaffected) whenever the name also contains the word "water"
 anywhere in it.
+Wine and brand-gap fix (2026-10-10): a wine's listing very often names only
+its grape ("Campo Viejo Tempranillo"), its region ("Beaujolais", "Chianti
+Classico", "Saint-Estephe") or its estate ("Chateau Labegorce Margaux"),
+never the word "wine" itself, so roughly a third of everything sitting in
+Other Spirits was actually wine. Added a second Wine keyword list of grape
+varieties, appellations, wine-label terms (DOC, AOC, Cru, Chateau, Domaine,
+Cuvee, ...) and a few well-known estates, checked LAST, after every spirit
+keyword, so a spirit sharing a word with a wine label ("Chateau de
+Montifaud Cognac", "Rhum Blanc", "Grand Marnier Cordon Rouge") is still
+caught as a spirit first. Same pass added whisky distilleries, gin/vodka
+brands and beer styles found the same way (Talisker, Yamazaki, Tanqueray,
+Absolut, Almaza, IPA, ...). Keyword matching now also ignores accents, so
+"cotes" matches "Côtes" and "rose" matches "Rosè". merge.py re-applies
+guess_category_strict() to every merged product name on each run, so these
+keyword changes take effect on the next merge, not only after a full
+re-scrape.
 """
 import json
 import os
 import re
+import unicodedata
 import time
 from pathlib import Path
 
@@ -109,12 +126,23 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 # appended afterwards so a listing missing the generic word (e.g. "Heineken
 # Can 33cl" has no literal "beer") still lands in the right place.
 CATEGORY_KEYWORDS = [
-    (("whisky", "whiskey", "scotch", "bourbon",
+    (("whisky", "whiskey", "scotch", "bourbon", "single malt",
       # Brand names that don't always include "whisky" in the listing itself.
       "johnnie walker", "jack daniel", "chivas", "jameson", "glenfiddich",
       "glenlivet", "macallan", "ballantine", "grouse", "bushmills",
-      "teacher", "dewar"), "Whisky"),
-    (("beer", "lager", "ale", "cider", "stout",
+      "teacher", "dewar", "dewars", "jack daniels",
+      # Added 2026-10-10 (see "Wine and brand-gap fix" above): whisky
+      # distilleries/brands found sitting in Other Spirits because their
+      # listing never says "whisky".
+      "talisker", "laphroaig", "lagavulin", "ardbeg", "bowmore", "glenmorangie",
+      "glengoyne", "glen grant", "glenfarclas", "glendronach", "glen moray",
+      "dalmore", "balvenie", "aberlour", "yamazaki", "hibiki", "hakushu", "nikka",
+      "jim beam", "gentleman jack", "maker's mark", "makers mark", "monkey shoulder",
+      "blenders pride", "royal challenge", "royal stag", "royal salute",
+      "dalwhinnie", "cardhu", "oban", "singleton", "auchentoshan", "highland park",
+      "bruichladdich", "springbank", "kavalan", "amrut", "paul john"), "Whisky"),
+    (("beer", "lager", "ale", "cider", "stout", "pilsner", "pils", "ipa",
+      "weissbier", "hefeweizen",
       # Major beer brands whose own product name often skips the word "beer".
       "heineken", "budweiser", "bud light", "carlsberg", "amstel", "corona",
       "stella", "guinness", "kingfisher", "san miguel", "san mig", "tiger",
@@ -124,9 +152,11 @@ CATEGORY_KEYWORDS = [
       # the same way (name has no "beer"/"lager" wording of its own).
       "red horse", "benediktiner", "bira", "bitburger", "budvar", "buzz",
       "carling", "greenberg", "kalyani", "kilkenny", "malayali", "singha",
-      "vitalsberg"), "Beer"),
-    (("gin",), "Gin"),
-    (("vodka",), "Vodka"),
+      "vitalsberg", "almaza", "dos equis", "kronenbourg", "efes", "estrella damm",
+      "speckled hen"), "Beer"),
+    (("gin", "tanqueray", "bombay sapphire", "hendrick's", "beefeater"), "Gin"),
+    (("vodka", "ketel one", "grey goose", "belvedere", "absolut", "beluga",
+      "stolichnaya", "ciroc", "smirnoff red", "smirnoff blue", "smirnoff black"), "Vodka"),
     # Champagne & Sparkling Wines is checked BEFORE Wine (see the "Rose
     # ordering fix" note above): a rosé champagne like "Moet & Chandon
     # Imperial Brut Rose 75cl" or "Veuve Clicquot Rose 75cl" contains the
@@ -136,14 +166,48 @@ CATEGORY_KEYWORDS = [
     # right there in the same name say otherwise.
     (("champagne", "sparkling wine", "sparkling wines", "prosecco", "cava", "moet", "veuve",
       "cremant", "crémant", "spritz", "franciacorta", "asti spumante", "lambrusco",
-      "trentodoc", "brut", "semi-brut", "semi brut",
+      "trentodoc", "brut", "semi-brut", "semi brut", "blanc de blancs", "spumante",
       # Bare "sparkling" stays last and guarded by looks_like_sparkling_water()
       # below, not by the plain \b...\b check every other keyword here uses --
       # see the "Sparkling water fix" note above.
       "sparkling"), "Champagne"),
-    (("wine", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
-    (("rum", "brandy", "cognac", "tequila", "liqueur", "baileys", "sambuca", "amaretto",
-      "vermouth", "sherry", "absinthe"), "Other Spirits"),
+    (("wine", "wines", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
+    (("rum", "rhum", "ron", "brandy", "cognac", "armagnac", "calvados", "tequila", "mezcal",
+      "liqueur", "liquer", "liquore", "baileys", "sambuca", "amaretto", "amaro", "limoncello",
+      "vermouth", "sherry", "port", "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
+      "soju", "sake", "schnapps", "grand marnier", "aperitivo", "bitters"), "Other Spirits"),
+    # Wine, second pass (2026-10-10, see "Wine and brand-gap fix" above):
+    # a wine's listing very often names only its grape, its region or its
+    # estate -- "Beaujolais", "Chianti Classico", "Chateau Labegorce
+    # Margaux", "Campo Viejo Tempranillo" -- never the word "wine" itself,
+    # so all of these used to fall through to Other Spirits. Checked LAST,
+    # after the spirits keywords above, so a spirit that happens to share a
+    # word with a wine name ("Chateau de Montifaud Cognac", "Rhum Blanc",
+    # "Grand Marnier Cordon Rouge") is still caught as a spirit first.
+    (("pinot", "noir", "grigio", "gris", "riesling", "malbec", "tempranillo", "chenin",
+      "syrah", "zinfandel", "grenache", "garnacha", "sangiovese", "nebbiolo", "primitivo",
+      "montepulciano", "viognier", "gewurztraminer", "traminer", "carmenere", "pinotage",
+      "verdejo", "albarino", "moscato", "muscat", "semillon", "torrontes", "godello",
+      "mourvedre", "cinsault", "gamay", "colombard", "barbera", "dolcetto", "aglianico",
+      "nero d'avola", "fiano", "vermentino", "trebbiano", "chablis", "beaujolais",
+      "bordeaux", "bourgogne", "burgundy", "rioja", "chianti", "barolo", "barbaresco",
+      "valpolicella", "amarone", "ripasso", "sancerre", "medoc", "margaux", "pauillac",
+      "saint emilion", "saint-emilion", "st emilion", "saint estephe", "saint-estephe",
+      "saint julien", "saint-julien", "pomerol", "pessac", "graves", "sauternes", "cotes",
+      "côtes", "chateauneuf", "châteauneuf", "macon", "mâcon", "pouilly", "muscadet",
+      "soave", "bardolino", "ribera", "douro", "priorat", "rueda", "crozes", "hermitage",
+      "gigondas", "vacqueyras", "fitou", "minervois", "corbieres", "languedoc", "provence",
+      "alsace", "rully", "meursault", "montrachet", "nuits", "gevrey", "volnay", "pommard",
+      "beaune", "fleurie", "morgon", "brunello", "montalcino", "bolgheri", "toscana",
+      "marlborough", "barossa", "napa", "mendoza", "stellenbosch", "rhone", "rhône",
+      "loire", "vouvray", "mosel", "tokaji", "vinho", "vino", "vin", "tinto", "rosato",
+      "doc", "docg", "aoc", "aop", "igt", "dop", "cru", "chateau", "château", "domaine",
+      "bodega", "bodegas", "tenuta", "cantina", "weingut", "quinta", "vineyard",
+      "vineyards", "winery", "cuvee", "cuvée", "crianza", "blanc", "rouge",
+      "sweet white", "sweet red", "dry white", "dry red", "sassicaia", "ornellaia",
+      "tignanello", "penfolds", "rothschild", "cloudy bay", "kim crawford",
+      "oyster bay", "yellow tail", "jacob's creek", "vina", "viña", "vieilles vignes",
+      "opus one", "catena", "torres"), "Wine"),
 ]
 
 # "Sparkling" alone also matches non-alcoholic sparkling water (confirmed
@@ -154,26 +218,46 @@ CATEGORY_KEYWORDS = [
 SPARKLING_WATER_RE = re.compile(r"\bsparkling\s+water\b|\bwater\b", re.IGNORECASE)
 
 
+def _category_text_variants(text):
+    """The lowercased name in the forms guess_category() checks keywords
+    against: as written, and with accents folded off ("Côtes" -> "cotes",
+    "Rosè" -> "rose") so one plain-English keyword covers every spelling."""
+    lowered = text.lower()
+    folded = unicodedata.normalize("NFD", lowered)
+    folded = "".join(ch for ch in folded if not unicodedata.combining(ch))
+    return (lowered, folded) if folded != lowered else (lowered,)
+
+
+def guess_category_strict(text):
+    """Like guess_category(), but returns None (instead of the "Other
+    Spirits" catch-all) when no keyword matched at all. merge.py uses this
+    to tell "the name genuinely says this is a rum" apart from "nothing in
+    the name told us anything", so it only overrides a scraper's own
+    category guess in the first case."""
+    variants = _category_text_variants(text)
+    for keywords, category in CATEGORY_KEYWORDS:
+        for kw in keywords:
+            for lowered in variants:
+                if kw == "sparkling" and SPARKLING_WATER_RE.search(lowered):
+                    # Bare "sparkling" is too generic on its own -- see the
+                    # "Sparkling water fix" note above -- so it's skipped
+                    # whenever the name also says "water" anywhere in it.
+                    continue
+                if re.search(r"(?<!\w)" + re.escape(kw) + r"(?!\w)", lowered):
+                    return category
+    return None
+
+
 def guess_category(text):
     """Best-effort category guess from a search term or product name. Falls
     back to "Other Spirits" (the app's catch-all) when nothing matches.
 
-    Matches each keyword as a whole word only (using \\b word boundaries), not
-    as a substring, so a keyword like "ale" matches the word "ale" but not
-    the "ale" hiding inside "Ducale", "Salento", "Whale" or "Pale". A
-    multi-word keyword like "johnnie walker" or "bud light" matches the same
-    way, as a whole phrase with a word boundary on each side."""
-    lowered = text.lower()
-    for keywords, category in CATEGORY_KEYWORDS:
-        for kw in keywords:
-            if kw == "sparkling" and SPARKLING_WATER_RE.search(lowered):
-                # Bare "sparkling" is too generic on its own -- see the
-                # "Sparkling water fix" note above -- so it's skipped
-                # whenever the name also says "water" anywhere in it.
-                continue
-            if re.search(r"\b" + re.escape(kw) + r"\b", lowered):
-                return category
-    return "Other Spirits"
+    Matches each keyword as a whole word only, not as a substring, so a
+    keyword like "ale" matches the word "ale" but not the "ale" hiding
+    inside "Ducale", "Salento", "Whale" or "Pale". A multi-word keyword
+    like "johnnie walker" or "bud light" matches the same way, as a whole
+    phrase with a word boundary on each side."""
+    return guess_category_strict(text) or "Other Spirits"
 
 
 def extract_price(text):

@@ -186,7 +186,7 @@ Asymmetric pack-wording fix (2026-09-19): confirmed live that BMMI's
 44cl Guinness Draught -- were showing up as two separate rows instead of
 one merged row. Root cause: normalize() only ever stripped the pack-count
 wording out of the name when it was phrased as "N Pack"/"N-Pack" (that's
-the only pack phrasing SIZE_RE's `\d+[- ]pack` branch recognises), so "24
+the only pack phrasing SIZE_RE's `\\d+[- ]pack` branch recognises), so "24
 Pack" normalized down to just "guinness draught" (the "24" leaves WITH
 "pack"), but "Case of 24" has no "pack" word next to its digit, so SIZE_RE
 left the "24" sitting in the name untouched, normalizing to "guinness
@@ -211,7 +211,17 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+import unicodedata
 from urllib.parse import urlsplit
+
+try:
+    # Same folder as this file, so "python scrapers/merge.py" finds it. Used
+    # to re-categorise every merged product from its name on each run (see
+    # "Re-categorise on merge" note above), so a keyword fix in _common.py
+    # shows up on the very next merge without waiting for a full re-scrape.
+    from _common import guess_category_strict
+except Exception:  # pragma: no cover - merge still works without it
+    guess_category_strict = None
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 RETAILER_FILES = {
@@ -281,10 +291,33 @@ GENERIC_WORDS = {
     # Grouse 75cl") against a fuller one (e.g. "The Famous Grouse Scotch
     # Whisky 75cl") for no real reason.
     "scotch", "whisky", "whiskey", "scotland", "blended", "irish",
+    # Category nouns and packaging words added 2026-10-10 (see "Naming
+    # variation fix" above): one site says "Bacardi Superior Rum 75cl",
+    # another just "Bacardi Superior 75cl"; one says "1 Litre Bottle",
+    # another "1L". These words restate the category or the packaging,
+    # they never tell two different products apart -- the size and pack
+    # count are still compared separately and exactly.
+    "gin", "vodka", "rum", "tequila", "liqueur", "liquer", "brandy", "litre",
+    "liter", "ltr", "refillable",
 }
 
+def clean_text(name):
+    """Undoes the encoding junk some sites leave in names (a non-breaking
+    space showing up as "Â\xa0", e.g. "Bud Light BottleÂ\xa030clÂ\xa0[24
+    Pack]") and folds accents off ("Château" -> "Chateau", "Añejo" ->
+    "Anejo"), so two sites spelling the same name with and without accents
+    compare as equal. See "Naming variation fix" above."""
+    n = name.replace("Â\xa0", " ").replace("\xa0", " ").replace("Â", "")
+    n = unicodedata.normalize("NFD", n)
+    return "".join(ch for ch in n if not unicodedata.combining(ch))
+
+
 def normalize(name):
-    n = name.lower()
+    n = clean_text(name).lower()
+    # "Gordon's" and "Gordons" (and "Jack Daniel's" / "Jack Daniels") are
+    # the same word -- drop the apostrophe rather than turning it into a
+    # space, which used to split off a stray "s" word on one side only.
+    n = re.sub(r"['\u2019`]", "", n)
     n = AGE_RE.sub(lambda m: m.group(1) + "yo", n)
     n = SIZE_RE.sub("", n)
     # Strip pack-count wording (every phrasing extract_pack_count() itself
@@ -324,7 +357,7 @@ def extract_size_ml(name):
     Returns None when no size is found in the name at all, meaning "unknown"
     rather than "zero" -- callers must treat unknown as "can't compare", not
     as a mismatch."""
-    m = SIZE_TOKEN_RE.search(name)
+    m = SIZE_TOKEN_RE.search(clean_text(name))
     if not m:
         return None
     value, unit = m.groups()
@@ -356,7 +389,7 @@ def extract_pack_count(name):
     the safe, common-case reading, and it's what lets a single-bottle
     listing on one site still match a single-bottle listing on another that
     also says nothing about pack size."""
-    m = PACK_TOKEN_RE.search(name)
+    m = PACK_TOKEN_RE.search(clean_text(name))
     if not m:
         return 1
     for group in m.groups():
@@ -471,11 +504,42 @@ def cluster(retailer_items):
     return clusters
 
 
+def pick_category(display_name, cluster_map):
+    """Re-categorise on merge (2026-10-10): the category is decided from
+    the product NAME using _common.py's current keyword lists, so a keyword
+    fix there applies on the very next run of this file. Only when the name
+    says nothing at all (no keyword matched) does the category each
+    retailer's own scraper recorded at scrape time get used instead -- some
+    scrapers know the category from which search page an item came from,
+    which is still better than the "Other Spirits" catch-all."""
+    if guess_category_strict is not None:
+        votes = [guess_category_strict(display_name)]
+        votes += [guess_category_strict(item["name"]) for item in cluster_map.values()]
+        votes = [v for v in votes if v]
+        if votes:
+            # The display name's own guess wins ties (it's listed first and
+            # max() keeps the first of equal counts).
+            best = max(votes, key=votes.count)
+            # A sparkling wine is still a wine, so a name that only reads as
+            # "Wine" (e.g. "J.C Le Roux La Fleurette Rosé") doesn't demote
+            # a product a retailer's own scraper already filed under
+            # Champagne & Sparkling Wines from its search page.
+            if best == "Wine" and any(item.get("category") == "Champagne" for item in cluster_map.values()):
+                return "Champagne"
+            return best
+    categories = [item.get("category") for item in cluster_map.values() if item.get("category")]
+    return max(set(categories), key=categories.count) if categories else "Other Spirits"
+
+
 def build_product_row(idx, cluster_map):
     # Prefer the longest name as the display name (tends to carry the most detail).
     display_name = max((item["name"] for item in cluster_map.values()), key=len)
-    categories = [item.get("category") for item in cluster_map.values() if item.get("category")]
-    category = max(set(categories), key=categories.count) if categories else "Other Spirits"
+    # Only the encoding junk is tidied out of the name visitors see -- NOT
+    # the accent folding clean_text() also does for matching -- because
+    # favourites and price history are both keyed by this exact name, and
+    # rewriting "Château ..." to "Chateau ..." would orphan both.
+    display_name = re.sub(r"\s+", " ", display_name.replace("Â\xa0", " ").replace("\xa0", " ")).strip()
+    category = pick_category(display_name, cluster_map)
 
     row = {"id": idx, "name": display_name, "category": category}
 
