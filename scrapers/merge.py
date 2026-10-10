@@ -239,7 +239,25 @@ HISTORY_PATH = DATA_DIR / "price_history.json"
 HISTORY_MAX_ENTRIES = 26
 
 SIZE_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:cl|ml|ltr|litre|liter|l)s?\b|\b\d+[- ]pack\b", re.IGNORECASE)
-NOISE_RE = re.compile(r"\b(non[- ]vintage|vintage|bottle|original)\b", re.IGNORECASE)
+NOISE_RE = re.compile(r"\b(non[- ]vintage|vintage|bottle|original)\b|\bn\s*/\s*v\b", re.IGNORECASE)
+
+# Same-thing-different-words fix (2026-10-10): the four shops describe the
+# same bottle in different words, and the exact-word matching (see "Exact-
+# match-only rewrite" above) treated every such difference as a different
+# product. Each entry here rewrites one phrasing into the other BEFORE
+# names are compared. Only industry-standard abbreviations and fixed label
+# phrases are listed, never anything that tells two bottlings apart:
+# "Very Special" IS "VS" on every cognac label; "Old No. 7" is the name of
+# the standard Jack Daniel's, which other shops just call "Jack Daniel's".
+SYNONYMS = [
+    (re.compile(r"\bvery\s+special\s+old\s+pale\b", re.IGNORECASE), "vsop"),
+    (re.compile(r"\bv\.?\s?s\.?\s?o\.?\s?p\.?(?=\s|$)", re.IGNORECASE), "vsop"),
+    (re.compile(r"\bvery\s+special\b", re.IGNORECASE), "vs"),
+    (re.compile(r"\bv\.\s?s\.?(?=\s|$)", re.IGNORECASE), "vs"),
+    (re.compile(r"\bextra\s+old\b", re.IGNORECASE), "xo"),
+    (re.compile(r"\bx\.\s?o\.?(?=\s|$)", re.IGNORECASE), "xo"),
+    (re.compile(r"\bold\s+no\.?\s*7\b", re.IGNORECASE), ""),
+]
 PUNCT_RE = re.compile(r"[^a-z0-9 ]+")
 
 # Recognises every age phrasing seen across these 4 sites -- "18 Year Old",
@@ -299,6 +317,16 @@ GENERIC_WORDS = {
     # count are still compared separately and exactly.
     "gin", "vodka", "rum", "tequila", "liqueur", "liquer", "brandy", "litre",
     "liter", "ltr", "refillable",
+    # Descriptor words added by the "Same-thing-different-words fix": where
+    # the drink is from or what kind it is, which one shop prints and
+    # another leaves out ("Jack Daniel's Tennessee Whiskey" vs "JACK
+    # DANIELS", "Ardbeg 10 Year Old Malt Whisky" vs "ARDBEG 10 YEARS OLD",
+    # "Absolut Vodka Sweden" vs "Absolut Vodka", "Absolut Blue Label" vs
+    # "ABSOLUT VODKA BLUE"). None of these ever separate two variants of the
+    # same brand; the words that do (Honey, Fire, Black, Blue, Single,
+    # Reserve, ages, ...) stay significant.
+    "tennessee", "kentucky", "straight", "malt", "label", "sweden", "cognac",
+    "aromatic",
 }
 
 def clean_text(name):
@@ -318,6 +346,8 @@ def normalize(name):
     # the same word -- drop the apostrophe rather than turning it into a
     # space, which used to split off a stray "s" word on one side only.
     n = re.sub(r"['\u2019`]", "", n)
+    for pattern, replacement in SYNONYMS:
+        n = pattern.sub(replacement, n)
     n = AGE_RE.sub(lambda m: m.group(1) + "yo", n)
     n = SIZE_RE.sub("", n)
     # Strip pack-count wording (every phrasing extract_pack_count() itself
@@ -418,6 +448,35 @@ def words_conflict(sig_words_a, sig_words_b):
     return sig_words_a != sig_words_b
 
 
+# Unknown-size price guard (2026-10-10): when a listing's name gives no
+# bottle size, sizes_conflict() can't tell a 75cl from a 1L, so two such
+# listings used to merge on name alone ("Bombay Sapphire Gin" at 35.420 with
+# "Bombay Sapphire Gin 75cl" at 20.025; "Belvedere Pure Vodka" at 77.760
+# with the 75cl at 39.600). Only in that unknown-size case, a price gap of
+# more than UNKNOWN_SIZE_MAX_RATIO now blocks the merge, and so does a
+# miniature or magnum on the other side (see the function). Listings that DO
+# both state a size are never held back by price -- a big gap there can be a
+# genuine deal (GBI's online prices run 20% under its shelf price).
+UNKNOWN_SIZE_MAX_RATIO = 1.5
+
+
+def unknown_size_price_mismatch(item_a, item_b):
+    if item_a.get("_size_ml") is not None and item_b.get("_size_ml") is not None:
+        return False
+    known = item_a if item_a.get("_size_ml") is not None else item_b
+    # A name without a size almost always means the shop's standard bottle
+    # (70cl-1L). So a miniature or a magnum on the other side, which a shop
+    # always labels with its size, isn't treated as the same product -- this
+    # is how a bare "Belvedere Pure Vodka" got merged with a 5cl miniature.
+    if known.get("_size_ml") is not None and known.get("_pack_count", 1) == 1:
+        if known["_size_ml"] < 500 or known["_size_ml"] > 1000:
+            return True
+    pa, pb = item_a.get("price_bhd"), item_b.get("price_bhd")
+    if not pa or not pb:
+        return False
+    return max(pa, pb) / min(pa, pb) > UNKNOWN_SIZE_MAX_RATIO
+
+
 def _dedupe_key(item):
     """A stable identity for one item within a single retailer's own list.
 
@@ -493,6 +552,12 @@ def cluster(retailer_items):
             if sizes_conflict(item_a["_size_ml"], item_b["_size_ml"]):
                 # Same-ish name, but a 75cl bottle and a 1L bottle are not
                 # the same product -- see the "Size-blind matching fix" note.
+                continue
+            if unknown_size_price_mismatch(item_a, item_b):
+                # One name says no size at all, and the prices are far apart:
+                # most likely a different bottle size (a bare "Bombay Sapphire
+                # Gin" at 35.420 is the 1L, not the 75cl at 20.025). See the
+                # "Unknown-size price guard" note on the function.
                 continue
             if item_a["_pack_count"] != item_b["_pack_count"]:
                 # A 6-pack and a 24-pack of the same drink are two different
