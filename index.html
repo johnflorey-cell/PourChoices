@@ -862,7 +862,13 @@
         // from the index at click time avoids ever having to embed a raw
         // product name (which can contain quotes/apostrophes) inside an
         // inline onclick="..." attribute.
-        function toggleFavourite(index) {
+        // Tapping a heart used to rebuild the whole product grid (all ~3,100
+        // cards) just to swap one emoji, which Cloudflare-style INP testing
+        // put at ~700ms on a mid-range phone. Now the tapped button is
+        // updated in place; the full re-render only happens in the
+        // favourites view, where un-hearting a product has to remove its
+        // card from the list (2026-10-10).
+        function toggleFavourite(index, btnEl) {
             if (!hasFeature("favourites")) { openPaywallModal(); return; }
             const prod = mockProducts[index];
             if (!prod) return;
@@ -874,6 +880,12 @@
             }
             saveFavourites(favourites);
             updateFavouritesChipLabel();
+            if (btnEl && !showFavouritesOnly) {
+                const isFav = favourites.has(prod.name);
+                btnEl.textContent = isFav ? "❤️" : "🤍";
+                btnEl.title = isFav ? "Remove from favourites" : "Add to favourites";
+                return;
+            }
             renderProducts();
         }
 
@@ -1540,6 +1552,11 @@
                     if (priceMax !== null && lowestPrice > priceMax) return;
                 }
 
+                // Each card's HTML is now built only when its chunk is about to
+                // be drawn (see renderCardsProgressively), not all ~3,100 up
+                // front, so a chip tap paints the first cards straight away
+                // instead of waiting for every card's HTML to be assembled.
+                cardsHTML.push(() => {
                 const shouldBlur = !isPremium && index >= 2;
 
                 const cellClass = (val, inStock) => {
@@ -1559,7 +1576,7 @@
                                 <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
                                 ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}
                             </div>
-                            <button onclick="toggleFavourite(${index})" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
+                            <button onclick="toggleFavourite(${index}, this)" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 text-xs border-t border-gray-800/50 pt-3 ${shouldBlur ? 'premium-blur' : ''}">
@@ -1620,7 +1637,8 @@
                         `}
                     </div>
                 `;
-                cardsHTML.push(cardHTML);
+                return cardHTML;
+                });
             });
 
             renderFavouritesBasket(favouritesSet);
@@ -1647,23 +1665,54 @@
         // first batch (and stay responsive to the next tap or scroll)
         // while the rest fills in a few frames later; the end result is the
         // same final grid, just assembled progressively.
+        // Load-as-you-scroll (2026-10-10): Cloudflare's report for 25 Sep - 9
+        // Oct still showed half of all taps as "Poor"/"Needs improvement" INP
+        // on the category and favourites chips. Even chunked, every tap still
+        // went on to build all ~3,100 cards over the next couple of seconds,
+        // and any tap landing during that time had to wait behind it. Now
+        // only the first PAGE_SIZE cards are drawn; more are appended when
+        // the visitor scrolls near the bottom (an invisible "sentinel" div
+        // watched by IntersectionObserver). Nobody scrolls through 3,000
+        // cards, so most of that work simply never happens now.
         let renderChunkToken = 0;
+        let scrollObserver = null;
         function renderCardsProgressively(container, cardsHTML) {
             const myToken = ++renderChunkToken; // supersede any render still in flight
+            if (scrollObserver) { scrollObserver.disconnect(); scrollObserver = null; }
             container.innerHTML = "";
-            const CHUNK_SIZE = 24;
+            const PAGE_SIZE = 30;
             let i = 0;
-            const step = () => {
+            const sentinel = document.createElement("div");
+            sentinel.className = "col-span-full h-px";
+            const appendPage = () => {
                 if (myToken !== renderChunkToken) return; // a newer render took over
                 const holder = document.createElement("div");
-                holder.innerHTML = cardsHTML.slice(i, i + CHUNK_SIZE).join("");
+                holder.innerHTML = cardsHTML.slice(i, i + PAGE_SIZE).map(build => build()).join("");
                 const frag = document.createDocumentFragment();
                 while (holder.firstChild) frag.appendChild(holder.firstChild);
-                container.appendChild(frag);
-                i += CHUNK_SIZE;
-                if (i < cardsHTML.length) requestAnimationFrame(step);
+                container.insertBefore(frag, sentinel.parentNode === container ? sentinel : null);
+                i += PAGE_SIZE;
+                if (i >= cardsHTML.length && scrollObserver) {
+                    scrollObserver.disconnect();
+                    scrollObserver = null;
+                    sentinel.remove();
+                }
             };
-            requestAnimationFrame(step);
+            appendPage();
+            if (i < cardsHTML.length) {
+                container.appendChild(sentinel);
+                if ("IntersectionObserver" in window) {
+                    scrollObserver = new IntersectionObserver((entries) => {
+                        if (entries.some(e => e.isIntersecting)) requestAnimationFrame(appendPage);
+                    }, { rootMargin: "1500px 0px" });
+                    scrollObserver.observe(sentinel);
+                } else {
+                    // Very old browser with no IntersectionObserver: fall back
+                    // to the previous behaviour, drawing the rest a chunk per frame.
+                    const rest = () => { appendPage(); if (i < cardsHTML.length && myToken === renderChunkToken) requestAnimationFrame(rest); };
+                    requestAnimationFrame(rest);
+                }
+            }
         }
 
         // Debounced (200ms): search-bar and price-min/max all call this on
