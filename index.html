@@ -124,8 +124,8 @@
         <div class="flex items-center space-x-2 mb-4">
             <span class="text-[11px] text-gray-300 font-medium whitespace-nowrap">Sort:</span>
             <select id="sort-select" onchange="changeSort(this.value)" class="flex-1 bg-charcoal border border-gray-800 text-white rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amberGold">
-                <option value="compared">Most shops compared</option>
                 <option value="saving">Biggest saving</option>
+                <option value="compared">Most shops compared</option>
                 <option value="price_asc">Price: low to high</option>
                 <option value="price_desc">Price: high to low</option>
                 <option value="az">Name: A to Z</option>
@@ -371,11 +371,11 @@
                 mockProducts = await res.json();
                 computeComparisonStats();
                 // The sort choice is deliberately NOT remembered between visits:
-                // every visit opens on "Most shops compared", so the first
+                // every visit opens on "Biggest saving", so the first
                 // thing anyone sees is the comparison. Clears the value older
                 // versions of this page saved.
                 try { localStorage.removeItem("sortOrder"); } catch (e) {}
-                activeSort = "compared";
+                activeSort = "saving";
                 const sel = document.getElementById("sort-select");
                 if (sel) sel.value = activeSort;
                 sortProducts();
@@ -456,7 +456,7 @@
             favourites: true,      // hearts, My Favourites view, notes
             shareList: true,       // sharing a favourites list
             basket: true,          // favourites basket totals per shop
-            savingsSort: true,     // "Biggest saving" sort order
+            savingsSort: false,    // "Biggest saving" order: the default view, so free for everyone
             priceDropAlerts: true, // price-drop banner for favourites
         };
         function hasFeature(name) {
@@ -533,7 +533,11 @@
             });
         }
 
-        let activeSort = "compared";
+        // Default order (2026-10-10): biggest saving first, so the first thing
+        // anyone sees on opening the app is where switching shop saves the
+        // most money. Still only within the "in stock at 2+ shops" group --
+        // see sortProducts().
+        let activeSort = "saving";
         let showComparedOnly = false;
 
         // Sorts mockProducts in place. Whatever the chosen order, a product
@@ -550,6 +554,7 @@
             const sorters = {
                 compared,
                 saving: (a, b) => ((b._saving ?? -1) - (a._saving ?? -1)) || compared(a, b),
+
                 price_asc: (a, b) => (a._lowest - b._lowest) || byName(a, b),
                 price_desc: (a, b) => (b._lowest - a._lowest) || byName(a, b),
                 az: byName,
