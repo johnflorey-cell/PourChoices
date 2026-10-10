@@ -117,6 +117,22 @@
             <button onclick="clearPriceFilter()" class="text-[11px] text-gray-400 font-medium whitespace-nowrap px-1">Clear</button>
         </div>
 
+        <!-- SORT + "COMPETING PRICES ONLY" (added 2026-10-10): by default the
+             list now leads with products that more than one shop has in
+             stock, so the comparison is the first thing a visitor sees, and
+             products nobody can sell right now go to the very end. -->
+        <div class="flex items-center space-x-2 mb-4">
+            <span class="text-[11px] text-gray-300 font-medium whitespace-nowrap">Sort:</span>
+            <select id="sort-select" onchange="changeSort(this.value)" class="flex-1 bg-charcoal border border-gray-800 text-white rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amberGold">
+                <option value="compared">Most shops compared</option>
+                <option value="saving">Biggest saving</option>
+                <option value="price_asc">Price: low to high</option>
+                <option value="price_desc">Price: high to low</option>
+                <option value="az">Name: A to Z</option>
+            </select>
+            <button id="compared-only-btn" onclick="toggleComparedOnly()" class="text-[11px] font-bold whitespace-nowrap px-3 py-2 rounded-xl border border-gray-800 bg-charcoal text-gray-200 transition">⚖️ Compared only</button>
+        </div>
+
         <!-- FREE TRIAL BANNER -->
         <div id="trial-banner" class="hidden mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2 text-center leading-relaxed"></div>
 
@@ -188,6 +204,11 @@
             <button onclick="shareFavourites()" class="w-full mb-3 flex items-center justify-center space-x-2 bg-amberGold text-obsidian font-bold text-xs py-3 rounded-xl active:scale-[0.98] transition">
                 <span>📤</span><span>Share My Favourites List</span>
             </button>
+            <!-- BASKET SUMMARY (added 2026-10-10): what the whole favourites
+                 list costs at each shop, and the cheapest way to buy it
+                 (each item wherever it's cheapest). Filled in by
+                 renderFavouritesBasket(). -->
+            <div id="favourites-basket" class="hidden mb-3 bg-charcoal border border-emeraldGlow/30 rounded-xl px-3 py-3"></div>
             <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
             <textarea id="favourites-note" rows="6" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
         </div>
@@ -212,7 +233,7 @@
                     <span>🔒</span>
                     <span>UNLOCK ALL LIVE PROMOS</span>
                 </span>
-                <span class="text-xs bg-obsidian bg-opacity-20 px-2 py-1 rounded text-obsidian font-extrabold">500 Fils/MO →</span>
+                <span class="text-xs bg-obsidian bg-opacity-20 px-2 py-1 rounded text-obsidian font-extrabold">4.500 BHD/YR →</span>
             </button>
         </div>
 
@@ -227,13 +248,13 @@
         <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="modal-content">
             <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closePaywallModal()"></div>
             <h3 class="text-lg font-bold">Activate Full Directory Access</h3>
-            <p class="text-xs text-gray-400 mt-1 mb-6">Compare daily prices across all 4 distributors instantly. 500 Fils/month.</p>
+            <p class="text-xs text-gray-400 mt-1 mb-6">Compare prices across all 4 shops, plus favourites, basket totals and price-drop alerts. 4.500 BHD per year.</p>
 
             <div class="bg-obsidian border border-gray-800 rounded-xl p-4 mb-4 flex flex-col items-center">
                 <div class="w-32 h-32 bg-gray-800 border-2 border-dashed border-gray-600 rounded-lg flex items-center justify-center mb-3">
                     <span class="text-xs text-gray-400">[ BenefitPay QR Code ]</span>
                 </div>
-                <p class="text-xs text-gray-300">1. Scan QR code above or send 0.500 BHD (500 Fils) via BenefitPay to <b>Pour Choices</b> (+973 XXXXXXXX)</p>
+                <p class="text-xs text-gray-300">1. Scan QR code above or send 4.500 BHD via BenefitPay to <b>Pour Choices</b> (+973 XXXXXXXX)</p>
             </div>
 
             <div class="text-left space-y-3">
@@ -296,17 +317,25 @@
         <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="share-modal-content">
             <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closeShareModal()"></div>
             <h3 id="share-modal-title" class="text-lg font-bold">Share</h3>
-            <p class="text-xs text-gray-400 mt-1 mb-5">Scan this on the other phone, or copy the link.</p>
+            <p class="text-xs text-gray-400 mt-1 mb-4">Send it on WhatsApp, or let the other phone scan the code.</p>
+
+            <!-- Readable preview of what's being shared (filled in only when
+                 sharing a favourites list), so the person sending it sees
+                 the actual product names rather than a link full of code. -->
+            <div id="share-modal-list" class="hidden text-left bg-obsidian border border-gray-800 rounded-xl px-3 py-2.5 mb-4 max-h-40 overflow-y-auto"></div>
 
             <div class="bg-white rounded-xl p-3 mb-4 flex items-center justify-center">
-                <img id="share-modal-qr" src="" alt="QR code" width="200" height="200" class="w-[200px] h-[200px]">
+                <img id="share-modal-qr" src="" alt="QR code" width="160" height="160" class="w-[160px] h-[160px]">
             </div>
 
-            <p id="share-modal-link" class="text-[11px] text-gray-300 bg-obsidian border border-gray-800 rounded-xl py-2.5 px-3 mb-4 break-all select-all"></p>
+            <p id="share-modal-link" class="text-[11px] text-gray-400 mb-4 break-all select-all"></p>
 
             <div class="space-y-2">
+                <button onclick="shareViaWhatsApp()" class="w-full bg-[#25D366] text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Send on WhatsApp
+                </button>
                 <button onclick="copyShareLink()" class="w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
-                    Copy Link
+                    Copy Message
                 </button>
                 <button id="share-modal-sheet-btn" onclick="shareViaSheet()" class="hidden w-full bg-white text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
                     Share via...
@@ -340,6 +369,16 @@
                 const res = await fetch("data/products.json", { cache: "no-cache" });
                 if (!res.ok) throw new Error("HTTP " + res.status);
                 mockProducts = await res.json();
+                computeComparisonStats();
+                try {
+                    const savedSort = localStorage.getItem("sortOrder");
+                    if (savedSort && (savedSort !== "saving" || hasFeature("savingsSort"))) activeSort = savedSort;
+                } catch (e) {}
+                const sel = document.getElementById("sort-select");
+                if (sel) sel.value = activeSort;
+                sortProducts();
+                repairFavouriteNames();
+                resolvePendingSharedCodes();
             } catch (e) {
                 productsLoadFailed = true;
                 console.error("Could not load product data:", e);
@@ -362,7 +401,9 @@
                 el.textContent = "";
                 return;
             }
-            el.textContent = "Products Compared: " + mockProducts.length.toLocaleString("en-US");
+            const competing = mockProducts.filter(p => p._inStockCount >= 2).length;
+            el.textContent = "Products Listed: " + mockProducts.length.toLocaleString("en-US") +
+                " · " + competing.toLocaleString("en-US") + " with competing prices";
         }
 
         // Shows visitors how fresh the prices are, using the timestamp the scraper
@@ -390,15 +431,35 @@
         }
 
         // Free-trial + pricing config: free for the first TRIAL_DAYS days after a
-        // visitor's first launch (tracked locally, per device), then MONTHLY_PRICE_FILS.
+        // visitor's first launch (tracked locally, per device), then YEARLY_PRICE_BHD.
+        // Pricing decided 2026-09-14: yearly only, 4.500 BHD (a monthly 0.500
+        // charge would lose 20-35% of itself to fixed gateway fees).
         const TRIAL_DAYS = 30;
-        const MONTHLY_PRICE_FILS = 500; // 500 fils = 0.500 BHD
+        const YEARLY_PRICE_BHD = "4.500";
 
         // Launch-phase switch: while true, the whole app is free and the trial/paywall
         // logic below is skipped (kept in place, not deleted, so flipping this back to
-        // false re-enables the 30-day-trial-then-500-Fils model exactly as before).
+        // false re-enables the 30-day-trial-then-4.500-BHD-a-year model exactly as before).
         // Flip to false once you're ready to start charging.
         const FREE_MODE = true;
+
+        // Freemium switchboard (added 2026-10-10): which extras sit behind the
+        // subscription once FREE_MODE is turned off. Prices and basic
+        // comparison stay free for everyone (that's what brings people in);
+        // the "save me time / save me money" extras are what a subscription
+        // buys. Flip any entry to false to make that feature free for all,
+        // with no other code change needed. While FREE_MODE is true every
+        // feature is open to everyone regardless.
+        const PREMIUM_FEATURES = {
+            favourites: true,      // hearts, My Favourites view, notes
+            shareList: true,       // sharing a favourites list
+            basket: true,          // favourites basket totals per shop
+            savingsSort: true,     // "Biggest saving" sort order
+            priceDropAlerts: true, // price-drop banner for favourites
+        };
+        function hasFeature(name) {
+            return isPremium || PREMIUM_FEATURES[name] === false;
+        }
 
         let isPremium = false; // true whenever access is unlocked, whether paid or trial
         let isPaid = false;    // true only once a real BenefitPay payment has been verified
@@ -435,6 +496,154 @@
                 .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
                 .map(k => prod[k]);
             return inStockPrices.length ? Math.min(...inStockPrices) : null;
+        }
+
+        const RETAILER_SHORT_LABELS = { bmmi: "BMMI", ae: "A&E", gbi: "GBI Express", nhsc: "NHSC" };
+
+        // The single cheapest in-stock offer for a product: {key, label,
+        // price}, or null if no shop has it in stock.
+        function cheapestRetailer(prod) {
+            let best = null;
+            RETAILER_KEYS.forEach(k => {
+                const v = prod[k];
+                if (v === null || v === undefined || prod[`${k}_in_stock`] === false) return;
+                if (!best || v < best.price) best = { key: k, label: RETAILER_SHORT_LABELS[k], price: v };
+            });
+            return best;
+        }
+
+        // --- Competing-price ordering (added 2026-10-10) ----------------------
+        // Worked out once per product right after products.json loads (not on
+        // every render): how many shops have it in stock right now, how many
+        // list it at all, its lowest in-stock price and the saving between
+        // the dearest and cheapest in-stock shop. Stored on the product as
+        // _-prefixed fields so they never collide with anything merge.py
+        // writes.
+        function computeComparisonStats() {
+            mockProducts.forEach(prod => {
+                const inStock = RETAILER_KEYS
+                    .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
+                    .map(k => prod[k]);
+                prod._inStockCount = inStock.length;
+                prod._listedCount = RETAILER_KEYS.filter(k => prod[k] !== null && prod[k] !== undefined).length;
+                prod._lowest = inStock.length ? Math.min(...inStock) : null;
+                prod._saving = inStock.length >= 2 ? Math.max(...inStock) - Math.min(...inStock) : null;
+            });
+        }
+
+        let activeSort = "compared";
+        let showComparedOnly = false;
+
+        // Sorts mockProducts in place. Whatever the chosen order, a product
+        // no shop can sell right now (no in-stock price anywhere) always goes
+        // after everything that can be bought -- it's the least useful thing
+        // to show near the top of a price comparison.
+        function sortProducts() {
+            const byName = (a, b) => a.name.localeCompare(b.name);
+            const buyable = (p) => (p._lowest === null ? 1 : 0);
+            const compared = (a, b) =>
+                (b._inStockCount - a._inStockCount) ||
+                ((b._saving || 0) - (a._saving || 0)) ||
+                (b._listedCount - a._listedCount) ||
+                byName(a, b);
+            const sorters = {
+                compared,
+                saving: (a, b) => ((b._saving ?? -1) - (a._saving ?? -1)) || compared(a, b),
+                price_asc: (a, b) => (a._lowest - b._lowest) || byName(a, b),
+                price_desc: (a, b) => (b._lowest - a._lowest) || byName(a, b),
+                az: byName,
+            };
+            const fn = sorters[activeSort] || compared;
+            mockProducts.sort((a, b) => (buyable(a) - buyable(b)) || fn(a, b));
+        }
+
+        function changeSort(value) {
+            // "Biggest saving" is the most direct answer to "is this app worth
+            // paying for", so it's one of the features that sits behind the
+            // subscription once FREE_MODE is turned off (see PREMIUM_FEATURES).
+            if (value === "saving" && !hasFeature("savingsSort")) {
+                const sel = document.getElementById("sort-select");
+                if (sel) sel.value = activeSort;
+                openPaywallModal();
+                return;
+            }
+            activeSort = value;
+            try { localStorage.setItem("sortOrder", value); } catch (e) {}
+            sortProducts();
+            renderProducts();
+        }
+
+        function toggleComparedOnly() {
+            showComparedOnly = !showComparedOnly;
+            const btn = document.getElementById("compared-only-btn");
+            if (btn) {
+                btn.classList.toggle("bg-amberGold", showComparedOnly);
+                btn.classList.toggle("text-obsidian", showComparedOnly);
+                btn.classList.toggle("border-amberGold", showComparedOnly);
+                btn.classList.toggle("bg-charcoal", !showComparedOnly);
+                btn.classList.toggle("text-gray-200", !showComparedOnly);
+            }
+            renderProducts();
+        }
+
+        // The "⚖️ Compared at 3 shops · save 2.450" line under a product's
+        // name. Only shown when at least 2 shops have it in stock, i.e. when
+        // there's a real comparison to point at.
+        function comparisonBadgeHTML(prod) {
+            if (!prod._inStockCount || prod._inStockCount < 2) return "";
+            const savingText = prod._saving > 0.0005
+                ? ` · save ${prod._saving.toFixed(3)} BHD`
+                : " · same price everywhere";
+            return `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amberGold/15 text-amberGold">⚖️ ${prod._inStockCount} shops${savingText}</span>`;
+        }
+
+        // --- Favourites basket (added 2026-10-10) ------------------------------
+        // Answers "where should I do my shopping?": the total for the whole
+        // favourites list at each shop (and how many of the items that shop
+        // has in stock), plus the cheapest possible total buying every item
+        // wherever it's cheapest.
+        function renderFavouritesBasket(favouritesSet) {
+            const el = document.getElementById("favourites-basket");
+            if (!el) return;
+            const items = mockProducts.filter(p => favouritesSet.has(p.name));
+            if (!showFavouritesOnly || items.length === 0 || !hasFeature("basket")) {
+                el.classList.add("hidden");
+                el.innerHTML = "";
+                return;
+            }
+            const perShop = RETAILER_KEYS.map(k => {
+                let total = 0, count = 0;
+                items.forEach(p => {
+                    const v = p[k];
+                    if (v !== null && v !== undefined && p[`${k}_in_stock`] !== false) { total += v; count++; }
+                });
+                return { key: k, label: RETAILER_SHORT_LABELS[k], total, count };
+            });
+            let mixTotal = 0, mixCount = 0;
+            items.forEach(p => { const b = cheapestRetailer(p); if (b) { mixTotal += b.price; mixCount++; } });
+
+            // "Best single shop": the one stocking the most of the list, then
+            // the cheapest of those.
+            const ranked = perShop.filter(r => r.count > 0)
+                .sort((a, b) => (b.count - a.count) || (a.total - b.total));
+            const bestKey = ranked.length ? ranked[0].key : null;
+            const n = items.length;
+
+            const rows = perShop.map(r => `
+                <div class="flex justify-between text-[11px] py-0.5 ${r.key === bestKey ? "text-emeraldGlow font-bold" : "text-gray-300"}">
+                    <span>${r.label}${r.key === bestKey ? " ★" : ""}</span>
+                    <span>${r.count ? r.total.toFixed(3) + " BHD" : "–"} <span class="text-gray-500 font-normal">(${r.count} of ${n})</span></span>
+                </div>`).join("");
+
+            el.innerHTML = `
+                <p class="text-[11px] text-white font-bold mb-1.5">🧺 Your list at each shop</p>
+                ${rows}
+                <div class="flex justify-between text-[11px] mt-1.5 pt-1.5 border-t border-gray-800 text-amberGold font-bold">
+                    <span>Cheapest mix</span>
+                    <span>${mixCount ? mixTotal.toFixed(3) + " BHD" : "–"} <span class="text-gray-500 font-normal">(${mixCount} of ${n})</span></span>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">Cheapest mix = buying each item at whichever shop has it cheapest. In-stock items only.</p>`;
+            el.classList.remove("hidden");
         }
 
         // --- Price history badge (added 2026-10-05) ----------------------------
@@ -537,6 +746,11 @@
         // OWN favourites/showFavouritesOnly, since it's someone else's list).
         let sharedFavouriteNames = null;
         let showSharedOnly = false;
+        // Short codes from a "?l=..." link, waiting for the catalogue to load
+        // so they can be turned back into product names (see
+        // resolvePendingSharedCodes() below). Declared here, above the
+        // readSharedFavouritesFromUrl() call, because that call fills it in.
+        let pendingSharedCodes = null;
         // Read as soon as the script runs (not deferred to window.onload),
         // so the URL gets scrubbed immediately regardless of whether this
         // visitor still needs to pass the age gate first.
@@ -550,17 +764,79 @@
         // or bookmark of this page won't keep re-showing "someone shared
         // this with you" forever just because the link is still sitting in
         // the URL.
+        //
+        // Short-code links (2026-10-10): a shared link used to spell out every
+        // product name in full, percent-encoded ("?shared=Chivas%20Regal%2018
+        // %20Year%20Old..."), which is what looked like "a string of code"
+        // when it landed in someone's WhatsApp. New links carry one short
+        // code per product instead ("?l=k3j9x2-1q8z0c"), see
+        // productShareCode() below; the codes are turned back into product
+        // names once the catalogue has loaded (resolvePendingSharedCodes()).
+        // Old "?shared=" links that are already out there keep working.
         function readSharedFavouritesFromUrl() {
             try {
                 const params = new URLSearchParams(window.location.search);
                 const raw = params.get("shared");
-                if (!raw) return null;
-                const names = raw.split(",").map(decodeURIComponent).filter(Boolean);
+                const codes = params.get("l");
+                if (!raw && !codes) return null;
                 window.history.replaceState({}, "", window.location.origin + window.location.pathname);
+                if (codes) {
+                    pendingSharedCodes = codes.split(/[-.,]/).filter(Boolean);
+                    return null;
+                }
+                const names = raw.split(",").map(decodeURIComponent).filter(Boolean);
                 return names.length ? new Set(names) : null;
             } catch (e) {
                 return null;
             }
+        }
+
+        // A short, stable code for one product (FNV-1a hash of its name, in
+        // base 36, about 6-7 characters). Products are keyed by name
+        // everywhere else in this app (favourites, price history) for the
+        // same reason: the numeric id is reassigned on every scrape.
+        function productShareCode(name) {
+            const key = String(name).replace(/\s+/g, " ").trim().toLowerCase();
+            let h = 0x811c9dc5;
+            for (let i = 0; i < key.length; i++) {
+                h ^= key.charCodeAt(i);
+                h = Math.imul(h, 0x01000193) >>> 0;
+            }
+            return h.toString(36);
+        }
+
+        function resolvePendingSharedCodes() {
+            if (!pendingSharedCodes || !mockProducts.length) return;
+            const wanted = new Set(pendingSharedCodes);
+            const names = mockProducts.filter(p => wanted.has(productShareCode(p.name))).map(p => p.name);
+            pendingSharedCodes = null;
+            if (names.length) {
+                sharedFavouriteNames = new Set(names);
+            } else {
+                showToast("The products in that shared list aren't listed any more.");
+            }
+        }
+
+        // A product's display name very occasionally changes slightly between
+        // scrapes (2026-10-10: stray non-breaking spaces and double spaces
+        // are now tidied out of names), which would quietly drop it from a
+        // visitor's favourites since those are keyed by exact name. This
+        // re-points any saved favourite that no longer matches exactly to
+        // the product whose name matches once spacing is ignored.
+        function repairFavouriteNames() {
+            const favs = getFavourites();
+            if (!favs.size) return;
+            const loose = (n) => String(n).replace(/[\s\u00a0\u00c2]+/g, " ").trim().toLowerCase();
+            const exact = new Set(mockProducts.map(p => p.name));
+            const byLoose = new Map(mockProducts.map(p => [loose(p.name), p.name]));
+            let changed = false;
+            const repaired = new Set();
+            favs.forEach(n => {
+                if (exact.has(n)) { repaired.add(n); return; }
+                const fixed = byLoose.get(loose(n));
+                if (fixed) { repaired.add(fixed); changed = true; } else { repaired.add(n); }
+            });
+            if (changed) saveFavourites(repaired);
         }
 
         function getFavourites() {
@@ -587,7 +863,7 @@
         // product name (which can contain quotes/apostrophes) inside an
         // inline onclick="..." attribute.
         function toggleFavourite(index) {
-            if (!isPremium) { openPaywallModal(); return; }
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
             const prod = mockProducts[index];
             if (!prod) return;
             const favourites = getFavourites();
@@ -609,7 +885,7 @@
         }
 
         function toggleFavouritesView() {
-            if (!isPremium) { openPaywallModal(); return; }
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
             // Leaving a shared-list view the same way entering/leaving "My
             // Favourites" already resets activeCategory below -- otherwise
             // showSharedOnly would still be true underneath and win out over
@@ -690,7 +966,7 @@
         }
 
         function checkFavouritePriceDrops() {
-            if (!isPremium) return; // same gating as favourites themselves
+            if (!hasFeature("priceDropAlerts")) return; // same gating as favourites themselves
             const favourites = getFavourites();
             if (favourites.size === 0) return;
 
@@ -897,11 +1173,22 @@
             return `https://api.qrserver.com/v1/create-qr-code/?size=${sizePx}x${sizePx}&data=${encodeURIComponent(data)}`;
         }
 
-        function openShareModal(url, title) {
+        // message: the full, human-readable text that "Send on WhatsApp",
+        // "Copy Message" and the phone's own share sheet all send (product
+        // names + prices + the link), so the person receiving it can read
+        // what it is before they even tap the link. previewHTML: optional
+        // readable list shown inside the modal itself.
+        function openShareModal(url, title, message, previewHTML) {
             const modal = document.getElementById("share-modal");
             const content = document.getElementById("share-modal-content");
             document.getElementById("share-modal-title").textContent = title;
-            document.getElementById("share-modal-link").textContent = url;
+            document.getElementById("share-modal-link").textContent = url.replace(/^https?:\/\//, "");
+            modal.dataset.text = message || url;
+            const listEl = document.getElementById("share-modal-list");
+            if (listEl) {
+                listEl.innerHTML = previewHTML || "";
+                listEl.classList.toggle("hidden", !previewHTML);
+            }
             document.getElementById("share-modal-qr").src = buildQrImageUrl(url, 200);
             document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
             modal.dataset.url = url;
@@ -922,20 +1209,36 @@
         }
 
         async function copyShareLink() {
-            const url = document.getElementById("share-modal").dataset.url || "";
+            const modal = document.getElementById("share-modal");
+            const text = modal.dataset.text || modal.dataset.url || "";
             try {
-                await navigator.clipboard.writeText(url);
-                showToast("Link copied!");
+                await navigator.clipboard.writeText(text);
+                showToast("Copied! Paste it into any chat.");
             } catch (e) {
                 showToast("Couldn't copy automatically -- the link above is selectable.");
             }
         }
 
+        // WhatsApp is how most people in Bahrain will actually pass this on,
+        // so it gets its own button. wa.me opens the WhatsApp app on a phone
+        // (or WhatsApp Web on a laptop) with the message pre-filled; the
+        // sender still picks who to send it to.
+        function shareViaWhatsApp() {
+            const modal = document.getElementById("share-modal");
+            const text = modal.dataset.text || modal.dataset.url || "";
+            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
+        }
+
         async function shareViaSheet() {
-            const url = document.getElementById("share-modal").dataset.url || "";
+            const modal = document.getElementById("share-modal");
+            const url = modal.dataset.url || "";
+            const text = modal.dataset.text || url;
             if (!navigator.share) return;
             try {
-                await navigator.share({ title: "Pour Choices", url });
+                // The link is already at the end of the message text, so it's
+                // passed as text only (passing url too makes some apps paste
+                // the link twice).
+                await navigator.share({ title: "Pour Choices", text });
             } catch (e) { /* visitor cancelled the share sheet, nothing to do */ }
         }
 
@@ -946,7 +1249,8 @@
             // param specifically is scrubbed immediately anyway, but this
             // stays explicit rather than relying on that timing.
             const url = window.location.origin + window.location.pathname;
-            openShareModal(url, "Share Pour Choices");
+            const message = "🍾 Pour Choices compares drink prices across BMMI, African & Eastern, GBI Express and NHSC in Bahrain, free:\n" + url;
+            openShareModal(url, "Share Pour Choices", message);
         }
 
         // --- Share my favourites (added 2026-10-05) ---------------------------
@@ -958,16 +1262,36 @@
         // the list itself, so it keeps working for as long as those product
         // names still exist in the catalogue.
         function shareFavourites() {
-            if (!isPremium) { openPaywallModal(); return; }
+            if (!hasFeature("shareList")) { openPaywallModal(); return; }
             const favourites = getFavourites();
             if (favourites.size === 0) {
                 showToast("Add a few favourites first, then share your list.");
                 return;
             }
-            const namesParam = [...favourites].map(encodeURIComponent).join(",");
-            const url = `${window.location.origin}${window.location.pathname}?shared=${namesParam}`;
+            const codes = [...new Set([...favourites].map(productShareCode))].join("-");
+            const url = `${window.location.origin}${window.location.pathname}?l=${codes}`;
             const count = favourites.size;
-            openShareModal(url, `Share ${count} favourite${count === 1 ? "" : "s"}`);
+
+            // Readable lines for the message: each product with its cheapest
+            // current price and where, e.g. "• Chivas Regal 18YO 75cl, 78.980
+            // BHD at A&E". Products no longer in the catalogue just show their
+            // name.
+            const byName = new Map(mockProducts.map(p => [p.name, p]));
+            const lines = [...favourites].map(name => {
+                const prod = byName.get(name);
+                const best = prod ? cheapestRetailer(prod) : null;
+                return best ? `• ${name}, ${best.price.toFixed(3)} BHD at ${best.label}` : `• ${name}`;
+            });
+            const MAX_LINES = 12;
+            const shown = lines.slice(0, MAX_LINES);
+            if (lines.length > MAX_LINES) shown.push(`…and ${lines.length - MAX_LINES} more`);
+            const message = `🍾 My Pour Choices favourites (${count}):\n${shown.join("\n")}\n\nSee live prices at all 4 shops:\n${url}`;
+            const previewHTML = shown.map(l => `<p class="text-[11px] text-gray-200 leading-relaxed">${escapeHTML(l)}</p>`).join("");
+            openShareModal(url, `Share ${count} favourite${count === 1 ? "" : "s"}`, message, previewHTML);
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
         }
 
         // --- Viewing a list someone else shared (added 2026-10-05) -----------
@@ -1014,7 +1338,7 @@
 
         function addSharedFavouritesToMine() {
             if (!sharedFavouriteNames) return;
-            if (!isPremium) { openPaywallModal(); return; }
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
             const mine = getFavourites();
             sharedFavouriteNames.forEach((n) => mine.add(n));
             saveFavourites(mine);
@@ -1093,7 +1417,7 @@
                 badge.classList.add("border-amberGold", "text-amberGold");
             } else if (inTrial) {
                 badge.innerHTML = `<span>🎁 Free Trial · ${trialDaysLeft}d left</span>`;
-                banner.textContent = `Free access during launch, no payment needed. ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left, then ${MONTHLY_PRICE_FILS} Fils/month.`;
+                banner.textContent = `Free access during launch, no payment needed. ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left, then ${YEARLY_PRICE_BHD} BHD/year.`;
                 banner.classList.remove("hidden");
             } else {
                 badge.innerHTML = "<span>🔴 Standard Tier</span>";
@@ -1200,6 +1524,7 @@
                     return;
                 }
                 if (query && !searchNormalize(prod.name).includes(query)) return;
+                if (showComparedOnly && !(prod._inStockCount >= 2)) return;
 
                 // See getLowestInStockPrice() above for why only in-stock
                 // prices count toward this.
@@ -1232,7 +1557,7 @@
                             <div>
                                 <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${categoryLabel(prod.category)}</span>
                                 <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
-                                ${priceBadgeHTML(prod)}
+                                ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}
                             </div>
                             <button onclick="toggleFavourite(${index})" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
                         </div>
@@ -1298,6 +1623,14 @@
                 cardsHTML.push(cardHTML);
             });
 
+            renderFavouritesBasket(favouritesSet);
+
+            if (cardsHTML.length === 0) {
+                container.innerHTML = showComparedOnly
+                    ? `<p class="text-center text-sm text-gray-300 py-8">No products with competing prices match this filter. Tap "⚖️ Compared only" to see everything.</p>`
+                    : `<p class="text-center text-sm text-gray-300 py-8">No products match this search.</p>`;
+                return;
+            }
             renderCardsProgressively(container, cardsHTML);
         }
 
