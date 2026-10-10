@@ -48,17 +48,30 @@ Run with: python scrapers/gbi.py
 Requires: playwright (and `playwright install chromium` once, done in CI).
 """
 import sys
+from urllib.parse import quote_plus
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources
+from _common import brand_search_terms, term_already_covered, extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources
 
 from playwright.sync_api import sync_playwright
 
 BASE = "https://www.gbiexpress.com"
 SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
                 "brandy", "tequila", "liqueur", "cider"]
-MAX_PAGES_PER_TERM = 15
+# Raised from 15 (2026-10-10): GBI's "gin" and "wine" searches both hit the
+# old 15-page cap (240 products each) and were silently cut off there.
+# Pagination still stops on its own at the first page with no products.
+MAX_PAGES_PER_TERM = 40
+# Brand searches (see brand_search_terms() in _common.py): a single brand
+# rarely runs past a few pages, so they get a lower cap, and the whole
+# brand-search phase stops after BRAND_SEARCH_MINUTES so this scraper can
+# never push the weekly run past GitHub's time limit. Both can be changed
+# here (or via the env vars) without touching anything else.
+import os, time
+MAX_PAGES_PER_BRAND = int(os.environ.get("MAX_PAGES_PER_BRAND", "5"))
+MAX_BRAND_TERMS = int(os.environ.get("MAX_BRAND_TERMS", "300"))
+BRAND_SEARCH_MINUTES = float(os.environ.get("BRAND_SEARCH_MINUTES", "60"))
 NAV_TIMEOUT = 120000  # proxy adds latency; matches Bright Data's own guidance
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
@@ -131,10 +144,10 @@ def pick_card_name(card):
     return best_name, best_href
 
 
-def scrape_term(page, term, debug=False):
+def scrape_term(page, term, debug=False, max_pages=None):
     results = []
-    for page_num in range(1, MAX_PAGES_PER_TERM + 1):
-        url = f"{BASE}/index.php?route=product/search&search={term}&page={page_num}"
+    for page_num in range(1, (max_pages or MAX_PAGES_PER_TERM) + 1):
+        url = f"{BASE}/index.php?route=product/search&search={quote_plus(term)}&page={page_num}"
         safe_goto(page, url)
         page.wait_for_timeout(1500)
         if debug and page_num == 1:
@@ -192,6 +205,32 @@ def main():
                 if key not in seen:
                     seen.add(key)
                     all_results.append(item)
+
+        # Phase 2, brand searches (2026-10-10): look for the brands BMMI
+        # sells, skipping any brand the category searches above already
+        # found at this shop.
+        names = [r["name"].lower() for r in all_results]
+        brand_terms = [t for t in brand_search_terms(MAX_BRAND_TERMS) if not term_already_covered(t, names)]
+        print(f"Brand searches: {len(brand_terms)} brands to look for at GBI", file=sys.stderr)
+        deadline = time.time() + BRAND_SEARCH_MINUTES * 60
+        before = len(all_results)
+        searched = 0
+        for term in brand_terms:
+            if time.time() > deadline:
+                print(f"  Brand-search time budget ({BRAND_SEARCH_MINUTES:.0f} min) used up after {searched} brands; the rest wait for next week's run.", file=sys.stderr)
+                break
+            searched += 1
+            try:
+                items = scrape_term(page, term, max_pages=MAX_PAGES_PER_BRAND)
+            except Exception as e:
+                print(f"  brand '{term}' failed: {e}", file=sys.stderr)
+                items = []
+            for item in items:
+                key = (item["name"], item["url"])
+                if key not in seen:
+                    seen.add(key)
+                    all_results.append(item)
+        print(f"Brand searches added {len(all_results) - before} new products ({searched} brands searched)", file=sys.stderr)
         browser.close()
     write_json("gbi.json", all_results)
 

@@ -341,3 +341,95 @@ def block_heavy_resources(page):
         else:
             route.continue_()
     page.route("**/*", _handle)
+
+# --- Brand searches (added 2026-10-10) ------------------------------------
+# A&E and GBI are scraped through each shop's own search box, and that box
+# only finds products whose NAME contains the word searched for. Searching
+# "beer" never finds "Heineken Can 33cl", searching "cognac" never finds
+# "Hennessy VS 70cl", and so on -- which is why GBI's "beer" search came
+# back with just 3 products and why only ~35 products had prices from more
+# than one shop. BMMI is the one shop read from its complete product list
+# (its sitemap), so its brand names are the best available list of what to
+# look for at the other shops. Searching A&E and GBI for those brands finds
+# exactly the products a comparison needs.
+
+# Leading words that aren't a brand on their own ("The Famous Grouse",
+# "Old Monk", "Chateau Margaux"): when a name starts with one of these, the
+# first TWO words are used as the search term instead.
+_BRAND_PREFIX_WORDS = {
+    "the", "old", "black", "red", "white", "blue", "royal", "grand", "st", "saint",
+    "de", "la", "le", "les", "el", "los", "chateau", "domaine", "dr", "mr", "sir",
+    "captain", "jack", "jim", "johnnie", "glen", "j", "mg", "top", "original",
+    "mount", "san", "casa", "tenuta", "bodegas", "marques", "baron", "don",
+    "magic", "four", "david", "ken", "grey", "michel", "maison", "just", "chateau la",
+}
+# Words that are never useful as a brand search (too generic, or units).
+_BRAND_STOP_WORDS = {
+    "beer", "wine", "gin", "vodka", "rum", "whisky", "whiskey", "brandy", "tequila",
+    "liqueur", "cider", "champagne", "red", "white", "rose", "can", "cans", "bottle",
+    "pack", "case", "mini", "new", "classic", "premium", "special", "extra", "gift",
+    # Soft drinks, mixers and water BMMI also sells: not what this app is
+    # comparing, so not worth proxy credit to search for at other shops.
+    "coke", "coca-cola", "fanta", "sprite", "schweppes", "red bull", "hildon", "kdd",
+    "goldberg", "acqua", "evocus", "tau", "pepsi", "7up", "mirinda", "the berry",
+    "perrier", "evian", "san pellegrino", "aquafina", "lipton", "monster", "rani",
+    "fever-tree", "fever", "thomas", "london essence", "lacnor", "masafi",
+}
+
+
+def _clean_word(word):
+    word = word.lower().replace("\u2019", "'")
+    word = re.sub(r"'s$", "", word)          # "Gordon's" -> "gordon"
+    word = re.sub(r"[^a-z0-9&'-]", "", word)
+    return word.strip("'-")
+
+
+def brand_search_terms(max_terms=300, min_products=1):
+    """Brand search terms built from BMMI's scraped catalogue (data/bmmi.json,
+    written earlier in the same workflow run, or the last committed copy).
+    Returns up to max_terms terms, most common brand first (a brand BMMI
+    stocks 20 products of is far more likely to also be at A&E/GBI than one
+    it stocks a single bottle of). Empty list if bmmi.json isn't there."""
+    path = DATA_DIR / "bmmi.json"
+    try:
+        items = json.loads(path.read_text())
+    except Exception:
+        return []
+    counts = {}
+    for item in items:
+        words = [w for w in (_clean_word(w) for w in str(item.get("name", "")).split()) if w]
+        if not words:
+            continue
+        first = words[0]
+        if first in _BRAND_PREFIX_WORDS and len(words) > 1:
+            term = f"{first} {words[1]}"
+            if term in _BRAND_PREFIX_WORDS and len(words) > 2:
+                term = f"{term} {words[2]}"
+        else:
+            term = first
+        if term in _BRAND_STOP_WORDS or len(term) < 3 or term.isdigit():
+            continue
+        if re.fullmatch(r"[0-9.]+(cl|ml|l|ltr)?", term):
+            continue
+        counts[term] = counts.get(term, 0) + 1
+    ranked = sorted((t for t, c in counts.items() if c >= min_products), key=lambda t: (-counts[t], t))
+    ranked = ranked[:max_terms]
+    # The brand-search phase has a time budget, so on a slow week it may not
+    # reach the end of this list. The top 100 brands are always searched
+    # first; the rest are rotated by week number, so a brand that didn't get
+    # reached this week moves up next week instead of never being searched.
+    fixed, rest = ranked[:100], ranked[100:]
+    if rest:
+        from datetime import date
+        shift = (date.today().isocalendar()[1] * 60) % len(rest)
+        rest = rest[shift:] + rest[:shift]
+    return fixed + rest
+
+
+def term_already_covered(term, scraped_names):
+    """True when a product already scraped from this shop has the brand term
+    in its name, i.e. the category searches already found that brand there,
+    so searching for it again would only spend proxy credit re-reading the
+    same products."""
+    t = term.lower()
+    return any(t in n for n in scraped_names)
