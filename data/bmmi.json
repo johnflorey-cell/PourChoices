@@ -285,7 +285,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-ducluzeau-listrac-medoc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pepe Lopez White Tequila 75cl",
@@ -313,8 +313,8 @@
   },
   {
     "name": "Bombay Sapphire Gin 75cl",
-    "price_bhd": 20.025,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bombay-sapphire-gin-75cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -373,7 +373,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/tanqueray-10-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Gin"
   },
   {
     "name": "The London No.1 Gin 70cl",
@@ -465,8 +465,8 @@
   },
   {
     "name": "Disaronno Amaretto Di Saronno 70cl",
-    "price_bhd": 20.675,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/disaronno-amaretto-di-saronno-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -616,14 +616,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "Bols Sour Apple 70cl",
-    "price_bhd": null,
-    "in_stock": false,
-    "url": "https://www.bmmishops.com/bols-sour-apple-70cl.html",
-    "retailer": "BMMI",
-    "category": "Other Spirits"
-  },
-  {
     "name": "Bols Coffee Liqueur 70cl",
     "price_bhd": 8.7,
     "in_stock": true,
@@ -644,14 +636,6 @@
     "price_bhd": 8.15,
     "in_stock": true,
     "url": "https://www.bmmishops.com/carcelli-black-sambuca-70cl.html",
-    "retailer": "BMMI",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Bols Curacao Blue 70cl",
-    "price_bhd": 9.15,
-    "in_stock": true,
-    "url": "https://www.bmmishops.com/bols-curacao-blue-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
   },
@@ -701,7 +685,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/glenmorangie-10-year-old-original-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Cardhu 12 Year Old 1L",
@@ -709,7 +693,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/johnnie-walker-cardhu-malt-12-year-old-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Glenmorangie Quinta Ruban 14 Year Old 70cl",
@@ -717,7 +701,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/glenmorangie-quinta-ruban-12-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Lagavulin 16 Year Old 70cl",
@@ -725,7 +709,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/lagavulin-16-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Glenmorangie 12 Year Old Lasanta Whisky 70cl",
@@ -741,7 +725,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/glenmorangie-nectar-d-or-12-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Talisker Storm Single Malt 70cl",
@@ -749,7 +733,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/talisker-storm-single-malt-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Amstel Cans 50cl [24 Pack]",
@@ -797,7 +781,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/maisel-s-edelhopfen-diat-pilsner-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Maisel's Edelhopfen Diat Pilsner 33cl [ 6 Pack ]",
@@ -805,7 +789,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/maisel-s-edelhopfen-diat-pilsner-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Guinness Draught 44cl [24 Pack]",
@@ -820,6 +804,22 @@
     "price_bhd": 12.275,
     "in_stock": true,
     "url": "https://www.bmmishops.com/guinness-draught-44cl-6-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "Heineken Bottles 33cl [24 Pack]",
+    "price_bhd": 39.05,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/heineken-bottles-33cl-24-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
+    "name": "Heineken Bottles 33cl [6 Pack]",
+    "price_bhd": 9.925,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/heineken-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
     "category": "Beer"
   },
@@ -861,7 +861,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/old-speckled-hen-bottle-50cl-12-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Old Speckled Hen Bottle 50cl [6 Pack]",
@@ -869,7 +869,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/old-speckled-hen-bottle-50cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Almaza Bottles 33cl [24 Pack]",
@@ -877,7 +877,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/almaza-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Almaza Bottles 33cl [6 Pack]",
@@ -885,7 +885,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/almaza-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Amstel Light Cans 35.5cl [24 Pack]",
@@ -941,7 +941,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/estrella-damm-bottles-33cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Estrella Damm Bottles 33cl [6 Pack]",
@@ -949,7 +949,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/estrella-damm-bottles-33cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Birra Moretti Bottles 33cl [24 Pack]",
@@ -969,8 +969,8 @@
   },
   {
     "name": "Bacardi Superior 75cl",
-    "price_bhd": 16.5,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bacardi-superior-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -1345,8 +1345,8 @@
   },
   {
     "name": "Don Julio Aneja 75cl",
-    "price_bhd": 76.225,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/don-julio-aneja-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -1373,7 +1373,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ciroc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Smirnoff Blue Label 75cl",
@@ -1381,7 +1381,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/smirnoff-blue-label-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Smirnoff Blue 1L",
@@ -1389,7 +1389,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/smirnoff-blue-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Smirnoff Red Miniature 5cl",
@@ -1397,7 +1397,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/smirnoff-red-mini-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Smirnoff Red Vodka 1L",
@@ -1413,7 +1413,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/smirnoff-red-50cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Stolichnaya Vodka 75cl",
@@ -1453,7 +1453,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ketel-one-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Stolichnaya Elit Vodka 75cl",
@@ -1525,7 +1525,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/gentleman-jack-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Jack Daniel's Tennessee Honey 75cl",
@@ -1541,7 +1541,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/altozano-tempranillo-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Altozano Verdejo & Sauvignon Blanc 75cl",
@@ -1557,7 +1557,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/santa-cristina-campogrande-orvieto-classico-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Villa Antinori Toscana Bianco IGT 75cl",
@@ -1565,7 +1565,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/villa-antinori-toscana-bianco-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Villa Antinori Toscana Rosso 75cl",
@@ -1573,7 +1573,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/villa-antinori-toscana-rosso-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Tignanello Antinori 75cl",
@@ -1581,7 +1581,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/tignanello-antinori-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Peppoli Chianti Classico DOCG 75cl",
@@ -1589,7 +1589,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/peppoli-chianti-classico-docg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Beronia Rioja Reserva 75cl",
@@ -1597,7 +1597,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/beronia-rioja-reserva-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Caliterra Reserva Chardonnay 75cl",
@@ -1653,7 +1653,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/caliterra-reserva-carmenere-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Errazuriz Max Reserva Cabernet  Sauvignon 75cl",
@@ -1669,7 +1669,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-reserve-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Reserve Rouge 75cl",
@@ -1677,7 +1677,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/calvet-reserve-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Medoc 75cl",
@@ -1685,7 +1685,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/calvet-medoc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet St. Emilion 75cl",
@@ -1701,7 +1701,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-sauternes-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Margaux 75cl",
@@ -1709,7 +1709,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Chablis 75cl",
@@ -1717,7 +1717,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-chablis-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Chateauneuf du Pape 75cl",
@@ -1725,7 +1725,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-chateauneuf-du-pape-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Chablis Gloire de Chablis 75cl",
@@ -1733,7 +1733,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/j-moreau-fils-chablis-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Chablis Premier Cru Vaillons 75cl",
@@ -1741,7 +1741,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/j-moreau-fils-chablis-premier-cru-vaillons-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Chablis 37.5cl",
@@ -1749,7 +1749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/j-moreau-fils-chablis-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Rouge 75cl",
@@ -1757,7 +1757,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/j-moreau-fils-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Blanc 75cl",
@@ -1765,7 +1765,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/j-moreau-fils-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ch\u00e2teau Timberlay Blanc 75cl",
@@ -1773,12 +1773,12 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-timberlay-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "JP Chenet Colombard Chardonnay 75cl",
-    "price_bhd": 6.275,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/jp-chenet-colombard-chardonnay-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -1797,7 +1797,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/krug-grande-cuvee-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Gallo Family Vineyards Chardonnay 75cl",
@@ -1813,7 +1813,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/carlo-rossi-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine De Roudene Fitou 75cl",
@@ -1821,7 +1821,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/jeanjean-fitou-domaine-de-graneille-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet Sancerre Blanc 75cl",
@@ -1829,7 +1829,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pascal-jolivet-sancerre-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet Pouilly Fume 75cl",
@@ -1837,7 +1837,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pascal-jolivet-pouilly-fume-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet  Sancerre Rouge 75cl",
@@ -1845,7 +1845,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/pascal-jolivet-sancerre-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet  Attitude Sauvignon Blanc 75cl",
@@ -1861,7 +1861,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/kwv-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "KWV Pearly Bay Red 75cl",
@@ -1901,7 +1901,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/kwv-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "KWV Rooderburg 75cl",
@@ -1933,7 +1933,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/baron-philippe-de-rothschild-mouton-cadet-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Baron Philippe de Rothschild Bordeaux Rouge 75cl",
@@ -1941,7 +1941,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/baron-philippe-de-rothschild-bordeaux-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Baron Philippe de Rothschild Escudo Rojo 75cl",
@@ -1949,15 +1949,15 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/baron-philippe-de-rothschild-escudo-rojo-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Beaujolais Villages Ch\u00e2teau De Montmelas 75cl",
-    "price_bhd": 10.675,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/beaujolais-villages-chateau-de-montmelas-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Mommessin Macon-Villages Vieilles Vignes 75cl",
@@ -1965,7 +1965,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/macon-villages-domaine-de-roches-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Lindeman's Cawarra Shiraz Cabernet 75cl",
@@ -2005,7 +2005,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/bourgogne-pinot-noir-vieilles-vignes-antonin-rodet-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Greppone Mazzi Brunello Di Montalcino 75cl",
@@ -2013,7 +2013,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/greppone-mazzi-brunello-di-montalcino-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino 1877 Chianti DOC 37.5cl",
@@ -2021,7 +2021,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-chianti-doc-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Modus Toscana Rosso 75cl",
@@ -2029,7 +2029,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-modus-toscana-rosso-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Orvieto Classico Doc Bianco 75cl",
@@ -2037,7 +2037,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-orvieto-classico-doc-bianco-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Coppiere Frascati Superiore 75cl",
@@ -2053,7 +2053,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/gabbia-d-oro-verdicchio-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Mateus Ros\u00e9 37.5cl",
@@ -2141,7 +2141,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/michel-lynch-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Merlot Cabernet 75cl",
@@ -2157,7 +2157,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/beronia-crianza-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Torres Salmos 75cl",
@@ -2165,7 +2165,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/torres-salmos-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau De Pierreux Brouilly 75cl",
@@ -2173,7 +2173,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/mommessin-brouilly-chateau-de-pierreux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Finca Constancia 75cl",
@@ -2205,7 +2205,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/guado-al-tasso-bolgheri-doc-antinori-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cloudy Bay Pinot Noir 75cl",
@@ -2213,7 +2213,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/cloudy-bay-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Mouton Cadet Ros\u00e9 75cl",
@@ -2225,8 +2225,8 @@
   },
   {
     "name": "Jean-Claude Boisset Bourgogne Chardonnay 75cl",
-    "price_bhd": 15.4,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/jean-claude-boisset-bourgogne-chardonnay-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -2237,7 +2237,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chartreuse-reserve-de-bonpas-cotes-du-rhone-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Errazuriz La Cumbre Syrah 75cl",
@@ -2245,7 +2245,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/errazuriz-la-cumbre-syrah-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Errazuriz Don Maximiano Founders Reserve 75cl",
@@ -2277,7 +2277,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/porcupine-ridge-syrah-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Boekenhoutskloof Chocolate Block 75cl",
@@ -2309,7 +2309,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/beronia-viura-blanco-rioja-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Sula Chenin Blanc 75cl",
@@ -2317,7 +2317,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sula-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Casa Lapostolle Carmenere 75cl",
@@ -2325,7 +2325,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/casa-lapostolle-carmenere-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Varietals Sauvignon Blanc 75cl",
@@ -2341,7 +2341,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/terrazas-reserva-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Altozano Rosado 75cl",
@@ -2369,19 +2369,19 @@
   },
   {
     "name": "Fortant Terroir Littoral Merlot 75cl",
-    "price_bhd": 5.825,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/fortant-terroir-littoral-merlot-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
   },
   {
     "name": "Fortant Terroir Littoral Grenache Ros\u00e8 75cl",
-    "price_bhd": 5.825,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/fortant-terroir-littoral-grenache-rose-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet Sancerre Rose 75cl",
@@ -2397,7 +2397,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-le-bocage-bordeaux-superieur-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Torres Reserva Real 75cl",
@@ -2405,7 +2405,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/torres-reserva-real-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Lostal Cazes Rose 75cl",
@@ -2421,7 +2421,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/terresacre-tintilia-molise-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Poujeaux Cru Bourgeois Moulis-en- Medoc 2010 75cl",
@@ -2429,7 +2429,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-poujeaux-cru-bourgeois-moulis-en-medoc-2010-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Mia Red 75cl",
@@ -2453,7 +2453,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/greco-bianco-igt-calabria-statti-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Costamolino Vermentino di Sardegna DOC Argiolas 75cl",
@@ -2461,7 +2461,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/costamolino-vermentino-di-sardegna-doc-argiolas-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Antonio 100 IGT Isola dei Nuraghi Argiolas 75cl",
@@ -2469,7 +2469,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/antonio-100-igt-isola-dei-nuraghi-argiolas-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Verdicchio dei Castelli di Jesi Passito Tordiruta DOC Moncaro 50cl",
@@ -2477,7 +2477,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/verdicchio-dei-castelli-di-jesi-passito-tordiruta-doc-moncaro-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Amarone Classico Zenato 75cl",
@@ -2485,7 +2485,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/amarone-sergio-zenato-zenato-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Barbaresco DOCG Starde Dezzani 75cl",
@@ -2493,7 +2493,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/barbaresco-docg-starde-dezzani-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Schioppettino DOC Moschioni 75cl",
@@ -2501,7 +2501,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/schioppettino-doc-moschioni-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Nerodi Lambrusco Igt Emilia 75cl",
@@ -2517,7 +2517,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/nero-davola-igt-terre-siciliane-cusumano-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "La Bernardine Chateauneuf-Du-Pape 75cl",
@@ -2525,7 +2525,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/la-bernardine-chateauneuf-du-pape-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Crozes Hermitage Les Meysonniers 75cl",
@@ -2533,7 +2533,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/crozes-hermitage-les-meysonniers-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Tavel Beaurevoir 75cl",
@@ -2549,7 +2549,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/marius-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Marius Rose 75cl",
@@ -2565,7 +2565,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pinteivera-tinto-douro-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Red Bull Sugar Free 250ml [4Pack]",
@@ -2621,7 +2621,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/altano-red-doc-douro-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Des Senechaux Red 75cl",
@@ -2629,7 +2629,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-des-senechaux-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Des Senechaux\u00a0White 75cl",
@@ -2637,7 +2637,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-des-senechaux-white-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Roquette & Cazes 75cl",
@@ -2661,7 +2661,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-teynac-saint-julien-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Flirt Vodka Silver Filtered 1L",
@@ -2693,7 +2693,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ketel-one-citroen-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Bols Genever 70cl",
@@ -2717,7 +2717,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/schieferkopf-riesling-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bila-Haut Cotes Du Roussilon Villages Red 75cl",
@@ -2725,7 +2725,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bila-haut-cotes-du-roussilon-villages-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Dos Equis XX Bottles 35.5cl [6 Pack]",
@@ -2733,7 +2733,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dos-equis-xx-bottles-35-5cl-6-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Dos Equis XX Bottles 35.5cl [24 Pack]",
@@ -2741,7 +2741,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dos-equis-xx-bottles-35-5cl-24-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Skyy Vodka 75cl",
@@ -2925,7 +2925,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-barrail-cuvee-prestige-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Montmeyrac Rouge 75cl",
@@ -2933,7 +2933,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/montmeyrac-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Montmeyrac Blanc 75cl",
@@ -2941,12 +2941,12 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/montmeyrac-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Montmeyrac Ros\u00e9 75cl",
-    "price_bhd": 4.85,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/montmeyrac-rose-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -2965,7 +2965,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/maison-trenel-macon-villages-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Maison Trenel Cote De Brouilly 75cl",
@@ -2989,7 +2989,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/maison-trenel-beaujolais-cuvee-rochebonne-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Le Ch\u00e2teau Ros\u00e9 D'Anjou 75cl",
@@ -3005,7 +3005,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/eleivera-douro-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Estrella Daura Bottles [Gluten free] 33cl [24 Pack]",
@@ -3029,7 +3029,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/rene-barbier-dry-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Rene Barbier Dry White 75cl",
@@ -3037,7 +3037,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/rene-barbier-dry-white-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Montepulciano D'Abruzzo DOC 75cl",
@@ -3045,7 +3045,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/montepulciano-d-abruzzo-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Conero Riserva Docg 'Nerone' 75cl",
@@ -3053,7 +3053,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/conero-riserva-docg-nerone-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Swartland Chenin Blanc 75cl",
@@ -3061,7 +3061,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/swartland-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Red Rose Extra Strong Beer 12% Can 50cl [24 Pack]",
@@ -3077,7 +3077,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/l-ostal-cazes-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Michel Lynch Nature Merlot 75cl",
@@ -3101,7 +3101,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/michel-lynch-prestige-saint-emilion-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Gordon's London Dry Gin 35cl",
@@ -3173,7 +3173,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/robertson-winery-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Robertson Winery Sauvignon Blanc 75cl",
@@ -3205,7 +3205,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/robertson-winery-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Robertson Winery Shiraz 75cl",
@@ -3229,7 +3229,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/robertson-winery-chapel-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Robertson Winery Chapel Sweet Red 75cl",
@@ -3237,7 +3237,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/robertson-winery-chapel-sweet-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Portunes Gilgamesh 75cl",
@@ -3369,8 +3369,8 @@
   },
   {
     "name": "Beehive Brandy 70cl",
-    "price_bhd": 7.875,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/beehive-brandy-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -3533,7 +3533,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/jack-daniels-sinatra-select-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Facundo Eximo 70cl",
@@ -3597,7 +3597,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/nobody-s-hero-pinot-gris-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Nobody's Hero Pinot Noir 75cl",
@@ -3605,7 +3605,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/nobody-s-hero-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fortant Terroir De Altitude Chardonnay 75cl",
@@ -3649,8 +3649,8 @@
   },
   {
     "name": "St.Germain Elderflower Liquer 70cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 33.225,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/st-germain-elderflower-liquer-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -3685,7 +3685,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/beefsteak-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Beefsteak Shiraz 75cl",
@@ -3733,7 +3733,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dbfs-traminer-riesling-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "De Bortoli Family Selection Cabernet Sauvignon 75cl",
@@ -3765,7 +3765,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-soave-classico-d-o-c-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zonin Chardonnay Fruili D.O.C 75cl",
@@ -3781,7 +3781,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-pinot-bianco-fruili-d-o-c-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Castello Del Poggio Moscato D'Asti D.O.C.G. 75cl",
@@ -3789,7 +3789,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/castello-del-poggio-moscato-d-asti-d-o-c-g-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fiano I.G.T. Salento 75cl",
@@ -3797,7 +3797,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/fiano-i-g-t-salento-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zonin Cabernet Friuli D.O.C 75cl",
@@ -3813,7 +3813,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-montepulciano-d-abruzzo-d-o-c-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zonin Valpolicella Ripasso Superiore D.O.C 75cl",
@@ -3821,7 +3821,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-valpolicella-ripasso-superiore-d-o-c-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zonin Amarone Della Valpolicella D.O.C.G. 75cl",
@@ -3829,7 +3829,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zonin-amarone-della-valpolicella-d-o-c-g-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Lambrusco Emilia I.G.T 75cl",
@@ -3845,7 +3845,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sasseo-primitivo-i-g-t-salento-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Apulo Primitivo-Negroamaro I.G.T Salento 75cl",
@@ -3853,7 +3853,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/apulo-primitivo-negroamaro-i-g-t-salento-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cruxland Gin 75cl",
@@ -3885,7 +3885,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/fortant-terroir-d-altitude-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Skyy Infusions Passionfruit 75cl",
@@ -3901,7 +3901,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/torres-altos-ibericos-reserva-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Angostura Bitters 20cl",
@@ -4101,7 +4101,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/jp-chenet-pinot-grigio-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ocho Blanco Tequila 50cl",
@@ -4193,11 +4193,11 @@
   },
   {
     "name": "Fortant Terroir D'Altitude Syrah 75cl",
-    "price_bhd": 6.825,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/fortant-terroir-d-altitude-syrah-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Skyy Infusion Raspberry 70cl",
@@ -4221,7 +4221,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/vieux-chateau-des-combes-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Torres Perpetual 75cl",
@@ -4229,12 +4229,12 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/torres-perpetual-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Crafters London Dry Gin 70cl",
-    "price_bhd": 19.7,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/crafters-london-dry-gin-70cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -4365,7 +4365,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/paul-john-single-malt-peated-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Freixenet Italian Rose 75cl",
@@ -4445,7 +4445,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/penfolds-rwt-17-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Desperados Bottles 33cl [24 Pack]",
@@ -4557,7 +4557,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/moillard-bourgogne-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Moillard Gevrey Chambertin 75cl",
@@ -4565,7 +4565,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/moillard-gevrey-chambertin-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Moillard Nuit-Saint-Georges 75cl",
@@ -4581,7 +4581,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/moillard-pommard-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Scottish Piper Whisky 70cl",
@@ -4621,7 +4621,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/oreno-tenuta-sette-ponti-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Kingfisher Premium Bottles 65cl [6 Pack]",
@@ -4669,7 +4669,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-gravereau-cotes-de-bourg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Pascal Jolivet Attitude Rose 75cl",
@@ -4685,7 +4685,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/pascal-jolivet-attitude-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Kadette Pinotage Rose 75cl",
@@ -4701,7 +4701,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/kanonkop-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Kanonkop Cabernet Sauvignon 75cl",
@@ -4717,7 +4717,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kwv-the-mentors-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "KWV The Mentors Canvas 75cl",
@@ -4741,7 +4741,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/pauillac-de-lynch-bages-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Saint-Estephe Ormes De Pez 75Cl",
@@ -4749,7 +4749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-ormes-de-pez-saint-estephe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Marsac Seguineau Margaux 75cl",
@@ -4757,7 +4757,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-marsac-seguineau-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Capet Guillier Saint-Emilion Grand Cru 75cl",
@@ -4765,7 +4765,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-capet-guillier-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Tour De Capet Saint-Emilion Grand Cru 75cl",
@@ -4773,7 +4773,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-tour-de-capet-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Gassier Le Pas Du Moine 75cl",
@@ -4781,7 +4781,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-gassier-le-pas-du-moine-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Laroche Les Vaudevey Chablis Premier Cru 75cl",
@@ -4789,7 +4789,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-laroche-les-vaudevey-chablis-premier-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Veuve Clicquot Rose 75cl",
@@ -4861,7 +4861,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dalwhinnie-15-year-old-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Clynelish 14 Years 70cl",
@@ -4897,8 +4897,8 @@
   },
   {
     "name": "South Bank Pink Gin 70cl",
-    "price_bhd": 6.3,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/south-bank-pink-gin-70cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -5021,7 +5021,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/torres-mas-la-plana-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Norton Malbec 75cl",
@@ -5029,7 +5029,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/norton-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Errazuriz Aconcagua Costa Pinot Noir 75cl",
@@ -5037,7 +5037,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/errazuriz-pinot-noir-single-vineyard-aconcagua-costa-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bonpas Ventoux Rouge 75cl",
@@ -5045,7 +5045,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/bonpas-ventoux-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bonpas Chateauneuf -Du-Pape 75cl",
@@ -5053,7 +5053,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/bonpas-chateauneuf-du-pape-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau Pinot Noir 75cl",
@@ -5061,7 +5061,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/moreau-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Buzz Cranberry 10% Cans 25cl [24 Pack]",
@@ -5101,7 +5101,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-pontet-canet-pauillac-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Nuits Saint Georges Les Charbonnieres 75cl",
@@ -5109,7 +5109,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/nuits-saint-georges-les-charbonnieres-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Honeywell Brandy 75cl",
@@ -5197,7 +5197,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-chianti-riserva-ducale-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Crabbie's Original Ginger Beer 33cl [12 Pack]",
@@ -5229,7 +5229,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/m-chapoutier-hermitage-white-chante-alouette-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Cornas Les Arenes 75cl",
@@ -5253,7 +5253,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/m-chapoutier-hermitage-red-sizeranne-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Arak Touma 50cl",
@@ -5317,7 +5317,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/jp-chenet-rouge-medium-sweet-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Nicolas Catena Zapata 75cl",
@@ -5325,7 +5325,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/nicolas-catena-zapata-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Belvedere Single Estate Series Lake Bartezek 70cl",
@@ -5333,7 +5333,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/belvedere-single-estate-series-lake-bartezek-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Belvedere Single Estate Series Smogory Forest 70cl",
@@ -5341,7 +5341,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/belvedere-single-estate-series-smogory-forest-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Cloudy Bay Sauvignon Blanc 75cl",
@@ -5365,7 +5365,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-timberlay-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Baron Philippe de Rothschild Mouton Cadet Blanc 75cl",
@@ -5373,7 +5373,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/baron-philippe-de-rothschild-mouton-cadet-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino 1877 Chianti DOCG 75cl",
@@ -5381,7 +5381,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-chianti-docg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Chianti Riserva Ducale Oro 75cl",
@@ -5389,7 +5389,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-chianti-riserva-ducale-oro-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine de L\u0092Ostal  Estibals 75cl",
@@ -5397,7 +5397,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/estibals-aoc-minervois-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Marius Blanc 75cl",
@@ -5405,7 +5405,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/marius-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Black Stallion Cabernet Sauvignon 75cl",
@@ -5461,7 +5461,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-billeron-bouquey-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Barolo DOCG Monfalletto Cordero di Montezemolo 75cl",
@@ -5469,7 +5469,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/barolo-docg-monfalletto-cordero-di-montezemolo-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Lindeman's Cawarra Merlot 75cl",
@@ -5485,7 +5485,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-talbot-saint-julien-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Jagermeister 70cl",
@@ -5509,7 +5509,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/absolute-blue-label-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Evervess Tonic Water 300ml [6 Pack]",
@@ -5569,8 +5569,8 @@
   },
   {
     "name": "Jim Beam White Label Bourbon 75cl",
-    "price_bhd": 20.35,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/jim-beam-white-label-bourbon-75cl.html",
     "retailer": "BMMI",
     "category": "Whisky"
@@ -5701,7 +5701,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/soligo-pinot-nero-igt-levigato-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cusumano Noa Tenuta Presti E Pigni DOC Sicilia 75cl",
@@ -5709,7 +5709,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/cusumano-noa-tenuta-presti-e-pigni-doc-sicilia-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "San Simone Sugano Cabernet Franc DOC Friuli Grave 75cl",
@@ -5725,7 +5725,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/st-michael-eppan-pinot-noir-doc-alto-adige-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Statti Montonico Bianco IGT Calabria 75cl",
@@ -5733,7 +5733,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/statti-montonico-bianco-igt-calabria-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Statti Arvino Rosso IGT Calabria 75cl",
@@ -5741,7 +5741,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/statti-arvino-rosso-igt-calabria-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zenato Pinot Grigio Delle Venezie DOC 75cl",
@@ -5749,7 +5749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zenato-pinot-grigio-delle-venezie-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zenato Valpolicella Superiore DOC 75cl",
@@ -5757,7 +5757,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zenato-valpolicella-superiore-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Johnnie Walker Black Label Non Refillable 1L",
@@ -5773,7 +5773,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/clos-beauregard-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Smirnoff Red 70cl",
@@ -5781,7 +5781,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/smirnoff-red-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Brasseries Cabernet Sauvignon 5L",
@@ -5805,7 +5805,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/terres-sauvages-gris-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Strongbow Cider Can 50cl [24 Pack]",
@@ -5821,7 +5821,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sentito-pinot-grigio-delle-venezie-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaines Ott Romassan Rose 75cl",
@@ -5869,7 +5869,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/talisker-skye-malt-10-years-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Chateau La Pointe Saint Emilion 75cl",
@@ -5877,7 +5877,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-la-pointe-saint-emilion-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Suntory Yamazaki Distillers Reserve Whisky 70cl",
@@ -5909,7 +5909,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/calvet-varietals-syrah-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Varietals Cinsault Rose 75cl",
@@ -5929,11 +5929,11 @@
   },
   {
     "name": "770 Miles Zinfandel 75cl",
-    "price_bhd": 5.5,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/770-miles-zinfandel-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "770 Miles Cabernet Sauvignon 75cl",
@@ -5957,7 +5957,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/just-pinot-grigio-blush-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Just Malbec 75cl",
@@ -5965,7 +5965,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/just-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Just Merlot 75cl",
@@ -5985,11 +5985,11 @@
   },
   {
     "name": "Domaine Laroche Saint Martin Chablis 75cl",
-    "price_bhd": 19.025,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-laroche-saint-martin-chablis-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Vieux Chateau Des Jouans 75cl",
@@ -5997,7 +5997,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/calvet-vieux-chateau-des-jouans-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Esprit Gassier Cotes Provence Rose 75cl",
@@ -6021,7 +6021,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-lumina-pinot-grigio-delle-venezie-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Aqua Di Venus Rosato Igt 75cl",
@@ -6029,7 +6029,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ruffino-aqua-di-venus-rosato-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bacardi 8 year old 70cl",
@@ -6105,11 +6105,11 @@
   },
   {
     "name": "St. Michael-Eppan Pinot Grigio Doc Alto Adige 75cl",
-    "price_bhd": 19.15,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/st-michael-eppan-pinot-grigio-doc-alto-adige-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Beefsteak Club Cabernet Sauvignon 75cl",
@@ -6141,7 +6141,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/marchesi-antinori-solaia-toscana-igt-2013-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "El Jimador Blanco 1L",
@@ -6285,7 +6285,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-sociando-mallet-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Red Rose Strong Beer 12% Can 50cl [6 Pack]",
@@ -6325,7 +6325,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/fortant-terroir-d-altitude-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Old Monk White Rum 75cl",
@@ -6357,7 +6357,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/buena-vista-sonoma-zinfandel-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Buena Vista The Sheriff Red Blend 75cl",
@@ -6637,7 +6637,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/reserve-mouton-cadet-medoc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Reserve Mouton Cadet Saint-Estephe 75cl",
@@ -6645,7 +6645,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/reserve-mouton-cadet-saint-estephe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Reserve Mouton Cadet Margaux 75cl",
@@ -6653,7 +6653,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/reserve-mouton-cadet-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ponchos Coffee Infusion Premium Tequila 75cl",
@@ -6685,7 +6685,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-villemaurine-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Accademia Prosecco DOC Rose 75cl",
@@ -6721,11 +6721,11 @@
   },
   {
     "name": "Bottega Rose Gold Spumante 75cl",
-    "price_bhd": 19.575,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-rose-gold-spumante-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Pommery Brut Royal",
@@ -6749,7 +6749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/reserve-mouton-cadet-pessac-leognan-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bottega Pink Manzoni Moscato Spumante 75cl",
@@ -6757,7 +6757,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-pink-manzoni-moscato-spumante-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Hayman's London Dry Gin 70cl",
@@ -6813,7 +6813,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/four-cousins-natural-sweet-white-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Four Cousins Skinny Lite White 75cl",
@@ -6837,7 +6837,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/four-cousins-sweet-red-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Matua Valley Pinot Noir Marlborough 75cl",
@@ -6845,7 +6845,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/matua-valley-pinot-noir-marlborough-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Framingham Sauvignon Blanc 75cl",
@@ -6861,7 +6861,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/framingham-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Framingham classic Riesling 75cl",
@@ -6869,7 +6869,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/framingham-classic-riesling-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Sangre De Toro Verdejo 75cl",
@@ -6877,7 +6877,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sangre-de-toro-verdejo-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Heineken 0.0 Non-alcoholic Beer Bottles 33cl [24 Pack]",
@@ -6901,7 +6901,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domain-trouilet-pouily-vinzlle-les-quart-2017-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Le Clos Saint Joseph 2015 75cl",
@@ -6921,11 +6921,11 @@
   },
   {
     "name": "Chateau Clement Pichon Haut Medoc 75cl",
-    "price_bhd": 24.75,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-clement-pichon-haut-medoc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "La Fleur De Bouard Lalande De Pomerol 75cl",
@@ -6933,7 +6933,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/la-fleur-de-bouard-lalande-de-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Du Tertre Margaux 75cl",
@@ -6941,7 +6941,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-du-tertre-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Rauzan Segla Margaux 75cl",
@@ -6949,7 +6949,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-rauzan-segla-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Echo De Lynch Bages Pauillac 75cl",
@@ -6957,7 +6957,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/echo-de-lynch-bages-pauillac-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "L'aventure Optimus Paso Robles 75cl",
@@ -6981,7 +6981,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-d-angludet-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Yeni Raki 70cl",
@@ -7037,7 +7037,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-l-ermitage-medoc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Daura Damm 33cl [4 Pack]",
@@ -7069,7 +7069,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/krug-grand-cuvee-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bud Light Bottle\u00c2\u00a030cl (4 Pack)",
@@ -7085,7 +7085,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-lafit-rotschild-premier-grands-cru-classe-2011-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Carling Cans 50cl [24 Pack]",
@@ -7101,7 +7101,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/absolut-blue-label-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Absolut Blue Label 37.5cl",
@@ -7109,7 +7109,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/absolut-blue-label-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "MG Spirits Gin Lemon 27.5cl",
@@ -7237,7 +7237,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/de-bortoli-family-selection-pinot-grigio-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "De Bortoli Family Selection Merlot 75cl",
@@ -7253,7 +7253,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bila-haut-banyuls-sweet-rouge-50cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Cotes-Du-Rhone Belleruche Rouge 37.5cl",
@@ -7261,7 +7261,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/m-chapoutier-cotes-du-rhone-belleruche-rouge-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Vermouth Ruffino Antica Ricetta 75cl",
@@ -7277,7 +7277,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-modus-primo-toscana-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Rosso Di Marte Bolgheri Doc 75cl",
@@ -7285,7 +7285,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/rosso-di-marte-bolgheri-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bacardi Breezer Tropical Pineapple 27.5cl [12 Pack]",
@@ -7361,8 +7361,8 @@
   },
   {
     "name": "Hayman's Peach & Rose Cup 70cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 20.45,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/hayman-s-peach-rose-cup-70cl.html",
     "retailer": "BMMI",
     "category": "Wine"
@@ -7429,7 +7429,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dos-equis-xx-bottles-35-5cl-12-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Chateau La Fortune Margaux 75cl",
@@ -7437,7 +7437,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-la-fortune-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Desperados Bottles 33cl [6 Pack]",
@@ -7469,7 +7469,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/m-chapoutier-cotes-du-rhone-belleruche-blanc-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Serelle Vin Santo Del Chianti Doc 37.5cl",
@@ -7477,7 +7477,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/serelle-vin-santo-del-chianti-doc-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bitburger 5L",
@@ -7497,11 +7497,11 @@
   },
   {
     "name": "M.Chapoutier Cotes-Du-Rhone Belleruche Rouge 75cl",
-    "price_bhd": 9.9,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/m-chapoutier-cotes-du-rhone-belleruche-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Peroni Beer Bottles 33cl [12 Pack]",
@@ -7541,7 +7541,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kanonkop-kadette-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Kanonkop Kadette Cabernet Sauvignon 75cl",
@@ -7565,12 +7565,12 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/maison-champy-pouilly-fuisse-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Martini Fiero Orange Vermouth 75cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 10.9,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/martini-fiero-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -7605,15 +7605,15 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-valpolicella-classico-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zonin Bardolino Classico Doc 75cl",
-    "price_bhd": 6.925,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/zonin-bardolino-classico-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ca Bolani Pinot Grigio Friuli Aquileia Doc 75cl",
@@ -7621,7 +7621,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ca-bolani-pinot-grigio-friuli-aquileia-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ca Bolani Traminer Friuli Aquileia Doc 75cl",
@@ -7629,7 +7629,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ca-bolani-traminer-friuli-aquileia-doc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Masseria Altemura Zinzula Rose 75cl",
@@ -7661,7 +7661,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ogier-clos-de-l-oratoire-chateauneuf-du-pape-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ogier Clos De L'oratoire Chateaneuf-Du-Pape Blanc 75cl",
@@ -7669,21 +7669,13 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ogier-clos-de-l-oratoire-chateaneuf-du-pape-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Experts Collection Powerful & Spicy 53cl [4 Pack]",
     "price_bhd": null,
     "in_stock": false,
     "url": "https://www.bmmishops.com/experts-collection-powerful-spicy-53cl-4-pack.html",
-    "retailer": "BMMI",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Bols Curcao Triple Sec 70cl",
-    "price_bhd": null,
-    "in_stock": false,
-    "url": "https://www.bmmishops.com/bols-curcao-trip-sec-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
   },
@@ -7701,7 +7693,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/made-in-mendoza-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Made In Mendoza Organic Malbec 75cl",
@@ -7709,7 +7701,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/made-in-mendoza-organic-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Moderato Blanc 75cl",
@@ -7717,7 +7709,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/moderato-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Moderato Rose 75cl",
@@ -7757,7 +7749,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/f-series-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Just Prosecco 75cl",
@@ -7781,7 +7773,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/castello-del-poggio-barbera-d-asti-docg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Dewars 15 Year Old 75cl",
@@ -7789,7 +7781,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/dewars-15-year-old-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Godawan Fruit & Spice Single Malt 70cl",
@@ -7797,7 +7789,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/godawan-fruit-spice-single-malt-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Patron Anejo Tequila 1L",
@@ -7957,7 +7949,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-rose-gold-spumante-1-5l.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Champagne"
   },
   {
     "name": "Bottega Poeti Prosecco Spumante Doc Extra Dry 1.5L",
@@ -8005,7 +7997,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-acino-chianti-classico-docg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bottega Moscato Fermo 75cl",
@@ -8013,7 +8005,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/bottega-moscato-fermo-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bombay Sapphire Twin Pack 1L",
@@ -8021,7 +8013,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/bombay-sapphire-twin-pack-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Gin"
   },
   {
     "name": "Goldberg Ginger Ale 200ml",
@@ -8041,8 +8033,8 @@
   },
   {
     "name": "Goldberg Soda Water 200ml",
-    "price_bhd": 0.5,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/goldberg-soda-water-200ml.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -8077,7 +8069,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/aduentus-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Aduentus Cabernet Franc 75cl",
@@ -8093,7 +8085,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/estimulo-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Estimulo Sauvignon Blanc 75cl",
@@ -8157,7 +8149,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/laroche-reserve-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Laroche Cabernet Sauvignon 75cl",
@@ -8189,7 +8181,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-roux-pere-fils-pommard-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domain Rox Per Et Fil Mersault Les Gran Charr 75cl",
@@ -8253,7 +8245,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/grey-goose-aurora-1l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Grey Goose Aurora 1.75L",
@@ -8261,7 +8253,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/grey-goose-aurora-1-75l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "Alauda Toscana IGT 75cl",
@@ -8269,7 +8261,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/alauda-toscana-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Hildon Delightfully Still [24 Pack]",
@@ -8353,8 +8345,8 @@
   },
   {
     "name": "Louis Bouillot Les Lavots Cremant D Bourg 2017 75cl",
-    "price_bhd": 19.35,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/louis-bouillot-les-lavots-cremant-d-bourg-2017-75cl.html",
     "retailer": "BMMI",
     "category": "Champagne"
@@ -8449,8 +8441,8 @@
   },
   {
     "name": "Bottega Ginger Liqueur 50cl",
-    "price_bhd": 11.55,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/bottega-ginger-liqueur-50cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -8597,12 +8589,12 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/moreau-fils-pouilly-fuisse-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Heineken Blade Keg 8L",
-    "price_bhd": 28.925,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/heineken-blade-keg-8l.html",
     "retailer": "BMMI",
     "category": "Beer"
@@ -8653,7 +8645,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/medoc-cru-bourgeois-chateau-patache-d-aux-med-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Tour De Capet Saint Emili Grand Cru 37.5cl",
@@ -8661,7 +8653,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-tour-de-capet-saint-emili-grand-cru-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Esprit Gassier Cotes Provence Rose 1.5L",
@@ -8677,7 +8669,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-de-cilorn-bordeaux-superieur-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "JM Cazes Cote Du Rhone Aoc Reserve 75cl",
@@ -8685,7 +8677,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/jm-cazes-cote-du-rhone-aoc-reserve-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Haut Cadet St Emilion Grand Cru 75cl",
@@ -8693,7 +8685,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-haut-cadet-st-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bila Haut Cote Du Rousil Vilag Occult Lapidem 75cl",
@@ -8717,7 +8709,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/errazuriz-estate-range-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Errazuriz Estate Range Merlot 75cl",
@@ -8741,7 +8733,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-batailey-grand-cru-classe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Frederic Lornet Aop Arbois Vin Jaune 75cl",
@@ -8749,7 +8741,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/frederic-lornet-aop-arbois-vin-jaune-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Heineken Silver Can 33cl [24 pack]",
@@ -8909,7 +8901,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ardbeg-wee-beastie-5-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Armand De Brignac Brut Gold 75cl",
@@ -8941,7 +8933,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/casanova-di-neri-brunello-di-montalcino-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Michel Lynch Bordeaux Blanc 75cl",
@@ -8949,7 +8941,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/michel-lynch-bordeaux-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Johnnie Walker Aged 18 Years 1L",
@@ -8973,7 +8965,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-mathieu-cosme-vouvray-les-enfers-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Pierre Martin Chavignol Sancerre Rouge 75cl",
@@ -8981,7 +8973,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-pierre-martin-chavignol-sancerre-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Vincent Careme Vouvray Le Sec 75cl",
@@ -8989,7 +8981,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-vincent-careme-vouvray-le-sec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Rumor Rose 75cl",
@@ -9121,8 +9113,8 @@
   },
   {
     "name": "Crossip Dandy Smoke 0.0% [Non Alocoholic] 50cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 13.3,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/crossip-dandy-smoke-0-0-non-alocoholic-50cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -9165,7 +9157,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/gnarly-head-old-vine-zinfandel-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Gnarly Head Pinot Noir 75cl",
@@ -9173,7 +9165,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/gnarly-head-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "3 Finger Jack Old Vine Zinfandel 75cl",
@@ -9181,7 +9173,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/3-finger-jack-old-vine-zinfandel-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "3 Finger Jack Rum Barrel Aged Red Blend 75cl",
@@ -9241,8 +9233,8 @@
   },
   {
     "name": "Akashi Japanese Single Malt Whisky 50cl",
-    "price_bhd": 52.9,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/akashi-single-malt-whisky-50cl.html",
     "retailer": "BMMI",
     "category": "Whisky"
@@ -9305,8 +9297,8 @@
   },
   {
     "name": "Kremlin Award Premium Vodka 1L",
-    "price_bhd": 19.475,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/kremlin-award-premium-vodka-1l.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -9329,8 +9321,8 @@
   },
   {
     "name": "One More Pure Craft Vodka 75cl",
-    "price_bhd": 6.3,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/one-more-craft-vodka-75cl.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -9477,7 +9469,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/cambria-julia-s-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Kendall Jackson Vintner's Reserve Sauvign Blnc 75cl",
@@ -9493,7 +9485,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/kendall-jackson-vintner-s-reserve-zinfandel-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Silver Palm Cabernet Sauvignon 75cl",
@@ -9517,7 +9509,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/beefsteak-club-malbec-18-7cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cap Maritime Chardonnay 75cl",
@@ -9533,7 +9525,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/cap-maritime-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Porseleinberg Syrah 75cl",
@@ -9541,7 +9533,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/porseleinberg-syrah-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Salmon Club Sauvignon Blanc 18.7cl",
@@ -9565,7 +9557,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/ornellaia-bolgheri-superiore-2019-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Catena Zap Adrianna Munds Bacill Terrae Malb 75cl",
@@ -9573,7 +9565,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/catena-zap-adrianna-munds-bacill-terrae-malb-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Margaux Premier Grand Cru Classe 2014 75cl",
@@ -9581,7 +9573,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-margaux-premier-grand-cru-classe-2014-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Palmer 2014 75cl",
@@ -9589,7 +9581,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-palmer-2014-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Beau Sejour Becot Saint Emilion Grand Cru 75cl",
@@ -9597,7 +9589,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/beau-sejour-becot-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Petit Haut Lafitte 75cl",
@@ -9613,15 +9605,15 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-cantemerle-haut-medoc-grand-cru-classe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Le Serre Nuove Dell' Ornellaia 75cl",
-    "price_bhd": 42.675,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/le-serre-nuove-dell-ornellaia-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Latour Martillac Rouge Cru Classe 75cl",
@@ -9629,7 +9621,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/latour-martillac-rouge-cru-classe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Belgrave Haut Medoc Grand Cru Classe 75cl",
@@ -9637,7 +9629,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/belgrave-haut-medoc-grand-cru-classe-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Connetable Talbot Saint Julien 75cl",
@@ -9645,7 +9637,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/connetable-talbot-saint-julien-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau La Garde Rouge Pessac Leognan 75cl",
@@ -9653,7 +9645,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-la-garde-rouge-pessac-leognan-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Haut Batailley Verso 75cl",
@@ -9661,7 +9653,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-haut-batailley-verso-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Veuve Clicquot Yellow Label Brut 3L",
@@ -9989,7 +9981,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/fleur-de-pedesclaux-pauillac-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Black Stallion Prestige Whisky 75cl",
@@ -10141,7 +10133,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/elibo-alazani-semi-sweet-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chill Bill Spritz 75cl",
@@ -10165,12 +10157,12 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-patache-d-aux-medoc-1-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Accomplice Sweet Juicy Red 75cl",
-    "price_bhd": 4.075,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/accomplice-sweet-juicy-red-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -10181,7 +10173,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/emeri-s-garden-moscato-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Emeri's Garden Pink Moscato 75cl",
@@ -10189,7 +10181,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/emeri-s-garden-pink-moscato-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Melba Vineyard Cabernet Sauvignon 75cl",
@@ -10213,7 +10205,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/yarra-valley-estate-vineyard-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "The Singleton Dufftown 15yo 70cl",
@@ -10221,7 +10213,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/the-singleton-dufftown-15yo-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "The Singleton Dufftown 18yo 70cl",
@@ -10229,7 +10221,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/the-singleton-dufftown-18yo-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Akashi Takumi Whisky 50cl",
@@ -10245,7 +10237,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-roux-la-martelle-rully-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Huet Vouvray Lieu Demi Sec 75cl",
@@ -10253,7 +10245,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-huet-vouvray-lieu-demi-sec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Fouassier Sancerre Rouge 75cl",
@@ -10261,7 +10253,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-fouassier-sancerre-rouge-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine Trapet Schlossberg Grand Cru Riesling 75cl",
@@ -10269,7 +10261,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-trapet-schlossberg-grand-cru-riesling-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateul Soorok Honey Lemon Soju\u00a036cl",
@@ -10389,7 +10381,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-tour-de-capet-saint-emilion-grand-cru-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Sandeman Ruby Port 75cl",
@@ -10437,7 +10429,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/elibo-saperavi-dry-red-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Jack Daniel Tennessee Fire 1L",
@@ -10449,8 +10441,8 @@
   },
   {
     "name": "Jean-louis Brut 1.5L",
-    "price_bhd": 12.65,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/jean-louis-brut-1-5l.html",
     "retailer": "BMMI",
     "category": "Champagne"
@@ -10461,7 +10453,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dewars-white-label-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Benediktiner Festbeer Cans 50cl [24 Pack]",
@@ -10493,7 +10485,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-patache-d-aux-medoc-3l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Silk & Spice White 75cl",
@@ -10557,7 +10549,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/belvedere-10-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Vodka"
   },
   {
     "name": "R De Ruinart Nv Brut 75cl",
@@ -10581,7 +10573,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ruinart-blanc-de-blancs-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Champagne"
   },
   {
     "name": "Minuty M Rose 75cl",
@@ -10633,8 +10625,8 @@
   },
   {
     "name": "Coppa Margarita 70cl",
-    "price_bhd": 7.475,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/coppa-margarita-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -10709,7 +10701,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-laroche-les-blanchots-chablis-grand-cr-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Calvet Saint Emilion Grand Cru 75cl",
@@ -10717,7 +10709,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/calvet-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Aperol 1L",
@@ -10765,7 +10757,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/uno-malbec-1-5l.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Uno One La Dolores Single Vineyard 75cl",
@@ -10773,7 +10765,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/uno-one-la-dolores-single-vineyard-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Marchesi Antinori Solaia Toscana Igt 2019 75cl",
@@ -10781,7 +10773,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/marchesi-antinori-solaia-toscana-igt-2019-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Marchesi Antinori Solaia Toscana Igt 2014 75cl",
@@ -10789,7 +10781,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/marchesi-antinori-solaia-toscana-igt-2014-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Sassicaia 2020 75cl",
@@ -10797,7 +10789,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sassicaia-2020-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Acqua Morelli Still Water 250ml",
@@ -11265,8 +11257,8 @@
   },
   {
     "name": "Ruffino Amaro Antica Ricetta 70cl",
-    "price_bhd": 19.15,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/ruffino-amaro-antica-ricetta-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -11325,7 +11317,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ruffino-rosatello-veneto-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateul Soorok Kiwi Soju\u00e2\u00a036cl",
@@ -11413,7 +11405,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/sentito-pinot-grigo-blush-delle-venezie-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Meerlust Merlot 75cl",
@@ -11521,8 +11513,8 @@
   },
   {
     "name": "Roku Sakura Bloom Gin 70cl",
-    "price_bhd": 25.4,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/roku-sakura-bloom-gin-70cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -11613,7 +11605,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-raoul-gautherin-chablis-1er-cru-vaillons-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Grand Puy Ducasse 75cl",
@@ -11621,7 +11613,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-grand-puy-ducasse-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Labegorce Margaux 75cl",
@@ -11629,7 +11621,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-labegorce-margaux-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Cantenac Brown 75cl",
@@ -11637,7 +11629,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-cantenac-brown-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Latour A Pomerol 75cl",
@@ -11645,7 +11637,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-latour-a-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Nenin Grand Vin Pomerol 75cl",
@@ -11653,7 +11645,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-nenin-grand-vin-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "The Berry Company Blueberry Juice Drink Blend 1L",
@@ -11813,7 +11805,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/fantinel-tenuta-sant-helena-venka-collio-rosso-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fantinel Tenuta Sant Helena Neblo Cabernet Sauvignon 75cl",
@@ -11829,7 +11821,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/fantinel-tenuta-san-helna-rocciaponc-pinot-grigio-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fantinel Tenuta Sant Helena Judri Sauvignon 75cl",
@@ -11877,7 +11869,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/la-roncaia-pinot-grigio-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Avarum Vacqueyras 75cl",
@@ -11885,7 +11877,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/m-chapoutier-avarum-vacqueyras-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Des Ferrages Cote De Provence Blanc 75cl",
@@ -11893,7 +11885,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chateau-des-ferrages-cote-de-provence-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Rouge Clair 75cl",
@@ -11901,7 +11893,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/m-chapoutier-rouge-clair-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "M.Chapoutier Les Jocasses 75cl",
@@ -11913,8 +11905,8 @@
   },
   {
     "name": "Schieferkopf Sylvaner 75cl",
-    "price_bhd": 7.25,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/schieferkopf-sylvaner-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -11989,7 +11981,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/castello-del-poggio-moscato-d-asti-docg-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ribbonwood Sauvignon Blanc 75cl",
@@ -12005,7 +11997,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ribbonwood-pinot-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Espolon Anejo 75cl",
@@ -12017,8 +12009,8 @@
   },
   {
     "name": "Lyre's Italian Orange 0.0% 70cl",
-    "price_bhd": 9.9,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/lyre-s-italian-orange-0-0-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -12049,8 +12041,8 @@
   },
   {
     "name": "Torres Honey Brandy 70cl",
-    "price_bhd": 9.025,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/torres-honey-brandy-70cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -12093,7 +12085,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/dalwhinnie-15yo-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Red Heart Rum Original 75cl",
@@ -12109,7 +12101,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ken-forrester-le-petit-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ken Forrester Le Petit Pinotage 75cl",
@@ -12117,7 +12109,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/ken-forrester-le-petit-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "L'avenir Provenance Range Chenin Blanc 75cl",
@@ -12125,7 +12117,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/l-avenir-provenance-range-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "L'avenir Provenance Range Pinotage 75cl",
@@ -12133,7 +12125,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/l-avenir-provenance-range-pinotage-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ruffino Prosecco Spumante Doc Brut Organic 75cl",
@@ -12169,8 +12161,8 @@
   },
   {
     "name": "Goral Master Orange Vodka 70cl",
-    "price_bhd": 13.65,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/goral-master-orange-vodka-70cl.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -12357,7 +12349,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/wc-chateau-du-tertre-les-hauts-du-tertre-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau La Pointe Pomerol 75cl",
@@ -12365,7 +12357,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/wc-chateau-la-pointe-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "J. Moreau & Fils Chablis Grand Cru Valmur 75cl",
@@ -12373,7 +12365,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/j-moreau-fils-chablis-grand-cru-valmur-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Chateau Smith Haut Lafit Le Petit Haut Lafitt 75cl",
@@ -12381,7 +12373,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-smith-haut-lafit-le-petit-haut-lafitt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Drumshanbo Gunpowder Irish Gin 1L",
@@ -12397,7 +12389,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/wc-chateau-palmer-margaux-2012-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Top Shots B52 Orange 2.5cl",
@@ -12413,7 +12405,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/chablis-1er-cru-vaillon-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Top Shots B52 Orange 2.5cl [4 Pack]",
@@ -12445,7 +12437,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/glenmorangie-original-10-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Chateau Beau-Sejour Becot\u00a0Saint-Emilion Grand Cru 75cl",
@@ -12453,7 +12445,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-beau-sejour-becot-saint-emilion-grand-cru-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine De La Baume Chardonnay 75cl",
@@ -12477,7 +12469,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/domaine-la-baume-viognier-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Domaine La Baume Merlot 75cl",
@@ -12489,11 +12481,11 @@
   },
   {
     "name": "Domaine Vieux Vauvert Sec 75cl",
-    "price_bhd": 7.475,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/domaine-vieux-vauvert-sec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fleurs De Prairie Cotes De Provence Blanc 75cl",
@@ -12501,7 +12493,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/fleurs-de-prairie-cotes-de-provence-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Loxtonia Cider Sparkling Apple Bottles 34cl",
@@ -12589,7 +12581,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/solatia-pinot-grigio-toscana-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Hakutsuru Awayuki Junmai Sparkling\u00a030cl",
@@ -12741,7 +12733,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zonin-pinot-grigio-friuli-doc-25cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Ken Forrester Petit Sauvignon Blanc 75cl",
@@ -12765,7 +12757,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/chateau-la-conseillante-pomerol-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Red Bull Energy Drink White Edition 250ml",
@@ -12909,7 +12901,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/david-and-nadia-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "David And Nadia Eipidios 75cl",
@@ -12925,7 +12917,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/david-and-nadia-grenache-noir-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "David And Nadia Plat'bos Chenin Blanc 75cl",
@@ -12933,7 +12925,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/david-and-nadia-plat-bos-chenin-blanc-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Jack Daniel's Mclaren 2025 Edition 1L",
@@ -12957,7 +12949,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zuccardi-serie-a-torrontes-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zuccardi Q Cabernet Sauvignon 75cl",
@@ -12973,7 +12965,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zuccardi-poligonos-semillon-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Zuccardi Poligonos Altamira Malbec 75cl",
@@ -12981,7 +12973,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/zuccardi-poligonos-altamira-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Jose Zuccardi Malbec 75cl",
@@ -12989,7 +12981,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/jose-ziccardi-malbec-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "KDD Grapefruit Juice 1L",
@@ -13009,8 +13001,8 @@
   },
   {
     "name": "KDD Orange Juice 1L",
-    "price_bhd": 0.9,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/kdd-orange-juice-1l.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
@@ -13157,7 +13149,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/glen-grant-18-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Glen Grant 10 Year Old 70cl",
@@ -13165,7 +13157,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/glen-grant-10-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Glen Grant 12 Year Old 70cl",
@@ -13173,7 +13165,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/glen-grant-12-year-old-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Old Smuggler 70cl",
@@ -13277,7 +13269,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/la-solatia-toscana-igt-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Bottega Gold Prosecco Spumante Doc Brut 1.5L",
@@ -13293,7 +13285,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/statti-grecco-bianco-igt-calabria-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Fantinel Tenut Sant Helena Caterina Ribolla Gialla 75cl",
@@ -13345,7 +13337,7 @@
   },
   {
     "name": "Heineken Can 50cl [4 Pack]",
-    "price_bhd": 5.9,
+    "price_bhd": 7.1,
     "in_stock": true,
     "url": "https://www.bmmishops.com/heineken-can-50cl-4-pack.html",
     "retailer": "BMMI",
@@ -13353,7 +13345,7 @@
   },
   {
     "name": "Heineken Can 50cl [12 Pack]",
-    "price_bhd": 17.35,
+    "price_bhd": 20.675,
     "in_stock": true,
     "url": "https://www.bmmishops.com/heineken-can-50cl-12-pack.html",
     "retailer": "BMMI",
@@ -13365,7 +13357,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/old-speckled-hen-bottle-50cl-4-pack.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Beer"
   },
   {
     "name": "Jack Daniel's & Cola Cans 33cl [4 Pack]",
@@ -13389,7 +13381,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/glenmorangie-lasanta-15yo-70cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Whisky"
   },
   {
     "name": "Red Bull Apricot & Strawberry Energy Drink 250ml",
@@ -13453,7 +13445,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/altos-ibericos-crianza-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cody's Vody Mint Vodka Mix 18% 25cl",
@@ -13533,7 +13525,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/pago-del-cielo-celeste-crianza-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Torres Vina Esmerelda 75cl",
@@ -13541,20 +13533,20 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/torres-vina-esmerelda-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Wine"
   },
   {
     "name": "Cisk Strong Beer 9% Cans 50cl [24 Pack]",
-    "price_bhd": 23.0,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/cisk-strong-beer-9-cans-50cl-24-pack.html",
     "retailer": "BMMI",
     "category": "Beer"
   },
   {
     "name": "Cisk Strong Beer 9% Cans 50cl [6 Pack]",
-    "price_bhd": 5.875,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/cisk-strong-beer-9-cans-50cl-6-pack.html",
     "retailer": "BMMI",
     "category": "Beer"
