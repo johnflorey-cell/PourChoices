@@ -63,6 +63,11 @@ SEARCH_TERMS = ["whisky", "beer", "gin", "vodka", "wine", "champagne", "rum",
 # old 15-page cap (240 products each) and were silently cut off there.
 # Pagination still stops on its own at the first page with no products.
 MAX_PAGES_PER_TERM = 40
+# Full-catalogue listing (see main()): 100 products per page, so 30 pages
+# allows for a catalogue of up to 3,000; MIN_FULL_LISTING is the "this
+# clearly worked" threshold below which the old keyword searches run instead.
+MAX_LISTING_PAGES = 30
+MIN_FULL_LISTING = 300
 # Brand searches (see brand_search_terms() in _common.py): a single brand
 # rarely runs past a few pages, so they get a lower cap, and the whole
 # brand-search phase stops after BRAND_SEARCH_MINUTES so this scraper can
@@ -144,10 +149,16 @@ def pick_card_name(card):
     return best_name, best_href
 
 
-def scrape_term(page, term, debug=False, max_pages=None):
+def scrape_term(page, term, debug=False, max_pages=None, url_for_page=None):
+    """Reads one search term's result pages (or, with url_for_page, any
+    paginated product listing) until a page comes back with no products."""
     results = []
+    seen_names = set()
     for page_num in range(1, (max_pages or MAX_PAGES_PER_TERM) + 1):
-        url = f"{BASE}/index.php?route=product/search&search={quote_plus(term)}&page={page_num}"
+        if url_for_page:
+            url = url_for_page(page_num)
+        else:
+            url = f"{BASE}/index.php?route=product/search&search={quote_plus(term)}&page={page_num}"
         safe_goto(page, url)
         page.wait_for_timeout(1500)
         if debug and page_num == 1:
@@ -179,6 +190,13 @@ def scrape_term(page, term, debug=False, max_pages=None):
                 found_any = True
         if not found_any:
             break
+        # Stop if this page added nothing new (some sites send an
+        # out-of-range page number back to the last real page, which would
+        # otherwise loop until the page cap re-reading the same products).
+        names_now = {r["name"] for r in results}
+        if names_now == seen_names:
+            break
+        seen_names = names_now
         polite_sleep(1)
     return results
 
@@ -191,8 +209,32 @@ def main():
         block_heavy_resources(page)
         dismiss_age_gate(page)
         print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
+        # Full-catalogue listing (2026-10-10): checked in the shop's own site
+        # that this one paginated listing shows EVERY product the shop sells
+        # online, 100 per page -- GBI: the "Product filter" page (category path=0) with limit=100 returned all 599 products (6 pages) on 10 Oct 2026.
+        # That's the whole range in about 6 page loads, instead of ~50
+        # keyword-search pages that only found products whose name happened
+        # to contain the keyword. The old keyword searches below only run
+        # if this listing ever comes back suspiciously short (e.g. the shop
+        # changes its site), so the scraper degrades gracefully instead of
+        # returning nothing.
+        print("Reading GBI full product listing...", file=sys.stderr)
+        try:
+            listed = scrape_term(page, "(full listing)", debug=True, max_pages=MAX_LISTING_PAGES,
+                                 url_for_page=lambda page_num: f"{BASE}/index.php?route=product/category&path=0&limit=100&page={page_num}")
+        except Exception as e:
+            print(f"  full listing failed: {e}", file=sys.stderr)
+            listed = []
+        for item in listed:
+            key = (item["name"], item["url"])
+            if key not in seen:
+                seen.add(key)
+                all_results.append(item)
+        print(f"Full listing found {len(all_results)} products", file=sys.stderr)
+        full_listing_ok = len(all_results) >= MIN_FULL_LISTING
+
         first = True
-        for term in SEARCH_TERMS:
+        for term in ([] if full_listing_ok else SEARCH_TERMS):
             print(f"Searching GBI for '{term}'...", file=sys.stderr)
             try:
                 items = scrape_term(page, term, debug=first)
@@ -210,7 +252,9 @@ def main():
         # sells, skipping any brand the category searches above already
         # found at this shop.
         names = [r["name"].lower() for r in all_results]
-        brand_terms = [t for t in brand_search_terms(MAX_BRAND_TERMS) if not term_already_covered(t, names)]
+        # Not needed when the full listing worked: it already has every
+        # product, brands included.
+        brand_terms = [] if full_listing_ok else [t for t in brand_search_terms(MAX_BRAND_TERMS) if not term_already_covered(t, names)]
         print(f"Brand searches: {len(brand_terms)} brands to look for at GBI", file=sys.stderr)
         deadline = time.time() + BRAND_SEARCH_MINUTES * 60
         before = len(all_results)

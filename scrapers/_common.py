@@ -116,7 +116,13 @@ import unicodedata
 import time
 from pathlib import Path
 
-PRICE_RE = re.compile(r"(?:BD|BHD)?\s*([0-9]{1,3}\.[0-9]{3})\b")
+# Thousands-separator fix (2026-10-10): prices of 1,000 BD and up are printed
+# with a comma ("BD 1,020.250"), and the old pattern (1-3 digits, dot, 3
+# digits) picked out just the "020.250" tail of that, so a Hennessy Paradis
+# at over a thousand dinars was being recorded at about 20. The comma groups
+# are now part of the match, and a match can't start in the middle of a
+# longer number.
+PRICE_RE = re.compile(r"(?<![\d,.])([0-9]{1,3}(?:,[0-9]{3})*\.[0-9]{3})(?!\d)")
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -262,7 +268,7 @@ def guess_category(text):
 
 def extract_price(text):
     """Return the smallest BD-style price found in a chunk of text, or None."""
-    matches = [float(m) for m in PRICE_RE.findall(text)]
+    matches = [float(m.replace(",", "")) for m in PRICE_RE.findall(text)]
     return min(matches) if matches else None
 
 
