@@ -370,10 +370,12 @@
                 if (!res.ok) throw new Error("HTTP " + res.status);
                 mockProducts = await res.json();
                 computeComparisonStats();
-                try {
-                    const savedSort = localStorage.getItem("sortOrder");
-                    if (savedSort && (savedSort !== "saving" || hasFeature("savingsSort"))) activeSort = savedSort;
-                } catch (e) {}
+                // The sort choice is deliberately NOT remembered between visits:
+                // every visit opens on "Most shops compared", so the first
+                // thing anyone sees is the comparison. Clears the value older
+                // versions of this page saved.
+                try { localStorage.removeItem("sortOrder"); } catch (e) {}
+                activeSort = "compared";
                 const sel = document.getElementById("sort-select");
                 if (sel) sel.value = activeSort;
                 sortProducts();
@@ -540,7 +542,6 @@
         // to show near the top of a price comparison.
         function sortProducts() {
             const byName = (a, b) => a.name.localeCompare(b.name);
-            const buyable = (p) => (p._lowest === null ? 1 : 0);
             const compared = (a, b) =>
                 (b._inStockCount - a._inStockCount) ||
                 ((b._saving || 0) - (a._saving || 0)) ||
@@ -554,7 +555,14 @@
                 az: byName,
             };
             const fn = sorters[activeSort] || compared;
-            mockProducts.sort((a, b) => (buyable(a) - buyable(b)) || fn(a, b));
+            // Whatever order is picked, products with a real comparison (2+
+            // shops have it in stock) always come first, then single-shop
+            // products, then ones nobody can sell right now. The chosen sort
+            // only orders things WITHIN each of those groups. Without this,
+            // "Price: low to high" put soft drinks and mixers at the very top
+            // and pushed every actual comparison out of sight (2026-10-10).
+            const group = (p) => (p._inStockCount >= 2 ? 0 : p._lowest !== null ? 1 : 2);
+            mockProducts.sort((a, b) => (group(a) - group(b)) || fn(a, b));
         }
 
         function changeSort(value) {
@@ -568,7 +576,6 @@
                 return;
             }
             activeSort = value;
-            try { localStorage.setItem("sortOrder", value); } catch (e) {}
             sortProducts();
             renderProducts();
         }
