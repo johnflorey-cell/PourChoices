@@ -848,7 +848,20 @@
             const repaired = new Set();
             favs.forEach(n => {
                 if (exact.has(n)) { repaired.add(n); return; }
-                const fixed = byLoose.get(loose(n));
+                let fixed = byLoose.get(loose(n));
+                // 2026-10-11: A&E names now get their bottle size added
+                // ("Villa Sparina Gavi" -> "Villa Sparina Gavi 75cl"), so
+                // also follow a favourite to the one product whose name is
+                // the old name plus only a size or pack size on the end.
+                if (!fixed) {
+                    const base = loose(n) + " ";
+                    const sizeOnly = /^\d+(\.\d+)?\s*(cl|ml|ltr|l|litre|liter)\b[\sx\d]*$|^\d+\s*x\s*\d+(\.\d+)?\s*(cl|ml|l)$/i;
+                    const hits = mockProducts.filter(p => {
+                        const l = loose(p.name);
+                        return l.startsWith(base) && sizeOnly.test(l.slice(base.length));
+                    });
+                    if (hits.length === 1) fixed = hits[0].name;
+                }
                 if (fixed) { repaired.add(fixed); changed = true; } else { repaired.add(n); }
             });
             if (changed) saveFavourites(repaired);
