@@ -565,7 +565,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Deepaz-Millesime-Rhum-2002-45-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "DEPAZ RHUM XO 70CL",
@@ -573,7 +573,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Deepaz-Rhum-XO-45-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "DIPLOMATICO MANTUANO RUM 70CL",
@@ -581,7 +581,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Diplomatico-Matuano-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "DIPLOMATICO PLANAS RUM 70CL",
@@ -589,7 +589,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Diplomatico-Planas-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "DIPLOMATICO RESERVA EXCLUSIVA RUM 70CL",
@@ -597,7 +597,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Diplomatico-Reserva-Exclusiva-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "EL CHARRO SILVER TEQUILA 75CL",
@@ -837,7 +837,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Goslings-151-Black-Seal-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "GREEN TREE FAIRY ABSINTHE 70CL",
@@ -885,7 +885,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HERCULES-XXX-RUM-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "HINOTORI 5YRS BLEND JAPANESE WHISKY 70CL",
@@ -981,7 +981,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/J Bally-Millesime-Rhum-2003-43-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "J BALLY RHUM 12 YEAR OLD PYRAMID 70CL",
@@ -989,7 +989,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/J-Bally-Rhum-12-Year-Old-Pyramid-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "JAAR OLOROSO JEREZ WHISKY 70CL",
@@ -1069,7 +1069,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/KHUKRI-XXX-RUM-375-CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "KINGSTON GIN 70CL",
@@ -1101,7 +1101,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/KRAKEN-BLACK-SPICED-RUM-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "LICOR 43 1LTR",
@@ -1125,7 +1125,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Malibu-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "MIS AMIGOS CHOCOLATE & LIME TEQUILA 70CL",
@@ -1168,20 +1168,12 @@
     "category": "Other Spirits"
   },
   {
-    "name": "MONSIEUR PASCAL BRANDY 35CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain?product_id=2445&limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "NEGRITA SIGNATURE DARK RUM",
     "price_bhd": 8.8,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Negrita,Signature,Dark,Rum,Nhsc,Bahrain-7?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "NEGRITA SPICED RUM 70CL",
@@ -1189,7 +1181,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Negrita-Spiced-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "NIKKA FROM THE BARREL 50CL",
@@ -1245,7 +1237,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/OLD-MONK-COFFEE-XO-RUM-37-5CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD MONK COFFEE XO RUM NAKED 75CL",
@@ -1253,7 +1245,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/OLD-MONK-COFFEE-XO-RUM-NAKED-75CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD MONK RUM 1LTR",
@@ -1261,7 +1253,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old,Monk,Rum,Nhsc,Bahrain,1ltr?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD MONK RUM 75CL",
@@ -1269,7 +1261,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old-Monk-Rum-70cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD NICK CARIBBEAN DARK RUM 70CL",
@@ -1277,7 +1269,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old-Nick-Caribbean-Dark-Rum-70cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD NICK WHITE RUM 70CL",
@@ -1285,7 +1277,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old-Nick-White-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "OLD VIRGINIA BOURBON 6 YEARS OLD 70CL",
@@ -1317,7 +1309,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-3-Stars-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "PLANTATION ORIGINAL DARK RUM 70CL",
@@ -1325,7 +1317,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Original-Dark-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "PLANTATION RUM 5 YEARS OLD 70CL",
@@ -1333,7 +1325,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Rum-5-Years-Old-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "PLANTATION RUM OVERPROOF 70CL",
@@ -1341,7 +1333,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Rum-Overproof-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "PLANTATION STIGGINS PINEAPPLE RUM 70CL",
@@ -1349,7 +1341,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Plantation-Stiggins-Pineapple-Rum-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "POLIAKOV VODKA 1LTR",
@@ -1413,7 +1405,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/RIVIERE-DU-MAT-RUM-VANILLA-BOURBON-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Whisky"
+    "category": "Rum"
   },
   {
     "name": "ROYAL DRAGON VODKA IMPERIAL CLASSIC MAGNUM 1.5LTR",
@@ -1445,7 +1437,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Saint-James-Rum-XO-240-Years-Anniversary-Edition-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "SILENT POOL GIN 1LTR",
@@ -1477,7 +1469,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ST-JAMES-AMBRE-RUM-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Rum"
   },
   {
     "name": "SUZE LIQUEUR DE GENTIANE 70CL",
