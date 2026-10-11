@@ -105,6 +105,8 @@
             <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
             <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
             <button onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine</button>
+            <button onclick="filterCategory('Box Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Box Wines</button>
+            <button onclick="filterCategory('Fortified', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Port &amp; Fortified Wines</button>
             <button onclick="filterCategory('Champagne', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Champagne &amp; Sparkling Wines</button>
             <button onclick="filterCategory('Other Spirits', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Other Spirits</button>
             <button id="favourites-chip" onclick="toggleFavouritesView()" class="category-chip bg-charcoal text-amberGold border border-amberGold/50 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">★ My Favourites</button>
@@ -501,7 +503,24 @@
         // "Beer & Cider" -- cider products already land in the "Beer" bucket
         // server-side (scrapers/_common.py's guess_category() already
         // matches "cider" as a Beer keyword), this is purely a label change.
-        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider" };
+        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider",
+            "Box Wine": "Box Wines", "Fortified": "Port & Fortified Wines" };
+        // Extra words a search box query should find each category by
+        // (2026-10-11): shops call box wines "Cask 3L" or "5LTR", so typing
+        // "box wine" would otherwise find nothing.
+        const CATEGORY_SEARCH_WORDS = {
+            "Box Wine": "box wines | boxed wine | bag in box",
+            "Fortified": "fortified wines",
+        };
+        const globalSearchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
+        function productSearchText(prod) {
+            if (prod._search === undefined) {
+                // " | " keeps a query from matching across the end of the
+                // name and the extra words ("...Wooden Box" + "wine").
+                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""}`);
+            }
+            return prod._search;
+        }
         const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
 
         // The 4 retailers this app compares, in the fixed order their price
@@ -1669,10 +1688,13 @@
                     if (!favouritesSet.has(prod.name)) return;
                 } else if (activeCategory === "Drops") {
                     if (!isPriceDrop(prod)) return;
-                } else if (activeCategory !== "All" && prod.category !== activeCategory) {
+                } else if (activeCategory !== "All" && prod.category !== activeCategory && !query) {
+                    // A typed search looks across every category (2026-10-11):
+                    // searching "port" while the Wine tab was still selected
+                    // used to find nothing, because port isn't filed as Wine.
                     return;
                 }
-                if (query && !searchNormalize(prod.name).includes(query)) return;
+                if (query && !productSearchText(prod).includes(query)) return;
                 if (showComparedOnly && !(prod._inStockCount >= 2)) return;
 
                 // See getLowestInStockPrice() above for why only in-stock
