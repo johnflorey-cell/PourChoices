@@ -301,7 +301,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/tio-pepe-sherry-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Carcelli Sambuca  70cl",
@@ -313,8 +313,8 @@
   },
   {
     "name": "Bombay Sapphire Gin 75cl",
-    "price_bhd": null,
-    "in_stock": false,
+    "price_bhd": 20.025,
+    "in_stock": true,
     "url": "https://www.bmmishops.com/bombay-sapphire-gin-75cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -1317,7 +1317,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/nectar-pedro-ximenez-37-5cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Pepe Lopez Gold Tequila 75cl",
@@ -2613,7 +2613,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dow-s-tawny-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Dow's White 75cl",
@@ -2621,7 +2621,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/dow-s-white-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Altano Red Doc Douro 75cl",
@@ -4125,7 +4125,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/croft-twist-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Vilarnau Rose 75cl",
@@ -4341,7 +4341,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/napolean-port-wine-no-7-75cl.html",
     "retailer": "BMMI",
-    "category": "Wine"
+    "category": "Fortified"
   },
   {
     "name": "Malu Licor 1L",
@@ -10405,7 +10405,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sandeman-ruby-port-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Sandeman Tawny Port 75cl",
@@ -10413,7 +10413,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/sandeman-tawny-port-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Sandeman White Port 75cl",
@@ -10421,7 +10421,7 @@
     "in_stock": true,
     "url": "https://www.bmmishops.com/sandeman-white-port-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Sandeman Port 10 Year Old 75cl",
@@ -10429,7 +10429,7 @@
     "in_stock": false,
     "url": "https://www.bmmishops.com/sandeman-port-10-year-old-75cl.html",
     "retailer": "BMMI",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Birra Moretti Blade Keg 8L",

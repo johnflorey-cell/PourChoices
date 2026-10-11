@@ -1824,30 +1824,6 @@
     "category": "Wine"
   },
   {
-    "name": "CHATEAU JAU BLANC 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Chateau-Jau-Blanc-75cl-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "CHATEAU JAU ROSE 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Chateau-Jau-Rose-75cl-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "CHATEAU JAU ROUGE BIO 75CL",
-    "price_bhd": 5.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/CHATEAU-JAU-ROUGE-BIO-75CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
     "name": "CHATEAU LA CLOTTE 75CL",
     "price_bhd": 59.4,
     "in_stock": true,

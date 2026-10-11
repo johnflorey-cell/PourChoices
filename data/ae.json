@@ -450,7 +450,7 @@
   {
     "name": "Ch\u00e2teau Talbot 2016, Conn\u00e9table de Talbot, Saint-Julien",
     "price_bhd": 119.45,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Ch\u00e2teau-Talbot=2016-Conn\u00e9table-de-Talbot-Saint-Julien?search=&page=1&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -653,7 +653,7 @@
     "in_stock": false,
     "url": "https://www.africanandeastern.com/grahams-crusted-port?search=&page=1&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Graham's Fine Ruby Port",
@@ -661,7 +661,7 @@
     "in_stock": false,
     "url": "https://www.africanandeastern.com/grahams-fine-ruby-port?search=&page=1&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Graham's Late Bottled Vintage Port",
@@ -669,7 +669,7 @@
     "in_stock": false,
     "url": "https://www.africanandeastern.com/grahams-late-bottled-vintage-port?search=&page=1&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Graham's Tawny Port",
@@ -677,7 +677,7 @@
     "in_stock": false,
     "url": "https://www.africanandeastern.com/grahams-tawny-port?search=&page=1&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Grand Bateau Blanc 2021",
@@ -1994,7 +1994,7 @@
   {
     "name": "Cabalie Vieilles Vignes Red",
     "price_bhd": 7.431,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/cabalie-vieilles-vignes-red.html?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -8725,7 +8725,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/barbadillo-amontillado-sherry?search=&page=11&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Barbadillo Cream Sherry",
@@ -8733,7 +8733,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/barbadillo-cream-sherry?search=&page=11&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Barbadillo Fino Dry Sherry",
@@ -8741,6 +8741,6 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/barbadillo-dry-sherry?search=&page=11&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   }
 ]
