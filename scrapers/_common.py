@@ -127,13 +127,28 @@ PRICE_RE = re.compile(r"(?<![\d,.])([0-9]{1,3}(?:,[0-9]{3})*\.[0-9]{3})(?!\d)")
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 # Maps a search term or a keyword found in a product name to one of the app's
-# category chips (Whisky, Beer, Gin, Vodka, Wine, Champagne, Other Spirits),
+# category chips (Rum, Whisky, Beer, Gin, Vodka, Wine, Champagne, Other Spirits),
 # plus "Fortified", one of the three Wine sub-tabs (merge.py adds the
 # other one, "Box Wine", since that needs the bottle size).
 # Generic category words come first in each list; well-known brand names are
 # appended afterwards so a listing missing the generic word (e.g. "Heineken
 # Can 33cl" has no literal "beer") still lands in the right place.
 CATEGORY_KEYWORDS = [
+    # Rum (2026-10-11, John): its own category. Checked FIRST, so a rum
+    # whose name mentions bourbon ("Riviere du Mat Rum Vanilla Bourbon") is
+    # still a rum. RUM_SKIP_RE below stops the opposite mistake: any name
+    # that says it is a whisky/gin/vodka/wine/beer etc, or that only mentions
+    # a rum CASK or BARREL ("Glenfiddich 21 Reserva Rum Cask Finish", "3
+    # Finger Jack Rum Barrel Aged Red Blend"), is never put under Rum, and
+    # nor are rum liqueurs, creams and ready-to-drink mixes (Bacardi Breezer,
+    # Bacardi Classic Cocktails Mojito).
+    (("rum", "rums", "rhum", "ron",
+      # Rum brands whose listings sometimes skip the word "rum".
+      "bacardi", "captain morgan", "havana club", "kraken", "old monk", "appleton",
+      "mount gay", "plantation rum", "plantation xo", "plantation original", "diplomatico", "diplomático", "zacapa",
+      "sailor jerry", "malibu", "don papa", "bumbu", "el dorado", "flor de cana",
+      "flor de caña", "brugal", "goslings", "gosling's", "myers's", "myers rum",
+      "tanduay", "pusser's", "pussers", "chairman's reserve", "takamaka"), "Rum"),
     (("whisky", "whiskey", "scotch", "bourbon", "single malt",
       # Brand names that don't always include "whisky" in the listing itself.
       "johnnie walker", "jack daniel", "chivas", "jameson", "glenfiddich",
@@ -215,7 +230,7 @@ CATEGORY_KEYWORDS = [
       # Americano. "Americano" alone is not used (it is also a cocktail name).
       "dubonnet", "lillet", "cocchi americano", "cocchi rosa", "rosa americano"), "Fortified"),
     (("wine", "wines", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
-    (("rum", "rhum", "ron", "brandy", "cognac", "armagnac", "calvados", "tequila", "mezcal",
+    (("brandy", "cognac", "armagnac", "calvados", "tequila", "mezcal",
       "liqueur", "liquer", "liquore", "baileys", "sambuca", "amaretto", "amaro", "limoncello",
       "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
       "soju", "sake", "schnapps", "grand marnier", "aperitivo", "bitters"), "Other Spirits"),
@@ -260,6 +275,14 @@ CATEGORY_KEYWORDS = [
 # "Sparkling water fix" note above.
 SPARKLING_WATER_RE = re.compile(r"\bsparkling\s+water\b|\bwater\b", re.IGNORECASE)
 
+# See the Rum tuple above: a name matching this is never put under Rum.
+RUM_SKIP_RE = re.compile(
+    r"\b(whisky|whiskey|scotch|single malt|malt|gin|vodka|tequila|mezcal|brandy|cognac|"
+    r"armagnac|wine|beer|lager|ale|stout|cider)\b"
+    r"|\brums?\s+(cask|casks|barrel|barrels|finish|finished|wood|butt|butts)\b"
+    r"|\b(liqueur|liquer|cream|breezer|cocktail|cocktails|mojito|daiquiri|colada|cola|premix|ready to drink|rtd)\b",
+    re.IGNORECASE)
+
 # See the Fortified tuple above: a name matching this is never a fortified
 # wine. Covers (1) any spirit word, (2) a port/sherry/Madeira/Marsala CASK,
 # barrel, butt, oak, wood or finish (how whiskies, rums and gins describe
@@ -292,6 +315,8 @@ def guess_category_strict(text):
     variants = _category_text_variants(text)
     for keywords, category in CATEGORY_KEYWORDS:
         if category == "Fortified" and any(FORTIFIED_SKIP_RE.search(v) for v in variants):
+            continue
+        if category == "Rum" and any(RUM_SKIP_RE.search(v) for v in variants):
             continue
         for kw in keywords:
             for lowered in variants:

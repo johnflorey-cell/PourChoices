@@ -212,7 +212,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 import unicodedata
-from urllib.parse import urlsplit, unquote
+from urllib.parse import urlsplit, unquote, parse_qs
 
 try:
     # Same folder as this file, so "python scrapers/merge.py" finds it. Used
@@ -510,8 +510,46 @@ def _dedupe_key(item):
     into one."""
     url = item.get("url")
     if url:
-        return urlsplit(url)._replace(query="", fragment="").geturl()
+        parts = urlsplit(url)
+        # Product-number fix (2026-10-11): GBI and NHSC address some
+        # products as ".../index.php?route=product/product&product_id=1121"
+        # or ".../wines-wine?product_id=2458", where the product number IS
+        # the query string. Stripping the whole query made every such product
+        # look identical, so all but one were silently dropped (20 at GBI,
+        # 22 at NHSC on 11 Oct). The product_id is now kept; tracking params
+        # like ?search=...&page=... are still ignored.
+        pid = parse_qs(parts.query).get("product_id")
+        base = parts._replace(query="", fragment="").geturl()
+        return f"{base}#product_id={pid[0]}" if pid else base
     return item["name"]
+
+
+# Not drinks (2026-10-11): GBI and NHSC also sell greeting cards, bottle
+# bags, gift boxes, corkscrews, glasses and decanters. These are dropped
+# before matching so they never appear as products. A "gift box" is only
+# dropped when its name names no drink at all, so a whisky gift set stays.
+ACCESSORY_RE = re.compile(
+    r"\b(greeting cards?|birthday cards?|thank you cards?|congratulations cards?|cards?$|"
+    r"bottle bags?|gift bags?|carry bags?|corkscrews?|bottle openers?|wine openers?|"
+    r"ice buckets?|bottle stoppers?|wine stoppers?|decanters?|glasses|glassware|wrapping)\b",
+    re.IGNORECASE)
+GIFT_BOX_RE = re.compile(r"\bgift box(es)?\b", re.IGNORECASE)
+
+
+def is_accessory(name):
+    if ACCESSORY_RE.search(name):
+        return True
+    if GIFT_BOX_RE.search(name) and guess_category_strict is not None and guess_category_strict(name) is None:
+        return True
+    return False
+
+
+def _same_listing_key(item):
+    """Exact name (spacing/case tidied) + price. NHSC lists some products on
+    two category pages under two different addresses (e.g. "J.C Le Roux La
+    Fleurette Rose 75cl" under both Wine and Sparkling), which showed as two
+    identical cards. Same shop + same full name + same price = one product."""
+    return (" ".join(item["name"].lower().split()), item.get("price_bhd"))
 
 
 # A&E bottle sizes (2026-10-11): ae.py reads each product's own page once for
@@ -546,12 +584,28 @@ def load_retailer(key):
     # De-dupe within one retailer's own list (a search-based crawl can surface
     # the same product under more than one search term).
     seen = set()
+    seen_listing = {}
     deduped = []
     for item in items:
+        if is_accessory(item["name"]):
+            continue
         dedup_key = _dedupe_key(item)
         if dedup_key in seen:
             continue
         seen.add(dedup_key)
+        listing_key = _same_listing_key(item)
+        if listing_key in seen_listing:
+            # Keep one card, but don't lose what the second category page
+            # told us: a sparkling wine listed under both Wine and Sparkling
+            # keeps Champagne & Sparkling Wines, and it counts as in stock if
+            # either listing says so.
+            kept = seen_listing[listing_key]
+            if item.get("category") == "Champagne":
+                kept["category"] = "Champagne"
+            if item.get("in_stock", True) and kept.get("in_stock", True) is False:
+                kept["in_stock"] = True
+            continue
+        seen_listing[listing_key] = item
         item["_norm"] = normalize(item["name"])
         item["_sig_words"] = significant_words(item["_norm"])
         item["_size_ml"] = extract_size_ml(item["name"])
