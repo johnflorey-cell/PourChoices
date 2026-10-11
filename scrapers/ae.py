@@ -301,10 +301,77 @@ def main():
                     seen.add(key)
                     all_results.append(item)
         print(f"Brand searches added {len(all_results) - before} new products ({searched} brands searched)", file=sys.stderr)
+        try:
+            fill_sizes(session, all_results)
+        except Exception as e:
+            print(f"  size lookups failed, keeping the saved sizes as they were: {e}", file=sys.stderr)
         if session.restarts:
             print(f"Browser reconnected {session.restarts} time(s) during this run", file=sys.stderr)
         session.close()
     write_json("ae.json", all_results)
+
+
+# --- Bottle sizes from each product's own page (2026-10-11) -----------------
+# Only about 1 in 6 A&E product names say the bottle size ("Robert Mondavi
+# Cabernet Sauvignon", no "75cl"), and A&E's listing pages don't show it
+# either. Each product's own page does, as "Packing: 75cl", in its plain HTML.
+# Sizes don't change, so each product's page is read only ONCE and the answer
+# is kept in data/ae_sizes.json ({url path: packing text}); merge.py adds the
+# size to the name. Every later weekly run only looks up products A&E has
+# added since (usually a handful), so this costs almost no Bright Data credit.
+# The page is read with fetch() (HTML only, no images or scripts), not a full
+# page load.
+SIZES_FILE = Path(__file__).resolve().parent.parent / "data" / "ae_sizes.json"
+SIZE_LOOKUPS_PER_RUN = int(os.environ.get("AE_SIZE_LOOKUPS_PER_RUN", "150"))
+SIZE_LOOKUP_MINUTES = float(os.environ.get("AE_SIZE_LOOKUP_MINUTES", "15"))
+
+FETCH_PACKING_JS = """async (path) => {
+    const r = await fetch(path, {credentials: "include"});
+    if (!r.ok) return {status: r.status};
+    const h = await r.text();
+    const m = h.match(/<strong>\\s*Packing:\\s*<\\/strong>\\s*<span>\\s*([^<]*?)\\s*<\\/span>/i);
+    return {status: r.status, packing: m ? m[1].trim() : null};
+}"""
+
+def _has_size(name):
+    import re
+    return bool(re.search(r"\d+(\.\d+)?\s*(cl|ml|ltr|l|litre|liter)\b", name or "", re.I))
+
+def fill_sizes(session, results):
+    import json
+    from urllib.parse import urlsplit, unquote
+    try:
+        sizes = json.loads(SIZES_FILE.read_text())
+    except Exception:
+        sizes = {}
+    todo = []
+    for item in results:
+        if _has_size(item["name"]) or not item.get("url"):
+            continue
+        path = unquote(urlsplit(item["url"]).path)
+        if path and path not in sizes and path not in todo:
+            todo.append(path)
+    print(f"Bottle sizes: {len(sizes)} already saved, {len(todo)} new product(s) to look up", file=sys.stderr)
+    deadline = time.time() + SIZE_LOOKUP_MINUTES * 60
+    looked_up = 0
+    for path in todo[:SIZE_LOOKUPS_PER_RUN]:
+        if time.time() > deadline:
+            print("  size lookup time budget used up; the rest wait for next week's run", file=sys.stderr)
+            break
+        try:
+            res = session.page.evaluate(FETCH_PACKING_JS, path)
+        except Exception as e:
+            print(f"  size lookup failed for {path}: {str(e).splitlines()[0]}", file=sys.stderr)
+            continue
+        if res.get("status") == 200:
+            # A page with no Packing line is saved as null too, so it isn't
+            # looked up again every week.
+            sizes[path] = res.get("packing")
+            looked_up += 1
+        polite_sleep(0.3)
+    SIZES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    SIZES_FILE.write_text(json.dumps(dict(sorted(sizes.items())), indent=1, ensure_ascii=False))
+    print(f"  looked up {looked_up} size(s); {len(sizes)} saved in total", file=sys.stderr)
 
 if __name__ == "__main__":
     main()

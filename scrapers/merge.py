@@ -212,7 +212,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 import unicodedata
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, unquote
 
 try:
     # Same folder as this file, so "python scrapers/merge.py" finds it. Used
@@ -477,6 +477,22 @@ def unknown_size_price_mismatch(item_a, item_b):
     return max(pa, pb) / min(pa, pb) > UNKNOWN_SIZE_MAX_RATIO
 
 
+# Known-size price guard (2026-10-11): once A&E's bottle sizes started coming
+# from its product pages, a few names that are identical but cover different
+# wines also got identical sizes, so the size checks could no longer tell them
+# apart. A real deal between shops is a 10-40% gap (GBI's online prices run
+# about 20% under its shelf price), never 3x, so a gap above this ratio blocks
+# the merge even when both sizes are known.
+KNOWN_SIZE_MAX_RATIO = 3.0
+
+
+def known_size_price_mismatch(item_a, item_b):
+    pa, pb = item_a.get("price_bhd"), item_b.get("price_bhd")
+    if not pa or not pb:
+        return False
+    return max(pa, pb) / min(pa, pb) > KNOWN_SIZE_MAX_RATIO
+
+
 def _dedupe_key(item):
     """A stable identity for one item within a single retailer's own list.
 
@@ -498,11 +514,35 @@ def _dedupe_key(item):
     return item["name"]
 
 
+# A&E bottle sizes (2026-10-11): ae.py reads each product's own page once for
+# its "Packing" size and keeps it in data/ae_sizes.json ({url path: "75cl"}),
+# because most A&E names leave the size out. Adding it to the name here gives
+# those products a size on the card, a price per litre, and a fair chance of
+# matching the same bottle at another shop.
+AE_SIZES_PATH = DATA_DIR / "ae_sizes.json"
+
+
+def add_known_sizes(items):
+    try:
+        sizes = json.loads(AE_SIZES_PATH.read_text())
+    except Exception:
+        return items
+    for item in items:
+        if extract_size_ml(item["name"]) is not None or not item.get("url"):
+            continue
+        packing = (sizes.get(unquote(urlsplit(item["url"]).path)) or "").strip()
+        if packing and extract_size_ml(packing) is not None:
+            item["name"] = f"{item['name']} {packing}"
+    return items
+
+
 def load_retailer(key):
     path = DATA_DIR / RETAILER_FILES[key]
     if not path.exists():
         return []
     items = json.loads(path.read_text())
+    if key == "ae":
+        items = add_known_sizes(items)
     # De-dupe within one retailer's own list (a search-based crawl can surface
     # the same product under more than one search term).
     seen = set()
@@ -558,6 +598,13 @@ def cluster(retailer_items):
                 # most likely a different bottle size (a bare "Bombay Sapphire
                 # Gin" at 35.420 is the 1L, not the 75cl at 20.025). See the
                 # "Unknown-size price guard" note on the function.
+                continue
+            if known_size_price_mismatch(item_a, item_b):
+                # Same name and same stated size, but one shop charges several
+                # times the other: almost certainly two different products
+                # sold under one short name (A&E's premium Robert Mondavi
+                # Cabernet at 60.700 vs GBI's everyday one at 8.400). See
+                # KNOWN_SIZE_MAX_RATIO.
                 continue
             if item_a["_pack_count"] != item_b["_pack_count"]:
                 # A 6-pack and a 24-pack of the same drink are two different
