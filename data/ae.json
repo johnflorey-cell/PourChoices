@@ -1138,7 +1138,7 @@
   {
     "name": "Maker's Mark Kentucky Straight Bourbon",
     "price_bhd": 40.8,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/makers-mark-kentucky-straight-bourbon?search=&page=2&limit=100",
     "retailer": "African & Eastern",
     "category": "Whisky"
@@ -1714,7 +1714,7 @@
   {
     "name": "White Claw Black Cherry [6-Pack]",
     "price_bhd": 9.748,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Black-Cherry-6?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1722,7 +1722,7 @@
   {
     "name": "White Claw Black Cherry [Case of 12]",
     "price_bhd": 18.535,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Black-Cherry?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1746,7 +1746,7 @@
   {
     "name": "White Claw Natural Lime [6-Pack]",
     "price_bhd": 9.748,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Natural-Lime-6?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1754,7 +1754,7 @@
   {
     "name": "White Claw Natural Lime [Case of 12]",
     "price_bhd": 18.535,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Natural-Lime?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1762,7 +1762,7 @@
   {
     "name": "White Claw Raspberry [6-Pack]",
     "price_bhd": 9.748,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Raspberry-6?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -1770,7 +1770,7 @@
   {
     "name": "White Claw Raspberry [Case of 12]",
     "price_bhd": 18.535,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Raspberry?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -2226,7 +2226,7 @@
   {
     "name": "Giffard Triple Sec Liqueur 1L",
     "price_bhd": 16.75,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/giffard-triple-sec-liqueur-1l.html?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3154,7 +3154,7 @@
   {
     "name": "Clase Azul Tequila A\u00f1ejo",
     "price_bhd": 750.8,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Clase-Azul-Tequila-Anejo?search=&page=4&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -3162,7 +3162,7 @@
   {
     "name": "Clase Azul Tequila Gold",
     "price_bhd": 426.225,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Clase-Azul-Tequila-Gold?search=&page=4&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -5074,7 +5074,7 @@
   {
     "name": "Van Loveren Daydream Chardonnay Pinot Noir",
     "price_bhd": 7.22,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Van-Loveren-Daydream-Chardonnay-Pinot-Noir?search=&page=7&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -5090,7 +5090,7 @@
   {
     "name": "Van Loveren Merlot",
     "price_bhd": 6.71,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Van-Loveren-Merlot?search=&page=7&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -6194,7 +6194,7 @@
   {
     "name": "Aperol",
     "price_bhd": 30.25,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Aperol-70cl?search=&page=8&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -6794,7 +6794,7 @@
   {
     "name": "Roche Mazet Sauvignon Pays d'OC 25cl",
     "price_bhd": 3.003,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Roche-Mazet-Sauvignon-Pays-dOC-25cl?search=&page=9&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -7290,7 +7290,7 @@
   {
     "name": "Thatchers Cider Cloudy Lemon [Case of 24]",
     "price_bhd": 36.96,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/Thatchers-Cider-Cloudy-Lemon?search=&page=10&limit=100",
     "retailer": "African & Eastern",
     "category": "Beer"
@@ -7298,7 +7298,7 @@
   {
     "name": "Thatchers Cider Cloudy Lemon [Case of 8]",
     "price_bhd": 12.962,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/thatchers-cider-cloudy-lemon-case-of-8.html?search=&page=10&limit=100",
     "retailer": "African & Eastern",
     "category": "Beer"
@@ -8290,7 +8290,7 @@
   {
     "name": "Backsberg Dry Red",
     "price_bhd": 5.05,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/backsberg-dry-red.html?search=&page=11&limit=100",
     "retailer": "African & Eastern",
     "category": "Wine"
@@ -8442,7 +8442,7 @@
   {
     "name": "The Spotted Hound Red Blend",
     "price_bhd": 11.38,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/The-Spotted-Hound-Red-Blend?search=&page=11&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
