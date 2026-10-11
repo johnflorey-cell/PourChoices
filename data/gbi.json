@@ -210,7 +210,7 @@
   {
     "name": "Coca Cola Diet 330ml Cans X 6",
     "price_bhd": 3.0,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/diet-coca-cola?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
@@ -330,7 +330,7 @@
   {
     "name": "Baron D'Arignac Medium Sweet Red 75cl",
     "price_bhd": 3.76,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/baron-d-arignac-medium-sweet-red-75-cl?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"
@@ -798,14 +798,6 @@
     "url": "https://www.gbiexpress.com/old-monk-rum-75cl?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
-  },
-  {
-    "name": "Whiskin Special Reserve Craft Whisky 75cl Bottle",
-    "price_bhd": 6.3,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/whiskin-whisky-75-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Whisky"
   },
   {
     "name": "Bardinet Brandy V.S.O.P 70cl Bottle",
@@ -1858,7 +1850,7 @@
   {
     "name": "Mount Rozier Cape White 5L Cask",
     "price_bhd": 10.8,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/mount-rozier-cape-white-5-l-cask?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
@@ -2538,7 +2530,7 @@
   {
     "name": "DT&T \u2013 Sobremesa Brulee Blue Cigar",
     "price_bhd": 14.7,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.gbiexpress.com/dtt-sobremesa-brulee-blue-cigar?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
@@ -2658,7 +2650,7 @@
   {
     "name": "De Kuyper Wild Strawberry Liqueur 70cl Bottle",
     "price_bhd": 15.0,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/de-kuyper-wild-strawberry-liqueur-70cl-bottle?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
@@ -3226,7 +3218,7 @@
   {
     "name": "Edinburgh Gooseberry & Elderflower Gin 70cl Bottle",
     "price_bhd": 18.8,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.gbiexpress.com/edinburgh-gooseberry-elderflower-gin?limit=100",
     "retailer": "GBI Express",
     "category": "Gin"
