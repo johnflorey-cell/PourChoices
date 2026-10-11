@@ -661,10 +661,14 @@
         // there's a real comparison to point at.
         function comparisonBadgeHTML(prod) {
             if (!prod._inStockCount || prod._inStockCount < 2) return "";
-            const savingText = prod._saving > 0.0005
-                ? ` · save ${prod._saving.toFixed(3)} BHD`
-                : " · same price everywhere";
-            return `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amberGold/15 text-amberGold">⚖️ ${prod._inStockCount} shops${savingText}</span>`;
+            // The saving gets its own green pill (2026-10-11, John: the
+            // saving should stand out from the orange), green being the
+            // app's "good price" colour, same as the cheapest-price figure.
+            const shopsPill = `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amberGold/15 text-amberGold">⚖️ ${prod._inStockCount} shops</span>`;
+            const savingPill = prod._saving > 0.0005
+                ? `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow border border-emeraldGlow/40">💰 Save ${prod._saving.toFixed(3)} BHD</span>`
+                : `<span class="inline-block mt-1 mr-1 text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-charcoal text-gray-300">Same price everywhere</span>`;
+            return shopsPill + savingPill;
         }
 
         // --- Favourites basket (added 2026-10-10) ------------------------------
