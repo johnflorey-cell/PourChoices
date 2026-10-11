@@ -127,7 +127,9 @@ PRICE_RE = re.compile(r"(?<![\d,.])([0-9]{1,3}(?:,[0-9]{3})*\.[0-9]{3})(?!\d)")
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 # Maps a search term or a keyword found in a product name to one of the app's
-# 7 category chips (Whisky, Beer, Gin, Vodka, Wine, Champagne, Other Spirits).
+# category chips (Whisky, Beer, Gin, Vodka, Wine, Champagne, Other Spirits),
+# plus "Fortified", one of the three Wine sub-tabs (merge.py adds the
+# other one, "Box Wine", since that needs the bottle size).
 # Generic category words come first in each list; well-known brand names are
 # appended afterwards so a listing missing the generic word (e.g. "Heineken
 # Can 33cl" has no literal "beer") still lands in the right place.
@@ -146,7 +148,11 @@ CATEGORY_KEYWORDS = [
       "jim beam", "gentleman jack", "maker's mark", "makers mark", "monkey shoulder",
       "blenders pride", "royal challenge", "royal stag", "royal salute",
       "dalwhinnie", "cardhu", "oban", "singleton", "auchentoshan", "highland park",
-      "bruichladdich", "springbank", "kavalan", "amrut", "paul john"), "Whisky"),
+      "bruichladdich", "springbank", "kavalan", "amrut", "paul john",
+      # Added 2026-10-11 with the Fortified sub-tab: whiskies whose names
+      # mention "Port" or a sherry cask without ever saying "whisky".
+      "port charlotte", "port ellen", "port askaig", "glenallachie", "benriach",
+      "tamdhu", "glenrothes", "craigellachie", "deanston", "tobermory"), "Whisky"),
     (("beer", "lager", "ale", "cider", "stout", "pilsner", "pils", "ipa",
       "weissbier", "hefeweizen",
       # Major beer brands whose own product name often skips the word "beer".
@@ -177,10 +183,30 @@ CATEGORY_KEYWORDS = [
       # below, not by the plain \b...\b check every other keyword here uses --
       # see the "Sparkling water fix" note above.
       "sparkling"), "Champagne"),
+    # Fortified wines (2026-10-11): port, sherry, Madeira, Marsala and
+    # Moscatel get their own Wine sub-tab. Checked AFTER Whisky (so "Glen
+    # Moray Port Cask Finish" or "Kavalan Sherry Cask" are caught as whisky
+    # first) and BEFORE Wine (so "Napolean Port Wine No.7" isn't caught by
+    # the bare word "wine"). FORTIFIED_SKIP_RE below is a second guard: any
+    # name that also says it's a spirit, or talks about a port/sherry CASK,
+    # barrel, oak or finish, or is one of the Islay whiskies named after a
+    # harbour ("Port Charlotte", "Port Ellen"...), is never treated as a
+    # fortified wine, even when the whisky brand isn't in the list above.
+    (("port", "porto", "tawny", "ruby port", "white port", "lbv", "late bottled vintage",
+      "vintage port", "colheita", "sherry", "jerez", "oloroso", "amontillado", "fino",
+      "manzanilla", "palo cortado", "pedro ximenez", "cream sherry", "madeira", "marsala",
+      "moscatel",
+      # Port and sherry houses whose listings sometimes skip the word
+      # "port"/"sherry" (e.g. "Dow's Tawny 75cl", "Tio Pepe 75cl").
+      "sandeman", "graham's", "grahams", "taylor's port", "dow's", "dows", "warre's",
+      "warres", "cockburn's", "cockburns", "fonseca", "croft", "quinta do noval",
+      "niepoort", "ramos pinto", "porto cruz", "tio pepe", "harveys", "harvey's",
+      "bristol cream", "barbadillo", "gonzalez byass", "lustau", "blandy's", "blandys",
+      "florio", "pellegrino marsala"), "Fortified"),
     (("wine", "wines", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
     (("rum", "rhum", "ron", "brandy", "cognac", "armagnac", "calvados", "tequila", "mezcal",
       "liqueur", "liquer", "liquore", "baileys", "sambuca", "amaretto", "amaro", "limoncello",
-      "vermouth", "sherry", "port", "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
+      "vermouth", "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
       "soju", "sake", "schnapps", "grand marnier", "aperitivo", "bitters"), "Other Spirits"),
     # Wine, second pass (2026-10-10, see "Wine and brand-gap fix" above):
     # a wine's listing very often names only its grape, its region or its
@@ -223,6 +249,18 @@ CATEGORY_KEYWORDS = [
 # "Sparkling water fix" note above.
 SPARKLING_WATER_RE = re.compile(r"\bsparkling\s+water\b|\bwater\b", re.IGNORECASE)
 
+# See the Fortified tuple above: a name matching this is never a fortified
+# wine. Covers (1) any spirit word, (2) a port/sherry/Madeira/Marsala CASK,
+# barrel, butt, oak, wood or finish (how whiskies, rums and gins describe
+# their ageing: "Sherry Cask Finish", "Triple Sherry Oak", "Port Wood",
+# "Double Cask Matured"), and (3) whisky distilleries named after a port.
+FORTIFIED_SKIP_RE = re.compile(
+    r"\b(whisky|whiskey|scotch|single malt|malt|bourbon|rye|rum|rhum|ron|gin|vodka|brandy|"
+    r"cognac|armagnac|calvados|liqueur|liquer|tequila|mezcal|grappa|beer|ale|lager|stout)\b"
+    r"|\b(cask|casks|barrel|barrels|butt|butts|oak|wood|finish|finished|finishes|matured|aged in)\b"
+    r"|\bport\s+(charlotte|ellen|askaig|dundas)\b",
+    re.IGNORECASE)
+
 
 def _category_text_variants(text):
     """The lowercased name in the forms guess_category() checks keywords
@@ -242,6 +280,8 @@ def guess_category_strict(text):
     category guess in the first case."""
     variants = _category_text_variants(text)
     for keywords, category in CATEGORY_KEYWORDS:
+        if category == "Fortified" and any(FORTIFIED_SKIP_RE.search(v) for v in variants):
+            continue
         for kw in keywords:
             for lowered in variants:
                 if kw == "sparkling" and SPARKLING_WATER_RE.search(lowered):

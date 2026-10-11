@@ -643,6 +643,60 @@ def pick_category(display_name, cluster_map):
     return max(set(categories), key=categories.count) if categories else "Other Spirits"
 
 
+# Boxed wine (2026-10-11): one of the three Wine sub-tabs (Bottled, Boxed,
+# Fortified). A wine counts as boxed when it is sold as ONE pack holding
+# more than 2.75 litres (shops list these as "Cask 3L", "5LTR Cask", "Bag
+# in Box"...). Big-format glass bottles of 3L and up (Jeroboam, Rehoboam,
+# Methuselah...) are still bottled wine, so those names are excluded.
+BOX_WINE_MIN_ML = 2750
+BIG_BOTTLE_RE = re.compile(
+    r"\b(magnum|double magnum|jeroboam|rehoboam|methuselah|methuselem|imperiale|imperial bottle|"
+    r"salmanazar|balthazar|nebuchadnezzar)\b", re.IGNORECASE)
+BOX_SPIRIT_RE = re.compile(
+    r"\b(whisky|whiskey|scotch|bourbon|rum|rhum|gin|vodka|brandy|cognac|tequila|liqueur|"
+    r"beer|lager|ale|cider|keg|water|juice)\b", re.IGNORECASE)
+BOX_WINE_WORD_RE = re.compile(
+    r"\b(cask|box|bag in box|bib|wine|red|white|rose|ros\u00e9|blush|sweet|dry|claret|"
+    r"merlot|shiraz|cabernet|chardonnay|sauvignon|pinotage|chenin|grenache|colombard|"
+    r"semillon|pinot|grand cru|stein|late harvest)\b", re.IGNORECASE)
+
+
+ESTATE_RE = re.compile(r"\b(chateau|ch\u00e2teau|domaine|clos|castello|tenuta|schloss)\b", re.IGNORECASE)
+BOX_PACK_RE = re.compile(r"\b(cask|box|bag in box|bib|carton)\b", re.IGNORECASE)
+
+
+def cluster_size_ml(display_name, cluster_map):
+    """The bottle/pack size for this product: from the name visitors see,
+    or failing that from any retailer's own name for it."""
+    size = extract_size_ml(display_name)
+    if size is None:
+        for item in cluster_map.values():
+            size = extract_size_ml(item["name"])
+            if size is not None:
+                break
+    return size
+
+
+def is_box_wine(display_name, category, cluster_map):
+    if category not in ("Wine", "Other Spirits"):
+        return False
+    size = cluster_size_ml(display_name, cluster_map)
+    if size is None or size <= BOX_WINE_MIN_ML:
+        return False
+    if extract_pack_count(display_name) != 1:
+        return False
+    if BIG_BOTTLE_RE.search(display_name) or BOX_SPIRIT_RE.search(display_name):
+        return False
+    # A named estate at 3L ("Chateau Patache d'Aux Medoc 3L") is a big glass
+    # bottle, not a box, unless the name itself says cask/box.
+    if ESTATE_RE.search(display_name) and not BOX_PACK_RE.search(display_name):
+        return False
+    # A wine-category name over 2.75L is enough; an "Other Spirits" one (no
+    # wine keyword matched, e.g. "Pearly Bay Red Cask 3L") also needs a
+    # wine-ish word so a big jug of something else isn't swept in.
+    return category == "Wine" or bool(BOX_WINE_WORD_RE.search(display_name))
+
+
 def build_product_row(idx, cluster_map):
     # Prefer the longest name as the display name (tends to carry the most detail).
     display_name = max((item["name"] for item in cluster_map.values()), key=len)
@@ -652,6 +706,8 @@ def build_product_row(idx, cluster_map):
     # rewriting "Château ..." to "Chateau ..." would orphan both.
     display_name = re.sub(r"\s+", " ", display_name.replace("Â\xa0", " ").replace("\xa0", " ")).strip()
     category = pick_category(display_name, cluster_map)
+    if is_box_wine(display_name, category, cluster_map):
+        category = "Box Wine"
 
     row = {"id": idx, "name": display_name, "category": category}
 
