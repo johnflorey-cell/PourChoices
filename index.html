@@ -168,12 +168,13 @@
              shared list (showSharedOnly). Lets a visitor get back to their
              own view, or add the whole shared list to their own favourites
              in one tap. -->
-        <div id="shared-view-bar" class="hidden mb-3 flex items-center justify-between bg-charcoal border border-amberGold/30 rounded-xl px-3 py-2.5">
+        <div id="shared-view-bar" class="hidden mb-3 flex flex-wrap items-center justify-between bg-charcoal border border-amberGold/30 rounded-xl px-3 py-2.5">
             <span class="text-[11px] text-amberGold font-bold">🎁 Viewing a shared list</span>
             <div class="flex items-center space-x-2">
                 <button onclick="addSharedFavouritesToMine()" class="text-[11px] font-bold text-obsidian bg-amberGold px-3 py-1.5 rounded-lg active:scale-95 transition">+ Add all to mine</button>
                 <button onclick="exitSharedView()" class="text-[11px] font-medium text-gray-300 px-2 py-1.5">Back</button>
             </div>
+            <p id="shared-view-note" class="hidden w-full mt-2 pt-2 border-t border-gray-800 text-xs text-gray-100 leading-relaxed"></p>
         </div>
 
         <!-- Both of these start empty and get their text filled in once
@@ -323,6 +324,23 @@
                  sharing a favourites list), so the person sending it sees
                  the actual product names rather than a link full of code. -->
             <div id="share-modal-list" class="hidden text-left bg-obsidian border border-gray-800 rounded-xl px-3 py-2.5 mb-4 max-h-40 overflow-y-auto"></div>
+
+            <!-- Favourites only (2026-10-11): tick which favourites to send
+                 (all ticked to start with) and add an optional personal
+                 message. The link, QR code and WhatsApp text update as you
+                 go. -->
+            <div id="share-fav-controls" class="hidden text-left mb-4">
+                <div class="flex justify-between items-center mb-1.5">
+                    <p class="text-[11px] font-bold text-gray-200">Choose what to send <span id="share-fav-count" class="text-amberGold"></span></p>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="setAllShareChoices(true)" class="text-[11px] text-amberGold font-bold">All</button>
+                        <button onclick="setAllShareChoices(false)" class="text-[11px] text-amberGold font-bold">None</button>
+                    </div>
+                </div>
+                <div id="share-fav-choices" class="bg-obsidian border border-gray-800 rounded-xl px-3 py-2 max-h-48 overflow-y-auto"></div>
+                <label for="share-fav-note" class="block text-[11px] font-bold text-gray-200 mt-3 mb-1">Add a message (optional)</label>
+                <textarea id="share-fav-note" rows="2" maxlength="200" oninput="updateFavouritesShare()" placeholder="e.g. Can you pick these up for Friday?" class="w-full bg-obsidian border border-gray-800 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amberGold"></textarea>
+            </div>
 
             <div class="bg-white rounded-xl p-3 mb-4 flex items-center justify-center">
                 <img id="share-modal-qr" src="" alt="QR code" width="160" height="160" class="w-[160px] h-[160px]">
@@ -766,6 +784,9 @@
         // resolvePendingSharedCodes() below). Declared here, above the
         // readSharedFavouritesFromUrl() call, because that call fills it in.
         let pendingSharedCodes = null;
+        // The sender's optional personal message from a shared link
+        // ("&m=..."), shown to the person receiving it (2026-10-11).
+        let sharedNote = "";
         // Read as soon as the script runs (not deferred to window.onload),
         // so the URL gets scrubbed immediately regardless of whether this
         // visitor still needs to pass the age gate first.
@@ -794,6 +815,7 @@
                 const raw = params.get("shared");
                 const codes = params.get("l");
                 if (!raw && !codes) return null;
+                sharedNote = String(params.get("m") || "").replace(/\s+/g, " ").trim().slice(0, 200);
                 window.history.replaceState({}, "", window.location.origin + window.location.pathname);
                 if (codes) {
                     pendingSharedCodes = codes.split(/[-.,]/).filter(Boolean);
@@ -1229,6 +1251,11 @@
                 listEl.innerHTML = previewHTML || "";
                 listEl.classList.toggle("hidden", !previewHTML);
             }
+            // The favourites pick-list is switched back on by shareFavourites()
+            // only; sharing the app itself never shows it.
+            const favControls = document.getElementById("share-fav-controls");
+            if (favControls) favControls.classList.add("hidden");
+            modal.dataset.empty = "";
             document.getElementById("share-modal-qr").src = buildQrImageUrl(url, 200);
             document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
             modal.dataset.url = url;
@@ -1250,6 +1277,7 @@
 
         async function copyShareLink() {
             const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
             const text = modal.dataset.text || modal.dataset.url || "";
             try {
                 await navigator.clipboard.writeText(text);
@@ -1265,12 +1293,14 @@
         // sender still picks who to send it to.
         function shareViaWhatsApp() {
             const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
             const text = modal.dataset.text || modal.dataset.url || "";
             window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
         }
 
         async function shareViaSheet() {
             const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
             const url = modal.dataset.url || "";
             const text = modal.dataset.text || url;
             if (!navigator.share) return;
@@ -1301,6 +1331,16 @@
         // itself. No backend, no account, no expiry -- the link just carries
         // the list itself, so it keeps working for as long as those product
         // names still exist in the catalogue.
+        // Choose what to send + personal message (2026-10-11): the share
+        // window lists every favourite with a tick box (all ticked to start
+        // with) and has an optional message box. Every change rebuilds the
+        // link, the QR code and the WhatsApp text, so only the ticked
+        // products are sent. The message also travels inside the link
+        // ("&m=..."), so the person who opens it sees it on the banner and
+        // above the list, not only in the chat it came through.
+        let shareFavNames = [];
+        let shareQrTimer = null;
+
         function shareFavourites() {
             if (!hasFeature("shareList")) { openPaywallModal(); return; }
             const favourites = getFavourites();
@@ -1308,16 +1348,46 @@
                 showToast("Add a few favourites first, then share your list.");
                 return;
             }
-            const codes = [...new Set([...favourites].map(productShareCode))].join("-");
-            const url = `${window.location.origin}${window.location.pathname}?l=${codes}`;
-            const count = favourites.size;
-
-            // Readable lines for the message: each product with its cheapest
-            // current price and where, e.g. "• Chivas Regal 18YO 75cl, 78.980
-            // BHD at A&E". Products no longer in the catalogue just show their
-            // name.
+            shareFavNames = [...favourites];
             const byName = new Map(mockProducts.map(p => [p.name, p]));
-            const lines = [...favourites].map(name => {
+            const rows = shareFavNames.map((name, i) => {
+                const prod = byName.get(name);
+                const best = prod ? cheapestRetailer(prod) : null;
+                const price = best ? `<span class="block text-[10px] text-gray-400">${best.price.toFixed(3)} BHD at ${escapeHTML(best.label)}</span>` : "";
+                return `<label class="flex items-start py-1.5 border-b border-gray-800 last:border-0 cursor-pointer">
+                    <input type="checkbox" data-i="${i}" checked onchange="updateFavouritesShare()" class="mt-0.5 mr-2.5 w-4 h-4 accent-amber-500 shrink-0">
+                    <span class="text-[11px] text-gray-100 leading-snug">${escapeHTML(name)}${price}</span>
+                </label>`;
+            }).join("");
+            openShareModal(window.location.origin + window.location.pathname, "Share favourites", "", "");
+            document.getElementById("share-fav-choices").innerHTML = rows;
+            document.getElementById("share-fav-note").value = "";
+            document.getElementById("share-fav-controls").classList.remove("hidden");
+            updateFavouritesShare(true);
+        }
+
+        function setAllShareChoices(on) {
+            document.querySelectorAll("#share-fav-choices input[type=checkbox]").forEach(cb => { cb.checked = on; });
+            updateFavouritesShare();
+        }
+
+        function updateFavouritesShare(immediate) {
+            const modal = document.getElementById("share-modal");
+            const picked = [...document.querySelectorAll("#share-fav-choices input[type=checkbox]")]
+                .filter(cb => cb.checked).map(cb => shareFavNames[Number(cb.dataset.i)]).filter(Boolean);
+            const note = document.getElementById("share-fav-note").value.replace(/\s+/g, " ").trim().slice(0, 200);
+            const count = picked.length;
+            document.getElementById("share-fav-count").textContent = `(${count} of ${shareFavNames.length})`;
+            document.getElementById("share-modal-title").textContent = count
+                ? `Share ${count} favourite${count === 1 ? "" : "s"}` : "Share favourites";
+            modal.dataset.empty = count ? "" : "1";
+
+            const base = window.location.origin + window.location.pathname;
+            const codes = [...new Set(picked.map(productShareCode))].join("-");
+            const url = count ? `${base}?l=${codes}${note ? "&m=" + encodeURIComponent(note) : ""}` : base;
+
+            const byName = new Map(mockProducts.map(p => [p.name, p]));
+            const lines = picked.map(name => {
                 const prod = byName.get(name);
                 const best = prod ? cheapestRetailer(prod) : null;
                 return best ? `• ${name}, ${best.price.toFixed(3)} BHD at ${best.label}` : `• ${name}`;
@@ -1325,9 +1395,21 @@
             const MAX_LINES = 12;
             const shown = lines.slice(0, MAX_LINES);
             if (lines.length > MAX_LINES) shown.push(`…and ${lines.length - MAX_LINES} more`);
-            const message = `🍾 My Pour Choices favourites (${count}):\n${shown.join("\n")}\n\nSee live prices at all 4 shops:\n${url}`;
-            const previewHTML = shown.map(l => `<p class="text-[11px] text-gray-200 leading-relaxed">${escapeHTML(l)}</p>`).join("");
-            openShareModal(url, `Share ${count} favourite${count === 1 ? "" : "s"}`, message, previewHTML);
+            const heading = `🍾 My Pour Choices favourites (${count}):`;
+            const message = (note ? `💬 ${note}\n\n` : "") + `${heading}\n${shown.join("\n")}\n\nSee live prices at all 4 shops:\n${url}`;
+
+            modal.dataset.url = url;
+            modal.dataset.text = message;
+            document.getElementById("share-modal-link").textContent = count ? url.replace(/^https?:\/\//, "") : "Tick at least one favourite to send.";
+            // The QR image is a network fetch, so typing a message doesn't
+            // request a new one on every key press.
+            clearTimeout(shareQrTimer);
+            const setQr = () => {
+                const qr = document.getElementById("share-modal-qr");
+                qr.src = buildQrImageUrl(url, 200);
+                qr.alt = "QR code linking to " + url;
+            };
+            if (immediate) setQr(); else shareQrTimer = setTimeout(setQr, 400);
         }
 
         function escapeHTML(str) {
@@ -1346,7 +1428,8 @@
             const textEl = document.getElementById("shared-favourites-banner-text");
             if (!banner || !textEl) return;
             const n = sharedFavouriteNames.size;
-            textEl.textContent = `🎁 Someone shared ${n} favourite${n === 1 ? "" : "s"} with you -- tap to view`;
+            textEl.textContent = `🎁 Someone shared ${n} favourite${n === 1 ? "" : "s"} with you` +
+                (sharedNote ? `: "${sharedNote}"` : "") + " -- tap to view";
             banner.classList.remove("hidden");
         }
 
@@ -1366,6 +1449,11 @@
             showSharedOnly = true;
             const bar = document.getElementById("shared-view-bar");
             if (bar) bar.classList.remove("hidden");
+            const noteEl = document.getElementById("shared-view-note");
+            if (noteEl) {
+                noteEl.textContent = sharedNote ? `💬 ${sharedNote}` : "";
+                noteEl.classList.toggle("hidden", !sharedNote);
+            }
             renderProducts();
         }
 
