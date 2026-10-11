@@ -1704,11 +1704,15 @@
                     if (!favouritesSet.has(prod.name)) return;
                 } else if (activeCategory === "Drops") {
                     if (!isPriceDrop(prod)) return;
-                } else if (activeCategory !== "All" && prod.category !== activeCategory && !query) {
-                    // A typed search looks across every category (2026-10-11):
-                    // searching "port" while the Wine tab was still selected
-                    // used to find nothing, because port isn't filed as Wine.
-                    return;
+                } else if (activeCategory !== "All" && prod.category !== activeCategory) {
+                    // A typed search stays inside the selected tab (John,
+                    // 2026-10-11: Vodka + a search must show vodkas only).
+                    // One exception: inside the Wine tabs a search covers all
+                    // three wine sub-tabs, so "port" typed on Bottled Wine
+                    // still finds the ports under Fortified Wine.
+                    const sameWineGroup = query && WINE_SUBCATEGORIES.includes(activeCategory)
+                        && WINE_SUBCATEGORIES.includes(prod.category);
+                    if (!sameWineGroup) return;
                 }
                 if (query && !productSearchText(prod).includes(query)) return;
                 if (showComparedOnly && !(prod._inStockCount >= 2)) return;
@@ -1835,7 +1839,9 @@
                     ? `<p class="text-center text-sm text-gray-300 py-8">No price drops since last week's update. Prices are checked once a week, so look again after the next update.</p>`
                     : showComparedOnly
                     ? `<p class="text-center text-sm text-gray-300 py-8">No products with competing prices match this filter. Tap "⚖️ Compared only" to see everything.</p>`
-                    : `<p class="text-center text-sm text-gray-300 py-8">No products match this search.</p>`;
+                    : (query && activeCategory !== "All" && activeCategory !== "Drops" && !showFavouritesOnly && !showSharedOnly)
+                        ? `<p class="text-center text-sm text-gray-300 py-8">Nothing matches this search in ${categoryLabel(activeCategory)}.<br><button onclick="filterCategory('All', document.querySelector('.category-chip'))" class="mt-3 px-4 py-2 rounded-xl bg-amberGold text-obsidian text-xs font-bold">Search all categories</button></p>`
+                        : `<p class="text-center text-sm text-gray-300 py-8">No products match this search.</p>`;
                 return;
             }
             renderCardsProgressively(container, cardsHTML);
