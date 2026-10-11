@@ -96,6 +96,10 @@
         <!-- CATEGORY FILTER CHIPS -->
         <div class="flex space-x-2 overflow-x-auto pb-3 mb-3" style="-ms-overflow-style: none; scrollbar-width: none;">
             <button onclick="filterCategory('All', this)" class="category-chip active px-4 py-2 rounded-xl text-xs whitespace-nowrap transition duration-200">All</button>
+            <!-- Price drops (2026-10-11): every product whose cheapest in-stock
+                 price went down since the previous weekly scrape
+                 (price_trend "down", worked out by scrapers/merge.py). -->
+            <button id="drops-chip" onclick="filterCategory('Drops', this)" class="category-chip bg-charcoal text-emeraldGlow border border-emeraldGlow/40 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">📉 Price drops</button>
             <button onclick="filterCategory('Whisky', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Whisky</button>
             <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider</button>
             <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
@@ -404,6 +408,7 @@
                 console.error("Could not load product data:", e);
             }
             updateProductsComparedCount();
+            updatePriceDropsChipLabel();
             renderProducts();
             checkFavouritePriceDrops();
             checkSharedFavourites();
@@ -937,6 +942,19 @@
                 return;
             }
             renderProducts();
+        }
+
+        // A price drop: the cheapest in-stock price is lower than at the
+        // previous weekly scrape, and someone can actually buy it now.
+        function isPriceDrop(prod) {
+            return prod.price_trend === "down" && prod.price_last_seen != null && getLowestInStockPrice(prod) !== null;
+        }
+
+        function updatePriceDropsChipLabel() {
+            const chip = document.getElementById("drops-chip");
+            if (!chip) return;
+            const n = mockProducts.filter(isPriceDrop).length;
+            chip.textContent = n > 0 ? `📉 Price drops (${n})` : "📉 Price drops";
         }
 
         function updateFavouritesChipLabel() {
@@ -1634,6 +1652,7 @@
             const priceMax = maxInput && maxInput.value !== "" && !isNaN(parseFloat(maxInput.value)) ? parseFloat(maxInput.value) : null;
 
             const cardsHTML = [];
+            const dropOrder = new Map();
 
             mockProducts.forEach((prod, index) => {
                 // Viewing a link someone else shared (see "Share my
@@ -1648,6 +1667,8 @@
                     // favourited item can be in any category) but still respects
                     // search and the price range boxes below, same as normal.
                     if (!favouritesSet.has(prod.name)) return;
+                } else if (activeCategory === "Drops") {
+                    if (!isPriceDrop(prod)) return;
                 } else if (activeCategory !== "All" && prod.category !== activeCategory) {
                     return;
                 }
@@ -1672,6 +1693,11 @@
                 // be drawn (see renderCardsProgressively), not all ~3,100 up
                 // front, so a chip tap paints the first cards straight away
                 // instead of waiting for every card's HTML to be assembled.
+                // In the Price drops tab, cards are put in order of the biggest
+                // drop (as a share of last week's price) once the loop is done.
+                if (activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly) {
+                    dropOrder.set(cardsHTML.length, (prod.price_last_seen - lowestPrice) / prod.price_last_seen);
+                }
                 cardsHTML.push(() => {
                 const shouldBlur = !isPremium && index >= 2;
 
@@ -1759,8 +1785,17 @@
 
             renderFavouritesBasket(favouritesSet);
 
+            if (dropOrder.size) {
+                const ordered = cardsHTML.map((fn, i) => [fn, dropOrder.get(i) || 0]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+                cardsHTML.length = 0;
+                cardsHTML.push(...ordered);
+            }
+
             if (cardsHTML.length === 0) {
-                container.innerHTML = showComparedOnly
+                const dropsView = activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly;
+                container.innerHTML = dropsView && !query && !showComparedOnly
+                    ? `<p class="text-center text-sm text-gray-300 py-8">No price drops since last week's update. Prices are checked once a week, so look again after the next update.</p>`
+                    : showComparedOnly
                     ? `<p class="text-center text-sm text-gray-300 py-8">No products with competing prices match this filter. Tap "⚖️ Compared only" to see everything.</p>`
                     : `<p class="text-center text-sm text-gray-300 py-8">No products match this search.</p>`;
                 return;
@@ -1896,10 +1931,14 @@
                     btn.classList.add('bg-charcoal', 'text-amberGold');
                     return;
                 }
+                if (btn.id === 'drops-chip') {
+                    btn.classList.add('bg-charcoal', 'text-emeraldGlow');
+                    return;
+                }
                 btn.classList.add('bg-charcoal', 'text-gray-200', 'font-medium');
             });
             btnEl.classList.add('active');
-            btnEl.classList.remove('bg-charcoal', 'text-gray-200', 'font-medium');
+            btnEl.classList.remove('bg-charcoal', 'text-gray-200', 'font-medium', 'text-emeraldGlow');
             renderProducts();
         }
 
