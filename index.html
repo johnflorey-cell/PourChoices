@@ -674,7 +674,10 @@
         // badge on every single card would just be noise, not a signal.
         function priceBadgeHTML(prod) {
             if (prod.price_weeks_tracked == null || prod.price_weeks_tracked < 2) return "";
-            if (prod.price_is_lowest_ever) {
+            // Only celebrate a low when the price actually moved down this week.
+            // An unchanged price is trivially "the lowest yet" (and the highest),
+            // which flagged ~2,000 cards at once on the 11 Oct scrape.
+            if (prod.price_is_lowest_ever && prod.price_trend === "down") {
                 return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow">🔥 Lowest price yet</span>`;
             }
             if (prod.price_trend === "down" && prod.price_last_seen != null) {
