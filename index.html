@@ -37,6 +37,8 @@
     }
     body { -webkit-tap-highlight-color: transparent; background-color: #0F172A; }
     .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
+    .wine-subchip { background-color: transparent; color: #E5E7EB; border-color: rgba(245, 158, 11, 0.35); font-weight: 500; }
+    .wine-subchip.active { background-color: rgba(245, 158, 11, 0.18); color: #F59E0B; border-color: #F59E0B; font-weight: 700; }
 
     /* Non-blocking toast (see showToast()): replaces the alert() that used
        to fire on every retailer-link tap and was freezing the page until
@@ -104,12 +106,22 @@
             <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider</button>
             <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
             <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
-            <button onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine</button>
-            <button onclick="filterCategory('Box Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Box Wines</button>
-            <button onclick="filterCategory('Fortified', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Port &amp; Fortified Wines</button>
+            <button id="wine-chip" onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine ▾</button>
             <button onclick="filterCategory('Champagne', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Champagne &amp; Sparkling Wines</button>
             <button onclick="filterCategory('Other Spirits', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Other Spirits</button>
             <button id="favourites-chip" onclick="toggleFavouritesView()" class="category-chip bg-charcoal text-amberGold border border-amberGold/50 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">★ My Favourites</button>
+        </div>
+
+        <!-- WINE SUB-TABS (2026-10-11): shown only while the Wine chip is
+             selected. Bottled = ordinary wine bottles; Boxed = one pack
+             holding more than 2.75 litres (casks, bag-in-box); Fortified =
+             port, sherry, Madeira, Marsala, Moscatel. Whiskies that were
+             only aged in a port or sherry cask stay under Whisky (decided by
+             scrapers/_common.py and scrapers/merge.py). -->
+        <div id="wine-subtabs" class="hidden flex space-x-2 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-wine-sub="Wine" onclick="filterWineSub('Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍷 Bottled Wine</button>
+            <button data-wine-sub="Box Wine" onclick="filterWineSub('Box Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">📦 Boxed Wine</button>
+            <button data-wine-sub="Fortified" onclick="filterWineSub('Fortified')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🥃 Fortified Wine</button>
         </div>
 
         <!-- PRICE RANGE FILTER: filters on each product's lowest in-stock price
@@ -504,13 +516,16 @@
         // server-side (scrapers/_common.py's guess_category() already
         // matches "cider" as a Beer keyword), this is purely a label change.
         const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider",
-            "Box Wine": "Box Wines", "Fortified": "Port & Fortified Wines" };
+            "Wine": "Bottled Wine", "Box Wine": "Boxed Wine", "Fortified": "Fortified Wine" };
+        // The three categories the Wine chip's sub-tabs choose between.
+        const WINE_SUBCATEGORIES = ["Wine", "Box Wine", "Fortified"];
         // Extra words a search box query should find each category by
         // (2026-10-11): shops call box wines "Cask 3L" or "5LTR", so typing
         // "box wine" would otherwise find nothing.
         const CATEGORY_SEARCH_WORDS = {
-            "Box Wine": "box wines | boxed wine | bag in box",
-            "Fortified": "fortified wines",
+            "Wine": "bottled wine",
+            "Box Wine": "box wines | boxed wine | bag in box | cask wine",
+            "Fortified": "fortified wines | port wine | sherry",
         };
         const globalSearchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
         function productSearchText(prod) {
@@ -1626,6 +1641,7 @@
         }
 
         function renderProducts() {
+            syncWineSubtabs();
             const container = document.getElementById("product-container");
             container.innerHTML = "";
 
@@ -1906,6 +1922,22 @@
             if (minInput) minInput.value = "";
             if (maxInput) maxInput.value = "";
             renderProducts();
+        }
+
+        // Wine sub-tabs: Bottled / Boxed / Fortified. The main Wine chip
+        // stays highlighted whichever one is picked.
+        function filterWineSub(cat) {
+            filterCategory(cat, document.getElementById("wine-chip"));
+        }
+
+        function syncWineSubtabs() {
+            const row = document.getElementById("wine-subtabs");
+            if (!row) return;
+            const show = WINE_SUBCATEGORIES.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
+            row.classList.toggle("hidden", !show);
+            row.querySelectorAll(".wine-subchip").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.wineSub === activeCategory);
+            });
         }
 
         function filterCategory(cat, btnEl) {
