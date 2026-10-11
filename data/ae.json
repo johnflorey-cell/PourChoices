@@ -557,7 +557,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Dubonnet-Red?search=&page=1&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Ferrari Brut Trento",
@@ -2109,7 +2109,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cocchi-Americano-Bianco-Aperitivo?search=&page=3&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Cocchi Barolo Chinato",
@@ -2125,7 +2125,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cocchi-Rosa-Americano-Aperitivo?search=&page=3&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Cocchi Vermouth Di Torino Extra Dry",
@@ -2133,7 +2133,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Cocchi-Vermouth-Di-Torino-Extra-Dry?search=&page=3&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Coco Rico Salted Caramel & Coconut Flavoured Cream Liqueur",
@@ -3877,7 +3877,7 @@
     "in_stock": false,
     "url": "https://www.africanandeastern.com/Lillet-Blanc-French-Wine-Based-Aperitif ?search=&page=5&limit=100",
     "retailer": "African & Eastern",
-    "category": "Wine"
+    "category": "Fortified"
   },
   {
     "name": "Lillet Ros\u00e9 French Wine Based Aperitif",
@@ -3885,7 +3885,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Lillet-Rose-French-Wine-Based-Aperitif?search=&page=5&limit=100",
     "retailer": "African & Eastern",
-    "category": "Wine"
+    "category": "Fortified"
   },
   {
     "name": "Lillet Rouge French Wine Based Aperitif",
@@ -3893,7 +3893,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Lillet-Rouge-French-Wine-Based-Aperitif ?search=&page=5&limit=100",
     "retailer": "African & Eastern",
-    "category": "Wine"
+    "category": "Fortified"
   },
   {
     "name": "North Coast 500 Scottish Premium Gin",
@@ -4069,7 +4069,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Dolin-Blanc-Vermouth?search=&page=6&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Dolin Dry Vermouth",
@@ -4077,7 +4077,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Dolin-Dry-Vermouth?search=&page=6&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Dolin Rouge Vermouth",
@@ -4085,7 +4085,7 @@
     "in_stock": true,
     "url": "https://www.africanandeastern.com/Dolin-Rouge-Vermouth?search=&page=6&limit=100",
     "retailer": "African & Eastern",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "Jim Beam Kentucky Straight Bourbon Whiskey",

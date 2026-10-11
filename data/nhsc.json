@@ -445,7 +445,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Capano-Punt-E-Mes-Vermouth-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "CHARTREUSE ELIXIR VEGETAL 10CL",
@@ -1205,7 +1205,7 @@
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Noilly-Prat-Dry-Vermouth-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
-    "category": "Other Spirits"
+    "category": "Fortified"
   },
   {
     "name": "OCHO TEQUILA ANEJO LA LATILLA 40% 70CL",
@@ -2524,14 +2524,6 @@
     "price_bhd": 22.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Michael-David-Winery-Luxury-Lust-Zinfandel-75cl-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "MINIMALISTA ROSE 75CL",
-    "price_bhd": 4.62,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Minimalista-Rose-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
