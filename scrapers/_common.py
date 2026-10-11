@@ -202,11 +202,22 @@ CATEGORY_KEYWORDS = [
       "warres", "cockburn's", "cockburns", "fonseca", "croft", "quinta do noval",
       "niepoort", "ramos pinto", "porto cruz", "tio pepe", "harveys", "harvey's",
       "bristol cream", "barbadillo", "gonzalez byass", "lustau", "blandy's", "blandys",
-      "florio", "pellegrino marsala"), "Fortified"),
+      "florio", "pellegrino marsala",
+      # Added 2026-10-11 (John): vermouth counts as a fortified wine too, and
+      # "Solera Cream 1847" is a cream sherry whose name never says sherry.
+      # Martini's vermouths are listed only by colour ("Martini Red 1L"), so
+      # those phrases are named exactly; Martini Brut / Rose / Asti
+      # (sparkling) and Martini Bitter (a liqueur) are not caught.
+      "vermouth", "vermut", "vermouths", "punt e mes", "noilly prat",
+      "martini red", "martini rosso", "martini bianco", "martini extra dry",
+      "martini dry", "martini rosato", "solera cream", "solera 1847",
+      # Wine-based aperitifs (John, 2026-10-11): Dubonnet, Lillet, Cocchi
+      # Americano. "Americano" alone is not used (it is also a cocktail name).
+      "dubonnet", "lillet", "cocchi americano", "cocchi rosa", "rosa americano"), "Fortified"),
     (("wine", "wines", "shiraz", "cabernet", "merlot", "chardonnay", "sauvignon", "rose", "rosé"), "Wine"),
     (("rum", "rhum", "ron", "brandy", "cognac", "armagnac", "calvados", "tequila", "mezcal",
       "liqueur", "liquer", "liquore", "baileys", "sambuca", "amaretto", "amaro", "limoncello",
-      "vermouth", "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
+      "absinthe", "grappa", "pisco", "cachaca", "ouzo", "arak",
       "soju", "sake", "schnapps", "grand marnier", "aperitivo", "bitters"), "Other Spirits"),
     # Wine, second pass (2026-10-10, see "Wine and brand-gap fix" above):
     # a wine's listing very often names only its grape, its region or its
