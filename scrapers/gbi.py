@@ -52,7 +52,7 @@ from urllib.parse import quote_plus
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import brand_search_terms, term_already_covered, extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources
+from _common import brand_search_terms, term_already_covered, extract_price, guess_category, write_json, polite_sleep, connect_browser, block_heavy_resources, read_cards, BrowserSession
 
 from playwright.sync_api import sync_playwright
 
@@ -137,21 +137,48 @@ def dismiss_age_gate(page):
 def pick_card_name(card):
     """Return (name, href) for a product card, using the LONGEST non-junk
     link text instead of the first one, since real product names are
-    reliably longer than the wishlist/compare/etc labels themes add."""
+    reliably longer than the wishlist/compare/etc labels themes add.
+    `card` is one entry from read_cards() (already-read text and links)."""
     best_name, best_href = None, None
-    for a in card.query_selector_all("a"):
-        t = a.inner_text().strip()
+    for a in card["links"]:
+        t = (a["text"] or "").strip()
         if not t or t.lower() in NAME_BLOCKLIST:
             continue
         if best_name is None or len(t) > len(best_name):
             best_name = t
-            best_href = a.get_attribute("href")
+            best_href = a["href"]
     return best_name, best_href
 
+CARD_SELECTOR = ".featured-box, .product-thumb, .product-layout"
 
-def scrape_term(page, term, debug=False, max_pages=None, url_for_page=None):
+def load_listing_page(session, url, debug=False):
+    """Open one results page and read all its product cards. If the remote
+    browser has dropped (or the page hangs), reconnect once and try the same
+    page again (2026-10-11), instead of losing the rest of the scrape."""
+    for attempt in (1, 2):
+        try:
+            page = session.page
+            safe_goto(page, url)
+            page.wait_for_timeout(1500)
+            if debug:
+                print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
+                print(f"  [DEBUG] page title: {page.title()!r}", file=sys.stderr)
+                for sel in [".featured-box", ".product-thumb", ".product-layout"]:
+                    print(f"  [DEBUG] selector {sel!r} matches: {len(page.query_selector_all(sel))}", file=sys.stderr)
+                snippet = page.inner_text("body")[:500].replace("\n", " | ")
+                print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
+            return read_cards(page, CARD_SELECTOR)
+        except Exception as e:
+            print(f"  page failed (attempt {attempt}): {str(e).splitlines()[0]}", file=sys.stderr)
+            if attempt == 1:
+                session.restart()
+    return None
+
+def scrape_term(session, term, debug=False, max_pages=None, url_for_page=None):
     """Reads one search term's result pages (or, with url_for_page, any
-    paginated product listing) until a page comes back with no products."""
+    paginated product listing) until a page comes back with no products.
+    Never throws: if a page still fails after a reconnect, it keeps whatever
+    was already read for this term instead of losing all of it."""
     results = []
     seen_names = set()
     for page_num in range(1, (max_pages or MAX_PAGES_PER_TERM) + 1):
@@ -159,28 +186,20 @@ def scrape_term(page, term, debug=False, max_pages=None, url_for_page=None):
             url = url_for_page(page_num)
         else:
             url = f"{BASE}/index.php?route=product/search&search={quote_plus(term)}&page={page_num}"
-        safe_goto(page, url)
-        page.wait_for_timeout(1500)
-        if debug and page_num == 1:
-            print(f"  [DEBUG] final url: {page.url}", file=sys.stderr)
-            print(f"  [DEBUG] page title: {page.title()!r}", file=sys.stderr)
-            for sel in [".featured-box", ".product-thumb", ".product-layout"]:
-                print(f"  [DEBUG] selector {sel!r} matches: {len(page.query_selector_all(sel))}", file=sys.stderr)
-            snippet = page.inner_text("body")[:500].replace("\n", " | ")
-            print(f"  [DEBUG] body snippet: {snippet!r}", file=sys.stderr)
-        cards = page.query_selector_all(".featured-box, .product-thumb, .product-layout")
+        cards = load_listing_page(session, url, debug=debug and page_num == 1)
+        if cards is None:
+            print(f"  giving up on '{term}' at page {page_num}, keeping {len(results)} products already read", file=sys.stderr)
+            break
         if not cards:
             break
         if debug and page_num == 1:
             print(f"  [DEBUG] {len(cards)} card(s) found on page 1, checking each one:", file=sys.stderr)
         found_any = False
         for i, card in enumerate(cards):
-            text = card.inner_text()
+            text = card["text"]
             name, href = pick_card_name(card)
             price = extract_price(text)
-            # GBI marks an unavailable item by swapping the cart icon's image
-            # to "cart-out.svg" instead of any wording on the card itself.
-            out_of_stock = card.query_selector("img[src*='cart-out']") is not None
+            out_of_stock = card["cart_out"]
             if debug and page_num == 1:
                 print(f"    [DEBUG] card {i}: name={name!r} price={price!r} out_of_stock={out_of_stock}", file=sys.stderr)
             if name and price is not None:
@@ -200,15 +219,12 @@ def scrape_term(page, term, debug=False, max_pages=None, url_for_page=None):
         polite_sleep(1)
     return results
 
-
 def main():
     all_results = []
     seen = set()
     with sync_playwright() as p:
-        browser, page = connect_browser(p, USER_AGENT)
-        block_heavy_resources(page)
-        dismiss_age_gate(page)
-        print(f"[DEBUG] After age gate, page.url = {page.url}", file=sys.stderr)
+        session = BrowserSession(p, USER_AGENT, setup=dismiss_age_gate)
+        print(f"[DEBUG] After age gate, page.url = {session.page.url}", file=sys.stderr)
         # Full-catalogue listing (2026-10-10): checked in the shop's own site
         # that this one paginated listing shows EVERY product the shop sells
         # online, 100 per page -- GBI: the "Product filter" page (category path=0) with limit=100 returned all 599 products (6 pages) on 10 Oct 2026.
@@ -220,7 +236,7 @@ def main():
         # returning nothing.
         print("Reading GBI full product listing...", file=sys.stderr)
         try:
-            listed = scrape_term(page, "(full listing)", debug=True, max_pages=MAX_LISTING_PAGES,
+            listed = scrape_term(session, "(full listing)", debug=True, max_pages=MAX_LISTING_PAGES,
                                  url_for_page=lambda page_num: f"{BASE}/index.php?route=product/category&path=0&limit=100&page={page_num}")
         except Exception as e:
             print(f"  full listing failed: {e}", file=sys.stderr)
@@ -237,7 +253,7 @@ def main():
         for term in ([] if full_listing_ok else SEARCH_TERMS):
             print(f"Searching GBI for '{term}'...", file=sys.stderr)
             try:
-                items = scrape_term(page, term, debug=first)
+                items = scrape_term(session, term, debug=first)
             except Exception as e:
                 print(f"  failed: {e}", file=sys.stderr)
                 items = []
@@ -265,7 +281,7 @@ def main():
                 break
             searched += 1
             try:
-                items = scrape_term(page, term, max_pages=MAX_PAGES_PER_BRAND)
+                items = scrape_term(session, term, max_pages=MAX_PAGES_PER_BRAND)
             except Exception as e:
                 print(f"  brand '{term}' failed: {e}", file=sys.stderr)
                 items = []
@@ -275,7 +291,9 @@ def main():
                     seen.add(key)
                     all_results.append(item)
         print(f"Brand searches added {len(all_results) - before} new products ({searched} brands searched)", file=sys.stderr)
-        browser.close()
+        if session.restarts:
+            print(f"Browser reconnected {session.restarts} time(s) during this run", file=sys.stderr)
+        session.close()
     write_json("gbi.json", all_results)
 
 

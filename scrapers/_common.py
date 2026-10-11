@@ -296,9 +296,33 @@ def looks_out_of_stock(text):
     return any(phrase in lowered for phrase in OUT_OF_STOCK_PHRASES)
 
 
+# Safety net (2026-10-11): on 11 Oct 2026 A&E's remote browser dropped
+# mid-run, the scraper came back with 0 products, and that empty list
+# overwrote the previous week's 1,093 good A&E products, so A&E vanished
+# from the site. A shop's whole online range never genuinely halves in a
+# week, so if a scrape comes back with less than MIN_KEEP_RATIO of what
+# the last saved file had, the old file is KEPT (prices a week older, but
+# the products stay on the site) and the step is marked failed in the
+# Actions log so it's visible. Set ALLOW_SHRINK=1 on a manual run to accept
+# a genuinely smaller catalogue.
+MIN_KEEP_RATIO = float(os.environ.get("MIN_KEEP_RATIO", "0.5"))
+
+
 def write_json(filename, results):
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     path = DATA_DIR / filename
+    previous = 0
+    if path.exists():
+        try:
+            previous = len(json.loads(path.read_text()))
+        except Exception:
+            previous = 0
+    if (previous >= 50 and len(results) < previous * MIN_KEEP_RATIO
+            and os.environ.get("ALLOW_SHRINK") != "1"):
+        print(f"WARNING: {filename}: this scrape found only {len(results)} products, "
+              f"versus {previous} last time. Looks like a failed scrape, so the "
+              f"previous {filename} has been KEPT unchanged.")
+        raise SystemExit(1)
     path.write_text(json.dumps(results, indent=2))
     print(f"Wrote {len(results)} products to {path}")
 
@@ -331,6 +355,66 @@ def connect_browser(p, user_agent):
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         page = browser.new_page(user_agent=user_agent)
     return browser, page
+
+
+CARD_READER_JS = """(sel) => Array.from(document.querySelectorAll(sel)).map(card => ({
+    text: card.innerText || "",
+    links: Array.from(card.querySelectorAll("a")).map(a => ({
+        text: (a.innerText || "").trim(), href: a.getAttribute("href")})),
+    cart_out: !!card.querySelector("img[src*='cart-out']"),
+}))"""
+
+
+def read_cards(page, selector):
+    """Read every product card on the page in ONE round trip (2026-10-11).
+
+    The old way asked the remote browser for each card's text, each link's
+    text and each link's address one at a time, around 10 round trips per
+    card, so 100 cards took about 80 seconds through the proxy. Doing it in
+    one page.evaluate() reads the same innerText in about a second, which
+    makes the whole A&E/GBI scrape several times shorter and leaves far
+    less time for a remote browser session to drop mid-way."""
+    return page.evaluate(CARD_READER_JS, selector)
+
+
+class BrowserSession:
+    """A browser + page that can reconnect itself (2026-10-11).
+
+    Bright Data's remote browser occasionally drops a session mid-run
+    ("Target page, context or browser has been closed"). Before this, a
+    single drop made every later page fail instantly. restart() opens a
+    fresh session, re-applies image blocking and re-passes the shop's age
+    gate (via the setup function each scraper passes in), so the scrape
+    carries on from the page it was on."""
+
+    def __init__(self, p, user_agent, setup=None):
+        self.p, self.user_agent, self.setup = p, user_agent, setup
+        self.browser = None
+        self.page = None
+        self.restarts = 0
+        self._open()
+
+    def _open(self):
+        self.browser, self.page = connect_browser(self.p, self.user_agent)
+        block_heavy_resources(self.page)
+        if self.setup:
+            self.setup(self.page)
+
+    def restart(self):
+        self.restarts += 1
+        try:
+            self.browser.close()
+        except Exception:
+            pass
+        time.sleep(5)
+        self._open()
+        print(f"  Reconnected to a fresh browser (reconnect #{self.restarts})", flush=True)
+
+    def close(self):
+        try:
+            self.browser.close()
+        except Exception:
+            pass
 
 
 def block_heavy_resources(page):
