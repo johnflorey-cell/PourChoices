@@ -808,6 +808,14 @@
     "category": "Beer"
   },
   {
+    "name": "Heineken Can 50cl [24 Pack]",
+    "price_bhd": 41.0,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/heineken-can-50cl-24-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
+  },
+  {
     "name": "Heineken Bottles 33cl [24 Pack]",
     "price_bhd": 39.05,
     "in_stock": true,
@@ -6374,6 +6382,14 @@
     "url": "https://www.bmmishops.com/raymond-napa-valley-reserve-cabernet-sauvignon-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
+  },
+  {
+    "name": "Heineken Can 50cl [6 Pack]",
+    "price_bhd": 10.45,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/heineken-can-50cl-6-pack.html",
+    "retailer": "BMMI",
+    "category": "Beer"
   },
   {
     "name": "Dewar's White Label 1.14L",
@@ -13580,6 +13596,14 @@
     "price_bhd": 0.775,
     "in_stock": true,
     "url": "https://www.bmmishops.com/evian-sparkling-water-glass-330ml.html",
+    "retailer": "BMMI",
+    "category": "Other Spirits"
+  },
+  {
+    "name": "Bols Curacao Blue 75cl",
+    "price_bhd": 9.8,
+    "in_stock": true,
+    "url": "https://www.bmmishops.com/bols-curacao-blue-75cl.html",
     "retailer": "BMMI",
     "category": "Other Spirits"
   }

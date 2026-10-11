@@ -200,14 +200,6 @@
     "category": "Wine"
   },
   {
-    "name": "Coca Cola 330ml Cans X 6",
-    "price_bhd": 3.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/Coca-Cola?limit=100",
-    "retailer": "GBI Express",
-    "category": "Other Spirits"
-  },
-  {
     "name": "Coca Cola Diet 330ml Cans X 6",
     "price_bhd": 3.0,
     "in_stock": false,
@@ -978,7 +970,7 @@
   {
     "name": "Tequila Siete Leguas Reposado 5cl",
     "price_bhd": 6.5,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/tequila-siete-leguas-reposado-5-cl?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
@@ -2064,26 +2056,10 @@
     "category": "Other Spirits"
   },
   {
-    "name": "Jinro Green Grape Soju 360ml X 6 Bottles",
-    "price_bhd": 12.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/jinro-green-grape-soju-360-ml-x-6-bottles?limit=100",
-    "retailer": "GBI Express",
-    "category": "Other Spirits"
-  },
-  {
     "name": "Jinro Lemon Soju 360ml X 6 Bottles",
     "price_bhd": 12.0,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/jinro-lemon-soju-360-ml-x-6-bottles?limit=100",
-    "retailer": "GBI Express",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Jinro Peach Soju 360ml X 6 Bottles",
-    "price_bhd": 12.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/jinro-peach-soju-360-ml-x-6-bottles?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
   },
@@ -2986,7 +2962,7 @@
   {
     "name": "Miraval Cotes De Provence Rose 75cl",
     "price_bhd": 16.0,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.gbiexpress.com/miraval-cotes-de-provence-rose?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"

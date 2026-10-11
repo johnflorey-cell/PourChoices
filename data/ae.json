@@ -2514,7 +2514,7 @@
   {
     "name": "Olmeca Silver Tequila",
     "price_bhd": 16.98,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/Olmeca-Silver-Tequila?search=&page=4&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -6561,7 +6561,7 @@
   },
   {
     "name": "Estrella Galicia Beer Bottles [6-Pack]",
-    "price_bhd": 16.348,
+    "price_bhd": 8.191,
     "in_stock": false,
     "url": "https://www.africanandeastern.com/estrella-galicia-beer-bottles-6-pack?search=&page=9&limit=100",
     "retailer": "African & Eastern",
