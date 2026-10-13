@@ -552,6 +552,17 @@ def _same_listing_key(item):
     return (" ".join(item["name"].lower().split()), item.get("price_bhd"))
 
 
+def _same_name_key(item):
+    """Name with case, apostrophes, punctuation, "&" vs "and" and a bare
+    "bottle"/"btl" tidied away. Used only within one shop's own list."""
+    name = unicodedata.normalize("NFD", item["name"].lower())
+    name = "".join(ch for ch in name if not unicodedata.combining(ch))
+    name = re.sub(r"['’`]", "", name).replace("&", " and ")
+    name = re.sub(r"[^a-z0-9.%]+", " ", name)
+    words = [w for w in name.split() if w not in ("bottle", "btl")]
+    return " ".join(words)
+
+
 # A&E bottle sizes (2026-10-11): ae.py reads each product's own page once for
 # its "Packing" size and keeps it in data/ae_sizes.json ({url path: "75cl"}),
 # because most A&E names leave the size out. Adding it to the name here gives
@@ -585,6 +596,7 @@ def load_retailer(key):
     # the same product under more than one search term).
     seen = set()
     seen_listing = {}
+    seen_product = {}
     deduped = []
     for item in items:
         if is_accessory(item["name"]):
@@ -593,23 +605,37 @@ def load_retailer(key):
         if dedup_key in seen:
             continue
         seen.add(dedup_key)
-        listing_key = _same_listing_key(item)
-        if listing_key in seen_listing:
-            # Keep one card, but don't lose what the second category page
-            # told us: a sparkling wine listed under both Wine and Sparkling
-            # keeps Champagne & Sparkling Wines, and it counts as in stock if
-            # either listing says so.
-            kept = seen_listing[listing_key]
-            if item.get("category") == "Champagne":
-                kept["category"] = "Champagne"
-            if item.get("in_stock", True) and kept.get("in_stock", True) is False:
-                kept["in_stock"] = True
-            continue
-        seen_listing[listing_key] = item
         item["_norm"] = normalize(item["name"])
         item["_sig_words"] = significant_words(item["_norm"])
         item["_size_ml"] = extract_size_ml(item["name"])
         item["_pack_count"] = extract_pack_count(item["name"])
+        listing_key = _same_listing_key(item)
+        # Same shop, same product (2026-10-13): GBI lists "Woodbridge Pinot
+        # Grigio 75cl" on two pages with two product codes and two prices
+        # (6.400 and 7.600 promo). Two listings in ONE shop whose names are
+        # the same apart from case, punctuation, "&"/"and" or a bare
+        # "Bottle" become one card with the cheaper price. Deliberately
+        # stricter than the cross-shop test: inside one shop, a different
+        # word ("Gin"/"Vodka", "Cans"/"Bottles", "Extra Anejo") means a
+        # different product.
+        product_key = _same_name_key(item)
+        kept = seen_listing.get(listing_key) or seen_product.get(product_key)
+        if kept is not None:
+            # Keep one card, but don't lose what the second listing told us:
+            # a sparkling wine listed under both Wine and Sparkling keeps
+            # Champagne & Sparkling Wines, it counts as in stock if either
+            # listing says so, and the cheaper buyable price wins.
+            if item.get("category") == "Champagne":
+                kept["category"] = "Champagne"
+            item_buyable = item.get("in_stock", True) is not False and (item.get("price_bhd") or 0) > 0
+            kept_buyable = kept.get("in_stock", True) is not False and (kept.get("price_bhd") or 0) > 0
+            if item_buyable and (not kept_buyable or item["price_bhd"] < kept["price_bhd"]):
+                for field in ("price_bhd", "in_stock", "url"):
+                    if field in item:
+                        kept[field] = item[field]
+            continue
+        seen_listing[listing_key] = item
+        seen_product[product_key] = item
         deduped.append(item)
     return deduped
 
