@@ -103,7 +103,7 @@
                  (price_trend "down", worked out by scrapers/merge.py). -->
             <button id="drops-chip" onclick="filterCategory('Drops', this)" class="category-chip bg-charcoal text-emeraldGlow border border-emeraldGlow/40 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">📉 Price drops</button>
             <button onclick="filterCategory('Whisky', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Whisky</button>
-            <button onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider</button>
+            <button id="beer-chip" onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider ▾</button>
             <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
             <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
             <button onclick="filterCategory('Rum', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Rum</button>
@@ -123,6 +123,16 @@
             <button data-wine-sub="Wine" onclick="filterWineSub('Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍷 Bottled Wine</button>
             <button data-wine-sub="Box Wine" onclick="filterWineSub('Box Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">📦 Boxed Wine</button>
             <button data-wine-sub="Fortified" onclick="filterWineSub('Fortified')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🥃 Fortified Wine</button>
+        </div>
+
+        <!-- BEER & CIDER SUB-TABS (2026-10-13): shown only while the Beer &
+             Cider chip is selected. Worked out in the page from each
+             product's name (beerSubcategory() below), so it works on the
+             current data without waiting for a scrape. -->
+        <div id="beer-subtabs" class="hidden flex space-x-2 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-beer-sub="Beer" onclick="filterBeerSub('Beer')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍺 Beer</button>
+            <button data-beer-sub="Cider" onclick="filterBeerSub('Cider')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍏 Cider</button>
+            <button data-beer-sub="Non-Alcoholic Beer" onclick="filterBeerSub('Non-Alcoholic Beer')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🚫 Non Alcoholic Beer</button>
         </div>
 
         <!-- PRICE RANGE FILTER: filters on each product's lowest in-stock price
@@ -221,8 +231,8 @@
                  small/easy to miss sitting quietly next to a label, same
                  "too small to notice" class of issue as the price-per-litre
                  text fix the same day. -->
-            <button onclick="shareFavourites()" class="w-full mb-3 flex items-center justify-center space-x-2 bg-amberGold text-obsidian font-bold text-xs py-3 rounded-xl active:scale-[0.98] transition">
-                <span>📤</span><span>Share My Favourites List</span>
+            <button onclick="shareFavourites()" class="mb-3 ml-auto flex items-center justify-center space-x-1.5 bg-amberGold text-obsidian font-bold text-[11px] px-3 py-1.5 rounded-lg active:scale-[0.98] transition">
+                <span>📤</span><span>Share list</span>
             </button>
             <!-- BASKET SUMMARY (added 2026-10-10): what the whole favourites
                  list costs at each shop, and the cheapest way to buy it
@@ -230,7 +240,7 @@
                  renderFavouritesBasket(). -->
             <div id="favourites-basket" class="hidden mb-3 bg-charcoal border border-emeraldGlow/30 rounded-xl px-3 py-3"></div>
             <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
-            <textarea id="favourites-note" rows="6" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
+            <textarea id="favourites-note" rows="2" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
         </div>
 
         <!-- PRODUCT LIST OVERVIEW -->
@@ -244,7 +254,7 @@
              hit on 27 of 36 visits). Reserving a viewport of space up front
              means the footer starts off-screen below the fold either way,
              so the later jump isn't a visible shift. -->
-        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[100vh]"></div>
+        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[100vh] pb-16"></div>
 
         <!-- STICKY BOTTOM PAYWALL FOOTER -->
         <div id="paywall-footer" class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-obsidian via-obsidian to-transparent pt-6 pb-4 px-4 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto z-40">
@@ -289,8 +299,10 @@
     </div>
 
     <!-- 3. BETA FEEDBACK BUTTON + MODAL -->
-    <button onclick="openFeedbackModal()" class="fixed bottom-5 right-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
-        💬 Feedback
+    <!-- Small round icon buttons (2026-10-13): the old wide "Share" and
+         "Feedback" pills covered the favourites list on a phone. -->
+    <button onclick="openFeedbackModal()" aria-label="Feedback" title="Feedback" class="fixed bottom-3 right-3 z-30 w-10 h-10 flex items-center justify-center bg-charcoal/90 border border-gray-700 text-base rounded-full shadow-xl active:scale-95 transition">
+        💬
     </button>
 
     <!-- 4. SHARE BUTTON: opens the QR-code share modal (see shareApp() and
@@ -300,8 +312,8 @@
          scan works the same way regardless of which phone/OS either one has,
          unlike the native share sheet (no AirDrop between an iPhone and an
          Android, for instance) or typing a link out by hand. -->
-    <button onclick="shareApp()" class="fixed bottom-5 left-5 z-30 bg-charcoal border border-gray-700 text-amberGold text-xs font-bold px-4 py-3 rounded-full shadow-xl active:scale-95 transition">
-        🔗 Share
+    <button onclick="shareApp()" aria-label="Share the app" title="Share the app" class="fixed bottom-3 left-3 z-30 w-10 h-10 flex items-center justify-center bg-charcoal/90 border border-gray-700 text-base rounded-full shadow-xl active:scale-95 transition">
+        🔗
     </button>
 
     <!-- LIGHTWEIGHT TOAST NOTIFICATION (see showToast()): shows the "opening
@@ -334,10 +346,12 @@
          service is ever slow/unreachable the link text and copy button
          below it still work on their own. -->
     <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
-        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="share-modal-content">
-            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closeShareModal()"></div>
-            <h3 id="share-modal-title" class="text-lg font-bold">Share</h3>
-            <p class="text-xs text-gray-400 mt-1 mb-4">Send it on WhatsApp, or let the other phone scan the code.</p>
+        <div class="bg-charcoal rounded-t-3xl px-4 pt-3 pb-4 text-center max-w-md mx-auto w-full max-h-[92vh] overflow-y-auto border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="share-modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-3" onclick="closeShareModal()"></div>
+            <div class="flex items-center justify-between mb-2">
+                <h3 id="share-modal-title" class="text-base font-bold text-left">Share</h3>
+                <button onclick="closeShareModal()" aria-label="Close" class="text-gray-400 text-lg leading-none px-2">✕</button>
+            </div>
 
             <!-- Readable preview of what's being shared (filled in only when
                  sharing a favourites list), so the person sending it sees
@@ -348,7 +362,7 @@
                  (all ticked to start with) and add an optional personal
                  message. The link, QR code and WhatsApp text update as you
                  go. -->
-            <div id="share-fav-controls" class="hidden text-left mb-4">
+            <div id="share-fav-controls" class="hidden text-left mb-3">
                 <div class="flex justify-between items-center mb-1.5">
                     <p class="text-[11px] font-bold text-gray-200">Choose what to send <span id="share-fav-count" class="text-amberGold"></span></p>
                     <div class="flex items-center space-x-3">
@@ -356,29 +370,27 @@
                         <button onclick="setAllShareChoices(false)" class="text-[11px] text-amberGold font-bold">None</button>
                     </div>
                 </div>
-                <div id="share-fav-choices" class="bg-obsidian border border-gray-800 rounded-xl px-3 py-2 max-h-48 overflow-y-auto"></div>
-                <label for="share-fav-note" class="block text-[11px] font-bold text-gray-200 mt-3 mb-1">Add a message (optional)</label>
+                <div id="share-fav-choices" class="bg-obsidian border border-gray-800 rounded-xl px-3 py-2 max-h-[40vh] overflow-y-auto"></div>
+                <label for="share-fav-note" class="block text-[11px] font-bold text-gray-200 mt-2 mb-1">Add a message (optional)</label>
                 <textarea id="share-fav-note" rows="2" maxlength="200" oninput="updateFavouritesShare()" placeholder="e.g. Can you pick these up for Friday?" class="w-full bg-obsidian border border-gray-800 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amberGold"></textarea>
             </div>
 
-            <div class="bg-white rounded-xl p-3 mb-4 flex items-center justify-center">
-                <img id="share-modal-qr" src="" alt="QR code" width="160" height="160" class="w-[160px] h-[160px]">
+            <!-- Compact buttons in one row (2026-10-13): the old full-width
+                 stacked buttons and big QR code took the whole phone screen
+                 and hid the favourites list above them. -->
+            <div class="flex space-x-2 mb-2">
+                <button onclick="shareViaWhatsApp()" class="flex-1 bg-[#25D366] text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">WhatsApp</button>
+                <button onclick="copyShareLink()" class="flex-1 bg-amberGold text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">Copy</button>
+                <button id="share-modal-sheet-btn" onclick="shareViaSheet()" class="hidden flex-1 bg-white text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">More...</button>
             </div>
-
-            <p id="share-modal-link" class="text-[11px] text-gray-400 mb-4 break-all select-all"></p>
-
-            <div class="space-y-2">
-                <button onclick="shareViaWhatsApp()" class="w-full bg-[#25D366] text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
-                    Send on WhatsApp
-                </button>
-                <button onclick="copyShareLink()" class="w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
-                    Copy Message
-                </button>
-                <button id="share-modal-sheet-btn" onclick="shareViaSheet()" class="hidden w-full bg-white text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
-                    Share via...
-                </button>
+            <button id="share-qr-toggle" onclick="toggleShareQr()" class="text-[11px] text-amberGold font-bold mb-2">Show QR code ▾</button>
+            <div id="share-qr-wrap" class="hidden">
+                <div class="bg-white rounded-xl p-2 mb-2 inline-flex items-center justify-center">
+                    <img id="share-modal-qr" src="" alt="QR code" width="120" height="120" class="w-[120px] h-[120px]">
+                </div>
+                <p class="text-[10px] text-gray-400 mb-1">Let the other phone scan this code.</p>
             </div>
-            <button onclick="closeShareModal()" class="mt-4 text-xs text-gray-500 font-medium">Close</button>
+            <p id="share-modal-link" class="text-[10px] text-gray-500 break-all select-all"></p>
         </div>
     </div>
 
@@ -406,6 +418,7 @@
                 const res = await fetch("data/products.json", { cache: "no-cache" });
                 if (!res.ok) throw new Error("HTTP " + res.status);
                 mockProducts = await res.json();
+                splitBeerCategories(mockProducts);
                 computeComparisonStats();
                 // The sort choice is deliberately NOT remembered between visits:
                 // every visit opens on "Biggest saving", so the first
@@ -516,10 +529,27 @@
         // "Beer & Cider" -- cider products already land in the "Beer" bucket
         // server-side (scrapers/_common.py's guess_category() already
         // matches "cider" as a Beer keyword), this is purely a label change.
-        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer & Cider",
+        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer",
+            "Cider": "Cider", "Non-Alcoholic Beer": "Non Alcoholic Beer",
             "Wine": "Bottled Wine", "Box Wine": "Boxed Wine", "Fortified": "Fortified Wine" };
         // The three categories the Wine chip's sub-tabs choose between.
         const WINE_SUBCATEGORIES = ["Wine", "Box Wine", "Fortified"];
+        // The three categories the Beer & Cider chip's sub-tabs choose
+        // between (2026-10-13). The scrapers file all of these as "Beer";
+        // beerSubcategory() splits them by name once the data has loaded.
+        const BEER_SUBCATEGORIES = ["Beer", "Cider", "Non-Alcoholic Beer"];
+        const NON_ALCOHOLIC_RE = /(^|[^\d.])0[.,][0-5]\s*%?(?!\d)|(^|[^\d.])0\s*%|alcohol[\s-]*free|non[\s-]*alc|alkoholfrei|\bsin alcohol\b|\bcero\b|\bzero\b|\bnab\b/i;
+        const CIDER_RE = /\b(ciders?|cidre|sidra|perry)\b/i;
+        function beerSubcategory(name) {
+            if (NON_ALCOHOLIC_RE.test(name)) return "Non-Alcoholic Beer";
+            if (CIDER_RE.test(name)) return "Cider";
+            return "Beer";
+        }
+        function splitBeerCategories(products) {
+            products.forEach(prod => {
+                if (prod.category === "Beer") prod.category = beerSubcategory(prod.name || "");
+            });
+        }
         // Extra words a search box query should find each category by
         // (2026-10-11): shops call box wines "Cask 3L" or "5LTR", so typing
         // "box wine" would otherwise find nothing.
@@ -527,6 +557,10 @@
             "Wine": "bottled wine",
             "Box Wine": "box wines | boxed wine | bag in box | cask wine",
             "Fortified": "fortified wines | port wine | sherry",
+            // Shops write alcohol-free beer many ways (0.0, Zero, Cero,
+            // Alcohol Free), so any of these words finds the whole tab.
+            "Non-Alcoholic Beer": "non alcoholic beer | non-alcoholic | nonalcoholic | alcohol free | alcohol-free | zero alcohol | 0.0 | 0% | na beer | beer",
+            "Cider": "ciders",
         };
         const globalSearchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
         function productSearchText(prod) {
@@ -1288,6 +1322,20 @@
         // QR-drawing library for this one image -- it's just an <img src>,
         // and the link text + Copy Link button below it still work even if
         // that service is ever briefly down.
+        // QR code folds away under a "Show QR code" button so it doesn't
+        // push the favourites pick-list off a phone screen (2026-10-13).
+        // Open by default when sharing the app itself (nothing else to see).
+        function setShareQrOpen(open) {
+            const wrap = document.getElementById("share-qr-wrap");
+            const btn = document.getElementById("share-qr-toggle");
+            if (wrap) wrap.classList.toggle("hidden", !open);
+            if (btn) btn.textContent = open ? "Hide QR code ▴" : "Show QR code ▾";
+        }
+        function toggleShareQr() {
+            const wrap = document.getElementById("share-qr-wrap");
+            setShareQrOpen(wrap ? wrap.classList.contains("hidden") : true);
+        }
+
         function buildQrImageUrl(data, sizePx) {
             return `https://api.qrserver.com/v1/create-qr-code/?size=${sizePx}x${sizePx}&data=${encodeURIComponent(data)}`;
         }
@@ -1316,6 +1364,7 @@
             document.getElementById("share-modal-qr").src = buildQrImageUrl(url, 200);
             document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
             modal.dataset.url = url;
+            setShareQrOpen(true);
             // navigator.share only exists on phones/browsers that actually
             // have a share sheet to open -- offered as a secondary option
             // underneath the QR code and Copy Link, not in place of them.
@@ -1421,6 +1470,7 @@
             document.getElementById("share-fav-note").value = "";
             document.getElementById("share-fav-controls").classList.remove("hidden");
             updateFavouritesShare(true);
+            setShareQrOpen(false);
         }
 
         function setAllShareChoices(on) {
@@ -1717,7 +1767,9 @@
                     // still finds the ports under Fortified Wine.
                     const sameWineGroup = query && WINE_SUBCATEGORIES.includes(activeCategory)
                         && WINE_SUBCATEGORIES.includes(prod.category);
-                    if (!sameWineGroup) return;
+                    const sameBeerGroup = query && BEER_SUBCATEGORIES.includes(activeCategory)
+                        && BEER_SUBCATEGORIES.includes(prod.category);
+                    if (!sameWineGroup && !sameBeerGroup) return;
                 }
                 if (query && !productSearchText(prod).includes(query)) return;
                 if (showComparedOnly && !(prod._inStockCount >= 2)) return;
@@ -1941,13 +1993,20 @@
             filterCategory(cat, document.getElementById("wine-chip"));
         }
 
+        function filterBeerSub(cat) {
+            filterCategory(cat, document.getElementById("beer-chip"));
+        }
+
         function syncWineSubtabs() {
-            const row = document.getElementById("wine-subtabs");
-            if (!row) return;
-            const show = WINE_SUBCATEGORIES.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
-            row.classList.toggle("hidden", !show);
-            row.querySelectorAll(".wine-subchip").forEach(btn => {
-                btn.classList.toggle("active", btn.dataset.wineSub === activeCategory);
+            const groups = [["wine-subtabs", WINE_SUBCATEGORIES, "wineSub"], ["beer-subtabs", BEER_SUBCATEGORIES, "beerSub"]];
+            groups.forEach(([rowId, cats, key]) => {
+                const row = document.getElementById(rowId);
+                if (!row) return;
+                const show = cats.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
+                row.classList.toggle("hidden", !show);
+                row.querySelectorAll(".wine-subchip").forEach(btn => {
+                    btn.classList.toggle("active", btn.dataset[key] === activeCategory);
+                });
             });
         }
 
