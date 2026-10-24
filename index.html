@@ -607,18 +607,78 @@
         const CATEGORY_SEARCH_WORDS = {
             "Wine": "bottled wine",
             "Box Wine": "box wines | boxed wine | bag in box | cask wine",
-            "Fortified": "fortified wines | port wine | sherry",
+            "Fortified": "fortified wines",
             // Shops write alcohol-free beer many ways (0.0, Zero, Cero,
             // Alcohol Free), so any of these words finds the whole tab.
             "Non-Alcoholic Beer": "non alcoholic beer | non-alcoholic | nonalcoholic | alcohol free | alcohol-free | zero alcohol | 0.0 | 0% | na beer | beer",
             "Cider": "ciders",
         };
+        // Fortified wines (2026-10-24): "port" and "sherry" used to be search
+        // words on EVERY fortified product, so typing "Port" in Fortified
+        // Wine also listed every sherry and vermouth. Now each product only
+        // gets the word for its own type, so "sherry" still finds an
+        // "Amontillado" or "Fino" that never says sherry in its name.
+        const PORT_TYPE_RE = /\b(port|porto|tawny|lbv|late bottled|colheita|ruby|graham'?s|taylor'?s|dow'?s|warre'?s|cockburn'?s|fonseca|croft|porto cruz|offley|niepoort|quinta)\b/i;
+        const SHERRY_TYPE_RE = /\b(sherry|jerez|xeres|oloroso|amontillado|fino|manzanilla|palo cortado|pedro xim[eé]nez|px|cream|tio pepe|harveys|barbadillo|lustau|gonzalez byass|solera)\b/i;
+        function fortifiedTypeWords(prod) {
+            if (prod.category !== "Fortified") return "";
+            const n = prod.name || "";
+            const words = [];
+            if (PORT_TYPE_RE.test(n)) words.push("port wine");
+            if (SHERRY_TYPE_RE.test(n)) words.push("sherry");
+            return words.join(" | ");
+        }
+        // Typo-tolerant search helpers (2026-10-24). Each typed word must
+        // closely match the START of some word in the product's name: up to
+        // 1 letter wrong/missing/extra for 4-5 letter words, 2 for 6+.
+        // A 3-letter word only matches if one letter is missing ("pot" ->
+        // "port"), since allowing more would match far too much.
+        function editDistance(a, b, max) {
+            if (Math.abs(a.length - b.length) > max) return max + 1;
+            // Two letters swapped ("gery" for "grey") counts as one mistake.
+            let prev2 = null;
+            let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+            for (let i = 1; i <= a.length; i++) {
+                const cur = [i];
+                let rowMin = i;
+                for (let j = 1; j <= b.length; j++) {
+                    cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+                    if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) cur[j] = Math.min(cur[j], prev2[j - 2] + 1);
+                    if (cur[j] < rowMin) rowMin = cur[j];
+                }
+                if (rowMin > max) return max + 1;
+                prev2 = prev;
+                prev = cur;
+            }
+            return prev[b.length];
+        }
+        function fuzzyWordMatch(q, word) {
+            if (word.startsWith(q)) return true;
+            if (q.length < 3 || q[0] !== word[0]) return false;
+            if (q.length === 3) {
+                const pre = word.slice(0, 4);
+                if (pre.length < 4) return false;
+                for (let k = 1; k < 4; k++) if (pre.slice(0, k) + pre.slice(k + 1) === q) return true;
+                return false;
+            }
+            const max = q.length >= 6 ? 2 : 1;
+            for (let len = q.length - max; len <= q.length + max; len++) {
+                if (len < 3 || len > word.length) continue;
+                if (editDistance(q, word.slice(0, len), max) <= max) return true;
+            }
+            return false;
+        }
+        function fuzzySearchMatch(prod, queryWords) {
+            if (!queryWords.length) return false;
+            if (!prod._searchWords) prod._searchWords = productSearchText(prod).split(/[^a-z0-9]+/).filter(Boolean);
+            return queryWords.every(q => prod._searchWords.some(w => fuzzyWordMatch(q, w)));
+        }
         const globalSearchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
         function productSearchText(prod) {
             if (prod._search === undefined) {
                 // " | " keeps a query from matching across the end of the
                 // name and the extra words ("...Wooden Box" + "wine").
-                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""} | ${WINE_COLOUR_SEARCH_WORDS[prod._wineColour] || ""}`);
+                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""} | ${WINE_COLOUR_SEARCH_WORDS[prod._wineColour] || ""} | ${fortifiedTypeWords(prod)}`);
             }
             return prod._search;
         }
@@ -1773,7 +1833,13 @@
             // their proper spelling, and none of them were reachable by typing
             // the plain-English version of their name before this fix.
             const searchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
-            const query = searchNormalize(document.getElementById("search-bar").value);
+            // Trimmed so a stray space a phone keyboard adds before or after
+            // the word doesn't change the result (2026-10-24).
+            const query = searchNormalize(document.getElementById("search-bar").value).trim().replace(/\s+/g, " ");
+            const queryWords = query ? query.split(" ") : [];
+            // Close-spelling matches, used only when nothing matches exactly.
+            const fuzzyCards = [], fuzzyInTab = [];
+            let exactInTab = 0;
 
             // Computed once per render rather than once per card (isFavourite()
             // itself does a localStorage read + JSON.parse) -- with ~2,900
@@ -1794,6 +1860,8 @@
 
             const cardsHTML = [];
             const dropOrder = new Map();
+            // Which cards belong to the tab being viewed (see the reorder below).
+            const cardInTab = [];
 
             mockProducts.forEach((prod, index) => {
                 // Viewing a link someone else shared (see "Share my
@@ -1827,7 +1895,14 @@
                 // every wine, the same as it covers all three wine sub-tabs).
                 if (!showSharedOnly && !showFavouritesOnly && !query && activeWineColour !== "All"
                     && WINE_COLOUR_CATEGORIES.includes(activeCategory) && prod._wineColour !== activeWineColour) return;
-                if (query && !productSearchText(prod).includes(query)) return;
+                let isFuzzy = false;
+                if (query && !productSearchText(prod).includes(query)) {
+                    // Typo-tolerant fallback (2026-10-24): "Pot" or "Poert"
+                    // still finds "Port". Only collected until the first exact
+                    // match turns up; exact matches always win.
+                    if (exactInTab > 0 || !fuzzySearchMatch(prod, queryWords)) return;
+                    isFuzzy = true;
+                }
                 if (showComparedOnly && !(prod._inStockCount >= 2)) return;
 
                 // See getLowestInStockPrice() above for why only in-stock
@@ -1850,10 +1925,13 @@
                 // instead of waiting for every card's HTML to be assembled.
                 // In the Price drops tab, cards are put in order of the biggest
                 // drop (as a share of last week's price) once the loop is done.
-                if (activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly) {
+                if (!isFuzzy && activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly) {
                     dropOrder.set(cardsHTML.length, (prod.price_last_seen - lowestPrice) / prod.price_last_seen);
                 }
-                cardsHTML.push(() => {
+                const inTab = showFavouritesOnly || showSharedOnly || activeCategory === "All" || activeCategory === "Drops" || prod.category === activeCategory;
+                if (!isFuzzy && inTab) exactInTab++;
+                (isFuzzy ? fuzzyInTab : cardInTab).push(prod.category === activeCategory);
+                (isFuzzy ? fuzzyCards : cardsHTML).push(() => {
                 const shouldBlur = !isPremium && index >= 2;
 
                 const cellClass = (val, inStock) => {
@@ -1940,13 +2018,34 @@
 
             renderFavouritesBasket(favouritesSet);
 
+            // No exact match anywhere: show the close spellings instead.
+            // Nothing in the tab being viewed matches exactly: show the close
+            // spellings (current tab first via the reorder below), plus any
+            // exact matches found in a sister wine/beer tab.
+            const usedFuzzy = exactInTab === 0 && fuzzyCards.length > 0;
+            if (usedFuzzy) {
+                cardsHTML.push(...fuzzyCards);
+                cardInTab.push(...fuzzyInTab);
+            }
+
+            // A search inside a Wine or Beer sub-tab also looks in its sister
+            // tabs (so "port" typed on Bottled Wine still finds the ports).
+            // Show the current tab's own matches first, then the others,
+            // each group keeping the chosen sort order (2026-10-24).
+            if (query && !showFavouritesOnly && !showSharedOnly && cardInTab.includes(false) && cardInTab.includes(true)) {
+                const mine = cardsHTML.filter((_, i) => cardInTab[i]);
+                const others = cardsHTML.filter((_, i) => !cardInTab[i]);
+                cardsHTML.length = 0;
+                cardsHTML.push(...mine, ...others);
+            }
+
             if (dropOrder.size) {
                 const ordered = cardsHTML.map((fn, i) => [fn, dropOrder.get(i) || 0]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
                 cardsHTML.length = 0;
                 cardsHTML.push(...ordered);
             }
 
-            updateResultsCount(cardsHTML.length, query);
+            updateResultsCount(cardsHTML.length, query, usedFuzzy);
 
             if (cardsHTML.length === 0) {
                 const dropsView = activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly;
@@ -2056,7 +2155,7 @@
         }
 
         // "Showing N products in <tab>" line above the grid.
-        function updateResultsCount(n, query) {
+        function updateResultsCount(n, query, usedFuzzy) {
             const el = document.getElementById("results-count");
             if (!el) return;
             let where;
@@ -2072,6 +2171,10 @@
             }
             const typed = document.getElementById("search-bar").value.trim();
             const searchBit = typed ? ` matching "${typed.replace(/[<>&"]/g, "")}"` : "";
+            if (usedFuzzy) {
+                el.innerHTML = `No exact match for "${typed.replace(/[<>&"]/g, "")}", showing <span class="text-white font-bold">${n.toLocaleString("en-GB")}</span> close match${n === 1 ? "" : "es"} in <span class="text-amberGold font-semibold">${where}</span>`;
+                return;
+            }
             el.innerHTML = `Showing <span class="text-white font-bold">${n.toLocaleString("en-GB")}</span> product${n === 1 ? "" : "s"} in <span class="text-amberGold font-semibold">${where}</span>${searchBit}`;
         }
 
