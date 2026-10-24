@@ -39,6 +39,8 @@
     .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
     .wine-subchip { background-color: transparent; color: #E5E7EB; border-color: rgba(245, 158, 11, 0.35); font-weight: 500; }
     .wine-subchip.active { background-color: rgba(245, 158, 11, 0.18); color: #F59E0B; border-color: #F59E0B; font-weight: 700; }
+    .wine-colourchip { background-color: transparent; color: #D1D5DB; border-color: rgba(229, 231, 235, 0.25); font-weight: 500; }
+    .wine-colourchip.active { background-color: rgba(229, 231, 235, 0.12); color: #FFFFFF; border-color: #E5E7EB; font-weight: 700; }
 
     /* Non-blocking toast (see showToast()): replaces the alert() that used
        to fire on every retailer-link tap and was freezing the page until
@@ -123,6 +125,17 @@
             <button data-wine-sub="Wine" onclick="filterWineSub('Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍷 Bottled Wine</button>
             <button data-wine-sub="Box Wine" onclick="filterWineSub('Box Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">📦 Boxed Wine</button>
             <button data-wine-sub="Fortified" onclick="filterWineSub('Fortified')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🥃 Fortified Wine</button>
+        </div>
+
+        <!-- WINE COLOUR MENU (2026-10-24): Red / White / Rosé, shown under
+             Bottled Wine and Boxed Wine only (not Fortified). Each wine's
+             colour is worked out from its name by wineColour() below; a wine
+             whose name gives no colour, grape or region stays under All. -->
+        <div id="wine-colour-tabs" class="hidden flex space-x-1.5 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-wine-colour="All" onclick="filterWineColour('All')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">All</button>
+            <button data-wine-colour="Red" onclick="filterWineColour('Red')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">🔴 Red</button>
+            <button data-wine-colour="White" onclick="filterWineColour('White')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">⚪ White</button>
+            <button data-wine-colour="Rose" onclick="filterWineColour('Rose')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">🌸 Rosé</button>
         </div>
 
         <!-- BEER & CIDER SUB-TABS (2026-10-13): shown only while the Beer &
@@ -254,6 +267,10 @@
              hit on 27 of 36 visits). Reserving a viewport of space up front
              means the footer starts off-screen below the fold either way,
              so the later jump isn't a visible shift. -->
+        <!-- RESULTS COUNT (2026-10-24): how many products the current tab,
+             wine colour and search are showing. Height reserved up front so
+             it doesn't shift the grid when it fills in. -->
+        <p id="results-count" class="text-[11px] text-gray-300 mb-2 min-h-[16px]"></p>
         <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[100vh] pb-16"></div>
 
         <!-- STICKY BOTTOM PAYWALL FOOTER -->
@@ -517,6 +534,8 @@
         let isPremium = false; // true whenever access is unlocked, whether paid or trial
         let isPaid = false;    // true only once a real BenefitPay payment has been verified
         let activeCategory = "All";
+        // Red / White / Rosé choice inside Bottled and Boxed Wine (2026-10-24).
+        let activeWineColour = "All";
 
         // Display-only rename (2026-09-18): "Champagne" -> "Champagne & Sparkling
         // Wines" everywhere a category is SHOWN to a visitor (the card badge
@@ -548,8 +567,40 @@
         function splitBeerCategories(products) {
             products.forEach(prod => {
                 if (prod.category === "Beer") prod.category = beerSubcategory(prod.name || "");
+                if (WINE_COLOUR_CATEGORIES.includes(prod.category)) prod._wineColour = wineColour(prod.name);
             });
         }
+        // The two wine sub-tabs that get the Red / White / Rosé menu.
+        const WINE_COLOUR_CATEGORIES = ["Wine", "Box Wine"];
+        const WINE_COLOUR_SEARCH_WORDS = { "Red": "red wine", "White": "white wine", "Rose": "rose wine | rosé" };
+        // Wine colour (2026-10-24): Red / White / Rosé sub-menus inside
+        // Bottled Wine and Boxed Wine. Worked out from the product name in the
+        // page, so it works on the current data without a scrape. Order
+        // matters: a colour word on the label ("Rosé", "White", "Rouge")
+        // beats a grape or region, so "Shiraz Rosé" is Rosé, "Sangiovese
+        // Bianco" is White and "White Zinfandel" (a blush) is Rosé. A wine
+        // that names no colour, grape or known region stays under "All" only.
+        const WINE_COLOURS = ["Red", "White", "Rose"];
+        const WINE_COLOUR_LABELS = { "Red": "Red", "White": "White", "Rose": "Rosé" };
+        const ROSE_WINE_RE = /\b(ros[eé]s?|rosado|rosato|ros[eé]|blush|pink|white zinfandel|white grenache|blanc de noirs?|vin gris|grain de gris|sauvages gris|rosatello|cotes de provence|cote de provence)\b/i;
+        const WHITE_WORD_RE = /\b(white|whites|blanc|blancs|bianco|bianca|blanco|branco|weiss|weisswein)\b/i;
+        const RED_WORD_RE = /\b(red|reds|rouge|rosso|tinto|tinta|negre|rojo|rot|rotwein|claret)\b/i;
+        const WHITE_GRAPE_RE = /\b(chardonnay|sauvignon blanc|fume blanc|pinot grigio|pinot gris|pinot blanc|riesling|chenin|steen|viognier|gewurztraminer|gewurz|traminer|moscato|muscat|moscatel|muscadel|semillon|albarino|alvarinho|gruner|veltliner|verdejo|vermentino|soave|gavi|cortese|chablis|sancerre|pouilly|sauternes|barsac|trebbiano|torrontes|colombard|macabeo|viura|fiano|greco|falanghina|picpoul|marsanne|roussanne|vinho verde|muscadet|frascati|orvieto|entre deux mers|montrachet|meursault|macon|verdicchio|grillo|catarratto|inzolia|pecorino|garganega|arneis|furmint|tokaji|rkatsiteli|assyrtiko|malvasia|hárslevelű|harslevelu|vouvray|savennieres|silvaner|sylvaner|kerner|muller thurgau|scheurebe|xarel|godello|loureiro|airen|white blend|semi sweet white|liebfraumilch|sauvignon|aligote|saint veran|st veran|lugana|vin jaune)\b/i;
+        const RED_GRAPE_RE = /\b(cabernet|merlot|shiraz|syrah|pinot noir|spatburgunder|malbec|tempranillo|sangiovese|zinfandel|primitivo|grenache|garnacha|cannonau|carmenere|pinotage|nebbiolo|barolo|barbaresco|chianti|brunello|montalcino|montepulciano|rioja|ribera|priorat|valpolicella|ripasso|amarone|bardolino|nero d avola|nero d'avola|negroamaro|aglianico|gamay|beaujolais|fleurie|morgon|moulin a vent|moulin à vent|brouilly|julienas|mourvedre|monastrell|petit verdot|petite sirah|dolcetto|barbera|lagrein|teroldego|corvina|cinsault|carignan|carignano|tannat|touriga|saperavi|kadarka|blaufrankisch|zweigelt|st laurent|mencia|bobal|baga|douro|dao|medoc|haut medoc|pauillac|margaux|saint julien|st julien|saint estephe|st estephe|saint emilion|st emilion|pomerol|fronsac|listrac|moulis|pessac|graves rouge|cotes du rhone|cote du rhone|chateau neuf|nero davola|côtes du rhône|chateauneuf|châteauneuf|gigondas|vacqueyras|crozes|hermitage|cornas|cote rotie|côte-rôtie|fitou|corbieres|minervois|cahors|madiran|bourgueil|chinon|gevrey|chambertin|chambolle|musigny|vosne|romanee|nuits|pommard|volnay|cote de beaune rouge|bourgogne rouge|bordeaux rouge|red blend|super tuscan|bolgheri|sassicaia|tignanello|lambrusco|sweet red|bordeaux|crianza|toscana|ornellaia|solaia|opus one|beaune|santenay|saint emili|cotes de bourg|chenas|tintilia|schioppettino|pinot nero|malb)\b/i;
+        const wineColourText = (s) => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[-_'’]/g, " ").replace(/\s+/g, " ");
+        function wineColour(name) {
+            const raw = name || "";
+            const n = wineColourText(raw).replace(/cabernet sauvignon/ig, "cabernet");
+            if (ROSE_WINE_RE.test(raw) || ROSE_WINE_RE.test(n)) return "Rose";
+            const white = WHITE_WORD_RE.test(n), red = RED_WORD_RE.test(n);
+            if (white && !red) return "White";
+            if (red && !white) return "Red";
+            const whiteGrape = WHITE_GRAPE_RE.test(n), redGrape = RED_GRAPE_RE.test(n);
+            if (whiteGrape && !redGrape) return "White";
+            if (redGrape && !whiteGrape) return "Red";
+            return null;
+        }
+
         // Extra words a search box query should find each category by
         // (2026-10-11): shops call box wines "Cask 3L" or "5LTR", so typing
         // "box wine" would otherwise find nothing.
@@ -567,7 +618,7 @@
             if (prod._search === undefined) {
                 // " | " keeps a query from matching across the end of the
                 // name and the extra words ("...Wooden Box" + "wine").
-                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""}`);
+                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""} | ${WINE_COLOUR_SEARCH_WORDS[prod._wineColour] || ""}`);
             }
             return prod._search;
         }
@@ -1771,6 +1822,11 @@
                         && BEER_SUBCATEGORIES.includes(prod.category);
                     if (!sameWineGroup && !sameBeerGroup) return;
                 }
+                // Red / White / Rosé menu: only while browsing Bottled or
+                // Boxed Wine without a search (a typed search still covers
+                // every wine, the same as it covers all three wine sub-tabs).
+                if (!showSharedOnly && !showFavouritesOnly && !query && activeWineColour !== "All"
+                    && WINE_COLOUR_CATEGORIES.includes(activeCategory) && prod._wineColour !== activeWineColour) return;
                 if (query && !productSearchText(prod).includes(query)) return;
                 if (showComparedOnly && !(prod._inStockCount >= 2)) return;
 
@@ -1813,7 +1869,7 @@
                     <div class="bg-charcoal border border-gray-800 rounded-2xl p-4 shadow-md transition duration-200">
                         <div class="mb-3 flex justify-between items-start">
                             <div>
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${categoryLabel(prod.category)}</span>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${prod._wineColour ? WINE_COLOUR_LABELS[prod._wineColour] + " · " : ""}${categoryLabel(prod.category)}</span>
                                 <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
                                 ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}
                             </div>
@@ -1889,6 +1945,8 @@
                 cardsHTML.length = 0;
                 cardsHTML.push(...ordered);
             }
+
+            updateResultsCount(cardsHTML.length, query);
 
             if (cardsHTML.length === 0) {
                 const dropsView = activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly;
@@ -1997,7 +2055,54 @@
             filterCategory(cat, document.getElementById("beer-chip"));
         }
 
+        // "Showing N products in <tab>" line above the grid.
+        function updateResultsCount(n, query) {
+            const el = document.getElementById("results-count");
+            if (!el) return;
+            let where;
+            if (showSharedOnly) where = "this shared list";
+            else if (showFavouritesOnly) where = "My Favourites";
+            else if (activeCategory === "Drops") where = "Price drops";
+            else if (activeCategory === "All") where = "all categories";
+            else {
+                where = categoryLabel(activeCategory);
+                if (!query && activeWineColour !== "All" && WINE_COLOUR_CATEGORIES.includes(activeCategory)) {
+                    where = `${WINE_COLOUR_LABELS[activeWineColour]} · ${where}`;
+                }
+            }
+            const typed = document.getElementById("search-bar").value.trim();
+            const searchBit = typed ? ` matching "${typed.replace(/[<>&"]/g, "")}"` : "";
+            el.innerHTML = `Showing <span class="text-white font-bold">${n.toLocaleString("en-GB")}</span> product${n === 1 ? "" : "s"} in <span class="text-amberGold font-semibold">${where}</span>${searchBit}`;
+        }
+
+        function filterWineColour(colour) {
+            activeWineColour = colour;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function syncWineColourTabs() {
+            const row = document.getElementById("wine-colour-tabs");
+            if (!row) return;
+            const show = WINE_COLOUR_CATEGORIES.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
+            row.classList.toggle("hidden", !show);
+            if (!show) return;
+            const counts = { All: 0, Red: 0, White: 0, Rose: 0 };
+            mockProducts.forEach(p => {
+                if (p.category !== activeCategory) return;
+                counts.All++;
+                if (p._wineColour) counts[p._wineColour]++;
+            });
+            const icons = { All: "", Red: "🔴 ", White: "⚪ ", Rose: "🌸 " };
+            row.querySelectorAll(".wine-colourchip").forEach(btn => {
+                const c = btn.dataset.wineColour;
+                btn.textContent = `${icons[c]}${c === "All" ? "All" : WINE_COLOUR_LABELS[c]} (${counts[c]})`;
+                btn.classList.toggle("active", c === activeWineColour);
+            });
+        }
+
         function syncWineSubtabs() {
+            syncWineColourTabs();
             const groups = [["wine-subtabs", WINE_SUBCATEGORIES, "wineSub"], ["beer-subtabs", BEER_SUBCATEGORIES, "beerSub"]];
             groups.forEach(([rowId, cats, key]) => {
                 const row = document.getElementById(rowId);
@@ -2012,6 +2117,7 @@
 
         function filterCategory(cat, btnEl) {
             activeCategory = cat;
+            activeWineColour = "All";
 
             // Same "stuck filter" class of bug as showFavouritesOnly below --
             // a shared-list view (showSharedOnly) also has to be explicitly
