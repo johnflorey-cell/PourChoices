@@ -194,6 +194,15 @@
             <span onclick="event.stopPropagation(); dismissPriceDropBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
         </button>
 
+        <!-- BACK IN STOCK BANNER (2026-10-24): shown by checkFavouriteBackInStock()
+             when a favourite that was out of stock at every shop (when it was
+             favourited, or at a later visit) can now be bought somewhere.
+             Tapping it opens My Favourites; the ✕ just hides it. -->
+        <button id="back-in-stock-banner" onclick="viewBackInStock()" class="hidden w-full mb-3 text-[11px] text-sky-300 bg-sky-300/10 border border-sky-300/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="back-in-stock-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissBackInStockBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
         <!-- SHARED FAVOURITES BANNER: hidden by default. Shown only when this
              visit's URL had a "?shared=..." link someone else sent (see
              shareFavourites() below) -- readSharedFavouritesFromUrl() already
@@ -244,6 +253,7 @@
                  small/easy to miss sitting quietly next to a label, same
                  "too small to notice" class of issue as the price-per-litre
                  text fix the same day. -->
+            <p id="stock-watch-line" class="hidden text-[11px] text-sky-300 font-semibold mb-2"></p>
             <button onclick="shareFavourites()" class="mb-3 ml-auto flex items-center justify-center space-x-1.5 bg-amberGold text-obsidian font-bold text-[11px] px-3 py-1.5 rounded-lg active:scale-[0.98] transition">
                 <span>📤</span><span>Share list</span>
             </button>
@@ -291,6 +301,19 @@
     </div>
 
     <!-- 2. BENEFITPAY TRANSACTION MODAL -->
+    <!-- STOCK WATCH POP-UP (2026-10-24): shown the first time on each visit
+         that My Favourites is opened while some favourites are out of stock
+         at every shop, explaining the "Back in Stock" alert. -->
+    <div id="stock-watch-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center px-4" onclick="if (event.target === this) closeStockWatchModal()">
+        <div class="bg-charcoal border border-sky-300/40 rounded-2xl p-5 max-w-sm w-full text-left">
+            <h3 class="text-base font-bold text-sky-300 mb-2">🔔 Out of Stock Favourites</h3>
+            <p id="stock-watch-modal-text" class="text-xs text-gray-200 leading-relaxed"></p>
+            <ul id="stock-watch-modal-list" class="text-[11px] text-gray-300 mt-3 space-y-1 list-disc pl-4"></ul>
+            <p class="text-[11px] text-gray-300 mt-3 leading-relaxed">When a shop has one again, a blue <span class="text-sky-300 font-bold">🔔 Back in Stock</span> note appears at the top of the app. Prices and stock are updated once a week.</p>
+            <button onclick="closeStockWatchModal()" class="mt-4 w-full bg-sky-300 text-obsidian font-bold text-sm py-2.5 rounded-xl active:scale-[0.98] transition">Got it</button>
+        </div>
+    </div>
+
     <div id="paywall-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
         <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="modal-content">
             <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closePaywallModal()"></div>
@@ -456,6 +479,7 @@
             updatePriceDropsChipLabel();
             renderProducts();
             checkFavouritePriceDrops();
+            checkFavouriteBackInStock();
             checkSharedFavourites();
         }
 
@@ -526,6 +550,7 @@
             basket: true,          // favourites basket totals per shop
             savingsSort: false,    // "Biggest saving" order: the default view, so free for everyone
             priceDropAlerts: true, // price-drop banner for favourites
+            backInStockAlerts: true, // "Back in Stock" banner for favourites
         };
         function hasFeature(name) {
             return isPremium || PREMIUM_FEATURES[name] === false;
@@ -1114,11 +1139,19 @@
             const favourites = getFavourites();
             if (favourites.has(prod.name)) {
                 favourites.delete(prod.name);
+                unwatchStock(prod.name);
             } else {
                 favourites.add(prod.name);
+                // Out of stock at every shop right now: watch it, and tell
+                // the visitor a "Back in Stock" alert will follow.
+                if (!isBuyableNow(prod) && hasFeature("backInStockAlerts")) {
+                    watchStock(prod.name);
+                    showToast("🔔 Added as an Out of Stock Favourite. You'll be notified when it's Back in Stock.", 5000);
+                }
             }
             saveFavourites(favourites);
             updateFavouritesChipLabel();
+            if (showFavouritesOnly) setTimeout(() => { const l = document.getElementById("stock-watch-line"); if (l) { const n = outOfStockFavourites().length; l.textContent = n ? `🔔 ${n} Out of Stock Favourite${n === 1 ? "" : "s"}: you'll be alerted when ${n === 1 ? "it's" : "they're"} Back in Stock.` : ""; l.classList.toggle("hidden", n === 0); } }, 0);
             if (btnEl && !showFavouritesOnly) {
                 const isFav = favourites.has(prod.name);
                 btnEl.textContent = isFav ? "❤️" : "🤍";
@@ -1181,6 +1214,56 @@
             }
             if (notesWrap) notesWrap.classList.toggle("hidden", !showFavouritesOnly);
             renderProducts();
+            if (showFavouritesOnly) showStockWatchNote();
+        }
+
+        // Out of Stock Favourites note (2026-10-24): a line at the top of My
+        // Favourites, plus a pop-up the first time favourites are opened on
+        // each visit, saying a "Back in Stock" alert will follow.
+        let stockWatchPopupShown = false;
+        function outOfStockFavourites() {
+            const favourites = getFavourites();
+            return mockProducts.filter(p => favourites.has(p.name) && !isBuyableNow(p));
+        }
+        function showStockWatchNote() {
+            const line = document.getElementById("stock-watch-line");
+            if (!hasFeature("backInStockAlerts")) { if (line) line.classList.add("hidden"); return; }
+            const oos = outOfStockFavourites();
+            // Make sure each one is being watched (covers favourites added
+            // before this feature existed).
+            oos.forEach(p => { if (!(p.name in getStockWatch())) watchStock(p.name); });
+            if (line) {
+                line.textContent = oos.length
+                    ? `🔔 ${oos.length} Out of Stock Favourite${oos.length === 1 ? "" : "s"}: you'll be alerted when ${oos.length === 1 ? "it's" : "they're"} Back in Stock.`
+                    : "";
+                line.classList.toggle("hidden", oos.length === 0);
+            }
+            if (oos.length === 0 || stockWatchPopupShown) return;
+            stockWatchPopupShown = true;
+            const text = document.getElementById("stock-watch-modal-text");
+            const list = document.getElementById("stock-watch-modal-list");
+            const modal = document.getElementById("stock-watch-modal");
+            if (!text || !list || !modal) return;
+            text.textContent = oos.length === 1
+                ? "1 of your favourites is out of stock at every shop right now. You'll be notified when it becomes a Back in Stock Favourite."
+                : `${oos.length} of your favourites are out of stock at every shop right now. You'll be notified when they become Back in Stock Favourites.`;
+            list.innerHTML = "";
+            oos.slice(0, 5).forEach(p => {
+                const li = document.createElement("li");
+                li.textContent = p.name;
+                list.appendChild(li);
+            });
+            if (oos.length > 5) {
+                const li = document.createElement("li");
+                li.textContent = `and ${oos.length - 5} more`;
+                list.appendChild(li);
+            }
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+        function closeStockWatchModal() {
+            const modal = document.getElementById("stock-watch-modal");
+            if (modal) { modal.classList.add("hidden"); modal.classList.remove("flex"); }
         }
 
         function loadFavouritesNote() {
@@ -1283,6 +1366,94 @@
         // the banner the same as a dismiss -- they've now seen it either way.
         function viewFavouriteDrops() {
             dismissPriceDropBanner();
+            if (!showFavouritesOnly) toggleFavouritesView();
+        }
+
+        // --- Back in Stock alerts (2026-10-24) -------------------------------
+        // Same idea as the price-drop banner: no account and no server. The
+        // visitor's own browser remembers (localStorage "stockWatch") which
+        // favourites were out of stock at every shop. Prices refresh once a
+        // week, so the first visit after a scrape where one of them can be
+        // bought again shows the banner once, then stops watching it. A
+        // favourite that sells out again later is watched again.
+        function isBuyableNow(prod) {
+            const p = getLowestInStockPrice(prod);
+            return p !== null && p > 0;
+        }
+        function getStockWatch() {
+            try {
+                const raw = localStorage.getItem("stockWatch");
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+        function saveStockWatch(map) {
+            try { localStorage.setItem("stockWatch", JSON.stringify(map)); } catch (e) {}
+        }
+        function watchStock(name) {
+            const w = getStockWatch();
+            w[name] = Date.now();
+            saveStockWatch(w);
+        }
+        function unwatchStock(name) {
+            const w = getStockWatch();
+            if (name in w) { delete w[name]; saveStockWatch(w); }
+        }
+
+        function checkFavouriteBackInStock() {
+            if (!hasFeature("backInStockAlerts")) return;
+            const favourites = getFavourites();
+            if (favourites.size === 0) return;
+            const watch = getStockWatch();
+            const back = [];
+            let changed = false;
+            mockProducts.forEach(prod => {
+                if (!favourites.has(prod.name)) return;
+                const buyable = isBuyableNow(prod);
+                if (prod.name in watch) {
+                    if (buyable) {
+                        back.push(prod);
+                        delete watch[prod.name];
+                        changed = true;
+                    }
+                } else if (!buyable) {
+                    // Sold out since last time (or favourited before this
+                    // feature existed): start watching, no alert yet.
+                    watch[prod.name] = Date.now();
+                    changed = true;
+                }
+            });
+            // Forget watches for products no longer in the favourites list.
+            Object.keys(watch).forEach(name => {
+                if (!favourites.has(name)) { delete watch[name]; changed = true; }
+            });
+            if (changed) saveStockWatch(watch);
+            if (back.length === 0) return;
+
+            const banner = document.getElementById("back-in-stock-banner");
+            const textEl = document.getElementById("back-in-stock-banner-text");
+            if (!banner || !textEl) return;
+            let label;
+            if (back.length === 1) {
+                const best = cheapestRetailer(back[0]);
+                label = `🔔 Back in Stock: ${back[0].name}` + (best ? ` at ${best.label}, ${best.price.toFixed(3)} BHD` : "");
+            } else if (back.length === 2) {
+                label = `🔔 Back in Stock: 2 of your favourites, ${back[0].name} and ${back[1].name}`;
+            } else {
+                label = `🔔 Back in Stock: ${back.length} of your favourites, ${back[0].name}, ${back[1].name} and ${back.length - 2} more`;
+            }
+            textEl.textContent = label;
+            banner.classList.remove("hidden");
+        }
+
+        function dismissBackInStockBanner() {
+            const banner = document.getElementById("back-in-stock-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        function viewBackInStock() {
+            dismissBackInStockBanner();
             if (!showFavouritesOnly) toggleFavouritesView();
         }
 
@@ -1949,7 +2120,7 @@
                             <div>
                                 <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${prod._wineColour ? WINE_COLOUR_LABELS[prod._wineColour] + " · " : ""}${categoryLabel(prod.category)}</span>
                                 <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
-                                ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}
+                                ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}${showFavouritesOnly && !isBuyableNow(prod) && hasFeature("backInStockAlerts") ? `<span class="inline-block text-[10px] font-bold text-sky-300 bg-sky-300/10 border border-sky-300/30 rounded-full px-2 py-0.5 mt-1 mr-1">🔔 Out of Stock Favourite: alert on</span>` : ""}
                             </div>
                             <button onclick="toggleFavourite(${index}, this)" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
                         </div>
