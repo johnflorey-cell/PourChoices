@@ -2,7 +2,13 @@ name: Scrape retailer prices
 
 on:
   schedule:
-    # 06:00 Bahrain time (UTC+3) = 03:00 UTC. GitHub Actions cron is UTC.
+    # 06:17 Bahrain time (UTC+3) = 03:17 UTC. GitHub Actions cron is UTC.
+    #
+    # Off-the-hour change (2026-11-01): this used to start at exactly 03:00
+    # UTC ("0 3 * * 0"). GitHub's free scheduler is busiest on the hour, and
+    # the scheduled runs were starting 5-7 hours late (25 Oct: 08:09 UTC,
+    # 1 Nov: 10:09 UTC). An odd minute like :17 usually gets picked up much
+    # sooner. To change the time, edit the first two numbers (minute, hour).
     #
     # Weekly-in-Beta change (2026-09-18): this used to run every day ("0 3 *
     # * *"), but the BrightData dashboard showed 2,460 of the 5,000 monthly
@@ -10,9 +16,8 @@ on:
     # day to day, so a daily refresh was spending credit faster than it
     # needed to for a Beta app. Runs once a week now (Sunday) instead -- the
     # "* * 0" at the end is the day-of-week field; change it to a different
-    # 0-6 (Sun-Sat) to pick a different day, or switch back to "0 3 * * *"
-    # once out of Beta if daily freshness is worth the extra credit again.
-    - cron: "0 3 * * 0"
+    # 0-6 (Sun-Sat) to pick a different day.
+    - cron: "17 3 * * 0"
   workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
 
 permissions:
