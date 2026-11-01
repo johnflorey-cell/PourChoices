@@ -2,7 +2,13 @@ name: Scrape retailer prices
 
 on:
   schedule:
-    # 06:17 Bahrain time (UTC+3) = 03:17 UTC. GitHub Actions cron is UTC.
+    # 06:17 Bahrain time (UTC+3) = 03:17 UTC, every THURSDAY. GitHub Actions
+    # cron is UTC.
+    #
+    # Thursday change (2026-11-01): moved from Sunday to Thursday so prices
+    # are fresh for the Bahrain weekend (Thursday evening, Friday, Saturday),
+    # when most people use the app. Even if GitHub starts it several hours
+    # late, it still finishes by Thursday afternoon.
     #
     # Off-the-hour change (2026-11-01): this used to start at exactly 03:00
     # UTC ("0 3 * * 0"). GitHub's free scheduler is busiest on the hour, and
@@ -15,9 +21,9 @@ on:
     # proxy credits already used, and retailer prices/catalogs don't change
     # day to day, so a daily refresh was spending credit faster than it
     # needed to for a Beta app. Runs once a week now (Sunday) instead -- the
-    # "* * 0" at the end is the day-of-week field; change it to a different
-    # 0-6 (Sun-Sat) to pick a different day.
-    - cron: "17 3 * * 0"
+    # last number is the day-of-week field (0-6 = Sun-Sat, 4 = Thursday);
+    # change it to pick a different day.
+    - cron: "17 3 * * 4"
   workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
 
 permissions:
