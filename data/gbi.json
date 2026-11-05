@@ -936,14 +936,6 @@
     "category": "Wine"
   },
   {
-    "name": "Jacob's Creek Classic Pinot Noir 75cl",
-    "price_bhd": 5.6,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/jacobs-creek-classic-pinot-noir-75-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
-  },
-  {
     "name": "Jacob's Creek Classic Shiraz 75cl",
     "price_bhd": 5.6,
     "in_stock": true,
@@ -1140,14 +1132,6 @@
     "price_bhd": 6.4,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/moka-coffee-liqueur-70-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Red Bull Energy Drink 250ml 4 Pack",
-    "price_bhd": 8.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/red-bull-energy-drink-250-ml-4-pack?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
   },
@@ -1424,14 +1408,6 @@
     "category": "Wine"
   },
   {
-    "name": "LaCheteau Rose D\u2019Anjou 75cl",
-    "price_bhd": 7.2,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/lacheteau-rose-danjou-75-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
-  },
-  {
     "name": "Stone's Gin 70 Cl",
     "price_bhd": 9.0,
     "in_stock": true,
@@ -1542,6 +1518,14 @@
     "url": "https://www.gbiexpress.com/campo-viejo-tempranillo-75-cl-bottle?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"
+  },
+  {
+    "name": "LaCheteau Cremant Brut 75cl",
+    "price_bhd": 8.0,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/lacheteau-cremant-brut-75-cl?limit=100",
+    "retailer": "GBI Express",
+    "category": "Champagne"
   },
   {
     "name": "London Hill Pink Gin 70cl Bottle",
@@ -1662,14 +1646,6 @@
     "url": "https://www.gbiexpress.com/Limoncello-Casal-DEmilia?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
-  },
-  {
-    "name": "Barossa Ink Cabernet Sauvignon 75cl Bottle",
-    "price_bhd": 9.04,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/barossa-ink-cabernet-sauvignon?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
   },
   {
     "name": "Cantina Zaccagnini Pecorino 75cl Bottle",
@@ -1892,14 +1868,6 @@
     "price_bhd": 9.84,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/index.php?route=product/product&path=0&product_id=1110&limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
-  },
-  {
-    "name": "Villa Girardi Pinot Grigio Della Venezie 75 CL Bottle",
-    "price_bhd": 9.84,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/villa-girardi-pinot-grigio-della-venezie-75-cl-bottle?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"
   },
@@ -2414,14 +2382,6 @@
     "url": "https://www.gbiexpress.com/batasiolo-gavi-di-gavi-75cl?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
-  },
-  {
-    "name": "Bouchard Aine Et Fils Chablis 75cl",
-    "price_bhd": 12.8,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/bouchard-chablis-75cl-bottle?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
   },
   {
     "name": "De Kuyper KwaiFeh Lychee Liqueur 70cl Bottle",
@@ -3270,6 +3230,14 @@
     "url": "https://www.gbiexpress.com/appleton-estate-reserve-blend-70cl?limit=100",
     "retailer": "GBI Express",
     "category": "Rum"
+  },
+  {
+    "name": "DAB Diat Pils 33cl Bottles X24",
+    "price_bhd": 30.0,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/dab-diat-pils-33cl-bottles-x24?limit=100",
+    "retailer": "GBI Express",
+    "category": "Beer"
   },
   {
     "name": "Isle Of Jura Journey Whisky 70cl",
