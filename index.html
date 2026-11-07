@@ -5,7 +5,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pour Choices</title>
+<title>Pour Choices | Alcohol price comparison in Bahrain</title>
+<meta name="description" content="Compare drinks prices at BMMI, African &amp; Eastern, GBI Express and NHSC in Bahrain. Beer, wine, whisky, gin, vodka and more, updated every week. Free.">
+<link rel="canonical" href="https://pour-choices.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pour Choices">
+<meta property="og:title" content="Pour Choices | Alcohol price comparison in Bahrain">
+<meta property="og:description" content="See which shop in Bahrain is cheapest before you buy. Updated every week.">
+<meta property="og:url" content="https://pour-choices.com/">
+<meta property="og:image" content="https://pour-choices.com/icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0F172A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -299,6 +307,7 @@
         <!-- LEGAL FOOTER DISCLAIMER -->
         <footer class="mt-12 text-center text-[10px] text-gray-300 leading-relaxed px-4 pb-8">
             Disclaimer: This application is an independent price-comparison directory, not a retail site. We are not affiliated with, authorized, or endorsed by BMMI, African &amp; Eastern, GBI Express, or NHSC. We do not sell, store, handle, or deliver alcohol items, and we are not a party to any purchase. Any purchase must be made directly with the relevant retailer, through their own website or store. All prices are for informational purposes only and may not reflect the retailer&rsquo;s current price; always confirm the price with the retailer before buying.
+            <br><br><a href="/prices/" class="text-amberGold underline">Browse all prices by drink</a>
         </footer>
     </div>
 
@@ -473,6 +482,7 @@
                 sortProducts();
                 repairFavouriteNames();
                 resolvePendingSharedCodes();
+                applySearchFromUrl();
             } catch (e) {
                 productsLoadFailed = true;
                 console.error("Could not load product data:", e);
@@ -1025,6 +1035,23 @@
         // productShareCode() below; the codes are turned back into product
         // names once the catalogue has loaded (resolvePendingSharedCodes()).
         // Old "?shared=" links that are already out there keep working.
+        // Search links (2026-11-07): the Google-searchable product pages
+        // (price/<product>/) have a "Compare in the Pour Choices app" button
+        // that opens /?q=<product name>. This fills the search box with it
+        // once the catalogue has loaded, then tidies the address bar.
+        function applySearchFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const q = String(params.get("q") || "").replace(/\s+/g, " ").trim().slice(0, 120);
+                if (!q) return;
+                const box = document.getElementById("search-bar");
+                if (box) box.value = q;
+                params.delete("q");
+                const rest = params.toString();
+                window.history.replaceState({}, "", window.location.origin + window.location.pathname + (rest ? "?" + rest : ""));
+            } catch (e) {}
+        }
+
         function readSharedFavouritesFromUrl() {
             try {
                 const params = new URLSearchParams(window.location.search);
