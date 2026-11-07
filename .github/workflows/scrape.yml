@@ -67,11 +67,19 @@ jobs:
       - name: Merge into one product list
         run: python scrapers/merge.py
 
+      # Google-searchable pages (2026-11-07): one page per product, one per
+      # category, plus sitemap.xml and robots.txt, rebuilt from the fresh
+      # prices. See scrapers/build_pages.py.
+      - name: Build search pages
+        run: python scrapers/build_pages.py
+        continue-on-error: true
+
       - name: Commit updated data if it changed
         run: |
           git config user.name "pour-choices-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/*.json
+          git add -A price prices sitemap.xml robots.txt
           git diff --cached --quiet && echo "No price changes." || git commit -m "Automated price refresh $(date -u +'%Y-%m-%d')"
           # This scraper run can take well over an hour (the proxy adds real
           # latency). If someone edits a file on GitHub's website while it's
