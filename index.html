@@ -13,14 +13,14 @@
 <meta property="og:title" content="Pour Choices | Alcohol price comparison in Bahrain">
 <meta property="og:description" content="See which shop in Bahrain is cheapest before you buy. Updated every week.">
 <meta property="og:url" content="https://pour-choices.com/">
-<meta property="og:image" content="https://pour-choices.com/icon-512.png">
-<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:image" content="https://pour-choices.com/icon-512-v2.png">
+<link rel="manifest" href="manifest.webmanifest?v=2">
 <meta name="theme-color" content="#0F172A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Pour Choices">
-<link rel="apple-touch-icon" href="icon-512.png">
-<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512-v2.png">
+<link rel="icon" type="image/png" href="icon-512-v2.png">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -1647,6 +1647,7 @@
             setShareQrOpen(wrap ? wrap.classList.contains("hidden") : true);
         }
 
+        const BRANDED_QR_URL = "https://pour-choices.com/";
         function buildQrImageUrl(data, sizePx) {
             return `https://api.qrserver.com/v1/create-qr-code/?size=${sizePx}x${sizePx}&data=${encodeURIComponent(data)}`;
         }
@@ -1672,7 +1673,11 @@
             const favControls = document.getElementById("share-fav-controls");
             if (favControls) favControls.classList.add("hidden");
             modal.dataset.empty = "";
-            document.getElementById("share-modal-qr").src = buildQrImageUrl(url, 200);
+            // The plain app link uses the branded Pour Choices QR code (the
+            // bottle design, a real file in the repo, added 2026-11-08). Any
+            // other link (e.g. a shared favourites list) changes every time,
+            // so it still gets a plain QR generated on the fly.
+            document.getElementById("share-modal-qr").src = (url === BRANDED_QR_URL) ? "qr-pour-choices.svg" : buildQrImageUrl(url, 200);
             document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
             modal.dataset.url = url;
             setShareQrOpen(true);
