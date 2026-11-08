@@ -2044,6 +2044,15 @@
             // the word doesn't change the result (2026-10-24).
             const query = searchNormalize(document.getElementById("search-bar").value).trim().replace(/\s+/g, " ");
             const queryWords = query ? query.split(" ") : [];
+            // Search ranking (2026-11-08): John searched "port" and the first
+            // card was "Portunes Sang Perse", and "Export"/"Imported" also
+            // matched. A match must now start at the beginning of a word, and
+            // whole-word matches ("Tawny Port") come before ones that only
+            // start a longer word ("Portofino").
+            const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const startRe = query ? new RegExp("(^|[^a-z0-9])" + escRe(query)) : null;
+            const wholeRe = query ? new RegExp("(^|[^a-z0-9])" + escRe(query) + "($|[^a-z0-9])") : null;
+            const cardRank = [], fuzzyRank = [];
             // Close-spelling matches, used only when nothing matches exactly.
             const fuzzyCards = [], fuzzyInTab = [];
             let exactInTab = 0;
@@ -2103,7 +2112,7 @@
                 if (!showSharedOnly && !showFavouritesOnly && !query && activeWineColour !== "All"
                     && WINE_COLOUR_CATEGORIES.includes(activeCategory) && prod._wineColour !== activeWineColour) return;
                 let isFuzzy = false;
-                if (query && !productSearchText(prod).includes(query)) {
+                if (query && !startRe.test(productSearchText(prod))) {
                     // Typo-tolerant fallback (2026-10-24): "Pot" or "Poert"
                     // still finds "Port". Only collected until the first exact
                     // match turns up; exact matches always win.
@@ -2138,6 +2147,18 @@
                 const inTab = showFavouritesOnly || showSharedOnly || activeCategory === "All" || activeCategory === "Drops" || prod.category === activeCategory;
                 if (!isFuzzy && inTab) exactInTab++;
                 (isFuzzy ? fuzzyInTab : cardInTab).push(prod.category === activeCategory);
+                // 0: the word names what the drink IS (its tab or type, e.g. a
+                // real Port for "port"); 1: whole word in the name ("Port Cask
+                // Finish" whisky); 2: start of a longer word ("Portofino");
+                // 3: close spelling.
+                let rank = 3;
+                if (!isFuzzy && query) {
+                    const text = productSearchText(prod);
+                    const cut = text.indexOf(" | ");
+                    const typeText = cut >= 0 ? text.slice(cut) : "";
+                    rank = wholeRe.test(typeText) ? 0 : (wholeRe.test(text) ? 1 : 2);
+                }
+                (isFuzzy ? fuzzyRank : cardRank).push(rank);
                 (isFuzzy ? fuzzyCards : cardsHTML).push(() => {
                 const shouldBlur = !isPremium && index >= 2;
 
@@ -2233,6 +2254,17 @@
             if (usedFuzzy) {
                 cardsHTML.push(...fuzzyCards);
                 cardInTab.push(...fuzzyInTab);
+                cardRank.push(...fuzzyRank);
+            }
+
+            // Whole-word matches first, then word-start matches, then close
+            // spellings; each group keeps the chosen sort order.
+            if (query && !dropOrder.size && new Set(cardRank).size > 1) {
+                const order = cardsHTML.map((_, i) => i).sort((a, b) => cardRank[a] - cardRank[b] || a - b);
+                const fns = order.map(i => cardsHTML[i]);
+                const tabs = order.map(i => cardInTab[i]);
+                cardsHTML.length = 0; cardsHTML.push(...fns);
+                cardInTab.length = 0; cardInTab.push(...tabs);
             }
 
             // A search inside a Wine or Beer sub-tab also looks in its sister

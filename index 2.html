@@ -1,0 +1,2562 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drinks Prices in Bahrain Compared | Pour Choices</title>
+<meta name="description" content="Compare drinks prices in Bahrain at BMMI, African &amp; Eastern, GBI Express and NHSC. Find the cheapest alcohol prices in Bahrain for beer, wine, whisky, gin and vodka, updated every week. Free.">
+<link rel="canonical" href="https://pour-choices.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pour Choices">
+<meta property="og:title" content="Drinks Prices in Bahrain Compared | Pour Choices">
+<meta property="og:description" content="Drinks prices in Bahrain compared. See which shop is cheapest before you buy. Updated every week.">
+<meta property="og:url" content="https://pour-choices.com/">
+<meta property="og:image" content="https://pour-choices.com/icon-512-v2.png">
+<link rel="manifest" href="manifest.webmanifest?v=2">
+<meta name="theme-color" content="#0F172A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pour Choices">
+<link rel="apple-touch-icon" href="icon-512-v2.png">
+<link rel="icon" type="image/png" href="icon-512-v2.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    obsidian: '#0F172A',
+                    charcoal: '#1E293B',
+                    emeraldGlow: '#10B981',
+                    amberGold: '#F59E0B'
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .premium-blur {
+        filter: blur(6px);
+        pointer-events: none;
+        user-select: none;
+    }
+    body { -webkit-tap-highlight-color: transparent; background-color: #0F172A; }
+    .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
+    .wine-subchip { background-color: transparent; color: #E5E7EB; border-color: rgba(245, 158, 11, 0.35); font-weight: 500; }
+    .wine-subchip.active { background-color: rgba(245, 158, 11, 0.18); color: #F59E0B; border-color: #F59E0B; font-weight: 700; }
+    .wine-colourchip { background-color: transparent; color: #D1D5DB; border-color: rgba(229, 231, 235, 0.25); font-weight: 500; }
+    .wine-colourchip.active { background-color: rgba(229, 231, 235, 0.12); color: #FFFFFF; border-color: #E5E7EB; font-weight: 700; }
+
+    /* Non-blocking toast (see showToast()): replaces the alert() that used
+       to fire on every retailer-link tap and was freezing the page until
+       dismissed. */
+    @keyframes toastPop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .toast-pop { animation: toastPop 0.2s ease-out; }
+    .toast-fade-out { opacity: 0; transition: opacity 0.25s ease-in; }
+</style>
+</head>
+<body class="bg-obsidian text-white font-sans antialiased min-h-screen pb-24">
+
+    <!-- 1. LEGAL AGE GATE OVERLAY (21+) -->
+    <div id="age-gate" class="fixed inset-0 bg-obsidian z-50 flex flex-col justify-center items-center p-6 text-center">
+        <div class="max-w-md w-full bg-charcoal p-8 rounded-2xl border border-gray-800 shadow-2xl">
+            <img src="logo-bottle.svg" alt="" class="inline-block h-14 w-auto" style="height:56px;width:auto">
+            <h1 class="text-2xl font-bold mt-4 tracking-tight">Pour Choices <span>🇧🇭</span> <span class="align-super text-[9px] bg-charcoal border border-amberGold text-amberGold px-1.5 py-0.5 rounded-full ml-1 tracking-widest font-bold">BETA</span></h1>
+            <p class="text-emeraldGlow text-base mt-2 font-bold">Save money with Pour Choices</p>
+            <p class="text-amberGold text-sm mt-1 uppercase tracking-widest font-bold">Bahrain&rsquo;s independent price index</p>
+
+            <div class="my-6 border-t border-b border-gray-800 py-4 text-left space-y-3">
+<p class="text-xs text-amberGold font-medium">
+                Age Verification: Confirm you are over 21 Years and are Eligible for Alcoholic Products.
+            </p>
+            </div>
+
+            <button onclick="verifyAge()" class="w-full bg-amberGold hover:bg-yellow-600 text-obsidian font-bold py-3.5 rounded-xl transition duration-200 tracking-wide text-sm">
+                I Confirm I Am 21+ and Eligible under the Law to Access this Information
+            </button>
+            <p class="text-[10px] text-gray-300 mt-4">By entering, you confirm compliance with local guidelines.</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto px-4 pt-4">
+
+        <!-- HEADER WITH SUBTITLE BYLINE -->
+        <header class="py-2 mb-4 border-b border-gray-800/60 pb-4">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <div class="flex items-center space-x-2">
+                        <img src="logo-bottle.svg" alt="" class="inline-block h-7 w-auto" style="height:28px;width:auto">
+                        <span class="font-bold tracking-tight text-xl uppercase">POUR CHOICES</span> <span class="text-lg" title="Bahrain">🇧🇭</span> <span class="align-super text-[9px] bg-charcoal border border-amberGold text-amberGold px-1.5 py-0.5 rounded-full ml-1 tracking-widest font-bold">BETA</span>
+                    </div>
+                    <span class="text-[13px] text-emeraldGlow mt-1 font-bold leading-tight">Save money with Pour Choices</span>
+                    <span class="text-[11px] text-amberGold font-bold uppercase tracking-widest leading-tight">Bahrain&rsquo;s independent price index</span>
+                </div>
+                <div id="premium-badge" class="bg-charcoal text-[10px] text-gray-200 px-3 py-1.5 rounded-full border border-gray-800 flex items-center space-x-1 font-bold">
+                    <span>🔴 Standard Tier</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- SEARCH BAR -->
+        <div class="relative mb-4">
+            <input type="text" id="search-bar" oninput="filterProducts()" placeholder="Search brands (e.g., Chivas, Heineken...)" class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3.5 pl-4 pr-10 text-sm focus:outline-none focus:border-amberGold transition duration-200">
+            <span class="absolute right-4 top-4 text-gray-500 text-sm">🔍</span>
+        </div>
+
+        <!-- CATEGORY FILTER CHIPS -->
+        <div class="flex space-x-2 overflow-x-auto pb-3 mb-3" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button onclick="filterCategory('All', this)" class="category-chip active px-4 py-2 rounded-xl text-xs whitespace-nowrap transition duration-200">All</button>
+            <!-- Price drops (2026-10-11): every product whose cheapest in-stock
+                 price went down since the previous weekly scrape
+                 (price_trend "down", worked out by scrapers/merge.py). -->
+            <button id="drops-chip" onclick="filterCategory('Drops', this)" class="category-chip bg-charcoal text-emeraldGlow border border-emeraldGlow/40 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">📉 Price drops</button>
+            <button id="beer-chip" onclick="filterCategory('Beer', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Beer &amp; Cider ▾</button>
+            <button onclick="filterCategory('Whisky', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Whisky</button>
+            <button onclick="filterCategory('Gin', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Gin</button>
+            <button onclick="filterCategory('Vodka', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Vodka</button>
+            <button onclick="filterCategory('Rum', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Rum</button>
+            <button id="wine-chip" onclick="filterCategory('Wine', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Wine ▾</button>
+            <button onclick="filterCategory('Champagne', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Champagne &amp; Sparkling Wines</button>
+            <button onclick="filterCategory('Other Spirits', this)" class="category-chip bg-charcoal text-gray-200 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition duration-200">Other Spirits</button>
+            <button id="favourites-chip" onclick="toggleFavouritesView()" class="category-chip bg-charcoal text-amberGold border border-amberGold/50 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition duration-200">★ My Favourites</button>
+        </div>
+
+        <!-- WINE SUB-TABS (2026-10-11): shown only while the Wine chip is
+             selected. Bottled = ordinary wine bottles; Boxed = one pack
+             holding more than 2.75 litres (casks, bag-in-box); Fortified =
+             port, sherry, Madeira, Marsala, Moscatel. Whiskies that were
+             only aged in a port or sherry cask stay under Whisky (decided by
+             scrapers/_common.py and scrapers/merge.py). -->
+        <div id="wine-subtabs" class="hidden flex space-x-2 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-wine-sub="Wine" onclick="filterWineSub('Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍷 Bottled Wine</button>
+            <button data-wine-sub="Box Wine" onclick="filterWineSub('Box Wine')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">📦 Boxed Wine</button>
+            <button data-wine-sub="Fortified" onclick="filterWineSub('Fortified')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🥃 Fortified Wine</button>
+        </div>
+
+        <!-- WINE COLOUR MENU (2026-10-24): Red / White / Rosé, shown under
+             Bottled Wine and Boxed Wine only (not Fortified). Each wine's
+             colour is worked out from its name by wineColour() below; a wine
+             whose name gives no colour, grape or region stays under All. -->
+        <div id="wine-colour-tabs" class="hidden flex space-x-1.5 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-wine-colour="All" onclick="filterWineColour('All')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">All</button>
+            <button data-wine-colour="Red" onclick="filterWineColour('Red')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">🔴 Red</button>
+            <button data-wine-colour="White" onclick="filterWineColour('White')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">⚪ White</button>
+            <button data-wine-colour="Rose" onclick="filterWineColour('Rose')" class="wine-colourchip px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap border transition duration-200">🌸 Rosé</button>
+        </div>
+
+        <!-- BEER & CIDER SUB-TABS (2026-10-13): shown only while the Beer &
+             Cider chip is selected. Worked out in the page from each
+             product's name (beerSubcategory() below), so it works on the
+             current data without waiting for a scrape. -->
+        <div id="beer-subtabs" class="hidden flex space-x-2 overflow-x-auto pb-3 mb-1 -mt-1" style="-ms-overflow-style: none; scrollbar-width: none;">
+            <button data-beer-sub="Beer" onclick="filterBeerSub('Beer')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍺 Beer</button>
+            <button data-beer-sub="Cider" onclick="filterBeerSub('Cider')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🍏 Cider</button>
+            <button data-beer-sub="Non-Alcoholic Beer" onclick="filterBeerSub('Non-Alcoholic Beer')" class="wine-subchip px-3 py-1.5 rounded-lg text-[11px] whitespace-nowrap border transition duration-200">🚫 Non Alcoholic Beer</button>
+        </div>
+
+        <!-- PRICE RANGE FILTER: filters on each product's lowest in-stock price
+             (the same figure highlighted green on the card); leave either box
+             blank for "no limit" on that end. -->
+        <div class="flex items-center space-x-2 mb-4">
+            <span class="text-[11px] text-gray-300 font-medium whitespace-nowrap">Price (BHD):</span>
+            <input type="number" id="price-min" inputmode="decimal" step="0.001" min="0" placeholder="Min" oninput="filterProducts()" class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amberGold transition duration-200">
+            <span class="text-gray-500 text-xs">–</span>
+            <input type="number" id="price-max" inputmode="decimal" step="0.001" min="0" placeholder="Max" oninput="filterProducts()" class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amberGold transition duration-200">
+            <button onclick="clearPriceFilter()" class="text-[11px] text-gray-400 font-medium whitespace-nowrap px-1">Clear</button>
+        </div>
+
+        <!-- SORT + "COMPETING PRICES ONLY" (added 2026-10-10): by default the
+             list now leads with products that more than one shop has in
+             stock, so the comparison is the first thing a visitor sees, and
+             products nobody can sell right now go to the very end. -->
+        <div class="flex items-center space-x-2 mb-4">
+            <span class="text-[11px] text-gray-300 font-medium whitespace-nowrap">Sort:</span>
+            <select id="sort-select" onchange="changeSort(this.value)" class="flex-1 bg-charcoal border border-gray-800 text-white rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amberGold">
+                <option value="saving">Biggest saving</option>
+                <option value="compared">Most shops compared</option>
+                <option value="price_asc">Price: low to high</option>
+                <option value="price_desc">Price: high to low</option>
+                <option value="az">Name: A to Z</option>
+            </select>
+            <button id="compared-only-btn" onclick="toggleComparedOnly()" class="text-[11px] font-bold whitespace-nowrap px-3 py-2 rounded-xl border border-gray-800 bg-charcoal text-gray-200 transition">⚖️ Compared only</button>
+        </div>
+
+        <!-- FREE TRIAL BANNER -->
+        <div id="trial-banner" class="hidden mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2 text-center leading-relaxed"></div>
+
+        <!-- SAVE-TO-HOME-SCREEN BANNER: hidden by default, shown by JS only on a
+             phone that hasn't already installed the app (see showInstallBanner()). -->
+        <button id="install-banner" onclick="handleInstallClick()" class="hidden w-full mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2.5 text-center leading-relaxed font-bold active:scale-[0.98] transition">
+            📲 Tap here to save this app to your home screen
+        </button>
+
+        <!-- FAVOURITE PRICE-DROP BANNER: hidden by default, filled in and shown
+             by checkFavouritePriceDrops() only when something on this visitor's
+             OWN favourites list has a fresh, not-yet-seen price drop. Tapping
+             the main area jumps to the My Favourites view; the ✕ just
+             dismisses it without navigating. -->
+        <button id="price-drop-banner" onclick="viewFavouriteDrops()" class="hidden w-full mb-3 text-[11px] text-emeraldGlow bg-emeraldGlow/10 border border-emeraldGlow/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="price-drop-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissPriceDropBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
+        <!-- BACK IN STOCK BANNER (2026-10-24): shown by checkFavouriteBackInStock()
+             when a favourite that was out of stock at every shop (when it was
+             favourited, or at a later visit) can now be bought somewhere.
+             Tapping it opens My Favourites; the ✕ just hides it. -->
+        <button id="back-in-stock-banner" onclick="viewBackInStock()" class="hidden w-full mb-3 text-[11px] text-sky-300 bg-sky-300/10 border border-sky-300/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="back-in-stock-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissBackInStockBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
+        <!-- SHARED FAVOURITES BANNER: hidden by default. Shown only when this
+             visit's URL had a "?shared=..." link someone else sent (see
+             shareFavourites() below) -- readSharedFavouritesFromUrl() already
+             scrubs that param from the address bar, this banner is just the
+             visible notice that it was there. Tapping the main area switches
+             into the read-only "viewing their list" mode; the ✕ dismisses it
+             without navigating there. -->
+        <button id="shared-favourites-banner" onclick="viewSharedFavourites()" class="hidden w-full mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2.5 text-left leading-relaxed font-bold active:scale-[0.98] transition flex justify-between items-center">
+            <span id="shared-favourites-banner-text"></span>
+            <span onclick="event.stopPropagation(); dismissSharedFavouritesBanner()" class="text-gray-400 font-normal ml-2 shrink-0">✕</span>
+        </button>
+
+        <!-- SHARED-VIEW BAR: shown only while actually viewing someone else's
+             shared list (showSharedOnly). Lets a visitor get back to their
+             own view, or add the whole shared list to their own favourites
+             in one tap. -->
+        <div id="shared-view-bar" class="hidden mb-3 flex flex-wrap items-center justify-between bg-charcoal border border-amberGold/30 rounded-xl px-3 py-2.5">
+            <span class="text-[11px] text-amberGold font-bold">🎁 Viewing a shared list</span>
+            <div class="flex items-center space-x-2">
+                <button onclick="addSharedFavouritesToMine()" class="text-[11px] font-bold text-obsidian bg-amberGold px-3 py-1.5 rounded-lg active:scale-95 transition">+ Add all to mine</button>
+                <button onclick="exitSharedView()" class="text-[11px] font-medium text-gray-300 px-2 py-1.5">Back</button>
+            </div>
+            <p id="shared-view-note" class="hidden w-full mt-2 pt-2 border-t border-gray-800 text-xs text-gray-100 leading-relaxed"></p>
+        </div>
+
+        <!-- Both of these start empty and get their text filled in once
+             loadProducts()/loadLastUpdated() resolve. Cloudflare's CLS
+             debug view flagged a 0.122 shift on the <footer> below, caused
+             by these two lines popping from zero height to one line of
+             text after load and pushing everything under them (including
+             the footer) down -- the same class of bug as the original
+             product-grid CLS fix, just a smaller leftover case of it.
+             Reserving their line-height up front avoids the shift. -->
+        <p id="products-compared" class="text-[11px] text-amberGold text-center font-bold mb-1 min-h-[14px]"></p>
+        <p class="text-[10px] text-gray-300 text-center -mt-1 mb-1">Prices refresh automatically once a week from each retailer&rsquo;s own site.</p>
+        <p id="last-updated" class="text-[10px] text-gray-400 text-center mb-3 min-h-[13px]"></p>
+
+        <!-- FAVOURITES NOTES BOX: shown only while viewing "My Favourites" (see
+             toggleFavouritesView()). One single note for the whole favourites
+             list, not one per item -- stored locally in the visitor's own
+             browser, same as the favourites themselves, no backend involved. -->
+        <div id="favourites-notes-wrap" class="hidden mb-4">
+            <!-- Opens the same QR-code share modal used for sharing the app
+                 itself (see shareFavourites() below), pre-filled with a link
+                 to just THIS visitor's current favourites. A full-width
+                 filled button rather than a small text link next to the
+                 notes label -- that version (2026-10-05) turned out too
+                 small/easy to miss sitting quietly next to a label, same
+                 "too small to notice" class of issue as the price-per-litre
+                 text fix the same day. -->
+            <p id="stock-watch-line" class="hidden text-[11px] text-sky-300 font-semibold mb-2"></p>
+            <button onclick="shareFavourites()" class="mb-3 ml-auto flex items-center justify-center space-x-1.5 bg-amberGold text-obsidian font-bold text-[11px] px-3 py-1.5 rounded-lg active:scale-[0.98] transition">
+                <span>📤</span><span>Share list</span>
+            </button>
+            <!-- BASKET SUMMARY (added 2026-10-10): what the whole favourites
+                 list costs at each shop, and the cheapest way to buy it
+                 (each item wherever it's cheapest). Filled in by
+                 renderFavouritesBasket(). -->
+            <div id="favourites-basket" class="hidden mb-3 bg-charcoal border border-emeraldGlow/30 rounded-xl px-3 py-3"></div>
+            <label class="text-[11px] text-gray-300 font-medium block mb-1">Notes for your favourites list</label>
+            <textarea id="favourites-note" rows="2" oninput="saveFavouritesNote()" placeholder="Jot down a reminder for yourself, e.g. which store to check first..." class="w-full bg-charcoal border border-gray-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-amberGold resize-none"></textarea>
+        </div>
+
+        <!-- PRODUCT LIST OVERVIEW -->
+        <!-- min-h-[100vh]: reserves a full viewport of height even while
+             "Loading live prices..." is the only thing in here. Without it,
+             this container is ~40px tall until the products.json fetch
+             resolves, then jumps to thousands of pixels once the grid
+             renders -- pushing the legal <footer> below down by that same
+             amount after the page has already painted. That's exactly the
+             CLS hit the analytics dashboard flagged on the footer (0.278,
+             hit on 27 of 36 visits). Reserving a viewport of space up front
+             means the footer starts off-screen below the fold either way,
+             so the later jump isn't a visible shift. -->
+        <!-- RESULTS COUNT (2026-10-24): how many products the current tab,
+             wine colour and search are showing. Height reserved up front so
+             it doesn't shift the grid when it fills in. -->
+        <p id="results-count" class="text-[11px] text-gray-300 mb-2 min-h-[16px]"></p>
+        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[100vh] pb-16"></div>
+
+        <!-- STICKY BOTTOM PAYWALL FOOTER -->
+        <div id="paywall-footer" class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-obsidian via-obsidian to-transparent pt-6 pb-4 px-4 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto z-40">
+            <button onclick="openPaywallModal()" class="w-full bg-gradient-to-r from-amberGold to-yellow-600 text-obsidian font-bold py-4 rounded-xl shadow-xl flex justify-between items-center px-5 transform active:scale-95 transition duration-150">
+                <span class="flex items-center space-x-2 text-sm tracking-wide">
+                    <span>🔒</span>
+                    <span>UNLOCK ALL LIVE PROMOS</span>
+                </span>
+                <span class="text-xs bg-obsidian bg-opacity-20 px-2 py-1 rounded text-obsidian font-extrabold">4.500 BHD/YR →</span>
+            </button>
+        </div>
+
+        <!-- LEGAL FOOTER DISCLAIMER -->
+        <footer class="mt-12 text-center text-[10px] text-gray-300 leading-relaxed px-4 pb-8">
+            <h2 class="text-xs font-bold text-gray-200 mb-1">Drinks prices in Bahrain, compared</h2>
+            <p class="mb-4">Pour Choices compares alcohol and drinks prices in Bahrain across BMMI, African &amp; Eastern, GBI Express and NHSC every week, so you can find the cheapest place to buy beer, wine, whisky, gin, vodka and rum in Bahrain before you shop.</p>
+            Disclaimer: This application is an independent price-comparison directory, not a retail site. We are not affiliated with, authorized, or endorsed by BMMI, African &amp; Eastern, GBI Express, or NHSC. We do not sell, store, handle, or deliver alcohol items, and we are not a party to any purchase. Any purchase must be made directly with the relevant retailer, through their own website or store. All prices are for informational purposes only and may not reflect the retailer&rsquo;s current price; always confirm the price with the retailer before buying.
+            <br><br><a href="/prices/" class="text-amberGold underline">Browse all drinks prices in Bahrain</a>
+        </footer>
+    </div>
+
+    <!-- 2. BENEFITPAY TRANSACTION MODAL -->
+    <!-- STOCK WATCH POP-UP (2026-10-24): shown the first time on each visit
+         that My Favourites is opened while some favourites are out of stock
+         at every shop, explaining the "Back in Stock" alert. -->
+    <div id="stock-watch-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center px-4" onclick="if (event.target === this) closeStockWatchModal()">
+        <div class="bg-charcoal border border-sky-300/40 rounded-2xl p-5 max-w-sm w-full text-left">
+            <h3 class="text-base font-bold text-sky-300 mb-2">🔔 Out of Stock Favourites</h3>
+            <p id="stock-watch-modal-text" class="text-xs text-gray-200 leading-relaxed"></p>
+            <ul id="stock-watch-modal-list" class="text-[11px] text-gray-300 mt-3 space-y-1 list-disc pl-4"></ul>
+            <p class="text-[11px] text-gray-300 mt-3 leading-relaxed">When a shop has one again, a blue <span class="text-sky-300 font-bold">🔔 Back in Stock</span> note appears at the top of the app. Prices and stock are updated once a week.</p>
+            <button onclick="closeStockWatchModal()" class="mt-4 w-full bg-sky-300 text-obsidian font-bold text-sm py-2.5 rounded-xl active:scale-[0.98] transition">Got it</button>
+        </div>
+    </div>
+
+    <div id="paywall-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closePaywallModal()"></div>
+            <h3 class="text-lg font-bold">Activate Full Directory Access</h3>
+            <p class="text-xs text-gray-400 mt-1 mb-6">Compare prices across all 4 shops, plus favourites, basket totals and price-drop alerts. 4.500 BHD per year.</p>
+
+            <div class="bg-obsidian border border-gray-800 rounded-xl p-4 mb-4 flex flex-col items-center">
+                <div class="w-32 h-32 bg-gray-800 border-2 border-dashed border-gray-600 rounded-lg flex items-center justify-center mb-3">
+                    <span class="text-xs text-gray-400">[ BenefitPay QR Code ]</span>
+                </div>
+                <p class="text-xs text-gray-300">1. Scan QR code above or send 4.500 BHD via BenefitPay to <b>Pour Choices</b> (+973 XXXXXXXX)</p>
+            </div>
+
+            <div class="text-left space-y-3">
+                <label class="text-xs font-bold text-gray-400">2. Complete Activation</label>
+                <input type="text" id="promo-code-input" placeholder="Enter Reference Code or type 'BAHRAIN123'" class="w-full bg-obsidian border border-gray-800 text-white rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-amberGold">
+                <button onclick="submitPaymentCode()" class="w-full bg-white text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Submit Verification Request
+                </button>
+            </div>
+            <button onclick="closePaywallModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel and return</button>
+        </div>
+    </div>
+
+    <!-- 3. BETA FEEDBACK BUTTON + MODAL -->
+    <!-- Small round icon buttons (2026-10-13): the old wide "Share" and
+         "Feedback" pills covered the favourites list on a phone. -->
+    <button onclick="openFeedbackModal()" aria-label="Feedback" title="Feedback" class="fixed bottom-3 right-3 z-30 w-10 h-10 flex items-center justify-center bg-charcoal/90 border border-gray-700 text-base rounded-full shadow-xl active:scale-95 transition">
+        💬
+    </button>
+
+    <!-- 4. SHARE BUTTON: opens the QR-code share modal (see shareApp() and
+         openShareModal() below). QR is the primary option here rather than
+         just the native share sheet -- most real sharing of this app is two
+         people standing next to each other with their own phones, and a
+         scan works the same way regardless of which phone/OS either one has,
+         unlike the native share sheet (no AirDrop between an iPhone and an
+         Android, for instance) or typing a link out by hand. -->
+    <button onclick="shareApp()" aria-label="Share the app" title="Share the app" class="fixed bottom-3 left-3 z-30 w-10 h-10 flex items-center justify-center bg-charcoal/90 border border-gray-700 text-base rounded-full shadow-xl active:scale-95 transition">
+        🔗
+    </button>
+
+    <!-- LIGHTWEIGHT TOAST NOTIFICATION (see showToast()): shows the "opening
+         retailer" notice without blocking the page, unlike the alert() it
+         replaces. -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-sm pointer-events-none flex flex-col items-center space-y-2"></div>
+
+    <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="feedback-modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-5" onclick="closeFeedbackModal()"></div>
+            <h3 class="text-lg font-bold">Beta Feedback</h3>
+            <p class="text-xs text-gray-400 mt-1 mb-5">Spotted a glitch, a wrong price, or have a suggestion? This app is in beta, tell us about it here.</p>
+
+            <div class="text-left space-y-3">
+                <textarea id="feedback-text" rows="4" placeholder="Describe the glitch, error, or suggestion..." class="w-full bg-obsidian border border-gray-800 text-white rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-amberGold resize-none"></textarea>
+                <button onclick="sendFeedback()" class="w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm transition duration-200">
+                    Send Feedback
+                </button>
+            </div>
+            <button onclick="closeFeedbackModal()" class="mt-4 text-xs text-gray-500 font-medium">Cancel</button>
+        </div>
+    </div>
+
+    <!-- 5. SHARE MODAL (added 2026-10-05): shared by both the general "Share
+         Pour Choices" button above and "📤 Share list" in My Favourites (see
+         openShareModal() below, which fills in the title/link/QR for
+         whichever one was tapped). QR code image comes from a free, no-key
+         public API (api.qrserver.com) rather than a bundled QR-drawing
+         library -- it's just an <img src>, no new dependency, and if that
+         service is ever slow/unreachable the link text and copy button
+         below it still work on their own. -->
+    <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
+        <div class="bg-charcoal rounded-t-3xl px-4 pt-3 pb-4 text-center max-w-md mx-auto w-full max-h-[92vh] overflow-y-auto border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="share-modal-content">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-3" onclick="closeShareModal()"></div>
+            <div class="flex items-center justify-between mb-2">
+                <h3 id="share-modal-title" class="text-base font-bold text-left">Share</h3>
+                <button onclick="closeShareModal()" aria-label="Close" class="text-gray-400 text-lg leading-none px-2">✕</button>
+            </div>
+
+            <!-- Readable preview of what's being shared (filled in only when
+                 sharing a favourites list), so the person sending it sees
+                 the actual product names rather than a link full of code. -->
+            <div id="share-modal-list" class="hidden text-left bg-obsidian border border-gray-800 rounded-xl px-3 py-2.5 mb-4 max-h-40 overflow-y-auto"></div>
+
+            <!-- Favourites only (2026-10-11): tick which favourites to send
+                 (all ticked to start with) and add an optional personal
+                 message. The link, QR code and WhatsApp text update as you
+                 go. -->
+            <div id="share-fav-controls" class="hidden text-left mb-3">
+                <div class="flex justify-between items-center mb-1.5">
+                    <p class="text-[11px] font-bold text-gray-200">Choose what to send <span id="share-fav-count" class="text-amberGold"></span></p>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="setAllShareChoices(true)" class="text-[11px] text-amberGold font-bold">All</button>
+                        <button onclick="setAllShareChoices(false)" class="text-[11px] text-amberGold font-bold">None</button>
+                    </div>
+                </div>
+                <div id="share-fav-choices" class="bg-obsidian border border-gray-800 rounded-xl px-3 py-2 max-h-[40vh] overflow-y-auto"></div>
+                <label for="share-fav-note" class="block text-[11px] font-bold text-gray-200 mt-2 mb-1">Add a message (optional)</label>
+                <textarea id="share-fav-note" rows="2" maxlength="200" oninput="updateFavouritesShare()" placeholder="e.g. Can you pick these up for Friday?" class="w-full bg-obsidian border border-gray-800 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amberGold"></textarea>
+            </div>
+
+            <!-- Compact buttons in one row (2026-10-13): the old full-width
+                 stacked buttons and big QR code took the whole phone screen
+                 and hid the favourites list above them. -->
+            <div class="flex space-x-2 mb-2">
+                <button onclick="shareViaWhatsApp()" class="flex-1 bg-[#25D366] text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">WhatsApp</button>
+                <button onclick="copyShareLink()" class="flex-1 bg-amberGold text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">Copy</button>
+                <button id="share-modal-sheet-btn" onclick="shareViaSheet()" class="hidden flex-1 bg-white text-obsidian font-bold py-2 rounded-lg text-xs transition duration-200">More...</button>
+            </div>
+            <button id="share-qr-toggle" onclick="toggleShareQr()" class="text-[11px] text-amberGold font-bold mb-2">Show QR code ▾</button>
+            <div id="share-qr-wrap" class="hidden">
+                <div class="bg-white rounded-xl p-2 mb-2 inline-flex items-center justify-center">
+                    <img id="share-modal-qr" src="" alt="QR code" width="120" height="120" class="w-[120px] h-[120px]">
+                </div>
+                <p class="text-[10px] text-gray-400 mb-1">Let the other phone scan this code.</p>
+            </div>
+            <p id="share-modal-link" class="text-[10px] text-gray-500 break-all select-all"></p>
+        </div>
+    </div>
+
+    <!-- MAIN ENGINE DATA SCRIPT -->
+    <script>
+        // Live product data: fetched from data/products.json, which the scheduled
+        // scraper pipeline (see .github/workflows/scrape.yml) regenerates on its own
+        // schedule and commits back to this repo. Starts empty; loadProducts() below
+        // fills it in and re-renders once the fetch resolves.
+        let mockProducts = [];
+        let productsLoadFailed = false;
+
+        async function loadProducts() {
+            try {
+                // "no-cache" (not "no-store"): every load still checks with
+                // the server before using anything, so a visitor never sees
+                // stale prices -- but if nothing's changed since their last
+                // visit, the server replies "not modified" and the browser
+                // reuses what it already has instead of re-downloading the
+                // whole ~3,000-product catalogue from scratch every single
+                // time. "no-store" (the old setting) skipped that check
+                // entirely and forced a full re-download on every visit,
+                // which is what was making the app feel slow to open even
+                // on a normal repeat visit, not just first-time loads.
+                const res = await fetch("data/products.json", { cache: "no-cache" });
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                mockProducts = await res.json();
+                splitBeerCategories(mockProducts);
+                computeComparisonStats();
+                // The sort choice is deliberately NOT remembered between visits:
+                // every visit opens on "Biggest saving", so the first
+                // thing anyone sees is the comparison. Clears the value older
+                // versions of this page saved.
+                try { localStorage.removeItem("sortOrder"); } catch (e) {}
+                activeSort = "saving";
+                const sel = document.getElementById("sort-select");
+                if (sel) sel.value = activeSort;
+                sortProducts();
+                repairFavouriteNames();
+                resolvePendingSharedCodes();
+                applySearchFromUrl();
+            } catch (e) {
+                productsLoadFailed = true;
+                console.error("Could not load product data:", e);
+            }
+            updateProductsComparedCount();
+            updatePriceDropsChipLabel();
+            renderProducts();
+            checkFavouritePriceDrops();
+            checkFavouriteBackInStock();
+            checkSharedFavourites();
+        }
+
+        // Shows the total number of products currently in the catalogue, right at
+        // the top of the app, so a visitor can see at a glance how much this
+        // compares without having to count cards. Always the live count from
+        // data/products.json (whatever the latest scrape produced), never a
+        // hardcoded number, so it never goes stale.
+        function updateProductsComparedCount() {
+            const el = document.getElementById("products-compared");
+            if (!el) return;
+            if (productsLoadFailed || !mockProducts.length) {
+                el.textContent = "";
+                return;
+            }
+            const competing = mockProducts.filter(p => p._inStockCount >= 2).length;
+            el.textContent = "Products Listed: " + mockProducts.length.toLocaleString("en-US") +
+                " · " + competing.toLocaleString("en-US") + " with competing prices";
+        }
+
+        // Shows visitors how fresh the prices are, using the timestamp the scraper
+        // pipeline writes to data/last_updated.json each time it runs (see
+        // scrapers/merge.py). Fails silently (leaves the line blank) if that file
+        // isn't there yet, e.g. before the very first scrape has ever run.
+        async function loadLastUpdated() {
+            try {
+                const res = await fetch("data/last_updated.json", { cache: "no-cache" });
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                const data = await res.json();
+                const updatedAt = new Date(data.updated_at);
+                const formatted = updatedAt.toLocaleString("en-GB", {
+                    timeZone: "Asia/Bahrain",
+                    day: "numeric",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+                const el = document.getElementById("last-updated");
+                if (el) el.textContent = "Prices last updated: " + formatted + " (Bahrain time)";
+            } catch (e) {
+                console.error("Could not load last-updated time:", e);
+            }
+        }
+
+        // Free-trial + pricing config: free for the first TRIAL_DAYS days after a
+        // visitor's first launch (tracked locally, per device), then YEARLY_PRICE_BHD.
+        // Pricing decided 2026-09-14: yearly only, 4.500 BHD (a monthly 0.500
+        // charge would lose 20-35% of itself to fixed gateway fees).
+        const TRIAL_DAYS = 30;
+        const YEARLY_PRICE_BHD = "4.500";
+
+        // Launch-phase switch: while true, the whole app is free and the trial/paywall
+        // logic below is skipped (kept in place, not deleted, so flipping this back to
+        // false re-enables the 30-day-trial-then-4.500-BHD-a-year model exactly as before).
+        // Flip to false once you're ready to start charging.
+        const FREE_MODE = true;
+
+        // Freemium switchboard (added 2026-10-10): which extras sit behind the
+        // subscription once FREE_MODE is turned off. Prices and basic
+        // comparison stay free for everyone (that's what brings people in);
+        // the "save me time / save me money" extras are what a subscription
+        // buys. Flip any entry to false to make that feature free for all,
+        // with no other code change needed. While FREE_MODE is true every
+        // feature is open to everyone regardless.
+        const PREMIUM_FEATURES = {
+            favourites: true,      // hearts, My Favourites view, notes
+            shareList: true,       // sharing a favourites list
+            basket: true,          // favourites basket totals per shop
+            savingsSort: false,    // "Biggest saving" order: the default view, so free for everyone
+            priceDropAlerts: true, // price-drop banner for favourites
+            backInStockAlerts: true, // "Back in Stock" banner for favourites
+        };
+        function hasFeature(name) {
+            return isPremium || PREMIUM_FEATURES[name] === false;
+        }
+
+        let isPremium = false; // true whenever access is unlocked, whether paid or trial
+        let isPaid = false;    // true only once a real BenefitPay payment has been verified
+        let activeCategory = "All";
+        // Red / White / Rosé choice inside Bottled and Boxed Wine (2026-10-24).
+        let activeWineColour = "All";
+
+        // Display-only rename (2026-09-18): "Champagne" -> "Champagne & Sparkling
+        // Wines" everywhere a category is SHOWN to a visitor (the card badge
+        // below). The actual category value baked into each scraped product,
+        // and used for filtering (activeCategory/filterCategory above), stays
+        // the plain "Champagne" string it always was -- changing that value
+        // itself would only take effect on already-scraped products after a
+        // fresh scrape, so this keeps the rename visible immediately without
+        // waiting on one. Same trick used again 2026-09-22 for "Beer" ->
+        // "Beer & Cider" -- cider products already land in the "Beer" bucket
+        // server-side (scrapers/_common.py's guess_category() already
+        // matches "cider" as a Beer keyword), this is purely a label change.
+        const CATEGORY_DISPLAY_NAMES = { "Champagne": "Champagne & Sparkling Wines", "Beer": "Beer",
+            "Cider": "Cider", "Non-Alcoholic Beer": "Non Alcoholic Beer",
+            "Wine": "Bottled Wine", "Box Wine": "Boxed Wine", "Fortified": "Fortified Wine" };
+        // The three categories the Wine chip's sub-tabs choose between.
+        const WINE_SUBCATEGORIES = ["Wine", "Box Wine", "Fortified"];
+        // The three categories the Beer & Cider chip's sub-tabs choose
+        // between (2026-10-13). The scrapers file all of these as "Beer";
+        // beerSubcategory() splits them by name once the data has loaded.
+        const BEER_SUBCATEGORIES = ["Beer", "Cider", "Non-Alcoholic Beer"];
+        const NON_ALCOHOLIC_RE = /(^|[^\d.])0[.,][0-5]\s*%?(?!\d)|(^|[^\d.])0\s*%|alcohol[\s-]*free|non[\s-]*alc|alkoholfrei|\bsin alcohol\b|\bcero\b|\bzero\b|\bnab\b/i;
+        const CIDER_RE = /\b(ciders?|cidre|sidra|perry)\b/i;
+        function beerSubcategory(name) {
+            if (NON_ALCOHOLIC_RE.test(name)) return "Non-Alcoholic Beer";
+            if (CIDER_RE.test(name)) return "Cider";
+            return "Beer";
+        }
+        function splitBeerCategories(products) {
+            products.forEach(prod => {
+                if (prod.category === "Beer") prod.category = beerSubcategory(prod.name || "");
+                if (WINE_COLOUR_CATEGORIES.includes(prod.category)) prod._wineColour = wineColour(prod.name);
+            });
+        }
+        // The two wine sub-tabs that get the Red / White / Rosé menu.
+        const WINE_COLOUR_CATEGORIES = ["Wine", "Box Wine"];
+        const WINE_COLOUR_SEARCH_WORDS = { "Red": "red wine", "White": "white wine", "Rose": "rose wine | rosé" };
+        // Wine colour (2026-10-24): Red / White / Rosé sub-menus inside
+        // Bottled Wine and Boxed Wine. Worked out from the product name in the
+        // page, so it works on the current data without a scrape. Order
+        // matters: a colour word on the label ("Rosé", "White", "Rouge")
+        // beats a grape or region, so "Shiraz Rosé" is Rosé, "Sangiovese
+        // Bianco" is White and "White Zinfandel" (a blush) is Rosé. A wine
+        // that names no colour, grape or known region stays under "All" only.
+        const WINE_COLOURS = ["Red", "White", "Rose"];
+        const WINE_COLOUR_LABELS = { "Red": "Red", "White": "White", "Rose": "Rosé" };
+        const ROSE_WINE_RE = /\b(ros[eé]s?|rosado|rosato|ros[eé]|blush|pink|white zinfandel|white grenache|blanc de noirs?|vin gris|grain de gris|sauvages gris|rosatello|cotes de provence|cote de provence)\b/i;
+        const WHITE_WORD_RE = /\b(white|whites|blanc|blancs|bianco|bianca|blanco|branco|weiss|weisswein)\b/i;
+        const RED_WORD_RE = /\b(red|reds|rouge|rosso|tinto|tinta|negre|rojo|rot|rotwein|claret)\b/i;
+        const WHITE_GRAPE_RE = /\b(chardonnay|sauvignon blanc|fume blanc|pinot grigio|pinot gris|pinot blanc|riesling|chenin|steen|viognier|gewurztraminer|gewurz|traminer|moscato|muscat|moscatel|muscadel|semillon|albarino|alvarinho|gruner|veltliner|verdejo|vermentino|soave|gavi|cortese|chablis|sancerre|pouilly|sauternes|barsac|trebbiano|torrontes|colombard|macabeo|viura|fiano|greco|falanghina|picpoul|marsanne|roussanne|vinho verde|muscadet|frascati|orvieto|entre deux mers|montrachet|meursault|macon|verdicchio|grillo|catarratto|inzolia|pecorino|garganega|arneis|furmint|tokaji|rkatsiteli|assyrtiko|malvasia|hárslevelű|harslevelu|vouvray|savennieres|silvaner|sylvaner|kerner|muller thurgau|scheurebe|xarel|godello|loureiro|airen|white blend|semi sweet white|liebfraumilch|sauvignon|aligote|saint veran|st veran|lugana|vin jaune)\b/i;
+        const RED_GRAPE_RE = /\b(cabernet|merlot|shiraz|syrah|pinot noir|spatburgunder|malbec|tempranillo|sangiovese|zinfandel|primitivo|grenache|garnacha|cannonau|carmenere|pinotage|nebbiolo|barolo|barbaresco|chianti|brunello|montalcino|montepulciano|rioja|ribera|priorat|valpolicella|ripasso|amarone|bardolino|nero d avola|nero d'avola|negroamaro|aglianico|gamay|beaujolais|fleurie|morgon|moulin a vent|moulin à vent|brouilly|julienas|mourvedre|monastrell|petit verdot|petite sirah|dolcetto|barbera|lagrein|teroldego|corvina|cinsault|carignan|carignano|tannat|touriga|saperavi|kadarka|blaufrankisch|zweigelt|st laurent|mencia|bobal|baga|douro|dao|medoc|haut medoc|pauillac|margaux|saint julien|st julien|saint estephe|st estephe|saint emilion|st emilion|pomerol|fronsac|listrac|moulis|pessac|graves rouge|cotes du rhone|cote du rhone|chateau neuf|nero davola|côtes du rhône|chateauneuf|châteauneuf|gigondas|vacqueyras|crozes|hermitage|cornas|cote rotie|côte-rôtie|fitou|corbieres|minervois|cahors|madiran|bourgueil|chinon|gevrey|chambertin|chambolle|musigny|vosne|romanee|nuits|pommard|volnay|cote de beaune rouge|bourgogne rouge|bordeaux rouge|red blend|super tuscan|bolgheri|sassicaia|tignanello|lambrusco|sweet red|bordeaux|crianza|toscana|ornellaia|solaia|opus one|beaune|santenay|saint emili|cotes de bourg|chenas|tintilia|schioppettino|pinot nero|malb)\b/i;
+        const wineColourText = (s) => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[-_'’]/g, " ").replace(/\s+/g, " ");
+        function wineColour(name) {
+            const raw = name || "";
+            const n = wineColourText(raw).replace(/cabernet sauvignon/ig, "cabernet");
+            if (ROSE_WINE_RE.test(raw) || ROSE_WINE_RE.test(n)) return "Rose";
+            const white = WHITE_WORD_RE.test(n), red = RED_WORD_RE.test(n);
+            if (white && !red) return "White";
+            if (red && !white) return "Red";
+            const whiteGrape = WHITE_GRAPE_RE.test(n), redGrape = RED_GRAPE_RE.test(n);
+            if (whiteGrape && !redGrape) return "White";
+            if (redGrape && !whiteGrape) return "Red";
+            return null;
+        }
+
+        // Extra words a search box query should find each category by
+        // (2026-10-11): shops call box wines "Cask 3L" or "5LTR", so typing
+        // "box wine" would otherwise find nothing.
+        const CATEGORY_SEARCH_WORDS = {
+            "Wine": "bottled wine",
+            "Box Wine": "box wines | boxed wine | bag in box | cask wine",
+            "Fortified": "fortified wines",
+            // Shops write alcohol-free beer many ways (0.0, Zero, Cero,
+            // Alcohol Free), so any of these words finds the whole tab.
+            "Non-Alcoholic Beer": "non alcoholic beer | non-alcoholic | nonalcoholic | alcohol free | alcohol-free | zero alcohol | 0.0 | 0% | na beer | beer",
+            "Cider": "ciders",
+        };
+        // Fortified wines (2026-10-24): "port" and "sherry" used to be search
+        // words on EVERY fortified product, so typing "Port" in Fortified
+        // Wine also listed every sherry and vermouth. Now each product only
+        // gets the word for its own type, so "sherry" still finds an
+        // "Amontillado" or "Fino" that never says sherry in its name.
+        const PORT_TYPE_RE = /\b(port|porto|tawny|lbv|late bottled|colheita|ruby|graham'?s|taylor'?s|dow'?s|warre'?s|cockburn'?s|fonseca|croft|porto cruz|offley|niepoort|quinta)\b/i;
+        const SHERRY_TYPE_RE = /\b(sherry|jerez|xeres|oloroso|amontillado|fino|manzanilla|palo cortado|pedro xim[eé]nez|px|cream|tio pepe|harveys|barbadillo|lustau|gonzalez byass|solera)\b/i;
+        function fortifiedTypeWords(prod) {
+            if (prod.category !== "Fortified") return "";
+            const n = prod.name || "";
+            const words = [];
+            if (PORT_TYPE_RE.test(n)) words.push("port wine");
+            if (SHERRY_TYPE_RE.test(n)) words.push("sherry");
+            return words.join(" | ");
+        }
+        // Typo-tolerant search helpers (2026-10-24). Each typed word must
+        // closely match the START of some word in the product's name: up to
+        // 1 letter wrong/missing/extra for 4-5 letter words, 2 for 6+.
+        // A 3-letter word only matches if one letter is missing ("pot" ->
+        // "port"), since allowing more would match far too much.
+        function editDistance(a, b, max) {
+            if (Math.abs(a.length - b.length) > max) return max + 1;
+            // Two letters swapped ("gery" for "grey") counts as one mistake.
+            let prev2 = null;
+            let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+            for (let i = 1; i <= a.length; i++) {
+                const cur = [i];
+                let rowMin = i;
+                for (let j = 1; j <= b.length; j++) {
+                    cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+                    if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) cur[j] = Math.min(cur[j], prev2[j - 2] + 1);
+                    if (cur[j] < rowMin) rowMin = cur[j];
+                }
+                if (rowMin > max) return max + 1;
+                prev2 = prev;
+                prev = cur;
+            }
+            return prev[b.length];
+        }
+        function fuzzyWordMatch(q, word) {
+            if (word.startsWith(q)) return true;
+            if (q.length < 3 || q[0] !== word[0]) return false;
+            if (q.length === 3) {
+                const pre = word.slice(0, 4);
+                if (pre.length < 4) return false;
+                for (let k = 1; k < 4; k++) if (pre.slice(0, k) + pre.slice(k + 1) === q) return true;
+                return false;
+            }
+            const max = q.length >= 6 ? 2 : 1;
+            for (let len = q.length - max; len <= q.length + max; len++) {
+                if (len < 3 || len > word.length) continue;
+                if (editDistance(q, word.slice(0, len), max) <= max) return true;
+            }
+            return false;
+        }
+        function fuzzySearchMatch(prod, queryWords) {
+            if (!queryWords.length) return false;
+            if (!prod._searchWords) prod._searchWords = productSearchText(prod).split(/[^a-z0-9]+/).filter(Boolean);
+            return queryWords.every(q => prod._searchWords.some(w => fuzzyWordMatch(q, w)));
+        }
+        const globalSearchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
+        function productSearchText(prod) {
+            if (prod._search === undefined) {
+                // " | " keeps a query from matching across the end of the
+                // name and the extra words ("...Wooden Box" + "wine").
+                prod._search = globalSearchNormalize(`${prod.name} | ${CATEGORY_SEARCH_WORDS[prod.category] || ""} | ${WINE_COLOUR_SEARCH_WORDS[prod._wineColour] || ""} | ${fortifiedTypeWords(prod)}`);
+            }
+            return prod._search;
+        }
+        const categoryLabel = (cat) => CATEGORY_DISPLAY_NAMES[cat] || cat;
+
+        // The 4 retailers this app compares, in the fixed order their price
+        // cells always render in. Shared by renderProducts() (lowest-price
+        // highlight + min/max filter) and checkFavouritePriceDrops() below --
+        // factored out 2026-10-05 so there's one single definition of "this
+        // product's current lowest in-stock price" rather than two copies
+        // that could quietly drift apart.
+        const RETAILER_KEYS = ["bmmi", "ae", "gbi", "nhsc"];
+
+        // Only an in-stock price counts toward "lowest price" -- a retailer
+        // whose own scraper flagged an item as out of stock (prod.X_in_stock
+        // === false) still has its last-seen price sitting in prod.X, but
+        // that's not a price you can actually pay today.
+        function getLowestInStockPrice(prod) {
+            const inStockPrices = RETAILER_KEYS
+                .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
+                .map(k => prod[k]);
+            return inStockPrices.length ? Math.min(...inStockPrices) : null;
+        }
+
+        const RETAILER_SHORT_LABELS = { bmmi: "BMMI", ae: "A&E", gbi: "GBI Express", nhsc: "NHSC" };
+
+        // The single cheapest in-stock offer for a product: {key, label,
+        // price}, or null if no shop has it in stock.
+        function cheapestRetailer(prod) {
+            let best = null;
+            RETAILER_KEYS.forEach(k => {
+                const v = prod[k];
+                if (v === null || v === undefined || prod[`${k}_in_stock`] === false) return;
+                if (!best || v < best.price) best = { key: k, label: RETAILER_SHORT_LABELS[k], price: v };
+            });
+            return best;
+        }
+
+        // --- Competing-price ordering (added 2026-10-10) ----------------------
+        // Worked out once per product right after products.json loads (not on
+        // every render): how many shops have it in stock right now, how many
+        // list it at all, its lowest in-stock price and the saving between
+        // the dearest and cheapest in-stock shop. Stored on the product as
+        // _-prefixed fields so they never collide with anything merge.py
+        // writes.
+        function computeComparisonStats() {
+            mockProducts.forEach(prod => {
+                const inStock = RETAILER_KEYS
+                    .filter(k => prod[k] !== null && prod[k] !== undefined && prod[`${k}_in_stock`] !== false)
+                    .map(k => prod[k]);
+                prod._inStockCount = inStock.length;
+                prod._listedCount = RETAILER_KEYS.filter(k => prod[k] !== null && prod[k] !== undefined).length;
+                prod._lowest = inStock.length ? Math.min(...inStock) : null;
+                prod._saving = inStock.length >= 2 ? Math.max(...inStock) - Math.min(...inStock) : null;
+            });
+        }
+
+        // Default order (2026-10-10): biggest saving first, so the first thing
+        // anyone sees on opening the app is where switching shop saves the
+        // most money. Still only within the "in stock at 2+ shops" group --
+        // see sortProducts().
+        let activeSort = "saving";
+        let showComparedOnly = false;
+
+        // Sorts mockProducts in place. Whatever the chosen order, a product
+        // no shop can sell right now (no in-stock price anywhere) always goes
+        // after everything that can be bought -- it's the least useful thing
+        // to show near the top of a price comparison.
+        function sortProducts() {
+            const byName = (a, b) => a.name.localeCompare(b.name);
+            const compared = (a, b) =>
+                (b._inStockCount - a._inStockCount) ||
+                ((b._saving || 0) - (a._saving || 0)) ||
+                (b._listedCount - a._listedCount) ||
+                byName(a, b);
+            const sorters = {
+                compared,
+                saving: (a, b) => ((b._saving ?? -1) - (a._saving ?? -1)) || compared(a, b),
+
+                price_asc: (a, b) => (a._lowest - b._lowest) || byName(a, b),
+                price_desc: (a, b) => (b._lowest - a._lowest) || byName(a, b),
+                az: byName,
+            };
+            const fn = sorters[activeSort] || compared;
+            // Whatever order is picked, products with a real comparison (2+
+            // shops have it in stock) always come first, then single-shop
+            // products, then ones nobody can sell right now. The chosen sort
+            // only orders things WITHIN each of those groups. Without this,
+            // "Price: low to high" put soft drinks and mixers at the very top
+            // and pushed every actual comparison out of sight (2026-10-10).
+            const group = (p) => (p._inStockCount >= 2 ? 0 : p._lowest !== null ? 1 : 2);
+            mockProducts.sort((a, b) => (group(a) - group(b)) || fn(a, b));
+        }
+
+        function changeSort(value) {
+            // "Biggest saving" is the most direct answer to "is this app worth
+            // paying for", so it's one of the features that sits behind the
+            // subscription once FREE_MODE is turned off (see PREMIUM_FEATURES).
+            if (value === "saving" && !hasFeature("savingsSort")) {
+                const sel = document.getElementById("sort-select");
+                if (sel) sel.value = activeSort;
+                openPaywallModal();
+                return;
+            }
+            activeSort = value;
+            sortProducts();
+            renderProducts();
+        }
+
+        function toggleComparedOnly() {
+            showComparedOnly = !showComparedOnly;
+            const btn = document.getElementById("compared-only-btn");
+            if (btn) {
+                btn.classList.toggle("bg-amberGold", showComparedOnly);
+                btn.classList.toggle("text-obsidian", showComparedOnly);
+                btn.classList.toggle("border-amberGold", showComparedOnly);
+                btn.classList.toggle("bg-charcoal", !showComparedOnly);
+                btn.classList.toggle("text-gray-200", !showComparedOnly);
+            }
+            renderProducts();
+        }
+
+        // The "⚖️ Compared at 3 shops · save 2.450" line under a product's
+        // name. Only shown when at least 2 shops have it in stock, i.e. when
+        // there's a real comparison to point at.
+        function comparisonBadgeHTML(prod) {
+            if (!prod._inStockCount || prod._inStockCount < 2) return "";
+            // The saving gets its own green pill (2026-10-11, John: the
+            // saving should stand out from the orange), green being the
+            // app's "good price" colour, same as the cheapest-price figure.
+            const shopsPill = `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amberGold/15 text-amberGold">⚖️ ${prod._inStockCount} shops</span>`;
+            const savingPill = prod._saving > 0.0005
+                ? `<span class="inline-block mt-1 mr-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow border border-emeraldGlow/40">💰 Save ${prod._saving.toFixed(3)} BHD</span>`
+                : `<span class="inline-block mt-1 mr-1 text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-charcoal text-gray-300">Same price everywhere</span>`;
+            return shopsPill + savingPill;
+        }
+
+        // --- Favourites basket (added 2026-10-10) ------------------------------
+        // Answers "where should I do my shopping?": the total for the whole
+        // favourites list at each shop (and how many of the items that shop
+        // has in stock), plus the cheapest possible total buying every item
+        // wherever it's cheapest.
+        function renderFavouritesBasket(favouritesSet) {
+            const el = document.getElementById("favourites-basket");
+            if (!el) return;
+            const items = mockProducts.filter(p => favouritesSet.has(p.name));
+            if (!showFavouritesOnly || items.length === 0 || !hasFeature("basket")) {
+                el.classList.add("hidden");
+                el.innerHTML = "";
+                return;
+            }
+            const perShop = RETAILER_KEYS.map(k => {
+                let total = 0, count = 0;
+                items.forEach(p => {
+                    const v = p[k];
+                    if (v !== null && v !== undefined && p[`${k}_in_stock`] !== false) { total += v; count++; }
+                });
+                return { key: k, label: RETAILER_SHORT_LABELS[k], total, count };
+            });
+            let mixTotal = 0, mixCount = 0;
+            items.forEach(p => { const b = cheapestRetailer(p); if (b) { mixTotal += b.price; mixCount++; } });
+
+            // "Best single shop": the one stocking the most of the list, then
+            // the cheapest of those.
+            const ranked = perShop.filter(r => r.count > 0)
+                .sort((a, b) => (b.count - a.count) || (a.total - b.total));
+            const bestKey = ranked.length ? ranked[0].key : null;
+            const n = items.length;
+
+            const rows = perShop.map(r => `
+                <div class="flex justify-between text-[11px] py-0.5 ${r.key === bestKey ? "text-emeraldGlow font-bold" : "text-gray-300"}">
+                    <span>${r.label}${r.key === bestKey ? " ★" : ""}</span>
+                    <span>${r.count ? r.total.toFixed(3) + " BHD" : "–"} <span class="text-gray-500 font-normal">(${r.count} of ${n})</span></span>
+                </div>`).join("");
+
+            el.innerHTML = `
+                <p class="text-[11px] text-white font-bold mb-1.5">🧺 Your list at each shop</p>
+                ${rows}
+                <div class="flex justify-between text-[11px] mt-1.5 pt-1.5 border-t border-gray-800 text-amberGold font-bold">
+                    <span>Cheapest mix</span>
+                    <span>${mixCount ? mixTotal.toFixed(3) + " BHD" : "–"} <span class="text-gray-500 font-normal">(${mixCount} of ${n})</span></span>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">Cheapest mix = buying each item at whichever shop has it cheapest. In-stock items only.</p>`;
+            el.classList.remove("hidden");
+        }
+
+        // --- Price history badge (added 2026-10-05) ----------------------------
+        // scrapers/merge.py now stamps each product with price_trend ("new" /
+        // "same" / "up" / "down"), price_last_seen (last week's lowest
+        // in-stock price, or null), price_weeks_tracked and
+        // price_is_lowest_ever, built from a running weekly log it keeps in
+        // data/price_history.json. This turns that into the small pill shown
+        // under a card's name -- or an empty string when there's nothing
+        // worth saying yet (a brand-new product with no prior week to
+        // compare against, or a price that's unchanged).
+        //
+        // Deliberately quiet by design: only the two states a shopper would
+        // actually act on are surfaced (a genuine drop, and "this is the
+        // cheapest it's been"), not every "up" or "same" tick -- showing a
+        // badge on every single card would just be noise, not a signal.
+        function priceBadgeHTML(prod) {
+            if (prod.price_weeks_tracked == null || prod.price_weeks_tracked < 2) return "";
+            // Only celebrate a low when the price actually moved down this week.
+            // An unchanged price is trivially "the lowest yet" (and the highest),
+            // which flagged ~2,000 cards at once on the 11 Oct scrape.
+            if (prod.price_is_lowest_ever && prod.price_trend === "down") {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow">🔥 Lowest price yet</span>`;
+            }
+            if (prod.price_trend === "down" && prod.price_last_seen != null) {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emeraldGlow/15 text-emeraldGlow">↓ Down from ${prod.price_last_seen.toFixed(3)}</span>`;
+            }
+            if (prod.price_trend === "up" && prod.price_last_seen != null) {
+                return `<span class="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-500/15 text-red-400">↑ Up from ${prod.price_last_seen.toFixed(3)}</span>`;
+            }
+            return "";
+        }
+
+        // --- Price per litre (added 2026-10-05) -------------------------------
+        // scrapers/merge.py stamps each product with volume_litres, parsed from
+        // the product name (null when the name states no size at all -- about 1
+        // in 6 products, mostly premium spirits like "Glenfiddich 18 Year Old
+        // Single Malt Scotch Whisky" that never print a volume). All 4 retailer
+        // cells for one product share the same bottle, so this is just that
+        // cell's own price divided by the one shared volume -- it lets a
+        // shopper tell a cheap-looking small bottle apart from an actually
+        // better-value larger one, and compare that against OTHER listings of
+        // the same drink in a different size (each size is its own card/row).
+        // Deliberately returns "" rather than a guessed figure when the size is
+        // unknown or the cell itself has no buyable price (out of stock/N/A) --
+        // same "don't show a confidently wrong number" rule as priceBadgeHTML.
+        function pricePerLitreHTML(val, inStock, volumeLitres) {
+            if (inStock === false || val === null || val === undefined || !volumeLitres) return "";
+            // text-[8px]/gray-500 (the original size/colour here) turned out
+            // too small and too low-contrast against the dark card background
+            // to actually read on a real phone. Bumped the size to 10px, and
+            // given its own colour (sky-300, a light blue not used anywhere
+            // else on the card) rather than reusing gray-300 -- gray-300 is
+            // already the retailer-name label sitting right above it, and
+            // the two blended together instead of reading as two distinct
+            // pieces of information. Blue also keeps it clearly separate
+            // from the price itself (white/emeraldGlow) and from the
+            // amberGold "Click for Retailer" text elsewhere in the same
+            // button.
+            return `<span class="block text-[10px] text-sky-300 font-medium mt-0.5">${(val / volumeLitres).toFixed(3)}/L</span>`;
+        }
+
+        // --- Favourites (paid-tier feature, added 2026-09-19) -----------------
+        //
+        // A visitor can heart any product to save it to a personal list, plus
+        // one shared notes box for the whole list. Everything lives in the
+        // visitor's own browser (localStorage), the same zero-backend approach
+        // used elsewhere in this app -- a favourite won't follow someone to a
+        // different device/browser, and clearing site data clears it, same
+        // tradeoff as the trial/premium flags above.
+        //
+        // Stable key note: every scraper run reassigns each product's numeric
+        // "id" (see merge.py's sort-then-renumber step in build_product_row/
+        // main), so an id can't be used to remember a favourite across a
+        // scrape -- it would silently point at a different product next week.
+        // The product's own NAME is the only thing that's actually stable
+        // across scrapes in practice, so favourites are keyed by name instead.
+        // A product whose display name genuinely changes between scrapes
+        // (rare -- only happens if a different retailer's fuller name gets
+        // picked as the "longest" name for that cluster) would lose its
+        // favourited status; accepted as a limitation of the no-backend
+        // approach, same one the rest of this app already lives with.
+        //
+        // Gating: reuses the same isPremium flag as the price-blur/paywall
+        // elsewhere in this app. While FREE_MODE is on, isPremium is always
+        // true, so favourites work for everyone during the beta; once
+        // FREE_MODE is turned off, both the heart buttons and the "My
+        // Favourites" view fall behind the same paywall the prices already do.
+        //
+        // Lapse behaviour: if a subscription lapses, access to the favourites
+        // view and notes is gated off (same as prices), but the underlying
+        // saved data is deliberately left intact in localStorage rather than
+        // cleared -- so it simply reappears if that visitor resubscribes
+        // later, instead of making them rebuild their list from scratch.
+
+        let showFavouritesOnly = false;
+
+        // --- Shared favourites (added 2026-10-05) -----------------------------
+        // sharedFavouriteNames: the Set of product names from a "?shared=..."
+        // link someone else sent (see shareFavourites() below), or null if
+        // this visit has none. showSharedOnly: whether that list is the one
+        // currently being viewed (its own mode, separate from this visitor's
+        // OWN favourites/showFavouritesOnly, since it's someone else's list).
+        let sharedFavouriteNames = null;
+        let showSharedOnly = false;
+        // Short codes from a "?l=..." link, waiting for the catalogue to load
+        // so they can be turned back into product names (see
+        // resolvePendingSharedCodes() below). Declared here, above the
+        // readSharedFavouritesFromUrl() call, because that call fills it in.
+        let pendingSharedCodes = null;
+        // The sender's optional personal message from a shared link
+        // ("&m=..."), shown to the person receiving it (2026-10-11).
+        let sharedNote = "";
+        // Read as soon as the script runs (not deferred to window.onload),
+        // so the URL gets scrubbed immediately regardless of whether this
+        // visitor still needs to pass the age gate first.
+        sharedFavouriteNames = readSharedFavouritesFromUrl();
+
+        // Reads a "?shared=name1,name2,..." link (each name percent-encoded
+        // individually, so a literal comma inside a product's own name can
+        // never be mistaken for the separator) into a Set of names, and
+        // immediately scrubs the query string from the address bar -- the
+        // names are already captured in memory by then, so a later refresh
+        // or bookmark of this page won't keep re-showing "someone shared
+        // this with you" forever just because the link is still sitting in
+        // the URL.
+        //
+        // Short-code links (2026-10-10): a shared link used to spell out every
+        // product name in full, percent-encoded ("?shared=Chivas%20Regal%2018
+        // %20Year%20Old..."), which is what looked like "a string of code"
+        // when it landed in someone's WhatsApp. New links carry one short
+        // code per product instead ("?l=k3j9x2-1q8z0c"), see
+        // productShareCode() below; the codes are turned back into product
+        // names once the catalogue has loaded (resolvePendingSharedCodes()).
+        // Old "?shared=" links that are already out there keep working.
+        // Search links (2026-11-07): the Google-searchable product pages
+        // (price/<product>/) have a "Compare in the Pour Choices app" button
+        // that opens /?q=<product name>. This fills the search box with it
+        // once the catalogue has loaded, then tidies the address bar.
+        function applySearchFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const q = String(params.get("q") || "").replace(/\s+/g, " ").trim().slice(0, 120);
+                if (!q) return;
+                const box = document.getElementById("search-bar");
+                if (box) box.value = q;
+                params.delete("q");
+                const rest = params.toString();
+                window.history.replaceState({}, "", window.location.origin + window.location.pathname + (rest ? "?" + rest : ""));
+            } catch (e) {}
+        }
+
+        function readSharedFavouritesFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const raw = params.get("shared");
+                const codes = params.get("l");
+                if (!raw && !codes) return null;
+                sharedNote = String(params.get("m") || "").replace(/\s+/g, " ").trim().slice(0, 200);
+                window.history.replaceState({}, "", window.location.origin + window.location.pathname);
+                if (codes) {
+                    pendingSharedCodes = codes.split(/[-.,]/).filter(Boolean);
+                    return null;
+                }
+                const names = raw.split(",").map(decodeURIComponent).filter(Boolean);
+                return names.length ? new Set(names) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // A short, stable code for one product (FNV-1a hash of its name, in
+        // base 36, about 6-7 characters). Products are keyed by name
+        // everywhere else in this app (favourites, price history) for the
+        // same reason: the numeric id is reassigned on every scrape.
+        function productShareCode(name) {
+            const key = String(name).replace(/\s+/g, " ").trim().toLowerCase();
+            let h = 0x811c9dc5;
+            for (let i = 0; i < key.length; i++) {
+                h ^= key.charCodeAt(i);
+                h = Math.imul(h, 0x01000193) >>> 0;
+            }
+            return h.toString(36);
+        }
+
+        function resolvePendingSharedCodes() {
+            if (!pendingSharedCodes || !mockProducts.length) return;
+            const wanted = new Set(pendingSharedCodes);
+            const names = mockProducts.filter(p => wanted.has(productShareCode(p.name))).map(p => p.name);
+            pendingSharedCodes = null;
+            if (names.length) {
+                sharedFavouriteNames = new Set(names);
+            } else {
+                showToast("The products in that shared list aren't listed any more.");
+            }
+        }
+
+        // A product's display name very occasionally changes slightly between
+        // scrapes (2026-10-10: stray non-breaking spaces and double spaces
+        // are now tidied out of names), which would quietly drop it from a
+        // visitor's favourites since those are keyed by exact name. This
+        // re-points any saved favourite that no longer matches exactly to
+        // the product whose name matches once spacing is ignored.
+        function repairFavouriteNames() {
+            const favs = getFavourites();
+            if (!favs.size) return;
+            const loose = (n) => String(n).replace(/[\s\u00a0\u00c2]+/g, " ").trim().toLowerCase();
+            const exact = new Set(mockProducts.map(p => p.name));
+            const byLoose = new Map(mockProducts.map(p => [loose(p.name), p.name]));
+            let changed = false;
+            const repaired = new Set();
+            favs.forEach(n => {
+                if (exact.has(n)) { repaired.add(n); return; }
+                let fixed = byLoose.get(loose(n));
+                // 2026-10-11: A&E names now get their bottle size added
+                // ("Villa Sparina Gavi" -> "Villa Sparina Gavi 75cl"), so
+                // also follow a favourite to the one product whose name is
+                // the old name plus only a size or pack size on the end.
+                if (!fixed) {
+                    const base = loose(n) + " ";
+                    const sizeOnly = /^\d+(\.\d+)?\s*(cl|ml|ltr|l|litre|liter)\b[\sx\d]*$|^\d+\s*x\s*\d+(\.\d+)?\s*(cl|ml|l)$/i;
+                    const hits = mockProducts.filter(p => {
+                        const l = loose(p.name);
+                        return l.startsWith(base) && sizeOnly.test(l.slice(base.length));
+                    });
+                    if (hits.length === 1) fixed = hits[0].name;
+                }
+                if (fixed) { repaired.add(fixed); changed = true; } else { repaired.add(n); }
+            });
+            if (changed) saveFavourites(repaired);
+        }
+
+        function getFavourites() {
+            try {
+                const raw = localStorage.getItem("favourites");
+                return raw ? new Set(JSON.parse(raw)) : new Set();
+            } catch (e) {
+                return new Set();
+            }
+        }
+
+        function saveFavourites(set) {
+            try { localStorage.setItem("favourites", JSON.stringify([...set])); } catch (e) {}
+        }
+
+        function isFavourite(name) {
+            return getFavourites().has(name);
+        }
+
+        // Takes the product's index into mockProducts (assigned by
+        // renderProducts' own forEach below), not the product's changeable
+        // "id" field -- see the stable-key note above. Looking the name up
+        // from the index at click time avoids ever having to embed a raw
+        // product name (which can contain quotes/apostrophes) inside an
+        // inline onclick="..." attribute.
+        // Tapping a heart used to rebuild the whole product grid (all ~3,100
+        // cards) just to swap one emoji, which Cloudflare-style INP testing
+        // put at ~700ms on a mid-range phone. Now the tapped button is
+        // updated in place; the full re-render only happens in the
+        // favourites view, where un-hearting a product has to remove its
+        // card from the list (2026-10-10).
+        function toggleFavourite(index, btnEl) {
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
+            const prod = mockProducts[index];
+            if (!prod) return;
+            const favourites = getFavourites();
+            if (favourites.has(prod.name)) {
+                favourites.delete(prod.name);
+                unwatchStock(prod.name);
+            } else {
+                favourites.add(prod.name);
+                // Out of stock at every shop right now: watch it, and tell
+                // the visitor a "Back in Stock" alert will follow.
+                if (!isBuyableNow(prod) && hasFeature("backInStockAlerts")) {
+                    watchStock(prod.name);
+                    showToast("🔔 Added as an Out of Stock Favourite. You'll be notified when it's Back in Stock.", 5000);
+                }
+            }
+            saveFavourites(favourites);
+            updateFavouritesChipLabel();
+            if (showFavouritesOnly) setTimeout(() => { const l = document.getElementById("stock-watch-line"); if (l) { const n = outOfStockFavourites().length; l.textContent = n ? `🔔 ${n} Out of Stock Favourite${n === 1 ? "" : "s"}: you'll be alerted when ${n === 1 ? "it's" : "they're"} Back in Stock.` : ""; l.classList.toggle("hidden", n === 0); } }, 0);
+            if (btnEl && !showFavouritesOnly) {
+                const isFav = favourites.has(prod.name);
+                btnEl.textContent = isFav ? "❤️" : "🤍";
+                btnEl.title = isFav ? "Remove from favourites" : "Add to favourites";
+                return;
+            }
+            renderProducts();
+        }
+
+        // A price drop: the cheapest in-stock price is lower than at the
+        // previous weekly scrape, and someone can actually buy it now.
+        function isPriceDrop(prod) {
+            return prod.price_trend === "down" && prod.price_last_seen != null && getLowestInStockPrice(prod) !== null;
+        }
+
+        function updatePriceDropsChipLabel() {
+            const chip = document.getElementById("drops-chip");
+            if (!chip) return;
+            const n = mockProducts.filter(isPriceDrop).length;
+            chip.textContent = n > 0 ? `📉 Price drops (${n})` : "📉 Price drops";
+        }
+
+        function updateFavouritesChipLabel() {
+            const chip = document.getElementById("favourites-chip");
+            if (!chip) return;
+            const count = getFavourites().size;
+            chip.textContent = count > 0 ? `★ My Favourites (${count})` : "★ My Favourites";
+        }
+
+        function toggleFavouritesView() {
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
+            // Leaving a shared-list view the same way entering/leaving "My
+            // Favourites" already resets activeCategory below -- otherwise
+            // showSharedOnly would still be true underneath and win out over
+            // showFavouritesOnly in renderProducts()'s filter order, same
+            // class of "stuck filter" bug fixed for categories back in the
+            // fourth bug-fixing round.
+            if (showSharedOnly) {
+                showSharedOnly = false;
+                const bar = document.getElementById("shared-view-bar");
+                if (bar) bar.classList.add("hidden");
+            }
+            showFavouritesOnly = !showFavouritesOnly;
+            const chip = document.getElementById("favourites-chip");
+            const notesWrap = document.getElementById("favourites-notes-wrap");
+            if (chip) {
+                if (showFavouritesOnly) {
+                    chip.classList.add("active");
+                    chip.classList.remove("bg-charcoal", "text-amberGold");
+                    // Clear any category chip's highlight too, so there's no
+                    // leftover selected-looking chip suggesting a category
+                    // filter is also still active while viewing favourites.
+                    document.querySelectorAll('.category-chip').forEach(btn => {
+                        if (btn !== chip) btn.classList.remove('active');
+                    });
+                } else {
+                    chip.classList.remove("active");
+                    chip.classList.add("bg-charcoal", "text-amberGold");
+                }
+            }
+            if (notesWrap) notesWrap.classList.toggle("hidden", !showFavouritesOnly);
+            renderProducts();
+            if (showFavouritesOnly) showStockWatchNote();
+        }
+
+        // Out of Stock Favourites note (2026-10-24): a line at the top of My
+        // Favourites, plus a pop-up the first time favourites are opened on
+        // each visit, saying a "Back in Stock" alert will follow.
+        let stockWatchPopupShown = false;
+        function outOfStockFavourites() {
+            const favourites = getFavourites();
+            return mockProducts.filter(p => favourites.has(p.name) && !isBuyableNow(p));
+        }
+        function showStockWatchNote() {
+            const line = document.getElementById("stock-watch-line");
+            if (!hasFeature("backInStockAlerts")) { if (line) line.classList.add("hidden"); return; }
+            const oos = outOfStockFavourites();
+            // Make sure each one is being watched (covers favourites added
+            // before this feature existed).
+            oos.forEach(p => { if (!(p.name in getStockWatch())) watchStock(p.name); });
+            if (line) {
+                line.textContent = oos.length
+                    ? `🔔 ${oos.length} Out of Stock Favourite${oos.length === 1 ? "" : "s"}: you'll be alerted when ${oos.length === 1 ? "it's" : "they're"} Back in Stock.`
+                    : "";
+                line.classList.toggle("hidden", oos.length === 0);
+            }
+            if (oos.length === 0 || stockWatchPopupShown) return;
+            stockWatchPopupShown = true;
+            const text = document.getElementById("stock-watch-modal-text");
+            const list = document.getElementById("stock-watch-modal-list");
+            const modal = document.getElementById("stock-watch-modal");
+            if (!text || !list || !modal) return;
+            text.textContent = oos.length === 1
+                ? "1 of your favourites is out of stock at every shop right now. You'll be notified when it becomes a Back in Stock Favourite."
+                : `${oos.length} of your favourites are out of stock at every shop right now. You'll be notified when they become Back in Stock Favourites.`;
+            list.innerHTML = "";
+            oos.slice(0, 5).forEach(p => {
+                const li = document.createElement("li");
+                li.textContent = p.name;
+                list.appendChild(li);
+            });
+            if (oos.length > 5) {
+                const li = document.createElement("li");
+                li.textContent = `and ${oos.length - 5} more`;
+                list.appendChild(li);
+            }
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+        function closeStockWatchModal() {
+            const modal = document.getElementById("stock-watch-modal");
+            if (modal) { modal.classList.add("hidden"); modal.classList.remove("flex"); }
+        }
+
+        function loadFavouritesNote() {
+            try {
+                const note = document.getElementById("favourites-note");
+                if (note) note.value = localStorage.getItem("favouritesNote") || "";
+            } catch (e) {}
+        }
+
+        function saveFavouritesNote() {
+            try {
+                const note = document.getElementById("favourites-note");
+                if (note) localStorage.setItem("favouritesNote", note.value);
+            } catch (e) {}
+        }
+
+        // --- Favourite price-drop banner (added 2026-10-05) -------------------
+        // Tells a visitor, the next time they open the app, when something on
+        // their OWN favourites list has genuinely gotten cheaper since last
+        // week. Deliberately built with zero new infrastructure: everything
+        // it needs (prod.price_trend/price_last_seen from scrapers/merge.py's
+        // weekly history, and the visitor's own favourites list) is already
+        // sitting in data this page already loads -- no push subscriptions, no
+        // server to send anything, no new backend. It's a real OS-level push
+        // notification's smaller, free sibling: a same-session notice, not an
+        // alert that can reach someone while the app is closed.
+        //
+        // Dedup: without tracking anything, the SAME drop would re-announce
+        // itself on every single visit for the rest of the week, since
+        // price_trend doesn't change again until the next scrape -- noisy,
+        // not a signal. priceDropAcknowledged (localStorage) remembers, per
+        // favourited product name, the lowest price this banner has already
+        // shown for it, so a repeat visit against that same price stays
+        // quiet; only a price at or below what was last shown (this week's
+        // drop, or an even cheaper later one) counts as fresh.
+        function getPriceDropAcknowledged() {
+            try {
+                const raw = localStorage.getItem("priceDropAcknowledged");
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function savePriceDropAcknowledged(map) {
+            try { localStorage.setItem("priceDropAcknowledged", JSON.stringify(map)); } catch (e) {}
+        }
+
+        function checkFavouritePriceDrops() {
+            if (!hasFeature("priceDropAlerts")) return; // same gating as favourites themselves
+            const favourites = getFavourites();
+            if (favourites.size === 0) return;
+
+            const acknowledged = getPriceDropAcknowledged();
+            const freshDrops = [];
+
+            mockProducts.forEach((prod) => {
+                if (!favourites.has(prod.name)) return;
+                // price_trend/price_last_seen come from merge.py's weekly
+                // history (see the price-history feature) -- "down" means
+                // strictly cheaper than the most recent PRIOR week, not just
+                // "has a price", so a brand-new favourite with no history yet
+                // ("new") never triggers this.
+                if (prod.price_trend !== "down" || prod.price_last_seen == null) return;
+
+                const lowestPrice = getLowestInStockPrice(prod);
+                if (lowestPrice === null) return;
+
+                // Already shown a drop to at least this price before? Stay quiet.
+                const lastShown = acknowledged[prod.name];
+                if (lastShown !== undefined && lowestPrice >= lastShown) return;
+
+                freshDrops.push(prod.name);
+                acknowledged[prod.name] = lowestPrice;
+            });
+
+            if (freshDrops.length === 0) return;
+            savePriceDropAcknowledged(acknowledged);
+
+            const banner = document.getElementById("price-drop-banner");
+            const textEl = document.getElementById("price-drop-banner-text");
+            if (!banner || !textEl) return;
+
+            const label = freshDrops.length === 1
+                ? `🔥 Price drop on your favourite: ${freshDrops[0]}`
+                : freshDrops.length === 2
+                    ? `🔥 Price drop on 2 of your favourites: ${freshDrops[0]} and ${freshDrops[1]}`
+                    : `🔥 Price drop on ${freshDrops.length} of your favourites: ${freshDrops[0]}, ${freshDrops[1]} and ${freshDrops.length - 2} more`;
+            textEl.textContent = label;
+            banner.classList.remove("hidden");
+        }
+
+        function dismissPriceDropBanner() {
+            const banner = document.getElementById("price-drop-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        // Tapping the banner's main area jumps straight to the My Favourites
+        // view so a visitor can see exactly which item(s) dropped, then hides
+        // the banner the same as a dismiss -- they've now seen it either way.
+        function viewFavouriteDrops() {
+            dismissPriceDropBanner();
+            if (!showFavouritesOnly) toggleFavouritesView();
+        }
+
+        // --- Back in Stock alerts (2026-10-24) -------------------------------
+        // Same idea as the price-drop banner: no account and no server. The
+        // visitor's own browser remembers (localStorage "stockWatch") which
+        // favourites were out of stock at every shop. Prices refresh once a
+        // week, so the first visit after a scrape where one of them can be
+        // bought again shows the banner once, then stops watching it. A
+        // favourite that sells out again later is watched again.
+        function isBuyableNow(prod) {
+            const p = getLowestInStockPrice(prod);
+            return p !== null && p > 0;
+        }
+        function getStockWatch() {
+            try {
+                const raw = localStorage.getItem("stockWatch");
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+        function saveStockWatch(map) {
+            try { localStorage.setItem("stockWatch", JSON.stringify(map)); } catch (e) {}
+        }
+        function watchStock(name) {
+            const w = getStockWatch();
+            w[name] = Date.now();
+            saveStockWatch(w);
+        }
+        function unwatchStock(name) {
+            const w = getStockWatch();
+            if (name in w) { delete w[name]; saveStockWatch(w); }
+        }
+
+        function checkFavouriteBackInStock() {
+            if (!hasFeature("backInStockAlerts")) return;
+            const favourites = getFavourites();
+            if (favourites.size === 0) return;
+            const watch = getStockWatch();
+            const back = [];
+            let changed = false;
+            mockProducts.forEach(prod => {
+                if (!favourites.has(prod.name)) return;
+                const buyable = isBuyableNow(prod);
+                if (prod.name in watch) {
+                    if (buyable) {
+                        back.push(prod);
+                        delete watch[prod.name];
+                        changed = true;
+                    }
+                } else if (!buyable) {
+                    // Sold out since last time (or favourited before this
+                    // feature existed): start watching, no alert yet.
+                    watch[prod.name] = Date.now();
+                    changed = true;
+                }
+            });
+            // Forget watches for products no longer in the favourites list.
+            Object.keys(watch).forEach(name => {
+                if (!favourites.has(name)) { delete watch[name]; changed = true; }
+            });
+            if (changed) saveStockWatch(watch);
+            if (back.length === 0) return;
+
+            const banner = document.getElementById("back-in-stock-banner");
+            const textEl = document.getElementById("back-in-stock-banner-text");
+            if (!banner || !textEl) return;
+            let label;
+            if (back.length === 1) {
+                const best = cheapestRetailer(back[0]);
+                label = `🔔 Back in Stock: ${back[0].name}` + (best ? ` at ${best.label}, ${best.price.toFixed(3)} BHD` : "");
+            } else if (back.length === 2) {
+                label = `🔔 Back in Stock: 2 of your favourites, ${back[0].name} and ${back[1].name}`;
+            } else {
+                label = `🔔 Back in Stock: ${back.length} of your favourites, ${back[0].name}, ${back[1].name} and ${back.length - 2} more`;
+            }
+            textEl.textContent = label;
+            banner.classList.remove("hidden");
+        }
+
+        function dismissBackInStockBanner() {
+            const banner = document.getElementById("back-in-stock-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        function viewBackInStock() {
+            dismissBackInStockBanner();
+            if (!showFavouritesOnly) toggleFavouritesView();
+        }
+
+        window.onload = function() {
+            let alreadyVerified = false;
+            try {
+                if (localStorage.getItem("ageVerified") === "true") {
+                    document.getElementById("age-gate").style.display = "none";
+                    alreadyVerified = true;
+                }
+                if (!localStorage.getItem("trialStart")) {
+                    localStorage.setItem("trialStart", Date.now().toString());
+                }
+                if (localStorage.getItem("premiumAccess") === "true") { isPaid = true; }
+            } catch (e) { /* storage unavailable, default to gated + standard tier */ }
+            updatePremiumState();
+            updateFavouritesChipLabel();
+            loadFavouritesNote();
+            registerServiceWorker();
+            // iOS never fires the "beforeinstallprompt" event below (Safari has
+            // no such API), so on iPhone/iPad we show the save-to-home-screen
+            // banner right away instead of waiting for an event that will
+            // never come. Android/Chrome gets the banner from that event
+            // instead, once the browser itself says the app is installable.
+            if (isIosDevice() && !isStandaloneApp()) {
+                showInstallBanner();
+            }
+            // loadProducts() is the heaviest thing this page does (fetch +
+            // parse + render ~2,900 products) and used to always start right
+            // here, immediately on load -- including for a brand-new visitor
+            // who's still looking at the age gate and can't see the product
+            // grid behind it yet anyway. That left it running in the
+            // background right as they tapped "I Confirm", competing for the
+            // main thread at exactly the moment Cloudflare's analytics
+            // measured a 560ms ("Poor") INP on that button. Deferring it to
+            // verifyAge() below removes that contention for a first-time
+            // visitor; a returning, already-verified visitor (gate never
+            // shown) still gets it immediately here, same as before.
+            if (alreadyVerified) {
+                loadProducts();
+                loadLastUpdated();
+            }
+        }
+
+        function verifyAge() {
+            try { localStorage.setItem("ageVerified", "true"); } catch (e) {}
+            document.getElementById("age-gate").style.display = "none";
+            loadProducts();
+            loadLastUpdated();
+        }
+
+        // --- Save to home screen ---------------------------------------------
+
+        // True once the app is already running as an installed/home-screen app,
+        // in which case there's nothing left to prompt the visitor to do.
+        function isStandaloneApp() {
+            return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+        }
+
+        function isIosDevice() {
+            // iPhone/iPod always say so in the user agent. iPads running
+            // iPadOS 13+ don't -- by default they report a desktop Safari/Mac
+            // user agent instead, distinguishable only by having touch
+            // support (a real Mac never does), so without this second check
+            // an iPad would silently get no install banner and no
+            // beforeinstallprompt (Safari never fires that one either).
+            return /iphone|ipad|ipod/i.test(window.navigator.userAgent) ||
+                (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+        }
+
+        function isMobileDevice() {
+            return /iphone|ipad|ipod|android/i.test(window.navigator.userAgent);
+        }
+
+        function showInstallBanner() {
+            if (isStandaloneApp()) return;
+            // Once a visitor has acted on the banner once (installed it, or
+            // seen the manual instructions -- see dismissInstallBanner()),
+            // don't show it again on future visits.
+            try { if (localStorage.getItem("installBannerDismissed") === "true") return; } catch (e) {}
+            const banner = document.getElementById("install-banner");
+            if (banner) banner.classList.remove("hidden");
+        }
+
+        // Hides the banner and remembers that, so it doesn't come back. This
+        // used to only happen on the successful deferredInstallPrompt path
+        // below -- on a browser that never fires beforeinstallprompt at all
+        // (Samsung Internet is the common one), tapping the banner fell
+        // through to a generic alert() with nothing after it to hide the
+        // banner, so it stayed on screen and reappeared every visit no
+        // matter how many times it was tapped.
+        function dismissInstallBanner() {
+            try { localStorage.setItem("installBannerDismissed", "true"); } catch (e) {}
+            const banner = document.getElementById("install-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        // Chrome/Android fires this when it decides the site is installable.
+        // Capturing the event lets us trigger the native install prompt later,
+        // from our own button, instead of waiting for a browser-native mini-bar.
+        let deferredInstallPrompt = null;
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            if (isMobileDevice()) showInstallBanner();
+        });
+
+        // Belt-and-suspenders: if the browser's own native install UI is
+        // used instead of our button, this still fires and clears the
+        // banner/flag correctly.
+        window.addEventListener("appinstalled", () => { dismissInstallBanner(); });
+
+        async function handleInstallClick() {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                try { await deferredInstallPrompt.userChoice; } catch (e) { /* ignore */ }
+                deferredInstallPrompt = null;
+                dismissInstallBanner();
+                return;
+            }
+            // iOS Safari has no install-prompt API at all, so the only way to
+            // save the app there is the manual Share-sheet route.
+            if (isIosDevice()) {
+                alert("To save this app: tap the Share icon at the bottom of Safari, then tap 'Add to Home Screen'.");
+                dismissInstallBanner();
+                return;
+            }
+            alert("Look for \"Install app\" or \"Add to Home Screen\" in your browser's menu.");
+            dismissInstallBanner();
+        }
+
+        // --- Share (rebuilt 2026-10-05 around a QR code) --------------------------
+        //
+        // Most real-world sharing of this app is two people standing next to
+        // each other, each on their own phone -- "check this out" in person,
+        // not a message sent across town. The native share sheet (the old
+        // behaviour here) doesn't actually help with that: it's a picker for
+        // sending a link through an app (Messages, WhatsApp, email...), which
+        // still needs the other person to be reachable through one of those,
+        // and does nothing at all for an iPhone-to-Android pair (no AirDrop
+        // between those two). A QR code sidesteps all of that -- the other
+        // phone just needs a camera, works for any platform on either side,
+        // and needs no network path between the two phones, just whatever
+        // network each one already has to reach pour-choices.com itself.
+        //
+        // The QR image itself comes from a free, no-signup public API
+        // (api.qrserver.com/create-qr-code) rather than bundling a whole
+        // QR-drawing library for this one image -- it's just an <img src>,
+        // and the link text + Copy Link button below it still work even if
+        // that service is ever briefly down.
+        // QR code folds away under a "Show QR code" button so it doesn't
+        // push the favourites pick-list off a phone screen (2026-10-13).
+        // Open by default when sharing the app itself (nothing else to see).
+        function setShareQrOpen(open) {
+            const wrap = document.getElementById("share-qr-wrap");
+            const btn = document.getElementById("share-qr-toggle");
+            if (wrap) wrap.classList.toggle("hidden", !open);
+            if (btn) btn.textContent = open ? "Hide QR code ▴" : "Show QR code ▾";
+        }
+        function toggleShareQr() {
+            const wrap = document.getElementById("share-qr-wrap");
+            setShareQrOpen(wrap ? wrap.classList.contains("hidden") : true);
+        }
+
+        const BRANDED_QR_URL = "https://pour-choices.com/";
+        function buildQrImageUrl(data, sizePx) {
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${sizePx}x${sizePx}&data=${encodeURIComponent(data)}`;
+        }
+
+        // message: the full, human-readable text that "Send on WhatsApp",
+        // "Copy Message" and the phone's own share sheet all send (product
+        // names + prices + the link), so the person receiving it can read
+        // what it is before they even tap the link. previewHTML: optional
+        // readable list shown inside the modal itself.
+        function openShareModal(url, title, message, previewHTML) {
+            const modal = document.getElementById("share-modal");
+            const content = document.getElementById("share-modal-content");
+            document.getElementById("share-modal-title").textContent = title;
+            document.getElementById("share-modal-link").textContent = url.replace(/^https?:\/\//, "");
+            modal.dataset.text = message || url;
+            const listEl = document.getElementById("share-modal-list");
+            if (listEl) {
+                listEl.innerHTML = previewHTML || "";
+                listEl.classList.toggle("hidden", !previewHTML);
+            }
+            // The favourites pick-list is switched back on by shareFavourites()
+            // only; sharing the app itself never shows it.
+            const favControls = document.getElementById("share-fav-controls");
+            if (favControls) favControls.classList.add("hidden");
+            modal.dataset.empty = "";
+            // The plain app link uses the branded Pour Choices QR code (the
+            // bottle design, a real file in the repo, added 2026-11-08). Any
+            // other link (e.g. a shared favourites list) changes every time,
+            // so it still gets a plain QR generated on the fly.
+            document.getElementById("share-modal-qr").src = (url === BRANDED_QR_URL) ? "qr-pour-choices.svg" : buildQrImageUrl(url, 200);
+            document.getElementById("share-modal-qr").alt = "QR code linking to " + url;
+            modal.dataset.url = url;
+            setShareQrOpen(true);
+            // navigator.share only exists on phones/browsers that actually
+            // have a share sheet to open -- offered as a secondary option
+            // underneath the QR code and Copy Link, not in place of them.
+            document.getElementById("share-modal-sheet-btn").classList.toggle("hidden", !navigator.share);
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById("share-modal");
+            const content = document.getElementById("share-modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        async function copyShareLink() {
+            const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
+            const text = modal.dataset.text || modal.dataset.url || "";
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast("Copied! Paste it into any chat.");
+            } catch (e) {
+                showToast("Couldn't copy automatically -- the link above is selectable.");
+            }
+        }
+
+        // WhatsApp is how most people in Bahrain will actually pass this on,
+        // so it gets its own button. wa.me opens the WhatsApp app on a phone
+        // (or WhatsApp Web on a laptop) with the message pre-filled; the
+        // sender still picks who to send it to.
+        function shareViaWhatsApp() {
+            const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
+            const text = modal.dataset.text || modal.dataset.url || "";
+            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
+        }
+
+        async function shareViaSheet() {
+            const modal = document.getElementById("share-modal");
+            if (modal.dataset.empty === "1") { showToast("Tick at least one favourite to send."); return; }
+            const url = modal.dataset.url || "";
+            const text = modal.dataset.text || url;
+            if (!navigator.share) return;
+            try {
+                // The link is already at the end of the message text, so it's
+                // passed as text only (passing url too makes some apps paste
+                // the link twice).
+                await navigator.share({ title: "Pour Choices", text });
+            } catch (e) { /* visitor cancelled the share sheet, nothing to do */ }
+        }
+
+        function shareApp() {
+            // Always the plain app URL, not whatever happens to be in the
+            // address bar right now (a stray "?shared=..." or test query
+            // param) -- see readSharedFavouritesFromUrl() above for why that
+            // param specifically is scrubbed immediately anyway, but this
+            // stays explicit rather than relying on that timing.
+            const url = window.location.origin + window.location.pathname;
+            const message = "🍾 Pour Choices compares drink prices across BMMI, African & Eastern, GBI Express and NHSC in Bahrain, free:\n" + url;
+            openShareModal(url, "Share Pour Choices", message);
+        }
+
+        // --- Share my favourites (added 2026-10-05) ---------------------------
+        // Encodes this visitor's OWN favourites list into a link (each name
+        // percent-encoded individually, joined with plain commas as the
+        // separator -- see readSharedFavouritesFromUrl() above for the
+        // matching decode) and opens the same QR modal used for the app
+        // itself. No backend, no account, no expiry -- the link just carries
+        // the list itself, so it keeps working for as long as those product
+        // names still exist in the catalogue.
+        // Choose what to send + personal message (2026-10-11): the share
+        // window lists every favourite with a tick box (all ticked to start
+        // with) and has an optional message box. Every change rebuilds the
+        // link, the QR code and the WhatsApp text, so only the ticked
+        // products are sent. The message also travels inside the link
+        // ("&m=..."), so the person who opens it sees it on the banner and
+        // above the list, not only in the chat it came through.
+        let shareFavNames = [];
+        let shareQrTimer = null;
+
+        function shareFavourites() {
+            if (!hasFeature("shareList")) { openPaywallModal(); return; }
+            const favourites = getFavourites();
+            if (favourites.size === 0) {
+                showToast("Add a few favourites first, then share your list.");
+                return;
+            }
+            shareFavNames = [...favourites];
+            const byName = new Map(mockProducts.map(p => [p.name, p]));
+            const rows = shareFavNames.map((name, i) => {
+                const prod = byName.get(name);
+                const best = prod ? cheapestRetailer(prod) : null;
+                const price = best ? `<span class="block text-[10px] text-gray-400">${best.price.toFixed(3)} BHD at ${escapeHTML(best.label)}</span>` : "";
+                return `<label class="flex items-start py-1.5 border-b border-gray-800 last:border-0 cursor-pointer">
+                    <input type="checkbox" data-i="${i}" checked onchange="updateFavouritesShare()" class="mt-0.5 mr-2.5 w-4 h-4 accent-amber-500 shrink-0">
+                    <span class="text-[11px] text-gray-100 leading-snug">${escapeHTML(name)}${price}</span>
+                </label>`;
+            }).join("");
+            openShareModal(window.location.origin + window.location.pathname, "Share favourites", "", "");
+            document.getElementById("share-fav-choices").innerHTML = rows;
+            document.getElementById("share-fav-note").value = "";
+            document.getElementById("share-fav-controls").classList.remove("hidden");
+            updateFavouritesShare(true);
+            setShareQrOpen(false);
+        }
+
+        function setAllShareChoices(on) {
+            document.querySelectorAll("#share-fav-choices input[type=checkbox]").forEach(cb => { cb.checked = on; });
+            updateFavouritesShare();
+        }
+
+        function updateFavouritesShare(immediate) {
+            const modal = document.getElementById("share-modal");
+            const picked = [...document.querySelectorAll("#share-fav-choices input[type=checkbox]")]
+                .filter(cb => cb.checked).map(cb => shareFavNames[Number(cb.dataset.i)]).filter(Boolean);
+            const note = document.getElementById("share-fav-note").value.replace(/\s+/g, " ").trim().slice(0, 200);
+            const count = picked.length;
+            document.getElementById("share-fav-count").textContent = `(${count} of ${shareFavNames.length})`;
+            document.getElementById("share-modal-title").textContent = count
+                ? `Share ${count} favourite${count === 1 ? "" : "s"}` : "Share favourites";
+            modal.dataset.empty = count ? "" : "1";
+
+            const base = window.location.origin + window.location.pathname;
+            const codes = [...new Set(picked.map(productShareCode))].join("-");
+            const url = count ? `${base}?l=${codes}${note ? "&m=" + encodeURIComponent(note) : ""}` : base;
+
+            const byName = new Map(mockProducts.map(p => [p.name, p]));
+            const lines = picked.map(name => {
+                const prod = byName.get(name);
+                const best = prod ? cheapestRetailer(prod) : null;
+                return best ? `• ${name}, ${best.price.toFixed(3)} BHD at ${best.label}` : `• ${name}`;
+            });
+            const MAX_LINES = 12;
+            const shown = lines.slice(0, MAX_LINES);
+            if (lines.length > MAX_LINES) shown.push(`…and ${lines.length - MAX_LINES} more`);
+            const heading = `🍾 My Pour Choices favourites (${count}):`;
+            const message = (note ? `💬 ${note}\n\n` : "") + `${heading}\n${shown.join("\n")}\n\nSee live prices at all 4 shops:\n${url}`;
+
+            modal.dataset.url = url;
+            modal.dataset.text = message;
+            document.getElementById("share-modal-link").textContent = count ? url.replace(/^https?:\/\//, "") : "Tick at least one favourite to send.";
+            // The QR image is a network fetch, so typing a message doesn't
+            // request a new one on every key press.
+            clearTimeout(shareQrTimer);
+            const setQr = () => {
+                const qr = document.getElementById("share-modal-qr");
+                qr.src = buildQrImageUrl(url, 200);
+                qr.alt = "QR code linking to " + url;
+            };
+            if (immediate) setQr(); else shareQrTimer = setTimeout(setQr, 400);
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        }
+
+        // --- Viewing a list someone else shared (added 2026-10-05) -----------
+        // sharedFavouriteNames (read once, at script load, by
+        // readSharedFavouritesFromUrl() above) is a SEPARATE list from this
+        // visitor's own favourites -- it's purely a snapshot of names from a
+        // link, not anything saved for them until they explicitly tap "Add
+        // all to mine" below.
+        function checkSharedFavourites() {
+            if (!sharedFavouriteNames || sharedFavouriteNames.size === 0) return;
+            const banner = document.getElementById("shared-favourites-banner");
+            const textEl = document.getElementById("shared-favourites-banner-text");
+            if (!banner || !textEl) return;
+            const n = sharedFavouriteNames.size;
+            textEl.textContent = `🎁 Someone shared ${n} favourite${n === 1 ? "" : "s"} with you` +
+                (sharedNote ? `: "${sharedNote}"` : "") + " -- tap to view";
+            banner.classList.remove("hidden");
+        }
+
+        function dismissSharedFavouritesBanner() {
+            const banner = document.getElementById("shared-favourites-banner");
+            if (banner) banner.classList.add("hidden");
+        }
+
+        // Switches into the read-only "viewing their list" mode: replaces
+        // whatever filter was active (category, search stays respected, same
+        // pattern as "My Favourites"), shows the shared-view bar, and leaves
+        // this visitor's OWN favourites/category selection untouched
+        // underneath so exitSharedView() can restore it exactly.
+        function viewSharedFavourites() {
+            if (!sharedFavouriteNames) return;
+            dismissSharedFavouritesBanner();
+            showSharedOnly = true;
+            const bar = document.getElementById("shared-view-bar");
+            if (bar) bar.classList.remove("hidden");
+            const noteEl = document.getElementById("shared-view-note");
+            if (noteEl) {
+                noteEl.textContent = sharedNote ? `💬 ${sharedNote}` : "";
+                noteEl.classList.toggle("hidden", !sharedNote);
+            }
+            renderProducts();
+        }
+
+        function exitSharedView() {
+            showSharedOnly = false;
+            const bar = document.getElementById("shared-view-bar");
+            if (bar) bar.classList.add("hidden");
+            renderProducts();
+        }
+
+        function addSharedFavouritesToMine() {
+            if (!sharedFavouriteNames) return;
+            if (!hasFeature("favourites")) { openPaywallModal(); return; }
+            const mine = getFavourites();
+            sharedFavouriteNames.forEach((n) => mine.add(n));
+            saveFavourites(mine);
+            updateFavouritesChipLabel();
+            showToast("Added to your favourites!");
+        }
+
+        // --- Beta feedback -----------------------------------------------------
+
+        // Where beta feedback lands. Change this if it should go somewhere else.
+        const FEEDBACK_EMAIL = "pourchoices8@gmail.com";
+
+        function openFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const content = document.getElementById("feedback-modal-content");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closeFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const content = document.getElementById("feedback-modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        // No backend to submit to (this is a static site), so feedback is
+        // handed off to the visitor's own mail app, pre-addressed and
+        // pre-filled, rather than silently going nowhere.
+        function sendFeedback() {
+            const text = document.getElementById("feedback-text").value.trim();
+            if (!text) {
+                alert("Please write something before sending.");
+                return;
+            }
+            const subject = encodeURIComponent("Pour Choices Beta Feedback");
+            const body = encodeURIComponent(text);
+            window.location.href = `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
+            closeFeedbackModal();
+            document.getElementById("feedback-text").value = "";
+        }
+
+        function getTrialDaysLeft() {
+            try {
+                const start = parseInt(localStorage.getItem("trialStart"), 10);
+                if (!start) return 0;
+                const elapsedDays = (Date.now() - start) / (1000 * 60 * 60 * 24);
+                return Math.max(0, Math.ceil(TRIAL_DAYS - elapsedDays));
+            } catch (e) {
+                return TRIAL_DAYS; // storage unavailable: default to a full trial rather than blocking access
+            }
+        }
+
+        function updatePremiumState() {
+            const badge = document.getElementById("premium-badge");
+            const footer = document.getElementById("paywall-footer");
+            const banner = document.getElementById("trial-banner");
+
+            badge.classList.remove("border-amberGold", "text-amberGold");
+            banner.classList.add("hidden");
+            footer.style.display = "none";
+
+            if (FREE_MODE) {
+                isPremium = true;
+                badge.innerHTML = "<span>✅ Free Access</span>";
+                return;
+            }
+
+            const trialDaysLeft = getTrialDaysLeft();
+            const inTrial = !isPaid && trialDaysLeft > 0;
+            isPremium = isPaid || inTrial;
+
+            if (isPaid) {
+                badge.innerHTML = "<span>👑 Premium Tier</span>";
+                badge.classList.add("border-amberGold", "text-amberGold");
+            } else if (inTrial) {
+                badge.innerHTML = `<span>🎁 Free Trial · ${trialDaysLeft}d left</span>`;
+                banner.textContent = `Free access during launch, no payment needed. ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left, then ${YEARLY_PRICE_BHD} BHD/year.`;
+                banner.classList.remove("hidden");
+            } else {
+                badge.innerHTML = "<span>🔴 Standard Tier</span>";
+                footer.style.display = "block";
+            }
+        }
+
+        function activatePremiumState() {
+            isPaid = true;
+            try { localStorage.setItem("premiumAccess", "true"); } catch (e) {}
+            updatePremiumState();
+            renderProducts();
+        }
+
+        function handleRetailerRedirect(retailerName, targetUrl) {
+            // Used to be a blocking alert() here. A native alert() freezes
+            // the whole page until the visitor dismisses it, which is why
+            // this exact button was the single worst score on the Core Web
+            // Vitals dashboard (7,080ms INP) -- the "interaction" wasn't
+            // slow JS, it was the browser waiting on a modal it couldn't
+            // paint past. showToast() gives the same heads-up without
+            // blocking anything.
+            showToast(`Opening ${retailerName}. Sign in to your own account there to check stock or arrange pickup/delivery.`);
+            window.open(targetUrl, '_blank');
+        }
+
+        // Non-blocking replacement for alert()/confirm() notices. Stacks
+        // multiple toasts if fired in quick succession and self-removes
+        // after `duration` ms.
+        function showToast(message, duration = 4000) {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.className = "toast-pop pointer-events-auto bg-charcoal border border-gray-700 text-gray-100 text-xs rounded-xl shadow-xl px-4 py-3 text-center leading-relaxed";
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add("toast-fade-out");
+                setTimeout(() => toast.remove(), 250);
+            }, duration);
+        }
+
+        function renderProducts() {
+            syncWineSubtabs();
+            const container = document.getElementById("product-container");
+            container.innerHTML = "";
+
+            if (mockProducts.length === 0) {
+                container.innerHTML = productsLoadFailed
+                    ? `<p class="text-center text-sm text-gray-300 py-8">Couldn't load live prices right now. Please check back shortly.</p>`
+                    : `<p class="text-center text-sm text-gray-300 py-8">Loading live prices...</p>`;
+                return;
+            }
+
+            // Strips apostrophes/punctuation before comparing, so typing "Becks"
+            // (no apostrophe) still finds "Beck's" (with one) in the catalogue --
+            // a plain substring match on the raw text would miss it otherwise.
+            //
+            // Accent-folding fix (2026-09-15): also flattens accented letters to
+            // their plain-English equivalent (normalize("NFD") splits a letter
+            // like "ö" into a plain "o" plus a separate invisible accent mark,
+            // then the regex strips that mark off), so typing "Lowenbrau" (or
+            // "Anejo", "Chateau", "Cafe", "Rose", ...) still finds "Löwenbräu"
+            // ("1800 Añejo Tequila", "Château Montlabert", "Bardinet Liqueur
+            // Café", "Carlo Rossi Rosè") in the catalogue -- confirmed live that
+            // over 130 real products in the catalogue have an accented letter in
+            // their proper spelling, and none of them were reachable by typing
+            // the plain-English version of their name before this fix.
+            const searchNormalize = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['’.,]/g, "");
+            // Trimmed so a stray space a phone keyboard adds before or after
+            // the word doesn't change the result (2026-10-24).
+            const query = searchNormalize(document.getElementById("search-bar").value).trim().replace(/\s+/g, " ");
+            const queryWords = query ? query.split(" ") : [];
+            // Search ranking (2026-11-08): John searched "port" and the first
+            // card was "Portunes Sang Perse", and "Export"/"Imported" also
+            // matched. A match must now start at the beginning of a word, and
+            // whole-word matches ("Tawny Port") come before ones that only
+            // start a longer word ("Portofino").
+            const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const startRe = query ? new RegExp("(^|[^a-z0-9])" + escRe(query)) : null;
+            const wholeRe = query ? new RegExp("(^|[^a-z0-9])" + escRe(query) + "($|[^a-z0-9])") : null;
+            const cardRank = [], fuzzyRank = [];
+            // Close-spelling matches, used only when nothing matches exactly.
+            const fuzzyCards = [], fuzzyInTab = [];
+            let exactInTab = 0;
+
+            // Computed once per render rather than once per card (isFavourite()
+            // itself does a localStorage read + JSON.parse) -- with ~2,900
+            // products, calling it twice per card added up to thousands of
+            // redundant reads on every keystroke/filter change, the same class
+            // of avoidable slowdown as the renderProducts() O(n^2) bug fixed
+            // 2026-09-13.
+            const favouritesSet = getFavourites();
+
+            // Price range filter: reads the two boxes fresh on every render so
+            // it always reflects whatever's currently typed in them. A blank
+            // box means "no limit" on that side; a non-numeric value is
+            // treated the same as blank rather than hiding everything.
+            const minInput = document.getElementById("price-min");
+            const maxInput = document.getElementById("price-max");
+            const priceMin = minInput && minInput.value !== "" && !isNaN(parseFloat(minInput.value)) ? parseFloat(minInput.value) : null;
+            const priceMax = maxInput && maxInput.value !== "" && !isNaN(parseFloat(maxInput.value)) ? parseFloat(maxInput.value) : null;
+
+            const cardsHTML = [];
+            const dropOrder = new Map();
+            // Which cards belong to the tab being viewed (see the reorder below).
+            const cardInTab = [];
+
+            mockProducts.forEach((prod, index) => {
+                // Viewing a link someone else shared (see "Share my
+                // favourites" below) takes priority over everything else the
+                // same way "My Favourites" does -- it's its own separate list
+                // of names, unrelated to this visitor's own favourites or
+                // category selection.
+                if (showSharedOnly) {
+                    if (!sharedFavouriteNames || !sharedFavouriteNames.has(prod.name)) return;
+                } else if (showFavouritesOnly) {
+                    // "My Favourites" view replaces the category filter (a
+                    // favourited item can be in any category) but still respects
+                    // search and the price range boxes below, same as normal.
+                    if (!favouritesSet.has(prod.name)) return;
+                } else if (activeCategory === "Drops") {
+                    if (!isPriceDrop(prod)) return;
+                } else if (activeCategory !== "All" && prod.category !== activeCategory) {
+                    // A typed search stays inside the selected tab (John,
+                    // 2026-10-11: Vodka + a search must show vodkas only).
+                    // One exception: inside the Wine tabs a search covers all
+                    // three wine sub-tabs, so "port" typed on Bottled Wine
+                    // still finds the ports under Fortified Wine.
+                    const sameWineGroup = query && WINE_SUBCATEGORIES.includes(activeCategory)
+                        && WINE_SUBCATEGORIES.includes(prod.category);
+                    const sameBeerGroup = query && BEER_SUBCATEGORIES.includes(activeCategory)
+                        && BEER_SUBCATEGORIES.includes(prod.category);
+                    if (!sameWineGroup && !sameBeerGroup) return;
+                }
+                // Red / White / Rosé menu: only while browsing Bottled or
+                // Boxed Wine without a search (a typed search still covers
+                // every wine, the same as it covers all three wine sub-tabs).
+                if (!showSharedOnly && !showFavouritesOnly && !query && activeWineColour !== "All"
+                    && WINE_COLOUR_CATEGORIES.includes(activeCategory) && prod._wineColour !== activeWineColour) return;
+                let isFuzzy = false;
+                if (query && !startRe.test(productSearchText(prod))) {
+                    // Typo-tolerant fallback (2026-10-24): "Pot" or "Poert"
+                    // still finds "Port". Only collected until the first exact
+                    // match turns up; exact matches always win.
+                    if (exactInTab > 0 || !fuzzySearchMatch(prod, queryWords)) return;
+                    isFuzzy = true;
+                }
+                if (showComparedOnly && !(prod._inStockCount >= 2)) return;
+
+                // See getLowestInStockPrice() above for why only in-stock
+                // prices count toward this.
+                const lowestPrice = getLowestInStockPrice(prod);
+
+                // A price filter is only meaningful against a product that
+                // actually has a buyable price right now, so a min/max filter
+                // (either one) hides a product with no in-stock price at all
+                // rather than showing it as a false match.
+                if ((priceMin !== null || priceMax !== null)) {
+                    if (lowestPrice === null) return;
+                    if (priceMin !== null && lowestPrice < priceMin) return;
+                    if (priceMax !== null && lowestPrice > priceMax) return;
+                }
+
+                // Each card's HTML is now built only when its chunk is about to
+                // be drawn (see renderCardsProgressively), not all ~3,100 up
+                // front, so a chip tap paints the first cards straight away
+                // instead of waiting for every card's HTML to be assembled.
+                // In the Price drops tab, cards are put in order of the biggest
+                // drop (as a share of last week's price) once the loop is done.
+                if (!isFuzzy && activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly) {
+                    dropOrder.set(cardsHTML.length, (prod.price_last_seen - lowestPrice) / prod.price_last_seen);
+                }
+                const inTab = showFavouritesOnly || showSharedOnly || activeCategory === "All" || activeCategory === "Drops" || prod.category === activeCategory;
+                if (!isFuzzy && inTab) exactInTab++;
+                (isFuzzy ? fuzzyInTab : cardInTab).push(prod.category === activeCategory);
+                // 0: the word names what the drink IS (its tab or type, e.g. a
+                // real Port for "port"); 1: whole word in the name ("Port Cask
+                // Finish" whisky); 2: start of a longer word ("Portofino");
+                // 3: close spelling.
+                let rank = 3;
+                if (!isFuzzy && query) {
+                    const text = productSearchText(prod);
+                    const cut = text.indexOf(" | ");
+                    const typeText = cut >= 0 ? text.slice(cut) : "";
+                    rank = wholeRe.test(typeText) ? 0 : (wholeRe.test(text) ? 1 : 2);
+                }
+                (isFuzzy ? fuzzyRank : cardRank).push(rank);
+                (isFuzzy ? fuzzyCards : cardsHTML).push(() => {
+                const shouldBlur = !isPremium && index >= 2;
+
+                const cellClass = (val, inStock) => {
+                    if (inStock === false) return 'text-gray-500 font-medium italic text-[11px]';
+                    return (val !== null && val === lowestPrice) ? 'text-emeraldGlow font-bold text-sm' : 'text-gray-300 font-medium';
+                };
+                const cellText = (val, inStock) => {
+                    if (inStock === false) return 'Out of Stock';
+                    return (val === null || val === undefined) ? 'N/A' : val.toFixed(3);
+                };
+
+                let cardHTML = `
+                    <div class="bg-charcoal border border-gray-800 rounded-2xl p-4 shadow-md transition duration-200">
+                        <div class="mb-3 flex justify-between items-start">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-gray-300">${prod._wineColour ? WINE_COLOUR_LABELS[prod._wineColour] + " · " : ""}${categoryLabel(prod.category)}</span>
+                                <h4 class="font-bold text-sm text-white mt-0.5">${prod.name}</h4>
+                                ${comparisonBadgeHTML(prod)}${priceBadgeHTML(prod)}${showFavouritesOnly && !isBuyableNow(prod) && hasFeature("backInStockAlerts") ? `<span class="inline-block text-[10px] font-bold text-sky-300 bg-sky-300/10 border border-sky-300/30 rounded-full px-2 py-0.5 mt-1 mr-1">🔔 Out of Stock Favourite: alert on</span>` : ""}
+                            </div>
+                            <button onclick="toggleFavourite(${index}, this)" class="text-lg leading-none shrink-0 ml-2 active:scale-90 transition" title="${favouritesSet.has(prod.name) ? 'Remove from favourites' : 'Add to favourites'}">${favouritesSet.has(prod.name) ? '❤️' : '🤍'}</button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs border-t border-gray-800/50 pt-3 ${shouldBlur ? 'premium-blur' : ''}">
+                            <button onclick="handleRetailerRedirect('BMMI', '${prod.bmmi_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">BMMI</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.bmmi, prod.bmmi_in_stock)}">${cellText(prod.bmmi, prod.bmmi_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.bmmi, prod.bmmi_in_stock, prod.volume_litres)}
+                                </div>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('African &amp; Eastern', '${prod.ae_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">A&amp;E</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.ae, prod.ae_in_stock)}">${cellText(prod.ae, prod.ae_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.ae, prod.ae_in_stock, prod.volume_litres)}
+                                </div>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('GBI Express', '${prod.gbi_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">GBI Exp</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.gbi, prod.gbi_in_stock)}">${cellText(prod.gbi, prod.gbi_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.gbi, prod.gbi_in_stock, prod.volume_litres)}
+                                </div>
+                            </button>
+
+                            <button onclick="handleRetailerRedirect('NHSC', '${prod.nhsc_url}')" class="flex justify-between items-center p-2.5 bg-obsidian bg-opacity-40 hover:bg-opacity-80 rounded-lg text-left border border-gray-800/40 active:scale-[0.98] transition">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300 font-medium text-[10px]">NHSC</span>
+                                    <span class="text-[9px] text-amberGold tracking-wide mt-0.5">Click for Retailer ↗</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="${cellClass(prod.nhsc, prod.nhsc_in_stock)}">${cellText(prod.nhsc, prod.nhsc_in_stock)}</span>
+                                    ${pricePerLitreHTML(prod.nhsc, prod.nhsc_in_stock, prod.volume_litres)}
+                                </div>
+                            </button>
+                        </div>
+
+                        ${shouldBlur ? `
+                            <div class="mt-2 text-center py-1 bg-obsidian/20 rounded-lg">
+                                <p class="text-[11px] text-amberGold font-medium">🔒 Subscription required to reveal prices &amp; store shortcuts</p>
+                            </div>
+                        ` : `
+                            <div class="mt-3 text-[11px] text-gray-200 border-t border-gray-800/30 pt-2 flex items-center space-x-1">
+                                <span class="text-amberGold">ℹ️</span>
+                                <span class="italic text-gray-200">${prod.note}</span>
+                            </div>
+                        `}
+                    </div>
+                `;
+                return cardHTML;
+                });
+            });
+
+            renderFavouritesBasket(favouritesSet);
+
+            // No exact match anywhere: show the close spellings instead.
+            // Nothing in the tab being viewed matches exactly: show the close
+            // spellings (current tab first via the reorder below), plus any
+            // exact matches found in a sister wine/beer tab.
+            const usedFuzzy = exactInTab === 0 && fuzzyCards.length > 0;
+            if (usedFuzzy) {
+                cardsHTML.push(...fuzzyCards);
+                cardInTab.push(...fuzzyInTab);
+                cardRank.push(...fuzzyRank);
+            }
+
+            // Whole-word matches first, then word-start matches, then close
+            // spellings; each group keeps the chosen sort order.
+            if (query && !dropOrder.size && new Set(cardRank).size > 1) {
+                const order = cardsHTML.map((_, i) => i).sort((a, b) => cardRank[a] - cardRank[b] || a - b);
+                const fns = order.map(i => cardsHTML[i]);
+                const tabs = order.map(i => cardInTab[i]);
+                cardsHTML.length = 0; cardsHTML.push(...fns);
+                cardInTab.length = 0; cardInTab.push(...tabs);
+            }
+
+            // A search inside a Wine or Beer sub-tab also looks in its sister
+            // tabs (so "port" typed on Bottled Wine still finds the ports).
+            // Show the current tab's own matches first, then the others,
+            // each group keeping the chosen sort order (2026-10-24).
+            if (query && !showFavouritesOnly && !showSharedOnly && cardInTab.includes(false) && cardInTab.includes(true)) {
+                const mine = cardsHTML.filter((_, i) => cardInTab[i]);
+                const others = cardsHTML.filter((_, i) => !cardInTab[i]);
+                cardsHTML.length = 0;
+                cardsHTML.push(...mine, ...others);
+            }
+
+            if (dropOrder.size) {
+                const ordered = cardsHTML.map((fn, i) => [fn, dropOrder.get(i) || 0]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+                cardsHTML.length = 0;
+                cardsHTML.push(...ordered);
+            }
+
+            updateResultsCount(cardsHTML.length, query, usedFuzzy);
+
+            if (cardsHTML.length === 0) {
+                const dropsView = activeCategory === "Drops" && !showFavouritesOnly && !showSharedOnly;
+                container.innerHTML = dropsView && !query && !showComparedOnly
+                    ? `<p class="text-center text-sm text-gray-300 py-8">No price drops since last week's update. Prices are checked once a week, so look again after the next update.</p>`
+                    : showComparedOnly
+                    ? `<p class="text-center text-sm text-gray-300 py-8">No products with competing prices match this filter. Tap "⚖️ Compared only" to see everything.</p>`
+                    : (query && activeCategory !== "All" && activeCategory !== "Drops" && !showFavouritesOnly && !showSharedOnly)
+                        ? `<p class="text-center text-sm text-gray-300 py-8">Nothing matches this search in ${categoryLabel(activeCategory)}.<br><button onclick="filterCategory('All', document.querySelector('.category-chip'))" class="mt-3 px-4 py-2 rounded-xl bg-amberGold text-obsidian text-xs font-bold">Search all categories</button></p>`
+                        : `<p class="text-center text-sm text-gray-300 py-8">No products match this search.</p>`;
+                return;
+            }
+            renderCardsProgressively(container, cardsHTML);
+        }
+
+        // Writes the grid in small batches across animation frames instead
+        // of one synchronous innerHTML replacement covering every matching
+        // product at once. A category-chip click isn't a good fit for the
+        // debounce used on typed input (see filterProducts()) -- it's a
+        // single deliberate tap, not a burst of keystrokes -- so the fix
+        // here is to stop making the browser build every card in one
+        // uninterruptible task. That single task (up to ~2,900 cards on
+        // "All") is what the analytics debug view measured as 2,656ms INP
+        // on the category chips: the browser can't paint anything until the
+        // whole rebuild finishes. Chunking it lets the browser paint the
+        // first batch (and stay responsive to the next tap or scroll)
+        // while the rest fills in a few frames later; the end result is the
+        // same final grid, just assembled progressively.
+        // Load-as-you-scroll (2026-10-10): Cloudflare's report for 25 Sep - 9
+        // Oct still showed half of all taps as "Poor"/"Needs improvement" INP
+        // on the category and favourites chips. Even chunked, every tap still
+        // went on to build all ~3,100 cards over the next couple of seconds,
+        // and any tap landing during that time had to wait behind it. Now
+        // only the first PAGE_SIZE cards are drawn; more are appended when
+        // the visitor scrolls near the bottom (an invisible "sentinel" div
+        // watched by IntersectionObserver). Nobody scrolls through 3,000
+        // cards, so most of that work simply never happens now.
+        let renderChunkToken = 0;
+        let scrollObserver = null;
+        function renderCardsProgressively(container, cardsHTML) {
+            const myToken = ++renderChunkToken; // supersede any render still in flight
+            if (scrollObserver) { scrollObserver.disconnect(); scrollObserver = null; }
+            container.innerHTML = "";
+            const PAGE_SIZE = 30;
+            let i = 0;
+            const sentinel = document.createElement("div");
+            sentinel.className = "col-span-full h-px";
+            const appendPage = () => {
+                if (myToken !== renderChunkToken) return; // a newer render took over
+                const holder = document.createElement("div");
+                holder.innerHTML = cardsHTML.slice(i, i + PAGE_SIZE).map(build => build()).join("");
+                const frag = document.createDocumentFragment();
+                while (holder.firstChild) frag.appendChild(holder.firstChild);
+                container.insertBefore(frag, sentinel.parentNode === container ? sentinel : null);
+                i += PAGE_SIZE;
+                if (i >= cardsHTML.length && scrollObserver) {
+                    scrollObserver.disconnect();
+                    scrollObserver = null;
+                    sentinel.remove();
+                }
+            };
+            appendPage();
+            if (i < cardsHTML.length) {
+                container.appendChild(sentinel);
+                if ("IntersectionObserver" in window) {
+                    scrollObserver = new IntersectionObserver((entries) => {
+                        if (entries.some(e => e.isIntersecting)) requestAnimationFrame(appendPage);
+                    }, { rootMargin: "1500px 0px" });
+                    scrollObserver.observe(sentinel);
+                } else {
+                    // Very old browser with no IntersectionObserver: fall back
+                    // to the previous behaviour, drawing the rest a chunk per frame.
+                    const rest = () => { appendPage(); if (i < cardsHTML.length && myToken === renderChunkToken) requestAnimationFrame(rest); };
+                    requestAnimationFrame(rest);
+                }
+            }
+        }
+
+        // Debounced (200ms): search-bar and price-min/max all call this on
+        // every keystroke. Undebounced, each keystroke triggered a full
+        // renderProducts() rebuild over the whole (~2,900-item) catalogue --
+        // the analytics debug view measured 1,424ms INP on #search-bar from
+        // exactly this. Waiting for a short pause in typing means a fast
+        // typist triggers one rebuild instead of one per character.
+        let filterDebounceTimer = null;
+        function filterProducts() {
+            clearTimeout(filterDebounceTimer);
+            filterDebounceTimer = setTimeout(renderProducts, 200);
+        }
+
+        function clearPriceFilter() {
+            const minInput = document.getElementById("price-min");
+            const maxInput = document.getElementById("price-max");
+            if (minInput) minInput.value = "";
+            if (maxInput) maxInput.value = "";
+            renderProducts();
+        }
+
+        // Wine sub-tabs: Bottled / Boxed / Fortified. The main Wine chip
+        // stays highlighted whichever one is picked.
+        function filterWineSub(cat) {
+            filterCategory(cat, document.getElementById("wine-chip"));
+        }
+
+        function filterBeerSub(cat) {
+            filterCategory(cat, document.getElementById("beer-chip"));
+        }
+
+        // "Showing N products in <tab>" line above the grid.
+        function updateResultsCount(n, query, usedFuzzy) {
+            const el = document.getElementById("results-count");
+            if (!el) return;
+            let where;
+            if (showSharedOnly) where = "this shared list";
+            else if (showFavouritesOnly) where = "My Favourites";
+            else if (activeCategory === "Drops") where = "Price drops";
+            else if (activeCategory === "All") where = "all categories";
+            else {
+                where = categoryLabel(activeCategory);
+                if (!query && activeWineColour !== "All" && WINE_COLOUR_CATEGORIES.includes(activeCategory)) {
+                    where = `${WINE_COLOUR_LABELS[activeWineColour]} · ${where}`;
+                }
+            }
+            const typed = document.getElementById("search-bar").value.trim();
+            const searchBit = typed ? ` matching "${typed.replace(/[<>&"]/g, "")}"` : "";
+            if (usedFuzzy) {
+                el.innerHTML = `No exact match for "${typed.replace(/[<>&"]/g, "")}", showing <span class="text-white font-bold">${n.toLocaleString("en-GB")}</span> close match${n === 1 ? "" : "es"} in <span class="text-amberGold font-semibold">${where}</span>`;
+                return;
+            }
+            el.innerHTML = `Showing <span class="text-white font-bold">${n.toLocaleString("en-GB")}</span> product${n === 1 ? "" : "s"} in <span class="text-amberGold font-semibold">${where}</span>${searchBit}`;
+        }
+
+        function filterWineColour(colour) {
+            activeWineColour = colour;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function syncWineColourTabs() {
+            const row = document.getElementById("wine-colour-tabs");
+            if (!row) return;
+            const show = WINE_COLOUR_CATEGORIES.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
+            row.classList.toggle("hidden", !show);
+            if (!show) return;
+            const counts = { All: 0, Red: 0, White: 0, Rose: 0 };
+            mockProducts.forEach(p => {
+                if (p.category !== activeCategory) return;
+                counts.All++;
+                if (p._wineColour) counts[p._wineColour]++;
+            });
+            const icons = { All: "", Red: "🔴 ", White: "⚪ ", Rose: "🌸 " };
+            row.querySelectorAll(".wine-colourchip").forEach(btn => {
+                const c = btn.dataset.wineColour;
+                btn.textContent = `${icons[c]}${c === "All" ? "All" : WINE_COLOUR_LABELS[c]} (${counts[c]})`;
+                btn.classList.toggle("active", c === activeWineColour);
+            });
+        }
+
+        function syncWineSubtabs() {
+            syncWineColourTabs();
+            const groups = [["wine-subtabs", WINE_SUBCATEGORIES, "wineSub"], ["beer-subtabs", BEER_SUBCATEGORIES, "beerSub"]];
+            groups.forEach(([rowId, cats, key]) => {
+                const row = document.getElementById(rowId);
+                if (!row) return;
+                const show = cats.includes(activeCategory) && !showFavouritesOnly && !showSharedOnly;
+                row.classList.toggle("hidden", !show);
+                row.querySelectorAll(".wine-subchip").forEach(btn => {
+                    btn.classList.toggle("active", btn.dataset[key] === activeCategory);
+                });
+            });
+        }
+
+        function filterCategory(cat, btnEl) {
+            activeCategory = cat;
+            activeWineColour = "All";
+
+            // Same "stuck filter" class of bug as showFavouritesOnly below --
+            // a shared-list view (showSharedOnly) also has to be explicitly
+            // cleared here, or it'd keep winning over the category filter in
+            // renderProducts() even after a category chip is tapped.
+            if (showSharedOnly) {
+                showSharedOnly = false;
+                const bar = document.getElementById("shared-view-bar");
+                if (bar) bar.classList.add("hidden");
+            }
+
+            // Picking a category chip is how a visitor leaves "My
+            // Favourites" view. This used to leave showFavouritesOnly
+            // untouched, and renderProducts() checks showFavouritesOnly
+            // before activeCategory -- so the grid stayed locked to
+            // favourites-only even though the tapped chip highlighted
+            // correctly. That's exactly the "categories not responding" /
+            // "stuck in Favourites, only a full refresh gets me out"
+            // behaviour reported after the 2026-09-20 refresh.
+            if (showFavouritesOnly) {
+                showFavouritesOnly = false;
+                const notesWrap = document.getElementById("favourites-notes-wrap");
+                if (notesWrap) notesWrap.classList.add("hidden");
+            }
+
+            document.querySelectorAll('.category-chip').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.id === 'favourites-chip') {
+                    // Restore its resting gold styling explicitly, rather
+                    // than adding the plain chips' gray/medium-weight
+                    // classes to it (the old code did that unconditionally
+                    // to every .category-chip, stacking gray/medium on top
+                    // of this chip's gold/bold ones every time a category
+                    // was clicked, without ever removing them again). If
+                    // we're leaving favourites view right now,
+                    // toggleFavouritesView() stripped bg-charcoal/
+                    // text-amberGold off this chip while it was active
+                    // (relying on the .category-chip.active CSS rule for
+                    // color instead) -- put them back so it doesn't end up
+                    // with neither its active nor its resting styling.
+                    btn.classList.add('bg-charcoal', 'text-amberGold');
+                    return;
+                }
+                if (btn.id === 'drops-chip') {
+                    btn.classList.add('bg-charcoal', 'text-emeraldGlow');
+                    return;
+                }
+                btn.classList.add('bg-charcoal', 'text-gray-200', 'font-medium');
+            });
+            btnEl.classList.add('active');
+            btnEl.classList.remove('bg-charcoal', 'text-gray-200', 'font-medium', 'text-emeraldGlow');
+            renderProducts();
+        }
+
+        function openPaywallModal() {
+            const modal = document.getElementById("paywall-modal");
+            const content = document.getElementById("modal-content");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        function closePaywallModal() {
+            const modal = document.getElementById("paywall-modal");
+            const content = document.getElementById("modal-content");
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+        }
+
+        function submitPaymentCode() {
+            const input = document.getElementById("promo-code-input").value;
+            if (input.trim() === "BAHRAIN123") {
+                alert("Payment reference confirmed, premium activated.");
+                closePaywallModal();
+                activatePremiumState();
+            } else {
+                alert("Your verification request has been submitted. Status will update once the Pour Choices BenefitPay ledger matches the receipt.");
+                closePaywallModal();
+            }
+        }
+
+        function registerServiceWorker() {
+            if (!('serviceWorker' in navigator)) return;
+            try {
+                // Real file fix (2026-09-18): this used to build the service
+                // worker from an inline Blob + URL.createObjectURL(), which
+                // Chrome/Samsung Internet on Android silently refuse to
+                // register (a service worker's script must be served over
+                // http/https, not blob:) -- that silent failure meant the
+                // app never had an active service worker on a real phone,
+                // which is exactly what those browsers require before they'll
+                // offer "Install app"/"Add to Home Screen" at all. Fixed by
+                // registering the real sw.js file next to this page instead.
+                navigator.serviceWorker.register("sw.js").catch(() => {});
+            } catch (e) { /* installability enhancement only, safe to skip */ }
+        }
+    </script>
+    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1973b245e38f4379a2d1729e20b2b3db"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
