@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2440"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3FA34D"/>
+      <stop offset="0.55" stop-color="#2E7D32"/>
+      <stop offset="1" stop-color="#1B5E20"/>
+    </linearGradient>
+    <linearGradient id="foil" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFD978"/>
+      <stop offset="0.6" stop-color="#F4B942"/>
+      <stop offset="1" stop-color="#D9952A"/>
+    </linearGradient>
+    <clipPath id="bodyClip">
+      <path d="M-22,0 H22 Q30,0 30,-8 V-98 C30,-124 11,-132 11,-150 V-186 H-11 V-150 C-11,-132 -30,-124 -30,-98 V-8 Q-30,0 -22,0 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <g transform="translate(252,268) scale(1.4) rotate(38) translate(0,104)">
+    <!-- bottle -->
+    <path d="M-22,0 H22 Q30,0 30,-8 V-98 C30,-124 11,-132 11,-150 V-186 H-11 V-150 C-11,-132 -30,-124 -30,-98 V-8 Q-30,0 -22,0 Z" fill="url(#glass)"/>
+    <g clip-path="url(#bodyClip)">
+      <!-- gold foil over neck and shoulder -->
+      <path d="M-40,-200 H40 V-124 L0,-110 L-40,-124 Z" fill="url(#foil)"/>
+      <!-- label -->
+      <rect x="-40" y="-82" width="80" height="48" fill="url(#foil)"/>
+      <!-- glass highlight -->
+      <rect x="-24" y="-104" width="5" height="96" rx="2.5" fill="#FFFFFF" opacity="0.22"/>
+    </g>
+    <ellipse cx="0" cy="-58" rx="15" ry="17" fill="#FFF3DA"/>
+    <!-- neck lip -->
+    <rect x="-14" y="-194" width="28" height="11" rx="4" fill="#D9952A"/>
+    <!-- cork -->
+    <rect x="-11" y="-240" width="22" height="26" rx="6" fill="#D98B4A" transform="rotate(-24 0 -227)"/>
+    <rect x="-11" y="-240" width="22" height="7" rx="3.5" fill="#E9A66A" transform="rotate(-24 0 -227)"/>
+    <!-- fizz -->
+    <ellipse cx="-24" cy="-216" rx="4.5" ry="9" fill="#F7E05E" transform="rotate(-30 -24 -216)"/>
+    <ellipse cx="23" cy="-208" rx="4.5" ry="9" fill="#F7E05E" transform="rotate(40 23 -208)"/>
+    <ellipse cx="-32" cy="-192" rx="4" ry="7" fill="#F7E05E" transform="rotate(-70 -32 -192)"/>
+  </g>
+</svg>
