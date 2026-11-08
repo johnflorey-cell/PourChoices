@@ -8,28 +8,12 @@
     "category": "Vodka"
   },
   {
-    "name": "ABSOLUT VODKA BLUE 75CL",
-    "price_bhd": 18.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Absolut-Vodka-75cl-Nhsc-Bahrain-blue?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
-  },
-  {
     "name": "AFTERSHOCK RED 70CL",
     "price_bhd": 13.2,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Aftershock-Red-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
-  },
-  {
-    "name": "ALEXANDER VODKA 1LTR",
-    "price_bhd": 8.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/ALEXANDER-VODKA-1LTR-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
   },
   {
     "name": "ALEXANDER VODKA APPLE 1LTR",
@@ -336,42 +320,10 @@
     "category": "Other Spirits"
   },
   {
-    "name": "BITTER TRUTH CHOCOLATE BITTERS 20CL",
-    "price_bhd": 15.62,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/BITTER-TRUTH-CHOCOLATE-BITTERS-20CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "BITTER TRUTH CUCUMBER BITTERS 20CL",
-    "price_bhd": 15.62,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Bitter-Truth-Cucumber-Bitters-20cl-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "BITTER TRUTH LEMON BITTERS 20CL",
     "price_bhd": 15.62,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Bitter-Truth-Lemon-Bitters-20cl-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "BITTER TRUTH OLD TIME AROMATIC BITTERS 20CL",
-    "price_bhd": 15.62,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Bitter-Truth-Old-Time-Aromatic-Bitters-20cl-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "BITTER TRUTH ORANGE BITTERS 20CL",
-    "price_bhd": 15.62,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Bitter-Truth-Orange-Bitters-20cl-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
@@ -544,14 +496,6 @@
     "category": "Whisky"
   },
   {
-    "name": "CUTTY SARK SCOTCH WHISKY 70CL",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Cutty-Sark-Scotch-Whisky-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "DEPAZ MILLESIME RHUM 2002 70CL",
     "price_bhd": 85.8,
     "in_stock": true,
@@ -624,14 +568,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "FOUR ROSES BOURBON 35CL",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/FOUR-ROSES-BOURBON-35CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "FOUR ROSES BOURBON 70CL",
     "price_bhd": 14.499,
     "in_stock": true,
@@ -686,14 +622,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GIBSONS-GIN-Italian-LEMON-1-LTR-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Gin"
-  },
-  {
-    "name": "GLEN MORAY 12 YEARS OLD 70CL",
-    "price_bhd": 25.9,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Glen-Moray-12-Years-Old-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
   },
   {
     "name": "GLEN MORAY 18 YEARS OLD SINGLE MALT SCOTCH WHISKY 70CL",
@@ -816,14 +744,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "GREY GOOSE VODKA 75CL",
-    "price_bhd": 66.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GREY-GOOSE-VODKA-75CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
-  },
-  {
     "name": "HAYMAN'S OLD TOM GIN 70CL",
     "price_bhd": 20.46,
     "in_stock": true,
@@ -862,6 +782,14 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HINOTORI-GOLDORAK-JAPANESE-WHISKY-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Whisky"
+  },
+  {
+    "name": "HOT SHOT IRISH 17% 4 X 30ML",
+    "price_bhd": 3.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/HOTSHOT-IRISH-17-4-X-30ML-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Other Spirits"
   },
   {
     "name": "HOT SHOT TEQUILA 40% 4X30ML",
@@ -1016,14 +944,6 @@
     "category": "Whisky"
   },
   {
-    "name": "KAHLUA COFFEE LIQUEUR 70CL",
-    "price_bhd": 20.35,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/KAHLUA-COFFEE-LIQUEUR-70CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "KINGSTON GIN 70CL",
     "price_bhd": 6.3,
     "in_stock": true,
@@ -1096,14 +1016,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "MIS AMIGOS CHOCOLATE TEQUILA 70 CL",
-    "price_bhd": 18.7,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/MIS-AMIGOS-CHOCOLATE-70-CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "MIS AMIGOS COFFEE TEQUILA 70CL",
     "price_bhd": 11.0,
     "in_stock": true,
@@ -1142,14 +1054,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/NIKKA-FROM-THE-BARREL-50CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Whisky"
-  },
-  {
-    "name": "NOILLY PRAT DRY VERMOUTH 75CL",
-    "price_bhd": 14.08,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Noilly-Prat-Dry-Vermouth-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Fortified"
   },
   {
     "name": "OCHO TEQUILA ANEJO LA LATILLA 40% 70CL",
@@ -1192,7 +1096,7 @@
     "category": "Rum"
   },
   {
-    "name": "OLD MONK COFFEE XO RUM NAKED 75CL",
+    "name": "OLD MONK COFFEE XO RUM 75CL",
     "price_bhd": 6.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/OLD-MONK-COFFEE-XO-RUM-NAKED-75CL-nhsc-bahrain?limit=100",
@@ -1296,14 +1200,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "RAMZOTTI AMARO 75CL",
-    "price_bhd": 15.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Ramzotti-Amaro-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "RED BOWLER WHISKY 1L",
     "price_bhd": 8.5,
     "in_stock": true,
@@ -1342,14 +1238,6 @@
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/RIVIERE-DU-MAT-RUM-VANILLA-BOURBON-70CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Rum"
-  },
-  {
-    "name": "ROYAL DRAGON VODKA IMPERIAL CLASSIC MAGNUM 1.5LTR",
-    "price_bhd": 66.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Royal-Dragon-Vodka-Imperial-Classic-Magnum-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
   },
   {
     "name": "ROYAL SALUTE 21 YEARS OLD 70CL",
@@ -1404,22 +1292,6 @@
     "price_bhd": 29.04,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Skinos-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "SMIRNOFF VODKA 70CL",
-    "price_bhd": 20.7,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/SMIRNOFF,VODKA,70CL,nhsc,bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Vodka"
-  },
-  {
-    "name": "ST GERMAIN ELDERFLOWER 70CL",
-    "price_bhd": 34.1,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/St-Germain-Elderflower-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
@@ -1504,18 +1376,18 @@
     "category": "Other Spirits"
   },
   {
-    "name": "TOP SHOTS G STAR FAIRY FLOSS 4 X 2.5CL",
+    "name": "TOP SHOTS BUTTERY NIPPLE BUTTERSCOTCH 4 X 2.5CL",
     "price_bhd": 4.0,
     "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TOP-SHOTS-G-STAR-FAIRY-FLOSS-4X2-5CL-nhsc-bahrain?limit=100",
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TOP-SHOTS-NIPPLE-BUTTERSCOTCH-4X2-5CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
   {
-    "name": "TOP SHOTS NIPPLE BUTTERSCOTCH 4 X 2.5CL",
+    "name": "TOP SHOTS G STAR FAIRY FLOSS 4 X 2.5CL",
     "price_bhd": 4.0,
     "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TOP-SHOTS-NIPPLE-BUTTERSCOTCH-4X2-5CL-nhsc-bahrain?limit=100",
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TOP-SHOTS-G-STAR-FAIRY-FLOSS-4X2-5CL-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Other Spirits"
   },
@@ -1552,10 +1424,10 @@
     "category": "Whisky"
   },
   {
-    "name": "HEINEKEN 24 X 33CL CANS",
-    "price_bhd": 38.999,
+    "name": "HEINEKEN 24 X 33CL BOTTLES",
+    "price_bhd": 39.999,
     "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/Heineken-24-x-33cl-Cans-Nhsc-Bahrain?limit=100",
+    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/Heineken-24-x-33cl-Bottles-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Beer"
   },
@@ -1964,14 +1836,6 @@
     "price_bhd": 3.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Drostdy-Hof-Chenin-Blanc-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "DROSTDY HOF CLARET CASK 5LTR",
-    "price_bhd": 15.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Drostdy-Hof-Claret-Cask-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -2504,14 +2368,6 @@
     "category": "Wine"
   },
   {
-    "name": "RADIO BOKA VERDEJO 75CL",
-    "price_bhd": 4.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Radio-Boca-Verdejo-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
     "name": "RESERVE BANK CAPE WHITE BLEND 75CL",
     "price_bhd": 4.4,
     "in_stock": true,
@@ -2632,14 +2488,6 @@
     "category": "Wine"
   },
   {
-    "name": "SIERRA GRANDE MERLOT 75CL",
-    "price_bhd": 6.6,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Sierra-Grande-Merlot-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
     "name": "SIERRA GRANDE PINOT NOIR 75CL",
     "price_bhd": 6.6,
     "in_stock": true,
@@ -2708,14 +2556,6 @@
     "price_bhd": 3.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Cabernet-Sauvignon-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "TABLE MOUNTAIN CHARDONNAY 75CL",
-    "price_bhd": 3.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Chardonnay-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },

@@ -96,14 +96,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "Canvas Vodka 18cl Bottle",
-    "price_bhd": 2.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/canvas-vodka-18-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Vodka"
-  },
-  {
     "name": "Fragata Olive Snack Provencal Touch 70g",
     "price_bhd": 2.0,
     "in_stock": false,
@@ -272,14 +264,6 @@
     "category": "Vodka"
   },
   {
-    "name": "NA.TI.VO Sangiovese Puglia 75cl",
-    "price_bhd": 4.5,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/na-ti-vo-sangiovese-puglia-75-cl?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
-  },
-  {
     "name": "Baron D'Arignac Medium Sweet Rose 75cl",
     "price_bhd": 3.76,
     "in_stock": true,
@@ -292,6 +276,14 @@
     "price_bhd": 3.84,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/jack-rabbit-merlot-75-cl-merlot?limit=100",
+    "retailer": "GBI Express",
+    "category": "Wine"
+  },
+  {
+    "name": "Capitor Cuvee Intense 75cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/capitor-cuvee-intense-75-cl?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"
   },
@@ -784,6 +776,14 @@
     "category": "Wine"
   },
   {
+    "name": "Footprint Sauvignon Blanc 75cl",
+    "price_bhd": 6.5,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/footprint-the-long-walk-sauvignon-blanc-75cl-bottle?limit=100",
+    "retailer": "GBI Express",
+    "category": "Wine"
+  },
+  {
     "name": "Grand Reale Brut Vino Spumante 75cl Bottle",
     "price_bhd": 5.2,
     "in_stock": true,
@@ -868,6 +868,14 @@
     "price_bhd": 5.2,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/trapiche-merlot-75cl-bottle?limit=100",
+    "retailer": "GBI Express",
+    "category": "Wine"
+  },
+  {
+    "name": "Trapiche Vineyards Malbec 75cl",
+    "price_bhd": 5.2,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/trapiche-malbec-75cl-bottle?limit=100",
     "retailer": "GBI Express",
     "category": "Wine"
   },
@@ -990,14 +998,6 @@
     "url": "https://www.gbiexpress.com/casal-mendes-blue-wine?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
-  },
-  {
-    "name": "Cono Sur Bicicleta Cabernet Sauvignon 75cl Bottle",
-    "price_bhd": 6.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/cono-sur-bicicleta-cabernet-sauvignon-75cl-bottle?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
   },
   {
     "name": "Domaine Gayda T'Air D'Oc Syrah 75cl",
@@ -1132,6 +1132,14 @@
     "price_bhd": 6.4,
     "in_stock": true,
     "url": "https://www.gbiexpress.com/moka-coffee-liqueur-70-cl?limit=100",
+    "retailer": "GBI Express",
+    "category": "Other Spirits"
+  },
+  {
+    "name": "Red Bull Energy Drink 250ml 4 Pack",
+    "price_bhd": 8.0,
+    "in_stock": true,
+    "url": "https://www.gbiexpress.com/red-bull-energy-drink-250-ml-4-pack?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
   },
@@ -1556,14 +1564,6 @@
     "price_bhd": 10.3,
     "in_stock": false,
     "url": "https://www.gbiexpress.com/dtt-mi-querida-triquai-traqa-no-55-cigar?limit=100",
-    "retailer": "GBI Express",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "Joya \u2013 Red Robusto Cigar",
-    "price_bhd": 10.3,
-    "in_stock": false,
-    "url": "https://www.gbiexpress.com/joya-red-robusto-cigar?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
   },
@@ -2656,14 +2656,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "Scads Escapr Beer 12% 50cl X 24 Cans",
-    "price_bhd": 20.3,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/scads-escapr-beer-12-50-cl-x-24-cans?limit=100",
-    "retailer": "GBI Express",
-    "category": "Beer"
-  },
-  {
     "name": "Chateau Notre Dame, Montagne-Saint-Emilion 75cl Bottle",
     "price_bhd": 16.8,
     "in_stock": true,
@@ -3214,14 +3206,6 @@
     "url": "https://www.gbiexpress.com/heavensake-junmai-ginjo-72-cl?limit=100",
     "retailer": "GBI Express",
     "category": "Other Spirits"
-  },
-  {
-    "name": "Albert Bichot Chablis Domaine Long-Depaquit 75cl Bottle...",
-    "price_bhd": 24.0,
-    "in_stock": true,
-    "url": "https://www.gbiexpress.com/albert-bichot-chablis-domaine-long-depaquit?limit=100",
-    "retailer": "GBI Express",
-    "category": "Wine"
   },
   {
     "name": "Appleton Estate Reserve Blend 70cl",
