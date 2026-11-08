@@ -257,6 +257,12 @@ SYNONYMS = [
     (re.compile(r"\bextra\s+old\b", re.IGNORECASE), "xo"),
     (re.compile(r"\bx\.\s?o\.?(?=\s|$)", re.IGNORECASE), "xo"),
     (re.compile(r"\bold\s+no\.?\s*7\b", re.IGNORECASE), ""),
+    # "Single Malt" (2026-11-08): A&E writes "Glenfiddich 12 Year Old Single
+    # Malt Scotch Whisky 70cl", BMMI and GBI just "Glenfiddich 12 YO 70cl", so
+    # the A&E bottle sat on its own card. "malt" is already generic; folding
+    # the phrase "single malt" into "malt" makes "single" drop out too, while
+    # a bare "Single" elsewhere (Jack Daniel's Single Barrel) stays significant.
+    (re.compile(r"\bsingle[\s-]+malt\b", re.IGNORECASE), "malt"),
 ]
 PUNCT_RE = re.compile(r"[^a-z0-9 ]+")
 
