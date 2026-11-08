@@ -333,7 +333,25 @@ GENERIC_WORDS = {
     # Reserve, ages, ...) stay significant.
     "tennessee", "kentucky", "straight", "malt", "label", "sweden", "cognac",
     "aromatic",
+    # Added 2026-11-08 ("More cross-shop matches" fix): one shop prints
+    # "Chateau Gassier Le Pas Du Moine", another "Gassier Le Pas Du Moine";
+    # "Monkey Shoulder Triple Malt Blend" vs "...Triple Malt"; a wine's
+    # "AOC" appellation tag. None of these ever tells two bottles apart.
+    "chateau", "blend", "aoc",
+    # Country of origin, which one shop adds and another leaves out
+    # ("Jameson Irish Whiskey Ireland 1L" vs "JAMESON WHISKY 1 LTR"). Sweden
+    # and Scotland were already here; a country never separates two bottles
+    # of the same brand.
+    "ireland", "france", "italy", "spain", "mexico", "japan", "japanese",
+    "usa", "england", "holland", "netherlands", "germany", "australia",
+    "russia", "poland", "india",
 }
+
+# A 4-digit vintage year (1950-2039) printed by one shop but left off by the
+# other ("Chateau Du Tertre Margaux 75cl" vs "...Margaux 2018 75cl") is the
+# same wine: Bahrain shops only stock the current vintage. Two DIFFERENT
+# years on the two sides still keep them apart.
+YEAR_RE = re.compile(r"^(19[5-9]\d|20[0-3]\d)$")
 
 def clean_text(name):
     """Undoes the encoding junk some sites leave in names (a non-breaking
@@ -451,7 +469,47 @@ def words_conflict(sig_words_a, sig_words_b):
     as generic) reduces to the SAME set on both sides, so it still passes
     here same as before -- only a genuine one-sided extra WORD (not just
     extra filler) now blocks the match."""
-    return sig_words_a != sig_words_b
+    if sig_words_a == sig_words_b:
+        return False
+    years_a = {w for w in sig_words_a if YEAR_RE.match(w)}
+    years_b = {w for w in sig_words_b if YEAR_RE.match(w)}
+    if years_a and years_b:
+        return True
+    rest_a, rest_b = sig_words_a - years_a, sig_words_b - years_b
+    if rest_a == rest_b:
+        return False
+    # Typo tolerance: exactly one word differs on each side, both are long
+    # (6+ letters) and they're one letter apart ("Hendricks's" vs
+    # "Hendricks"). Short words and real swaps ("Black"/"Blue",
+    # "Honey"/"Fire") are far more than one letter apart, so they still
+    # block the match.
+    only_a, only_b = rest_a - rest_b, rest_b - rest_a
+    if len(only_a) == 1 and len(only_b) == 1:
+        wa, wb = next(iter(only_a)), next(iter(only_b))
+        if min(len(wa), len(wb)) >= 6 and not wa.isdigit() and not wb.isdigit() and _one_edit_apart(wa, wb):
+            return False
+    return True
+
+
+def _one_edit_apart(a, b):
+    """True when a and b differ by exactly one inserted, deleted or changed
+    letter."""
+    if a == b or abs(len(a) - len(b)) > 1:
+        return False
+    if len(a) > len(b):
+        a, b = b, a
+    i = j = edits = 0
+    while i < len(a) and j < len(b):
+        if a[i] == b[j]:
+            i += 1; j += 1
+            continue
+        edits += 1
+        if edits > 1:
+            return False
+        if len(a) == len(b):
+            i += 1
+        j += 1
+    return edits + (len(b) - j) + (len(a) - i) <= 1
 
 
 # Unknown-size price guard (2026-10-10): when a listing's name gives no
