@@ -1866,7 +1866,7 @@
   {
     "name": "White Claw Raspberry [Case of 12]",
     "price_bhd": 19.06,
-    "in_stock": false,
+    "in_stock": true,
     "url": "https://www.africanandeastern.com/White-Claw-Raspberry?search=&page=3&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -5258,7 +5258,7 @@
   {
     "name": "Butlers Triple Sec",
     "price_bhd": 9.78,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/butlers-triple-sec.html?search=&page=7&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"
@@ -6554,7 +6554,7 @@
   {
     "name": "African Secret Marula Cream Liqueur",
     "price_bhd": 19.24,
-    "in_stock": true,
+    "in_stock": false,
     "url": "https://www.africanandeastern.com/african-secret-marula-cream-liqueur?search=&page=9&limit=100",
     "retailer": "African & Eastern",
     "category": "Other Spirits"

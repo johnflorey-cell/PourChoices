@@ -3977,8 +3977,8 @@
   },
   {
     "name": "Sipsmith London Dry Gin 70cl",
-    "price_bhd": 22.45,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/sipsmith-london-dry-gin-75cl.html",
     "retailer": "BMMI",
     "category": "Gin"
@@ -9345,8 +9345,8 @@
   },
   {
     "name": "Organika Bio Vodka 70cl",
-    "price_bhd": 16.725,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/organika-bio-vodka-70cl.html",
     "retailer": "BMMI",
     "category": "Vodka"
@@ -10441,8 +10441,8 @@
   },
   {
     "name": "Elibo Saperavi Dry Red 75cl",
-    "price_bhd": 8.7,
-    "in_stock": true,
+    "price_bhd": null,
+    "in_stock": false,
     "url": "https://www.bmmishops.com/elibo-saperavi-dry-red-75cl.html",
     "retailer": "BMMI",
     "category": "Wine"
