@@ -387,8 +387,44 @@ def normalize(name):
     return n
 
 
+# Nickname list (2026-11-09): the same standard bottle sold under two names
+# at two shops ("Absolut Blue Label" at BMMI is "Absolut Vodka Original" at
+# A&E and GBI; "Tanqueray 10" is "Tanqueray No. TEN"). Each entry only fires
+# when ALL of its brand words are in the name, then drops (and optionally
+# adds) words, so the two names end up with the same significant words.
+# Only label names that mean the SAME bottle are listed; flavours and
+# special editions (Black Ruby, Double Black, Gold, Supreme, ...) keep
+# their own words and stay separate products.
+# Format: (words that must all be present, words to drop, words to add)
+NICKNAMES = [
+    ({"absolut"}, {"blue", "original"}, set()),               # Absolut Blue Label = Absolut Original
+    ({"smirnoff", "red"}, {"no", "21"}, set()),               # Smirnoff Red = Smirnoff No. 21 Red
+    ({"smirnoff", "blue"}, {"no", "57", "100", "proof"}, set()),  # Smirnoff Blue = No. 57 = 100 proof
+    ({"bacardi", "carta", "blanca"}, {"carta", "blanca", "white"}, {"superior"}),  # Carta Blanca = Superior
+    ({"bacardi", "superior"}, {"white"}, set()),
+    ({"johnnie", "walker", "black"}, {"12yo"}, set()),        # JW Black Label is the 12 year old
+    ({"jim", "beam"}, {"white"}, set()),                      # Jim Beam White Label = standard Jim Beam
+    ({"jameson", "triple", "distilled"}, {"triple", "distilled"}, set()),  # standard Jameson
+    ({"jack", "daniel"}, {"daniel"}, {"daniels"}),            # "Jack Daniel" typo for Jack Daniel's
+    ({"monkey", "shoulder"}, {"original", "triple"}, set()),  # the Original is the Triple Malt
+    ({"glenfiddich", "15yo"}, {"solera", "vat", "03", "3"}, set()),  # 15 Solera, now called VAT 03
+    ({"bulleit", "rye"}, {"95"}, set()),                      # Bulleit Rye = Bulleit 95 Rye
+    ({"royal", "salute", "21yo"}, {"signature"}, set()),      # Royal Salute 21 Signature Blend
+    ({"malibu"}, {"with", "coconut"}, set()),                 # Malibu White Rum (with Coconut)
+    ({"jacobs", "creek"}, {"south", "australia", "adelaide", "hills"}, set()),  # region words
+    ({"dab", "diat"}, {"pils"}, set()),                       # DAB Diat Pils
+    ({"captain", "morgan", "spiced"}, {"gold"}, set()),       # Original Spiced (Gold)
+    ({"tanqueray", "ten"}, {"ten", "no"}, {"10"}),            # Tanqueray No. TEN = Tanqueray 10
+    ({"cuervo", "tradicional", "plata"}, {"plata"}, {"silver"}),  # Plata = Silver
+]
+
+
 def significant_words(norm_name):
-    return {w for w in norm_name.split() if w not in GENERIC_WORDS}
+    words = {w for w in norm_name.split() if w not in GENERIC_WORDS}
+    for needed, drop, add in NICKNAMES:
+        if needed <= words:
+            words = (words - drop) | add
+    return words
 
 
 def word_overlap(words_a, words_b):
@@ -865,7 +901,10 @@ def build_product_row(idx, cluster_map):
     # Old Single Malt Scotch Whisky" that never print a volume), so the
     # frontend just omits the per-litre figure for those rather than
     # guessing a standard bottle size and risking a wrong number.
-    size_ml = extract_size_ml(display_name)
+    # The size comes from the display name, or failing that from any
+    # shop's own name for the same bottle (2026-11-09), so a card whose
+    # longest name happens to leave the size out still gets a per-litre price.
+    size_ml = cluster_size_ml(display_name, cluster_map)
     row["volume_litres"] = round(size_ml * extract_pack_count(display_name) / 1000, 4) if size_ml is not None else None
 
     carried_by, missing_from, out_of_stock_at = [], [], []
@@ -894,6 +933,86 @@ def build_product_row(idx, cluster_map):
         notes.append(f"Currently out of stock at {', '.join(out_of_stock_at)}.")
     row["note"] = " ".join(notes) if notes else "Carried by all 4 retailers."
     return row
+
+
+# Bahrain Duty Free (2026-11-09): an extra line at the bottom of a card, not
+# a fifth shop box. scrapers/dutyfree.py reads the Arrivals liquor list into
+# data/dutyfree.json. Duty Free never creates a card of its own, and never
+# counts towards best_price() (so not the green "cheapest" price, the
+# savings badge or price history): only travellers can buy there.
+DUTYFREE_PATH = DATA_DIR / "dutyfree.json"
+# Duty Free adds "Wine"/"Champagne" to nearly every name ("Cloudy Bay Pinot
+# Noir Wine 75cl"); the shops mostly don't. Ignored for this match only.
+DUTYFREE_EXTRA_WORDS_RE = re.compile(r"\b(wine|champagne)\b", re.IGNORECASE)
+# When Duty Free has no bottle of the same size (it mostly sells 1L where the
+# shops sell 75cl), the nearest full-size bottle is shown instead, with its
+# size written on the line. Miniatures are never compared with full bottles.
+DUTYFREE_MIN_FULL_ML = 500
+# ...and only a close size: 70cl or 75cl against 1L is fine, but a 1.5L,
+# 3L or 4.5L bottle is never shown next to Duty Free's 1L.
+DUTYFREE_MAX_SIZE_RATIO = 1.45
+
+
+def _dutyfree_words(name):
+    return significant_words(normalize(DUTYFREE_EXTRA_WORDS_RE.sub(" ", name)))
+
+
+def load_duty_free():
+    try:
+        items = json.loads(DUTYFREE_PATH.read_text())
+    except Exception:
+        return []
+    out = []
+    for item in items:
+        if not item.get("name") or not (item.get("price_bhd") or 0) > 0 or is_accessory(item["name"]):
+            continue
+        size = extract_size_ml(item["name"])
+        if size is None:
+            continue  # no size, no safe comparison
+        item["_words"] = frozenset(_dutyfree_words(item["name"]))
+        item["_size_ml"] = size
+        item["_pack_count"] = extract_pack_count(item["name"])
+        item["_size_label"] = f"{size / 1000:g}L" if size >= 1000 else f"{size / 10:g}cl"
+        out.append(item)
+    return out
+
+
+def index_duty_free(df_items):
+    by_words = {}
+    for item in df_items:
+        by_words.setdefault(item["_words"], []).append(item)
+    return by_words
+
+
+def attach_duty_free(row, display_name, cluster_map, df_by_words):
+    """Adds dutyfree_* fields to the row when Duty Free sells this bottle."""
+    if not df_by_words:
+        return
+    size = cluster_size_ml(display_name, cluster_map)
+    if size is None:
+        return
+    pack = extract_pack_count(display_name)
+    candidates = []
+    for words in {frozenset(_dutyfree_words(item["name"])) for item in cluster_map.values()}:
+        candidates.extend(df_by_words.get(words, []))
+    candidates = [c for c in candidates if c["_pack_count"] == pack and c.get("in_stock", True) is not False]
+    same = [c for c in candidates if not sizes_conflict(size, c["_size_ml"])]
+    if same:
+        pick = min(same, key=lambda c: c["price_bhd"])
+    else:
+        if size < DUTYFREE_MIN_FULL_ML:
+            return
+        full = [c for c in candidates if c["_size_ml"] >= DUTYFREE_MIN_FULL_ML
+                and max(c["_size_ml"], size) / min(c["_size_ml"], size) <= DUTYFREE_MAX_SIZE_RATIO]
+        if not full:
+            return
+        # Closest size; on a tie, the bigger bottle (better value per litre).
+        pick = min(full, key=lambda c: (abs(c["_size_ml"] - size), -c["_size_ml"], c["price_bhd"]))
+    row["dutyfree"] = pick["price_bhd"]
+    row["dutyfree_url"] = pick.get("url") or "https://bdutyfree.com/arrival/liquor.html"
+    row["dutyfree_size"] = pick["_size_label"]
+    row["dutyfree_litres"] = round(pick["_size_ml"] * pick["_pack_count"] / 1000, 4)
+    row["dutyfree_same_size"] = bool(same)
 
 
 def best_price(row):
@@ -983,7 +1102,13 @@ def main():
         print(f"{RETAILER_LABELS[key]}: {len(items)} scraped products")
 
     clusters = cluster(retailer_items)
-    products = [build_product_row(i + 1, c) for i, c in enumerate(clusters)]
+    df_by_words = index_duty_free(load_duty_free())
+    products = []
+    for i, c in enumerate(clusters):
+        row = build_product_row(i + 1, c)
+        attach_duty_free(row, row["name"], c, df_by_words)
+        products.append(row)
+    print(f"Bahrain Duty Free price added to {sum(1 for p in products if 'dutyfree' in p)} products")
     # Most useful products first: ones carried by more retailers (real price
     # comparisons) ahead of single-retailer-only listings.
     products.sort(key=lambda p: sum(1 for k in RETAILER_FILES if p[k] is not None), reverse=True)
