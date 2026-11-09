@@ -64,6 +64,13 @@ jobs:
         run: python scrapers/nhsc.py
         continue-on-error: true
 
+      # Bahrain Duty Free (Arrivals) prices, added 2026-11-09. Shown as one
+      # extra line at the bottom of a card, never as a fifth shop box. See
+      # scrapers/dutyfree.py.
+      - name: Scrape Bahrain Duty Free
+        run: python scrapers/dutyfree.py
+        continue-on-error: true
+
       - name: Merge into one product list
         run: python scrapers/merge.py
 
