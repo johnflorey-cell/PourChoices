@@ -948,6 +948,26 @@
         // Deliberately returns "" rather than a guessed figure when the size is
         // unknown or the cell itself has no buyable price (out of stock/N/A) --
         // same "don't show a confidently wrong number" rule as priceBadgeHTML.
+        // --- Bahrain Duty Free line (added 2026-11-09) -------------------------
+        // One thin line under the four shop boxes, only when Duty Free
+        // (Arrivals) sells this bottle. scrapers/merge.py adds dutyfree,
+        // dutyfree_url, dutyfree_size, dutyfree_litres and dutyfree_same_size.
+        // It is never the green "cheapest" price and never counts towards the
+        // savings badge: only travellers can buy there. When Duty Free only
+        // has a different size (usually 1L where the shops sell 75cl), the
+        // size is printed so nobody compares a 1L price with a 75cl one.
+        function dutyFreeLineHTML(prod, shouldBlur) {
+            if (prod.dutyfree === null || prod.dutyfree === undefined) return "";
+            const url = String(prod.dutyfree_url || "https://bdutyfree.com/arrival/liquor.html").replace(/'/g, "%27");
+            const sizeNote = prod.dutyfree_same_size ? "" : ` · ${prod.dutyfree_size} bottle`;
+            const perLitre = prod.dutyfree_litres ? `<span class="text-[10px] text-sky-300 ml-1">${(prod.dutyfree / prod.dutyfree_litres).toFixed(3)}/L</span>` : "";
+            return `
+                <button onclick="handleRetailerRedirect('Bahrain Duty Free', '${url}')" class="dutyfree-line w-full mt-2 flex justify-between items-center px-2.5 py-1.5 rounded-lg border border-dashed border-gray-700 text-left active:scale-[0.98] transition ${shouldBlur ? 'premium-blur' : ''}">
+                    <span class="text-[10px] text-gray-300 leading-tight">✈️ Bahrain Duty Free (Arrivals)${sizeNote}<span class="block text-[9px] text-gray-400">Travellers only, not counted as cheapest ↗</span></span>
+                    <span class="text-xs text-gray-200 font-medium whitespace-nowrap">${prod.dutyfree.toFixed(3)}${perLitre}</span>
+                </button>`;
+        }
+
         function pricePerLitreHTML(val, inStock, volumeLitres) {
             if (inStock === false || val === null || val === undefined || !volumeLitres) return "";
             // text-[8px]/gray-500 (the original size/colour here) turned out
@@ -1737,6 +1757,11 @@
         }
 
         function shareApp() {
+            // From inside My Favourites (2026-11-09), the round share button
+            // shares the favourites list, the same as the amber "Share"
+            // button there. John tapped the round one from his favourites
+            // and only got the home page link.
+            if (showFavouritesOnly && getFavourites().size > 0) { shareFavourites(); return; }
             // Always the plain app URL, not whatever happens to be in the
             // address bar right now (a stray "?shared=..." or test query
             // param) -- see readSharedFavouritesFromUrl() above for why that
@@ -2227,6 +2252,7 @@
                                 </div>
                             </button>
                         </div>
+                        ${dutyFreeLineHTML(prod, shouldBlur)}
 
                         ${shouldBlur ? `
                             <div class="mt-2 text-center py-1 bg-obsidian/20 rounded-lg">
