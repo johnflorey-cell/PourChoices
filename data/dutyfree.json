@@ -6,6 +6,12 @@
     "url": "https://bdutyfree.com/arrival/ornellaia-le-volte-wine-75cl-564900.html"
   },
   {
+    "name": "Gin Mare 1L",
+    "price_bhd": 18.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/gin-mare-1l-512277.html"
+  },
+  {
     "name": "Cutty Sark Blended Whisky Triple Pack 3x1L",
     "price_bhd": 20.9,
     "in_stock": true,
@@ -48,12 +54,6 @@
     "url": "https://bdutyfree.com/arrival/jim-beam-kentucky-whiskey-1l-60077.html"
   },
   {
-    "name": "Beluga Noble Vodka 1L",
-    "price_bhd": 22.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beluga-noble-vodka-1l-374437.html"
-  },
-  {
     "name": "Skyy Infusions Citrus Vodka 1L",
     "price_bhd": 7.4,
     "in_stock": true,
@@ -84,22 +84,10 @@
     "url": "https://bdutyfree.com/arrival/studio-by-miraval-rose-2022-wine-75cl-542649.html"
   },
   {
-    "name": "Hennessy Very Special Cognac 1L",
-    "price_bhd": 27.0,
+    "name": "Ardbeg An Oa Islay Single Malt Scotch Whisky 1L",
+    "price_bhd": 30.3,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/hennessy-very-special-cognac-1l-578630.html"
-  },
-  {
-    "name": "Glenmorangie The Vindima 16YO Highland Single Malt Scotch Whisky 1L",
-    "price_bhd": 44.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glenmorangie-the-vindima-16yo-highland-single-malt-scotch-whisky-70cl-579464.html"
-  },
-  {
-    "name": "Chateau Patache D'Aux Medoc Wine 75cl",
-    "price_bhd": 13.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-patache-daux-medoc-wine-75cl-578416.html"
+    "url": "https://bdutyfree.com/arrival/ardbeg-an-oa-islay-single-malt-scotch-whisky-1l-543293.html"
   },
   {
     "name": "Clase Azul Reposado Tequila 75cl",
@@ -112,6 +100,18 @@
     "price_bhd": 29.5,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/naked-blended-malt-scotch-whisky-2x1l-575371.html"
+  },
+  {
+    "name": "Peter Lehmann Barossa Cabernet Sauvignon Wine 75cl",
+    "price_bhd": 8.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/peter-lehmann-barossa-cabernet-sauvignon-75cl-581418.html"
+  },
+  {
+    "name": "D'Arenberg The Dead Arm Shiraz Wine 75cl",
+    "price_bhd": 22.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/darenberg-the-dead-arm-shiraz-wine-75cl-581420.html"
   },
   {
     "name": "Bottega Brunello Montalcino DOCG 75cl",
@@ -136,6 +136,42 @@
     "price_bhd": 101.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/overture-opus-one-2021-wine-75cl-574096.html"
+  },
+  {
+    "name": "Rampur Asava Indian Malt Whisky Celebration Box 75cl",
+    "price_bhd": 45.9,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/rampur-asava-indian-malt-whisky-celebration-box-75cl-575120.html"
+  },
+  {
+    "name": "Chateau Patache D'Aux Medoc Wine 75cl",
+    "price_bhd": 13.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-patache-daux-medoc-wine-75cl-578416.html"
+  },
+  {
+    "name": "The Macallan Colour Collection 18YO Highland Single Malt Scotch Whisky 70cl",
+    "price_bhd": 132.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/the-macallan-colour-collection-18yo-highland-single-malt-scotch-whisky-70cl-575071.html"
+  },
+  {
+    "name": "Gaja Dagromis Barolo 2021 Wine 75cl",
+    "price_bhd": 53.6,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/gaja-dagromis-barolo-2019-wine-75cl-576362.html"
+  },
+  {
+    "name": "Robertson Sauvignon Blanc Wine 3L",
+    "price_bhd": 11.3,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/robertson-sauvignon-blanc-wine-3l-577723.html"
+  },
+  {
+    "name": "Mazzei Siepi Toscana 2022 Wine 75cl",
+    "price_bhd": 40.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/mazzei-siepi-2022-wine-75cl-577811.html"
   },
   {
     "name": "Cap Maritime Cape South Coast Chardonnay Wine 75cl",
@@ -168,76 +204,22 @@
     "url": "https://bdutyfree.com/arrival/beronia-iii-ac-wine-75cl-560035.html"
   },
   {
-    "name": "Gaja Dagromis Barolo 2021 Wine 75cl",
-    "price_bhd": 53.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/gaja-dagromis-barolo-2019-wine-75cl-576362.html"
-  },
-  {
-    "name": "Robertson Sauvignon Blanc Wine 3L",
-    "price_bhd": 11.3,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/robertson-sauvignon-blanc-wine-3l-577723.html"
-  },
-  {
-    "name": "Mazzei Siepi Toscana 2022 Wine 75cl",
-    "price_bhd": 40.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/mazzei-siepi-2022-wine-75cl-577811.html"
-  },
-  {
     "name": "Sandeman Ruby Porto 1L",
     "price_bhd": 7.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/sandeman-ruby-porto-1l-560345.html"
   },
   {
-    "name": "The Macallan Colour Collection 18YO Highland Single Malt Scotch Whisky 70cl",
-    "price_bhd": 132.0,
+    "name": "Hennessy Very Special Cognac 1L",
+    "price_bhd": 27.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/the-macallan-colour-collection-18yo-highland-single-malt-scotch-whisky-70cl-575071.html"
+    "url": "https://bdutyfree.com/arrival/hennessy-very-special-cognac-1l-578630.html"
   },
   {
-    "name": "Hendricks Gin 5cl",
-    "price_bhd": 4.0,
+    "name": "Glenmorangie The Vindima 16YO Highland Single Malt Scotch Whisky 1L",
+    "price_bhd": 44.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/hendricks-gin-5cl-586152.html"
-  },
-  {
-    "name": "Monkey Shoulder Blended Malt Scotch Whisky 5cl",
-    "price_bhd": 4.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/monkey-shoulder-blended-malt-scotch-whisky-5cl-586154.html"
-  },
-  {
-    "name": "Domaine Des Tourelles Marquis Des Beys Wine 75cl",
-    "price_bhd": 15.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/domaine-des-tourelles-marquis-des-beys-wine-75cl-586100.html"
-  },
-  {
-    "name": "Dugladze Mukuzani Dry Red Wine 75cl",
-    "price_bhd": 7.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/dugladze-mukuzani-dry-red-wine-75cl-586170.html"
-  },
-  {
-    "name": "Antinori Pian Delle Vigne Brunello di Montalcino 2020 Wine 75cl",
-    "price_bhd": 32.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/antinori-pian-delle-vigne-brunello-di-montalcino-2020-wine-75cl-586800.html"
-  },
-  {
-    "name": "Peter Lehmann Barossa Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 8.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/peter-lehmann-barossa-cabernet-sauvignon-75cl-581418.html"
-  },
-  {
-    "name": "D'Arenberg The Dead Arm Shiraz Wine 75cl",
-    "price_bhd": 22.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/darenberg-the-dead-arm-shiraz-wine-75cl-581420.html"
+    "url": "https://bdutyfree.com/arrival/glenmorangie-the-vindima-16yo-highland-single-malt-scotch-whisky-70cl-579464.html"
   },
   {
     "name": "The Glenlivet 12YO Rum Cask Selection Single Malt Scotch Whisky 1L",
@@ -274,12 +256,6 @@
     "price_bhd": 25.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/wakefield-st-andrews-shiraz-clare-valley-wine-75cl-586097.html"
-  },
-  {
-    "name": "De Bortoli La Boheme Pinot Gris Yarra Valley 2024 Wine 75cl",
-    "price_bhd": 7.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/de-bortoli-la-boheme-pinot-gris-yarra-valley-2024-wine-75cl-589951.html"
   },
   {
     "name": "The Olive Grove Chardonnay 2024 d'Arenberg Wine 75cl",
@@ -414,6 +390,48 @@
     "url": "https://bdutyfree.com/arrival/chapoutier-les-meysonniers-crozes-hermitage-2023-wine-75cl-592069.html"
   },
   {
+    "name": "Baileys Tiramisu Irish Cream Liqueur 1L",
+    "price_bhd": 14.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/baileys-tiramisu-irish-cream-liqueur-1l-588935.html"
+  },
+  {
+    "name": "Hendricks Gin 5cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/hendricks-gin-5cl-586152.html"
+  },
+  {
+    "name": "Monkey Shoulder Blended Malt Scotch Whisky 5cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/monkey-shoulder-blended-malt-scotch-whisky-5cl-586154.html"
+  },
+  {
+    "name": "Domaine Des Tourelles Marquis Des Beys Wine 75cl",
+    "price_bhd": 15.9,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/domaine-des-tourelles-marquis-des-beys-wine-75cl-586100.html"
+  },
+  {
+    "name": "Dugladze Kindzmarauli Semi Sweet Red Wine 75cl",
+    "price_bhd": 7.6,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/dugladze-khvanchkara-semi-sweet-red-wine-75cl-586169.html"
+  },
+  {
+    "name": "Dugladze Mukuzani Dry Red Wine 75cl",
+    "price_bhd": 7.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/dugladze-mukuzani-dry-red-wine-75cl-586170.html"
+  },
+  {
+    "name": "Antinori Pian Delle Vigne Brunello di Montalcino 2020 Wine 75cl",
+    "price_bhd": 32.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/antinori-pian-delle-vigne-brunello-di-montalcino-2020-wine-75cl-586800.html"
+  },
+  {
     "name": "Glenlivet (TCM) Distillers Reserve Single Malt Scotch Whisky 2x1L",
     "price_bhd": 31.7,
     "in_stock": true,
@@ -456,22 +474,10 @@
     "url": "https://bdutyfree.com/arrival/chateau-dyquem-2020-wine-75cl-593445.html"
   },
   {
-    "name": "Bossiet Antonin Rodet Chablis Wine 75cl",
-    "price_bhd": 10.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bossiet-antonin-rodet-chablis-75cl-542644.html"
-  },
-  {
     "name": "Mommessin M\u00e2con-Villages Vieilles Vignes Wine 75cl",
     "price_bhd": 8.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/bossiet-macon-villages-vieilles-vignes-75cl-542645.html"
-  },
-  {
-    "name": "Glen Moray 18YO Elgin Heritage Speyside Single Malt Scotch Whisky 70cl",
-    "price_bhd": 54.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glen-moray-18yo-elgin-heritage-speyside-single-malt-scotch-whisky-70cl-545870.html"
   },
   {
     "name": "Jack Daniel's American Single Malt Oloroso Sherry Cash Whisky 1L",
@@ -522,36 +528,6 @@
     "url": "https://bdutyfree.com/arrival/johnnie-walker-double-black-scotch-whisky-1l-306262.html"
   },
   {
-    "name": "Jagermeister Liqueur 1L",
-    "price_bhd": 10.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jagermeister-liqueur-1ltr-327466.html"
-  },
-  {
-    "name": "Villa Antinori Rosso Toscana Wine 75cl",
-    "price_bhd": 10.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/villa-antinori-rosso-toscana-wine-75cl-329486.html"
-  },
-  {
-    "name": "Villa Antinori Bianco Toscana Wine 75cl",
-    "price_bhd": 7.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/villa-antinori-bianco-toscana-wine-75cl-329487.html"
-  },
-  {
-    "name": "Antinori Peppoli Chianti Classico 2023 Wine 75cl",
-    "price_bhd": 11.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/antinori-pepp-chianti-clas-wine-75cl-329488.html"
-  },
-  {
-    "name": "Absolut Vodka Miniature Mix 5x5cl",
-    "price_bhd": 7.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/absolut-vodka-miniatures-5x5cl-358845.html"
-  },
-  {
     "name": "Hennessy XO Cognac 1L",
     "price_bhd": 120.8,
     "in_stock": true,
@@ -576,12 +552,6 @@
     "url": "https://bdutyfree.com/arrival/campo-viejo-gran-res-wine-75cl-387670.html"
   },
   {
-    "name": "Bacard\u00ed Rum Multi Triple Pack 3x1L",
-    "price_bhd": 18.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bacardi-rum-multi-triple-pack-3x1ltr-393431.html"
-  },
-  {
     "name": "Jameson Cask Mates Stout Edition Irish Whiskey 1L",
     "price_bhd": 17.5,
     "in_stock": true,
@@ -592,12 +562,6 @@
     "price_bhd": 133.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/chateau-pichon-lalande-2005-wine-75cl-405292.html"
-  },
-  {
-    "name": "Baileys Original Irish Cream Liqueur 1L",
-    "price_bhd": 12.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/baileys-original-irish-cream-liqueur-1l-42120.html"
   },
   {
     "name": "Johnnie Walker Black Label 12YO Blended Scotch Whisky 1L",
@@ -646,6 +610,12 @@
     "price_bhd": 7.4,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/giraud-collection-medoc-wine-75cl-463812.html"
+  },
+  {
+    "name": "Catena Malbec Wine 75cl",
+    "price_bhd": 8.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/catena-malbec-wine-75cl-463813.html"
   },
   {
     "name": "Mud House Central Otago Pinot Noir Wine 75cl",
@@ -762,10 +732,22 @@
     "url": "https://bdutyfree.com/arrival/bacardi-reserva-ocho-rye-cask-rum-1ltr-542742.html"
   },
   {
-    "name": "Absolut Vodka 1L",
-    "price_bhd": 9.3,
+    "name": "Absolut Citron Vodka 1L",
+    "price_bhd": 10.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/absolut-1l-60140.html"
+    "url": "https://bdutyfree.com/arrival/absolut-citron-1l-60144.html"
+  },
+  {
+    "name": "Heineken Beer Cans 12x33cl",
+    "price_bhd": 10.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/heineken-beer-12x33cl-177757.html"
+  },
+  {
+    "name": "Smirnoff No.21 Red Vodka 1L",
+    "price_bhd": 7.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/smirnoff-red-vodka-1ltr-26361.html"
   },
   {
     "name": "Smirnoff No.21 Red Vodka 5cl",
@@ -792,16 +774,16 @@
     "url": "https://bdutyfree.com/arrival/st-remy-vsop-brandy-1ltr-43740.html"
   },
   {
+    "name": "Captain Morgan Black Rum 1L",
+    "price_bhd": 8.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/captain-morgan-black-spiced-rum-1l-18799.html"
+  },
+  {
     "name": "Jameson Triple Distilled Irish Whiskey Triple Pack 3X1L",
     "price_bhd": 28.8,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/jameson-irish-whiskey-triple-pack-3x1l-527542.html"
-  },
-  {
-    "name": "Bottega Prosecco Pink Gold Sparkling Wine 75cl",
-    "price_bhd": 13.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bottega-prosecco-pink-gold-sparkling-wine-75cl-551474.html"
   },
   {
     "name": "Ch\u00e2teau Angelus Premier Grand Cru Classe 2014 Wine 75cl",
@@ -810,34 +792,424 @@
     "url": "https://bdutyfree.com/arrival/chateau-angelus-2014-75cl-551608.html"
   },
   {
-    "name": "Glen Moray Classic Single Malt Scotch Whisky Triple Pack 3x1L",
-    "price_bhd": 42.4,
+    "name": "Beaune 1er Cru Les Marconnets Bouchard Pere & Fils Wine 75cl",
+    "price_bhd": 26.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glen-moray-classic-single-malt-scotch-whisky-3x1l-564879.html"
+    "url": "https://bdutyfree.com/arrival/beaune-1er-cru-les-marconnets-bouchard-pere-fils-wine-75cl-560312.html"
   },
   {
-    "name": "Lapostolle Cuvee Alexandre Merlot Wine 75cl",
-    "price_bhd": 10.8,
+    "name": "Laboure-Roi Nuits Saint Georges Wine 75cl",
+    "price_bhd": 22.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/lapostolle-cuvee-alexandre-merlot-wine-75cl-564892.html"
+    "url": "https://bdutyfree.com/arrival/laboure-roi-nuits-saint-georges-wine-75cl-560314.html"
   },
   {
-    "name": "Beluga Special Edition Transatlantic Racing Vodka 1L",
-    "price_bhd": 28.8,
+    "name": "Gin Mare Capri 1L",
+    "price_bhd": 21.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beluga-special-edition-transatlantic-racing-vodka-1l-557852.html"
+    "url": "https://bdutyfree.com/arrival/gin-mare-capri-1l-564988.html"
   },
   {
-    "name": "Inglenook Napa Valley Rutherford California Rubicon 2016 Wine 75cl",
-    "price_bhd": 95.0,
+    "name": "Smirnoff No.57 Blue Vodka 1L",
+    "price_bhd": 9.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/inglenook-napa-valley-rutherford-california-rubicon-2016-75cl-559159.html"
+    "url": "https://bdutyfree.com/arrival/smirnoff-blue-vodka-1ltr-26365.html"
   },
   {
-    "name": "Masi Campofiorin Nectar Angelorum Hominibus Wine 75cl",
-    "price_bhd": 8.6,
+    "name": "Kahlua Liqueur 1L",
+    "price_bhd": 10.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/masi-campofiorin-nectar-angelorum-hominibus-2020-75cl-559512.html"
+    "url": "https://bdutyfree.com/arrival/kahlua-liqueur-1ltr-43394.html"
+  },
+  {
+    "name": "Captain Morgan Original Spiced Rum 1L",
+    "price_bhd": 8.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/captain-morgan-spiced-rum-1ltr-119171.html"
+  },
+  {
+    "name": "Bardinet VSOP Brandy 1L",
+    "price_bhd": 6.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bardinet-vsop-brandy-1ltr-132656.html"
+  },
+  {
+    "name": "Jack Daniel's Gentleman Jack Tennessee Whiskey 1L",
+    "price_bhd": 19.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/gentleman-jack-whiskey-1ltr-134253.html"
+  },
+  {
+    "name": "Bacard\u00ed 8 YO Premium Golden Rum 1L",
+    "price_bhd": 22.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bacardi-8-anos-rum-1ltr-152403.html"
+  },
+  {
+    "name": "Dewar's 12YO Blended Scotch Whisky 1L",
+    "price_bhd": 18.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/dewars-12yo-whisky-1ltr-165466.html"
+  },
+  {
+    "name": "Chivas Regal 12YO Blended Scotch Whisky 1L",
+    "price_bhd": 18.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chivas-regal-12yo-1l-18792.html"
+  },
+  {
+    "name": "Royal Salute 21YO Blended Scotch Whisky 5cl",
+    "price_bhd": 13.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/royal-salute-21yo-blended-scotch-whisky-5cl-570569.html"
+  },
+  {
+    "name": "Ch\u00e2teau Cheval Blanc 2020 Wine 75cl",
+    "price_bhd": 423.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-cheval-blanc-2020-wine-75cl-571991.html"
+  },
+  {
+    "name": "Ch\u00e2teau Canon La Gaffeli\u00e8re 2019 Wine 75cl",
+    "price_bhd": 47.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-canon-la-gaffeliere-2019-wine-75cl-571992.html"
+  },
+  {
+    "name": "Chateau Troplong Mondot 2017 Wine 75cl",
+    "price_bhd": 62.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-troplong-mondot-2017-wine-75cl-574095.html"
+  },
+  {
+    "name": "Jack Daniel's Old No.7 Tennessee Whiskey 5cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/jack-daniels-old-no-7-tennessee-whiskey-5cl-574673.html"
+  },
+  {
+    "name": "Hendrick's Sunspell Gin 1L",
+    "price_bhd": 19.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/hendricks-sunspell-gin-1l-578248.html"
+  },
+  {
+    "name": "Aperol Spritz Perfect Kit 1.75L",
+    "price_bhd": 10.6,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/aperol-spritz-perfect-kit-578250.html"
+  },
+  {
+    "name": "D'Arenberg The Footbolt Shiraz Wine 75cl",
+    "price_bhd": 7.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/darenberg-the-footbolt-shiraz-wine-75cl-581417.html"
+  },
+  {
+    "name": "Famille Perrin Cotes du Rhone Villages Rouge 2021 Wine 75cl",
+    "price_bhd": 6.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/famille-perrin-cotes-du-rhone-villages-rouge-wine-75cl-560310.html"
+  },
+  {
+    "name": "Sandeman Founder's Reserve Porto Wine 1L",
+    "price_bhd": 10.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/sandeman-founders-reserve-porto-wine-1l-560347.html"
+  },
+  {
+    "name": "Chateau Los Boldos Gran Reserva Carmenere Wine 75cl",
+    "price_bhd": 7.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-los-boldos-gran-reserva-carmenere-75cl-560356.html"
+  },
+  {
+    "name": "Bottega Ripasso Valpollicella Superiore Wine 75cl",
+    "price_bhd": 9.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bottega-ripasso-valpollicella-superiore-wine-75cl-561654.html"
+  },
+  {
+    "name": "Bottega Amarone Valpollicella DOCG Wine 75cl",
+    "price_bhd": 21.9,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bottega-amarone-valpollicella-docg-wine-75cl-561655.html"
+  },
+  {
+    "name": "Bottega Lemon Spritz Italian Cocktail 75cl",
+    "price_bhd": 6.3,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bottega-lemon-spritz-75cl-573585.html"
+  },
+  {
+    "name": "Ch\u00e2teau Latour-Martillac Blanc 2022 wine 75cl",
+    "price_bhd": 28.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-latour-martillac-blanc-2022-wine-75cl-576191.html"
+  },
+  {
+    "name": "Macan Clasico Rioja 2020 Wine 75cl",
+    "price_bhd": 30.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/macan-clasico-rioja-2020-wine-75cl-577812.html"
+  },
+  {
+    "name": "Gassier C\u00f4tes De Provence AOP C\u00f4tes De Provence Rose 2024 Wine 75cl",
+    "price_bhd": 8.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/gassier-cotes-de-provence-aop-cotes-de-provence-rose-wine-75cl-578419.html"
+  },
+  {
+    "name": "Beronia Viura Rioja Wine 75cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/beronia-viura-rioja-wine-75cl-581649.html"
+  },
+  {
+    "name": "R\u00e9my Martin Louis XIII Cognac 70cl",
+    "price_bhd": 1450.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/remy-martin-louis-xiii-cognac-75cl-570511.html"
+  },
+  {
+    "name": "Sandeman Tawny Port 30YO 75cl",
+    "price_bhd": 59.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/sandeman-tawny-port-30yo-75cl-591714.html"
+  },
+  {
+    "name": "Framingham Classic Riesling 75cl",
+    "price_bhd": 9.9,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/framingham-classic-riesling-75cl-591715.html"
+  },
+  {
+    "name": "Penfolds Bin 407 Cabernet Sauvignon Wine 75cl",
+    "price_bhd": 32.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/penfolds-bin-407-cabernet-sauvignon-2023-wine-75cl-592603.html"
+  },
+  {
+    "name": "Penfolds Bin 8 Shiraz Cabernet Wine 75cl",
+    "price_bhd": 12.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/penfolds-bin-8-shiraz-cabernet-2021-wine-75cl-592604.html"
+  },
+  {
+    "name": "Chivas Regal 16YO Charles Leclerc Limited Edition Whisky 1L",
+    "price_bhd": 42.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chivas-regal-16yo-charles-leclerc-limited-edition-whisky-1l-592583.html"
+  },
+  {
+    "name": "CLOS DE LOS SIETE WINE 75CL",
+    "price_bhd": 12.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/clos-de-los-siete-wine-75cl-590978.html"
+  },
+  {
+    "name": "Shilda Alazani Valley Wine 75cl",
+    "price_bhd": 6.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/shilda-alazani-valley-wine-75cl-590980.html"
+  },
+  {
+    "name": "Porto Cruz Ruby Port Wine 75cl",
+    "price_bhd": 9.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/porto-cruz-ruby-port-wine-75cl-590984.html"
+  },
+  {
+    "name": "PORTO CRUZ TAWNY 10YO WINE 75CL",
+    "price_bhd": 14.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/porto-cruz-10-port-wine-75cl-590985.html"
+  },
+  {
+    "name": "Clos de L'Oratoire Grand Cru Classe 2021 Wine 75cl",
+    "price_bhd": 24.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/clos-de-loratoire-grand-cru-classe-2021-wine-75cl-592059.html"
+  },
+  {
+    "name": "Ch\u00e2teau Lusseau Grand Vin De Bordeaux Graves 2023 Wine 75cl",
+    "price_bhd": 12.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-lusseau-grand-vin-de-bordeaux-graves-2023-wine-75cl-592060.html"
+  },
+  {
+    "name": "Le Difese Tenuta San Guido Toscana 2023 Wine 75cl",
+    "price_bhd": 15.3,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/le-difese-tenuta-san-guido-toscana-2023-wine-75cl-592068.html"
+  },
+  {
+    "name": "Prunotto Occhetti Nebbiolo Langhe DOC 2023 Wine",
+    "price_bhd": 13.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/prunotto-occhetti-nebbiolo-langhe-doc-2023-wine-592070.html"
+  },
+  {
+    "name": "Prunotto Barbera D'Alba 2023 Wine 75cl",
+    "price_bhd": 10.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/prunotto-barbera-dalba-2023-wine-75cl-592072.html"
+  },
+  {
+    "name": "Baileys Mint Chocolate Irish Cream Liqueur 1L",
+    "price_bhd": 14.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/baileys-mint-chocolate-irish-cream-liqueur-1l-586395.html"
+  },
+  {
+    "name": "Glenfiddich 19YO Aston Martin F1 Single Malt Scotch Whisky 70cl",
+    "price_bhd": 64.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/glenfiddich-19yo-aston-martin-f1-single-malt-scotch-whisky-70ml-586150.html"
+  },
+  {
+    "name": "Ixsir Altitudes Blanc 2023 Wine 75cl",
+    "price_bhd": 11.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/ixsir-altitudes-blanc-2023-wine-75cl-586098.html"
+  },
+  {
+    "name": "EPC BLANC DE NOIRS BRUT CHAMPAGNE 75CL",
+    "price_bhd": 23.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/epc-blanc-de-noirs-champagne-75cl-586802.html"
+  },
+  {
+    "name": "Epc Brut Champagne 75cl",
+    "price_bhd": 21.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/epc-brut-champagne-75cl-586803.html"
+  },
+  {
+    "name": "Chateau Giscours Margaux GCC 2020 Wine 75cl",
+    "price_bhd": 43.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-giscours-margaux-gcc-2020-wine-75cl-587236.html"
+  },
+  {
+    "name": "R\u00e9serve de Pichon Comtesse 2023 Pauillac Wine 75cl",
+    "price_bhd": 32.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/reserve-de-pichon-comtesse-2023-pauillac-wine-75cl-587239.html"
+  },
+  {
+    "name": "Corton Charlemagne Grand Cru Blanc Fra Domaine Chapuis 2020 Wine 75cl",
+    "price_bhd": 99.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/corton-charlemagne-grand-cru-blanc-fra-domaine-chapuis-2020-wine-75cl-588112.html"
+  },
+  {
+    "name": "Terrazas De Los Andes Reserva Chardonnay Wine 75cl",
+    "price_bhd": 9.3,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/terrazas-de-los-andes-reserva-chardonnay-wine-75cl-588552.html"
+  },
+  {
+    "name": "Altos Ibericos Rioja Torres 2021 Wine 75cl",
+    "price_bhd": 7.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/altos-ibericos-rioja-torres-wine-75cl-589950.html"
+  },
+  {
+    "name": "Fishbone Black Range Shiraz Wine 75cl",
+    "price_bhd": 9.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/fishbone-black-range-shiraz-2022-wine-75cl-590872.html"
+  },
+  {
+    "name": "Fishbone Blue Label Shiraz Cabernet Wine 75cl",
+    "price_bhd": 7.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/fishbone-blue-label-shiraz-cabernet-2023-wine-75cl-590873.html"
+  },
+  {
+    "name": "Lanzerac Premium Pinotage Wine 75cl",
+    "price_bhd": 12.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/lanzerac-premium-pinotage-2022-wine-75cl-590876.html"
+  },
+  {
+    "name": "Ch\u00e2teau Quintus 2020 Wine 75cl",
+    "price_bhd": 77.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-quintus-2020-wine-75cl-590939.html"
+  },
+  {
+    "name": "Petrolo Galatrona 2021 Wine 75cl",
+    "price_bhd": 63.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/petrolo-galatrona-2021-wine-75cl-590941.html"
+  },
+  {
+    "name": "Ch\u00e2teau Grand-Puy-Lacoste 2017 Wine 75cl",
+    "price_bhd": 58.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-grand-puy-lacoste-2017-wine-75cl-590944.html"
+  },
+  {
+    "name": "Michele Chiarlo Barbaresco 2020 Wine 75cl",
+    "price_bhd": 42.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/michele-chiarlo-barbaresco-2020-wine-75cl-590946.html"
+  },
+  {
+    "name": "Ch\u00e2teau Cantenac Brown 2019 Wine 75cl",
+    "price_bhd": 39.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-cantenac-brown-2019-wine-75cl-590947.html"
+  },
+  {
+    "name": "Le Petit Smith Haut Lafitte 2022 Wine 75cl",
+    "price_bhd": 24.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/le-petit-smith-haut-lafitte-2022-wine-75cl-590948.html"
+  },
+  {
+    "name": "Domaine Guy & Yvan Dufouleur Nuits-Saint-Georges Premier Cru Les Crots 2020 Wine 75cl",
+    "price_bhd": 46.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/domaine-guy-yvan-dufouleur-nuits-saint-georges-premier-cru-les-crots-2020-wine-75cl-590945.html"
+  },
+  {
+    "name": "Absolut Original Vodka 5cl",
+    "price_bhd": 3.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/absolut-original-vodka-5cl-588605.html"
+  },
+  {
+    "name": "Jameson Triple Distilled Irish Whiskey 5cl",
+    "price_bhd": 4.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/jameson-triple-distilled-irish-whiskey-5cl-588607.html"
+  },
+  {
+    "name": "Chivas Regal 12YO Blended Scotch Whisky 50cl",
+    "price_bhd": 12.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chivas-regal-12yo-blended-scotch-whisky-50cl-588609.html"
+  },
+  {
+    "name": "Chateau Haut-Brion 2009 Wine 75CL",
+    "price_bhd": 510.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-haut-brion-2009-wine-75cl-598832.html"
+  },
+  {
+    "name": "Absolut Raspberri Vodka 1L",
+    "price_bhd": 10.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/absolut-raspberri-vodka-1ltr-215289.html"
+  },
+  {
+    "name": "Cloudy Bay Pinot Noir Wine 75cl",
+    "price_bhd": 16.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/cloudy-bay-pinot-noir-wine-75cl-220742.html"
   },
   {
     "name": "Jacob's Creek Reserve Chardonnay Wine 75cl",
@@ -898,6 +1270,12 @@
     "price_bhd": 8.1,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/stolichnaya-premium-vodka-1ltr-361255.html"
+  },
+  {
+    "name": "Talisker Dark Storm Single Malt Scotch Whisky 1L",
+    "price_bhd": 45.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/talisker-dark-storm-malt-1ltr-362823.html"
   },
   {
     "name": "Louis Jadot Pinot Noir Bourgogne Wine 75cl",
@@ -984,6 +1362,12 @@
     "url": "https://bdutyfree.com/arrival/bodegas-caro-amancaya-wine-75cl-476400.html"
   },
   {
+    "name": "St Michael-Eppan Pinot Grigio Wine 75cl",
+    "price_bhd": 10.3,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/st-michael-eppan-pinot-grigio-wine-75cl-476421.html"
+  },
+  {
     "name": "Ballantine's Finest Blended Scotch Whisky Triple Pack 3x1L",
     "price_bhd": 21.0,
     "in_stock": true,
@@ -1012,12 +1396,6 @@
     "price_bhd": 15.6,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/smirnoff-red-vodka-triple-pack-3x1ltr-512298.html"
-  },
-  {
-    "name": "The Famous Grouse Finest Blended Scotch Whisky Triple Pack 3x1L",
-    "price_bhd": 18.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/famous-grouse-whisky-3x1ltr-512421.html"
   },
   {
     "name": "Emotion De Provence Coteaux Varois en Provence Wine 75cl",
@@ -1134,466 +1512,346 @@
     "url": "https://bdutyfree.com/arrival/chateau-tour-de-peyreau-sant-emilion-grand-cru-75cl-557136.html"
   },
   {
-    "name": "Montes Alpha Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 10.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/montes-alpha-cabernet-sauvignon-wine-75cl-564893.html"
-  },
-  {
-    "name": "Montes Limited Selection Sauvignon Blanc Wine 75cl",
-    "price_bhd": 7.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/montes-limited-selection-sauvignon-blanc-wine-75cl-564895.html"
-  },
-  {
-    "name": "Frescobaldi Massovivo Toscana IGT Vermentino Tenuta Ammiragli Wine 75cl",
-    "price_bhd": 6.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/tenuta-ammiraglia-massovivo-toscana-wine-75cl-564901.html"
-  },
-  {
-    "name": "Frescobaldi Luce Della Vite Lucente Wine75cl",
-    "price_bhd": 15.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/frescobaldi-luce-lucente-wine-75cl-564902.html"
-  },
-  {
-    "name": "Kim Crawford Marlborough Sauvignon Blanc Wine 75cl",
-    "price_bhd": 11.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/kim-crawford-marlborough-sauvignon-blanc-wine-75cl-564903.html"
-  },
-  {
-    "name": "Mud House Rapaura Sauvignon Blanc Wine 75cl",
-    "price_bhd": 11.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/mud-house-rapaura-sauvignon-blanc-wine-75cl-564904.html"
-  },
-  {
-    "name": "La Crema Monterey Chardonnay Wine 75cl",
-    "price_bhd": 12.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/la-crema-monterey-chardonnay-wine-75cl-564908.html"
-  },
-  {
-    "name": "Le Petit Clos 2018 Wine 75cl",
-    "price_bhd": 25.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/le-petit-clos-clos-apalta-2018-75cl-559154.html"
-  },
-  {
-    "name": "Peter Michael Les Pavots 2020 Wine 75cl",
-    "price_bhd": 115.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/peter-michael-les-pavots-2020-75cl-559160.html"
-  },
-  {
-    "name": "Boekenhoutskloof Stellenbosch Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 22.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/boekenhoutskloof-stellenbosch-cabernet-sauvignon-2020-75cl-559368.html"
-  },
-  {
-    "name": "Helderberg Winery Reserve Stellenbosch Wine 75cl",
-    "price_bhd": 8.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/helderberg-winery-reserve-stellenbosch-2022-75cl-559369.html"
-  },
-  {
-    "name": "Porseleinberg Swartland Syrah Wine 75cl",
-    "price_bhd": 31.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/porseleinberg-swartland-highbury-vintners-2020-75cl-559372.html"
-  },
-  {
-    "name": "Beaune 1er Cru Les Marconnets Bouchard Pere & Fils Wine 75cl",
-    "price_bhd": 26.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beaune-1er-cru-les-marconnets-bouchard-pere-fils-wine-75cl-560312.html"
-  },
-  {
-    "name": "Laboure-Roi Nuits Saint Georges Wine 75cl",
-    "price_bhd": 22.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/laboure-roi-nuits-saint-georges-wine-75cl-560314.html"
-  },
-  {
-    "name": "Smirnoff No.57 Blue Vodka 1L",
-    "price_bhd": 9.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/smirnoff-blue-vodka-1ltr-26365.html"
-  },
-  {
-    "name": "Kahlua Liqueur 1L",
-    "price_bhd": 10.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/kahlua-liqueur-1ltr-43394.html"
-  },
-  {
-    "name": "Bardinet VSOP Brandy 1L",
-    "price_bhd": 6.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bardinet-vsop-brandy-1ltr-132656.html"
-  },
-  {
-    "name": "Jack Daniel's Gentleman Jack Tennessee Whiskey 1L",
-    "price_bhd": 19.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/gentleman-jack-whiskey-1ltr-134253.html"
-  },
-  {
-    "name": "Bacard\u00ed 8 YO Premium Golden Rum 1L",
-    "price_bhd": 22.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bacardi-8-anos-rum-1ltr-152403.html"
-  },
-  {
-    "name": "Dewar's 12YO Blended Scotch Whisky 1L",
-    "price_bhd": 18.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/dewars-12yo-whisky-1ltr-165466.html"
-  },
-  {
-    "name": "Chivas Regal 12YO Blended Scotch Whisky 1L",
-    "price_bhd": 18.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-12yo-1l-18792.html"
-  },
-  {
-    "name": "Royal Salute 21YO Blended Scotch Whisky 5cl",
-    "price_bhd": 13.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/royal-salute-21yo-blended-scotch-whisky-5cl-570569.html"
-  },
-  {
-    "name": "Ch\u00e2teau Cheval Blanc 2020 Wine 75cl",
-    "price_bhd": 423.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-cheval-blanc-2020-wine-75cl-571991.html"
-  },
-  {
-    "name": "Ch\u00e2teau Canon La Gaffeli\u00e8re 2019 Wine 75cl",
-    "price_bhd": 47.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-canon-la-gaffeliere-2019-wine-75cl-571992.html"
-  },
-  {
-    "name": "Chateau Troplong Mondot 2017 Wine 75cl",
-    "price_bhd": 62.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-troplong-mondot-2017-wine-75cl-574095.html"
-  },
-  {
-    "name": "Jack Daniel's Old No.7 Tennessee Whiskey 5cl",
-    "price_bhd": 4.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jack-daniels-old-no-7-tennessee-whiskey-5cl-574673.html"
-  },
-  {
-    "name": "Hendrick's Sunspell Gin 1L",
-    "price_bhd": 19.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/hendricks-sunspell-gin-1l-578248.html"
-  },
-  {
-    "name": "Aperol Spritz Perfect Kit 1.75L",
-    "price_bhd": 10.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/aperol-spritz-perfect-kit-578250.html"
-  },
-  {
-    "name": "D'Arenberg The Footbolt Shiraz Wine 75cl",
-    "price_bhd": 7.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/darenberg-the-footbolt-shiraz-wine-75cl-581417.html"
-  },
-  {
-    "name": "Gassier C\u00f4tes De Provence AOP C\u00f4tes De Provence Rose 2024 Wine 75cl",
-    "price_bhd": 8.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/gassier-cotes-de-provence-aop-cotes-de-provence-rose-wine-75cl-578419.html"
-  },
-  {
-    "name": "Beronia Viura Rioja Wine 75cl",
-    "price_bhd": 4.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beronia-viura-rioja-wine-75cl-581649.html"
-  },
-  {
-    "name": "R\u00e9my Martin Louis XIII Cognac 70cl",
-    "price_bhd": 1450.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/remy-martin-louis-xiii-cognac-75cl-570511.html"
-  },
-  {
-    "name": "Famille Perrin Cotes du Rhone Villages Rouge 2021 Wine 75cl",
-    "price_bhd": 6.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/famille-perrin-cotes-du-rhone-villages-rouge-wine-75cl-560310.html"
-  },
-  {
-    "name": "Chateau Los Boldos Gran Reserva Carmenere Wine 75cl",
+    "name": "Jacob's Creek Reserve Sauvignon Blanc Wine 75cl",
     "price_bhd": 7.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-los-boldos-gran-reserva-carmenere-75cl-560356.html"
+    "url": "https://bdutyfree.com/arrival/jacobs-creek-res-sauv-blanc-wine-75cl-240161.html"
   },
   {
-    "name": "Bottega Ripasso Valpollicella Superiore Wine 75cl",
-    "price_bhd": 9.8,
+    "name": "Jameson Triple Distilled Irish Whiskey 1L",
+    "price_bhd": 14.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bottega-ripasso-valpollicella-superiore-wine-75cl-561654.html"
+    "url": "https://bdutyfree.com/arrival/jameson-irish-whiskey-1l-26351.html"
   },
   {
-    "name": "Bottega Amarone Valpollicella DOCG Wine 75cl",
-    "price_bhd": 21.9,
+    "name": "Don Julio Blanco Tequila 75cl",
+    "price_bhd": 23.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bottega-amarone-valpollicella-docg-wine-75cl-561655.html"
+    "url": "https://bdutyfree.com/arrival/don-julio-blanco-tequila-75cl-269299.html"
   },
   {
-    "name": "Glenfiddich 19YO Aston Martin F1 Single Malt Scotch Whisky 70cl",
-    "price_bhd": 64.0,
+    "name": "Don Julio Reposado Tequila 75cl",
+    "price_bhd": 30.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glenfiddich-19yo-aston-martin-f1-single-malt-scotch-whisky-70ml-586150.html"
+    "url": "https://bdutyfree.com/arrival/don-julio-reposado-tequila-75cl-269300.html"
   },
   {
-    "name": "Ixsir Altitudes Blanc 2023 Wine 75cl",
-    "price_bhd": 11.0,
+    "name": "Allegrini Corte Giara Pinot Grigio Wine 75cl",
+    "price_bhd": 5.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/ixsir-altitudes-blanc-2023-wine-75cl-586098.html"
+    "url": "https://bdutyfree.com/arrival/allegrini-corte-giara-pinot-grigio-75cl-281800.html"
   },
   {
-    "name": "EPC BLANC DE NOIRS BRUT CHAMPAGNE 75CL",
-    "price_bhd": 23.1,
+    "name": "Veuve Clicquot Yellow Label Brut Champagne 75cl",
+    "price_bhd": 22.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/epc-blanc-de-noirs-champagne-75cl-586802.html"
+    "url": "https://bdutyfree.com/arrival/veuve-clicquot-yellow-label-75cl-284010.html"
   },
   {
-    "name": "Epc Brut Champagne 75cl",
-    "price_bhd": 21.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/epc-brut-champagne-75cl-586803.html"
-  },
-  {
-    "name": "Chateau Giscours Margaux GCC 2020 Wine 75cl",
-    "price_bhd": 43.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-giscours-margaux-gcc-2020-wine-75cl-587236.html"
-  },
-  {
-    "name": "R\u00e9serve de Pichon Comtesse 2023 Pauillac Wine 75cl",
-    "price_bhd": 32.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/reserve-de-pichon-comtesse-2023-pauillac-wine-75cl-587239.html"
-  },
-  {
-    "name": "Corton Charlemagne Grand Cru Blanc Fra Domaine Chapuis 2020 Wine 75cl",
-    "price_bhd": 99.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/corton-charlemagne-grand-cru-blanc-fra-domaine-chapuis-2020-wine-75cl-588112.html"
-  },
-  {
-    "name": "Bottega Lemon Spritz Italian Cocktail 75cl",
-    "price_bhd": 6.3,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bottega-lemon-spritz-75cl-573585.html"
-  },
-  {
-    "name": "Ch\u00e2teau Latour-Martillac Blanc 2022 wine 75cl",
-    "price_bhd": 28.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-latour-martillac-blanc-2022-wine-75cl-576191.html"
-  },
-  {
-    "name": "Macan Clasico Rioja 2020 Wine 75cl",
-    "price_bhd": 30.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/macan-clasico-rioja-2020-wine-75cl-577812.html"
-  },
-  {
-    "name": "CLOS DE LOS SIETE WINE 75CL",
-    "price_bhd": 12.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/clos-de-los-siete-wine-75cl-590978.html"
-  },
-  {
-    "name": "Shilda Alazani Valley Wine 75cl",
-    "price_bhd": 6.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/shilda-alazani-valley-wine-75cl-590980.html"
-  },
-  {
-    "name": "Porto Cruz Ruby Port Wine 75cl",
-    "price_bhd": 9.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/porto-cruz-ruby-port-wine-75cl-590984.html"
-  },
-  {
-    "name": "PORTO CRUZ TAWNY 10YO WINE 75CL",
-    "price_bhd": 14.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/porto-cruz-10-port-wine-75cl-590985.html"
-  },
-  {
-    "name": "Clos de L'Oratoire Grand Cru Classe 2021 Wine 75cl",
+    "name": "Mo\u00ebt & Chandon Rose Imperial Champagne 75cl",
     "price_bhd": 24.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/clos-de-loratoire-grand-cru-classe-2021-wine-75cl-592059.html"
+    "url": "https://bdutyfree.com/arrival/moet-chandon-rose-imperial-75cl-284011.html"
   },
   {
-    "name": "Ch\u00e2teau Lusseau Grand Vin De Bordeaux Graves 2023 Wine 75cl",
-    "price_bhd": 12.0,
+    "name": "Hendrick's Gin 1L",
+    "price_bhd": 17.7,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-lusseau-grand-vin-de-bordeaux-graves-2023-wine-75cl-592060.html"
+    "url": "https://bdutyfree.com/arrival/hendricks-gin-1l-300373.html"
   },
   {
-    "name": "Le Difese Tenuta San Guido Toscana 2023 Wine 75cl",
-    "price_bhd": 15.3,
+    "name": "Mateus Rose Wine 1L",
+    "price_bhd": 5.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/le-difese-tenuta-san-guido-toscana-2023-wine-75cl-592068.html"
+    "url": "https://bdutyfree.com/arrival/mateus-rose-wine-1ltr-329494.html"
   },
   {
-    "name": "Prunotto Occhetti Nebbiolo Langhe DOC 2023 Wine",
-    "price_bhd": 13.5,
+    "name": "Ch\u00e2teau D'Esclans Whispering Angel Wine 75cl",
+    "price_bhd": 11.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/prunotto-occhetti-nebbiolo-langhe-doc-2023-wine-592070.html"
+    "url": "https://bdutyfree.com/arrival/whispering-angel-rose-wine-75cl-352048.html"
   },
   {
-    "name": "Prunotto Barbera D'Alba 2023 Wine 75cl",
-    "price_bhd": 10.5,
+    "name": "Hennessy VSOP Cognac 1L",
+    "price_bhd": 37.6,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/prunotto-barbera-dalba-2023-wine-75cl-592072.html"
+    "url": "https://bdutyfree.com/arrival/hennessy-vsop-cognac-1ltr-360390.html"
   },
   {
-    "name": "Sandeman Tawny Port 30YO 75cl",
-    "price_bhd": 59.0,
+    "name": "Jack Daniel's Tennessee Honey Tennessee Whiskey 1L",
+    "price_bhd": 13.9,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/sandeman-tawny-port-30yo-75cl-591714.html"
+    "url": "https://bdutyfree.com/arrival/jack-daniels-honey-whiskey-1ltr-360447.html"
   },
   {
-    "name": "Framingham Classic Riesling 75cl",
-    "price_bhd": 9.9,
+    "name": "Stolichnaya Elit Vodka 1L",
+    "price_bhd": 21.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/framingham-classic-riesling-75cl-591715.html"
+    "url": "https://bdutyfree.com/arrival/stolichnaya-elite-vodka-1ltr-361257.html"
   },
   {
-    "name": "Penfolds Bin 407 Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 32.0,
+    "name": "Captain Morgan Black Spiced Rum 1L",
+    "price_bhd": 10.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/penfolds-bin-407-cabernet-sauvignon-2023-wine-75cl-592603.html"
+    "url": "https://bdutyfree.com/arrival/captain-morgan-spiced-black-rum-1ltr-361324.html"
   },
   {
-    "name": "Penfolds Bin 8 Shiraz Cabernet Wine 75cl",
-    "price_bhd": 12.5,
+    "name": "Chivas Regal 25YO Blended Scotch Whisky 70cl",
+    "price_bhd": 141.8,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/penfolds-bin-8-shiraz-cabernet-2021-wine-75cl-592604.html"
+    "url": "https://bdutyfree.com/arrival/chivas-regal-25yo-whisky-70cl-387653.html"
   },
   {
-    "name": "Chivas Regal 16YO Charles Leclerc Limited Edition Whisky 1L",
-    "price_bhd": 42.5,
+    "name": "Mo\u00ebt & Chandon Ice Imperial Champagne 75cl",
+    "price_bhd": 25.1,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-16yo-charles-leclerc-limited-edition-whisky-1l-592583.html"
+    "url": "https://bdutyfree.com/arrival/moet-chandon-ice-imperial-champagne-75cl-423164.html"
   },
   {
-    "name": "Terrazas De Los Andes Reserva Chardonnay Wine 75cl",
-    "price_bhd": 9.3,
+    "name": "Chivas Regal 18YO Blended Scotch Whisky 1L",
+    "price_bhd": 49.6,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/terrazas-de-los-andes-reserva-chardonnay-wine-75cl-588552.html"
+    "url": "https://bdutyfree.com/arrival/chivas-regal-18yo-whisky-1ltr-426065.html"
   },
   {
-    "name": "Altos Ibericos Rioja Torres 2021 Wine 75cl",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/altos-ibericos-rioja-torres-wine-75cl-589950.html"
-  },
-  {
-    "name": "Fishbone Black Range Shiraz Wine 75cl",
+    "name": "Gordon's London Dry Gin 1L",
     "price_bhd": 9.1,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/fishbone-black-range-shiraz-2022-wine-75cl-590872.html"
+    "url": "https://bdutyfree.com/arrival/the-original-gordons-dry-gin-1l-43058.html"
   },
   {
-    "name": "Fishbone Blue Label Shiraz Cabernet Wine 75cl",
-    "price_bhd": 7.8,
+    "name": "Chivas Regal XV Blended Scotch Whisky 1L",
+    "price_bhd": 29.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/fishbone-blue-label-shiraz-cabernet-2023-wine-75cl-590873.html"
+    "url": "https://bdutyfree.com/arrival/chivas-regal-xv-whisky-1ltr-437201.html"
   },
   {
-    "name": "Lanzerac Premium Pinotage Wine 75cl",
-    "price_bhd": 12.1,
+    "name": "Piper Heidsieck Rose Sauvage Champagne 75cl",
+    "price_bhd": 24.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/lanzerac-premium-pinotage-2022-wine-75cl-590876.html"
+    "url": "https://bdutyfree.com/arrival/piper-heidsieck-rose-champagne-75cl-437654.html"
   },
   {
-    "name": "Ch\u00e2teau Quintus 2020 Wine 75cl",
-    "price_bhd": 77.0,
+    "name": "Frescobaldi Nipozzano Riserva Chianti Wine 75cl",
+    "price_bhd": 12.3,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-quintus-2020-wine-75cl-590939.html"
+    "url": "https://bdutyfree.com/arrival/frescobaldi-nipozzano-chianti-wine-75cl-463810.html"
   },
   {
-    "name": "Petrolo Galatrona 2021 Wine 75cl",
-    "price_bhd": 63.0,
+    "name": "Folonari Valpolicella Wine 75cl",
+    "price_bhd": 6.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/petrolo-galatrona-2021-wine-75cl-590941.html"
+    "url": "https://bdutyfree.com/arrival/folonari-valpolicella-wine-75cl-463820.html"
   },
   {
-    "name": "Ch\u00e2teau Grand-Puy-Lacoste 2017 Wine 75cl",
-    "price_bhd": 58.0,
+    "name": "Johnnie Walker Red Label Blended Scotch Whisky Triple Pack 3x1L",
+    "price_bhd": 20.8,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-grand-puy-lacoste-2017-wine-75cl-590944.html"
+    "url": "https://bdutyfree.com/arrival/jw-red-label-triple-pack-3x1ltr-464493.html"
   },
   {
-    "name": "Michele Chiarlo Barbaresco 2020 Wine 75cl",
-    "price_bhd": 42.0,
+    "name": "Bacardi Cuatro 4YO Rum 1L",
+    "price_bhd": 13.8,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/michele-chiarlo-barbaresco-2020-wine-75cl-590946.html"
+    "url": "https://bdutyfree.com/arrival/bacardi-cuatro-4yo-rum-1ltr-464545.html"
   },
   {
-    "name": "Ch\u00e2teau Cantenac Brown 2019 Wine 75cl",
-    "price_bhd": 39.0,
+    "name": "Dewar's White Label Blended Scotch Whisky 5cl",
+    "price_bhd": 3.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-cantenac-brown-2019-wine-75cl-590947.html"
+    "url": "https://bdutyfree.com/arrival/dewars-white-label-whisky-5cl-464552.html"
   },
   {
-    "name": "Le Petit Smith Haut Lafitte 2022 Wine 75cl",
-    "price_bhd": 24.0,
+    "name": "Don Juilo 1942 Tequila 75cl",
+    "price_bhd": 76.3,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/le-petit-smith-haut-lafitte-2022-wine-75cl-590948.html"
+    "url": "https://bdutyfree.com/arrival/don-julio-1942-tequila-75cl-471648.html"
   },
   {
-    "name": "Domaine Guy & Yvan Dufouleur Nuits-Saint-Georges Premier Cru Les Crots 2020 Wine 75cl",
-    "price_bhd": 46.0,
+    "name": "Los Vascos Cabernet Sauvignon Wine 75cl",
+    "price_bhd": 6.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/domaine-guy-yvan-dufouleur-nuits-saint-georges-premier-cru-les-crots-2020-wine-75cl-590945.html"
+    "url": "https://bdutyfree.com/arrival/los-vascos-cabernet-sauvignon-wine-75cl-476414.html"
   },
   {
-    "name": "Jameson Triple Distilled Irish Whiskey 5cl",
-    "price_bhd": 4.0,
+    "name": "Los Vascos Chardonnay Wine 75cl",
+    "price_bhd": 6.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jameson-triple-distilled-irish-whiskey-5cl-588607.html"
+    "url": "https://bdutyfree.com/arrival/los-vascos-chardonnay-wine-75cl-476415.html"
   },
   {
-    "name": "Chivas Regal 12YO Blended Scotch Whisky 50cl",
-    "price_bhd": 12.5,
+    "name": "Johnnie Walker Double Black Blended Scotch Whisky Triple Pack 3x1L",
+    "price_bhd": 46.8,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-12yo-blended-scotch-whisky-50cl-588609.html"
+    "url": "https://bdutyfree.com/arrival/jw-double-black-whisky-triple-3x1ltr-487500.html"
   },
   {
-    "name": "Chateau Haut-Brion 2009 Wine 75CL",
-    "price_bhd": 510.0,
+    "name": "Lagavulin 10YO Single Malt Scotch Whisky 70cl",
+    "price_bhd": 35.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-haut-brion-2009-wine-75cl-598832.html"
+    "url": "https://bdutyfree.com/arrival/lagavulin-10yo-malt-70cl-487501.html"
   },
   {
-    "name": "St Michael-Eppan Pinot Grigio Wine 75cl",
+    "name": "Jameson Triple Triple Irish Whiskey 1L",
+    "price_bhd": 17.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/jameson-tt-whiskey-1ltr-487540.html"
+  },
+  {
+    "name": "Mo\u00ebt & Chandon Grand Vintage Champagne 75cl",
+    "price_bhd": 35.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/moet-chandon-grnd-vintage-champagne-75cl-491089.html"
+  },
+  {
+    "name": "Mo\u00ebt & Chandon Nectar Imperial Champagne 75cl",
+    "price_bhd": 22.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/moet-chandon-nectar-imp-champagne-75cl-491091.html"
+  },
+  {
+    "name": "Ch\u00e2teau Ste Michelle Riesling Wine 75cl",
+    "price_bhd": 6.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-ste-michelle-riesling-wine-75cl-491133.html"
+  },
+  {
+    "name": "Miraval Cotes De Provence Rose Wine 75cl",
+    "price_bhd": 13.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/miraval-provence-rose-wine-75cl-491144.html"
+  },
+  {
+    "name": "Chateau Kefraya Les Breteches Wine 75cl",
+    "price_bhd": 6.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/les-bretech-de-chateau-kefraya-wine-75cl-491148.html"
+  },
+  {
+    "name": "Taittinger Brut Rose Champagne 75cl",
+    "price_bhd": 27.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/taittinger-brut-rose-champagne-75cl-491839.html"
+  },
+  {
+    "name": "Batasiolo Gavi Di Gavi Wine 75cl",
+    "price_bhd": 10.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/batasiolo-gavi-di-gavi-wine-75cl-505193.html"
+  },
+  {
+    "name": "Dom P\u00e9rignon Vintage Champagne 75cl",
+    "price_bhd": 90.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/dom-perignon-vintage-75cl-53202.html"
+  },
+  {
+    "name": "Absolut Mandrin Vodka 1L",
+    "price_bhd": 10.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/absolut-mandarin-vodka-1ltr-131900.html"
+  },
+  {
+    "name": "Grey Goose Original Vodka 1L",
+    "price_bhd": 23.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/greygoose-vodka-1ltr-181787.html"
+  },
+  {
+    "name": "Ch\u00e2teau Grand Barail Montagne Sait-Emilion 2022 Wine 75cl",
+    "price_bhd": 7.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-grand-barail-75cl-543291.html"
+  },
+  {
+    "name": "Glenfiddich 40YO Cumulative Time Single Malt Scotch Whisky 70cl",
+    "price_bhd": 1790.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/glenfiddich-40yo-malt-whisky-70cl-545455.html"
+  },
+  {
+    "name": "Talisker 10YO Single Malt Scotch Whisky 75cl",
+    "price_bhd": 34.6,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/talisker-10yo-single-malt-scotch-whisky-75cl-196935.html"
+  },
+  {
+    "name": "Johnnie Walker Blue Label Blended Scotch Whisky 1L",
+    "price_bhd": 123.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/johnnie-walker-blue-label-blended-scotch-whisky-1l-54235.html"
+  },
+  {
+    "name": "La Chapelle De La Mission Haut Brion 2021 Wine 75cl",
+    "price_bhd": 45.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/la-chapelle-de-la-mission-haut-brion-2021-75cl-551607.html"
+  },
+  {
+    "name": "Aberfeldy 21YO Madeira Cask Single Malt Scotch Whisky 70cl",
+    "price_bhd": 93.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/aberfeldy-21yo-madeira-cask-70cl-556255.html"
+  },
+  {
+    "name": "Ch\u00e2teau Roquetaillade Le Bernet Blanc Graves Wine 75cl",
+    "price_bhd": 10.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-roquetaillade-le-bernet-blanc-graves-75cl-557135.html"
+  },
+  {
+    "name": "Ukiyo Japanese Blossom Gin 70cl",
+    "price_bhd": 18.1,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/ukiyo-japanese-blossom-gin-70cl-557391.html"
+  },
+  {
+    "name": "Glen Moray 12YO Single Malt Scotch Whisky Twin Pack 2x1L",
+    "price_bhd": 53.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/glen-moray-12-yo-twin-pack-2x1l-564880.html"
+  },
+  {
+    "name": "Bushmills Black Bush 80/20 Single Malt Irish Whiskey 1L",
+    "price_bhd": 17.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/bushmills-black-bush-80-20-single-malt-irish-whiskey-1l-564881.html"
+  },
+  {
+    "name": "Beluga Noble Vodka Triple Pack 3x1L",
+    "price_bhd": 51.2,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/beluga-noble-vodka-3x1l-564886.html"
+  },
+  {
+    "name": "Montes Alpha Casablanca Chardonnay Wine 75cl",
     "price_bhd": 10.3,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/st-michael-eppan-pinot-grigio-wine-75cl-476421.html"
+    "url": "https://bdutyfree.com/arrival/montes-alpha-casablanca-chardonnay-wine-75cl-564896.html"
   },
   {
-    "name": "Cloudy Bay Pinot Noir Wine 75cl",
-    "price_bhd": 16.8,
+    "name": "Frescobaldi Luce Tenuta Luce Toscana Wine 75cl",
+    "price_bhd": 55.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/cloudy-bay-pinot-noir-wine-75cl-220742.html"
+    "url": "https://bdutyfree.com/arrival/frescobaldi-luce-wine-75cl-564898.html"
+  },
+  {
+    "name": "Faustino Rioja Crianza Wine 75cl",
+    "price_bhd": 8.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/faustino-rioja-crianza-wine-75cl-564906.html"
+  },
+  {
+    "name": "Faustino V Rioja Reserva Wine 75cl",
+    "price_bhd": 10.9,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/faustino-v-rioja-reserva-wine-75cl-564907.html"
+  },
+  {
+    "name": "La Crema Monterey Pinot Noir Wine 75cl",
+    "price_bhd": 13.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/la-crema-monterey-pinot-noir-wine-75cl-564909.html"
   },
   {
     "name": "Label 5 Bourbon Barrel Single Grain Scotch Whisky Triple Pack 3x1L",
@@ -1606,6 +1864,12 @@
     "price_bhd": 576.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/chateau-lafite-rothschild-2017-75cl-542654.html"
+  },
+  {
+    "name": "Ch\u00e2teau Mouton Rothschild Pauillac 2011 Wine 75cl",
+    "price_bhd": 363.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-mouton-rothschild-2011-75cl-542655.html"
   },
   {
     "name": "Ch\u00e2teau Figeac Premier Grand Cru Classe 2010 Wine 75cl",
@@ -1686,12 +1950,6 @@
     "url": "https://bdutyfree.com/arrival/bushmills-original-distilled-irish-whiskey-triple-3x1l-530727.html"
   },
   {
-    "name": "Beluga Celebration Vodka 1L",
-    "price_bhd": 27.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beluga-celebration-vodka-1l-541259.html"
-  },
-  {
     "name": "Mommessin Fleurie Grandes Mises Wine 75cl",
     "price_bhd": 8.9,
     "in_stock": true,
@@ -1746,12 +2004,6 @@
     "url": "https://bdutyfree.com/arrival/inglenook-cabernet-sauvignon-2019-wine-75cl-574093.html"
   },
   {
-    "name": "Ch\u00e2teau Sainte Marguerite Symphonie Rose Wine 75cl",
-    "price_bhd": 10.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-sainte-marguerite-symphonie-rose-75cl-578324.html"
-  },
-  {
     "name": "Domaine Des Tourelles Red Wine 75cl",
     "price_bhd": 6.6,
     "in_stock": true,
@@ -1788,58 +2040,10 @@
     "url": "https://bdutyfree.com/arrival/castelgiocondo-frescobaldi-brunello-de-montalcino-wine-75cl-580585.html"
   },
   {
-    "name": "Blanc de Lynch Bages 2023 Wine 75cl",
-    "price_bhd": 47.5,
+    "name": "Thistledown Thorny Devil Old Vine Grenache Wine 75cl",
+    "price_bhd": 11.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/blanc-de-lynch-bages-2023-wine-75cl-580718.html"
-  },
-  {
-    "name": "Domaine Laroche Chablis Saint Martin Wine 75cl",
-    "price_bhd": 13.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/domaine-laroche-chablis-saint-martin-wine-75cl-578417.html"
-  },
-  {
-    "name": "Maison Champy Premier Cru Savigny Le Beaune Aux Vergelesses 2022 Wine 75cl",
-    "price_bhd": 23.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/maison-champy-premier-cru-savigny-le-beaune-aux-vergelesses-wine-75cl-578418.html"
-  },
-  {
-    "name": "Glen Moray 12YO Single Malt Scotch Whisky Twin Pack 2x1L",
-    "price_bhd": 53.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glen-moray-12-yo-twin-pack-2x1l-564880.html"
-  },
-  {
-    "name": "Beluga Noble Vodka Triple Pack 3x1L",
-    "price_bhd": 51.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/beluga-noble-vodka-3x1l-564886.html"
-  },
-  {
-    "name": "Montes Alpha Casablanca Chardonnay Wine 75cl",
-    "price_bhd": 10.3,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/montes-alpha-casablanca-chardonnay-wine-75cl-564896.html"
-  },
-  {
-    "name": "Frescobaldi Luce Tenuta Luce Toscana Wine 75cl",
-    "price_bhd": 55.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/frescobaldi-luce-wine-75cl-564898.html"
-  },
-  {
-    "name": "Faustino Rioja Crianza Wine 75cl",
-    "price_bhd": 8.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/faustino-rioja-crianza-wine-75cl-564906.html"
-  },
-  {
-    "name": "Faustino V Rioja Reserva Wine 75cl",
-    "price_bhd": 10.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/faustino-v-rioja-reserva-wine-75cl-564907.html"
+    "url": "https://bdutyfree.com/arrival/thistledown-thorny-devil-old-vine-grenache-wine-75cl-581419.html"
   },
   {
     "name": "The Macallan Colour Collection 12YO Highland Single Malt Scotch Whisky 70cl",
@@ -1854,6 +2058,108 @@
     "url": "https://bdutyfree.com/arrival/the-macallan-colour-collection-15yo-highland-single-malt-scotch-whisky-70cl-575070.html"
   },
   {
+    "name": "Gaja Sperss Barolo 2019 Wine 75cl",
+    "price_bhd": 235.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/gaja-sperss-barolo-2019-wine-75cl-576361.html"
+  },
+  {
+    "name": "Prunotto Barolo Wine 75cl",
+    "price_bhd": 27.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/prunotto-barolo-wine-75cl-577800.html"
+  },
+  {
+    "name": "Torres Celeste Crianza Ribera Del Duero Wine 75cl",
+    "price_bhd": 12.8,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/torres-celeste-crianza-ribera-del-duero-75cl-577801.html"
+  },
+  {
+    "name": "Torres Gran Coronas Cabernet Sauvignon Wine 75cl",
+    "price_bhd": 9.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/torres-gran-coronas-75cl-577802.html"
+  },
+  {
+    "name": "Cossetti Gavi di Gavi Wine 75cl",
+    "price_bhd": 9.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/cossetti-gavi-di-gavi-wine-75cl-577815.html"
+  },
+  {
+    "name": "Domaine Laroche Chablis Saint Martin Wine 75cl",
+    "price_bhd": 13.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/domaine-laroche-chablis-saint-martin-wine-75cl-578417.html"
+  },
+  {
+    "name": "Maison Champy Premier Cru Savigny Le Beaune Aux Vergelesses 2022 Wine 75cl",
+    "price_bhd": 23.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/maison-champy-premier-cru-savigny-le-beaune-aux-vergelesses-wine-75cl-578418.html"
+  },
+  {
+    "name": "Rampur Jugalbandi #6 Indian Single Malt Whisky 70cl",
+    "price_bhd": 86.7,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/rampur-jugalbandi-6-indian-single-malt-whisky-70cl-584589.html"
+  },
+  {
+    "name": "Jim Beam Black Extra-Aged Bourbon Whiskey 1L",
+    "price_bhd": 14.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/jim-beam-black-extra-aged-bourbon-whiskey-1l-584813.html"
+  },
+  {
+    "name": "Ixsir Altitudes Rouge 2020 Wine 75cl",
+    "price_bhd": 11.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/ixsir-altitudes-rouge-2020-wine-75cl-586099.html"
+  },
+  {
+    "name": "Massaya Blanc Seqaa Valley Lebanon Wine 75cl",
+    "price_bhd": 10.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/massaya-blanc-seqaa-valley-lebanon-wine-75cl-586167.html"
+  },
+  {
+    "name": "Dugladze Khvanchkara Semi Sweet Red Wine 37.5cl",
+    "price_bhd": 12.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/dugladze-khvanchkara-semi-sweet-red-wine-37-5cl-586168.html"
+  },
+  {
+    "name": "Rock Angel Ros\u00e9 Wine 75cl",
+    "price_bhd": 12.5,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/rock-angel-rose-wine-75cl-586018.html"
+  },
+  {
+    "name": "Ch\u00e2teau Lynch Bages 2017 Pauillac Wine 75cl",
+    "price_bhd": 89.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-lynch-bages-2017-pauillac-wine-75cl-587237.html"
+  },
+  {
+    "name": "Ch\u00e2teau Pontet Canet 2020 Pauillac Wine 75cl",
+    "price_bhd": 60.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-pontet-canet-2020-pauillac-wine-75cl-587238.html"
+  },
+  {
+    "name": "Pavillon Rouge Du Ch\u00e2teau Margaux 2012 Wine 75cl",
+    "price_bhd": 127.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/pavillon-rouge-du-chateau-margaux-2012-wine-75cl-588107.html"
+  },
+  {
+    "name": "Ch\u00e2teau Talbot Sanit-Julien 2023 Wine 75cl",
+    "price_bhd": 42.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/chateau-talbot-sanit-julien-2023-wine-75cl-588114.html"
+  },
+  {
     "name": "Porcupine Ridge Sauvignon Blanc Wine 75cl",
     "price_bhd": 5.4,
     "in_stock": true,
@@ -1864,6 +2170,12 @@
     "price_bhd": 5.4,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/porcupine-ridge-syrah-wine-75cl-559375.html"
+  },
+  {
+    "name": "Porcupine Ridge Merlot Wine 75cl",
+    "price_bhd": 5.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/porcupine-ridge-merlot-wine-75cl-559376.html"
   },
   {
     "name": "Sandeman Porto Fine Tawny Wine 1L",
@@ -1908,40 +2220,16 @@
     "url": "https://bdutyfree.com/arrival/finca-flichman-reserva-chardonnay-wine-75cl-560358.html"
   },
   {
-    "name": "Prunotto Barolo Wine 75cl",
-    "price_bhd": 27.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/prunotto-barolo-wine-75cl-577800.html"
-  },
-  {
-    "name": "Torres Celeste Crianza Ribera Del Duero Wine 75cl",
-    "price_bhd": 12.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/torres-celeste-crianza-ribera-del-duero-75cl-577801.html"
-  },
-  {
-    "name": "Torres Gran Coronas Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 9.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/torres-gran-coronas-75cl-577802.html"
-  },
-  {
-    "name": "Cossetti Gavi di Gavi Wine 75cl",
-    "price_bhd": 9.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/cossetti-gavi-di-gavi-wine-75cl-577815.html"
-  },
-  {
     "name": "Sandeman White Porto 1L",
     "price_bhd": 7.0,
     "in_stock": true,
     "url": "https://bdutyfree.com/arrival/sandeman-white-porto-1l-560346.html"
   },
   {
-    "name": "Thistledown Thorny Devil Old Vine Grenache Wine 75cl",
-    "price_bhd": 11.5,
+    "name": "Ch\u00e2teau Sainte Marguerite Symphonie Rose Wine 75cl",
+    "price_bhd": 10.2,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/thistledown-thorny-devil-old-vine-grenache-wine-75cl-581419.html"
+    "url": "https://bdutyfree.com/arrival/chateau-sainte-marguerite-symphonie-rose-75cl-578324.html"
   },
   {
     "name": "Chateau Kefraya Wine 75cl",
@@ -2028,34 +2316,46 @@
     "url": "https://bdutyfree.com/arrival/punch-club-pina-colada-with-pineapple-coconut-cocktail-1-5l-588549.html"
   },
   {
-    "name": "Royal Salute 25YO Blended Scotch Whisky 5cl",
-    "price_bhd": 25.0,
+    "name": "Casa Ferreirinha Quinta da Leda Douro Tinto 2022 75cl",
+    "price_bhd": 23.6,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/royal-salute-25yo-blended-scotch-whisky-588608.html"
+    "url": "https://bdutyfree.com/arrival/casa-ferreirinha-quinta-da-leda-douro-tinto-2022-75cl-591713.html"
   },
   {
-    "name": "Chivas Regal 18YO Blended Scotch Whisky 2x1L",
-    "price_bhd": 66.0,
+    "name": "Mateus Dry Selection Ros\u00e9 Wine 75cl",
+    "price_bhd": 5.4,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-18yo-blended-scotch-whisky-2x1l-592582.html"
+    "url": "https://bdutyfree.com/arrival/mateus-dry-selection-rose-wine-75cl-591717.html"
   },
   {
-    "name": "Ridge Three Valleys Sonoma County 2022 Wine 75cl",
-    "price_bhd": 24.5,
+    "name": "Penfolds Bin 138 Shiraz Grenache Mataro Wine 75cl",
+    "price_bhd": 14.7,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/ridge-three-valleys-sonoma-county-2022-wine-75cl-596113.html"
+    "url": "https://bdutyfree.com/arrival/penfolds-bin-138-shiraz-grenache-mataro-2022-wine-75cl-592605.html"
   },
   {
-    "name": "Antinori Tignanello 2022 Wine 75cl",
-    "price_bhd": 67.0,
+    "name": "Ch\u00e2teau Gruaud Larose Saint Julien 2020 Wine 75cl",
+    "price_bhd": 60.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/antinori-tignanello-2022-wine-75cl-596860.html"
+    "url": "https://bdutyfree.com/arrival/chateau-gruaud-larose-saint-julien-2020-wine-75cl-592485.html"
   },
   {
-    "name": "Patron Silver Tequila 5cl",
+    "name": "Absolut Tabasco Vodka 1L",
+    "price_bhd": 10.4,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/absolut-tabasco-vodka-1l-592584.html"
+  },
+  {
+    "name": "Chivas Regal XV Blended Scotch Whisky 5cl",
     "price_bhd": 4.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/patron-silver-tequila-5cl-589908.html"
+    "url": "https://bdutyfree.com/arrival/chivas-regal-xv-blended-scotch-whisky-5cl-588606.html"
+  },
+  {
+    "name": "Le Petit Mouton De Ch\u00e2teau Mouton Rothschild 2022 Wine 75cl",
+    "price_bhd": 135.0,
+    "in_stock": true,
+    "url": "https://bdutyfree.com/arrival/le-petit-mouton-de-chateau-mouton-rothschild-2022-wine-75cl-593527.html"
   },
   {
     "name": "Wakefield Estate Label Shiraz Wine 75cl",
@@ -2130,381 +2430,33 @@
     "url": "https://bdutyfree.com/arrival/domaine-guy-yvan-dufouleur-bourgogne-hautes-cotes-de-nuits-les-dames-huguette-2023-wine-75cl-590951.html"
   },
   {
-    "name": "Casa Ferreirinha Quinta da Leda Douro Tinto 2022 75cl",
-    "price_bhd": 23.6,
+    "name": "Royal Salute 25YO Blended Scotch Whisky 5cl",
+    "price_bhd": 25.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/casa-ferreirinha-quinta-da-leda-douro-tinto-2022-75cl-591713.html"
+    "url": "https://bdutyfree.com/arrival/royal-salute-25yo-blended-scotch-whisky-588608.html"
   },
   {
-    "name": "Mateus Dry Selection Ros\u00e9 Wine 75cl",
-    "price_bhd": 5.4,
+    "name": "Chivas Regal 18YO Blended Scotch Whisky 2x1L",
+    "price_bhd": 66.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/mateus-dry-selection-rose-wine-75cl-591717.html"
+    "url": "https://bdutyfree.com/arrival/chivas-regal-18yo-blended-scotch-whisky-2x1l-592582.html"
   },
   {
-    "name": "Penfolds Bin 138 Shiraz Grenache Mataro Wine 75cl",
-    "price_bhd": 14.7,
+    "name": "Ridge Three Valleys Sonoma County 2022 Wine 75cl",
+    "price_bhd": 24.5,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/penfolds-bin-138-shiraz-grenache-mataro-2022-wine-75cl-592605.html"
+    "url": "https://bdutyfree.com/arrival/ridge-three-valleys-sonoma-county-2022-wine-75cl-596113.html"
   },
   {
-    "name": "Ch\u00e2teau Gruaud Larose Saint Julien 2020 Wine 75cl",
-    "price_bhd": 60.0,
+    "name": "Antinori Tignanello 2022 Wine 75cl",
+    "price_bhd": 67.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-gruaud-larose-saint-julien-2020-wine-75cl-592485.html"
+    "url": "https://bdutyfree.com/arrival/antinori-tignanello-2022-wine-75cl-596860.html"
   },
   {
-    "name": "Absolut Tabasco Vodka 1L",
-    "price_bhd": 10.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/absolut-tabasco-vodka-1l-592584.html"
-  },
-  {
-    "name": "Chivas Regal XV Blended Scotch Whisky 5cl",
+    "name": "Patron Silver Tequila 5cl",
     "price_bhd": 4.0,
     "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-xv-blended-scotch-whisky-5cl-588606.html"
-  },
-  {
-    "name": "Le Petit Mouton De Ch\u00e2teau Mouton Rothschild 2022 Wine 75cl",
-    "price_bhd": 135.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/le-petit-mouton-de-chateau-mouton-rothschild-2022-wine-75cl-593527.html"
-  },
-  {
-    "name": "Jacob's Creek Reserve Sauvignon Blanc Wine 75cl",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jacobs-creek-res-sauv-blanc-wine-75cl-240161.html"
-  },
-  {
-    "name": "Jameson Triple Distilled Irish Whiskey 1L",
-    "price_bhd": 14.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jameson-irish-whiskey-1l-26351.html"
-  },
-  {
-    "name": "Don Julio Blanco Tequila 75cl",
-    "price_bhd": 23.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/don-julio-blanco-tequila-75cl-269299.html"
-  },
-  {
-    "name": "Don Julio Reposado Tequila 75cl",
-    "price_bhd": 30.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/don-julio-reposado-tequila-75cl-269300.html"
-  },
-  {
-    "name": "Allegrini Corte Giara Pinot Grigio Wine 75cl",
-    "price_bhd": 5.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/allegrini-corte-giara-pinot-grigio-75cl-281800.html"
-  },
-  {
-    "name": "Veuve Clicquot Yellow Label Brut Champagne 75cl",
-    "price_bhd": 22.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/veuve-clicquot-yellow-label-75cl-284010.html"
-  },
-  {
-    "name": "Mo\u00ebt & Chandon Rose Imperial Champagne 75cl",
-    "price_bhd": 24.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/moet-chandon-rose-imperial-75cl-284011.html"
-  },
-  {
-    "name": "Oyster Bay Sauvignon Blanc Wine 75cl",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/oyster-bay-sauvignon-blanc-75cl-294511.html"
-  },
-  {
-    "name": "Hendrick's Gin 1L",
-    "price_bhd": 17.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/hendricks-gin-1l-300373.html"
-  },
-  {
-    "name": "Mateus Rose Wine 1L",
-    "price_bhd": 5.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/mateus-rose-wine-1ltr-329494.html"
-  },
-  {
-    "name": "Ch\u00e2teau D'Esclans Whispering Angel Wine 75cl",
-    "price_bhd": 11.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/whispering-angel-rose-wine-75cl-352048.html"
-  },
-  {
-    "name": "Hennessy VSOP Cognac 1L",
-    "price_bhd": 37.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/hennessy-vsop-cognac-1ltr-360390.html"
-  },
-  {
-    "name": "Jack Daniel's Tennessee Honey Tennessee Whiskey 1L",
-    "price_bhd": 13.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jack-daniels-honey-whiskey-1ltr-360447.html"
-  },
-  {
-    "name": "Stolichnaya Elit Vodka 1L",
-    "price_bhd": 21.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/stolichnaya-elite-vodka-1ltr-361257.html"
-  },
-  {
-    "name": "Captain Morgan Black Spiced Rum 1L",
-    "price_bhd": 10.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/captain-morgan-spiced-black-rum-1ltr-361324.html"
-  },
-  {
-    "name": "Chivas Regal 25YO Blended Scotch Whisky 70cl",
-    "price_bhd": 141.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-25yo-whisky-70cl-387653.html"
-  },
-  {
-    "name": "Mo\u00ebt & Chandon Ice Imperial Champagne 75cl",
-    "price_bhd": 25.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/moet-chandon-ice-imperial-champagne-75cl-423164.html"
-  },
-  {
-    "name": "Chivas Regal 18YO Blended Scotch Whisky 1L",
-    "price_bhd": 49.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-18yo-whisky-1ltr-426065.html"
-  },
-  {
-    "name": "Gordon's London Dry Gin 1L",
-    "price_bhd": 9.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/the-original-gordons-dry-gin-1l-43058.html"
-  },
-  {
-    "name": "Chivas Regal XV Blended Scotch Whisky 1L",
-    "price_bhd": 29.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chivas-regal-xv-whisky-1ltr-437201.html"
-  },
-  {
-    "name": "Piper Heidsieck Rose Sauvage Champagne 75cl",
-    "price_bhd": 24.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/piper-heidsieck-rose-champagne-75cl-437654.html"
-  },
-  {
-    "name": "Laroche Rose Mas De La Chevaliere Wine 75cl",
-    "price_bhd": 6.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/laroche-de-chevaliere-rose-wine-75cl-463809.html"
-  },
-  {
-    "name": "Frescobaldi Nipozzano Riserva Chianti Wine 75cl",
-    "price_bhd": 12.3,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/frescobaldi-nipozzano-chianti-wine-75cl-463810.html"
-  },
-  {
-    "name": "Folonari Valpolicella Wine 75cl",
-    "price_bhd": 6.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/folonari-valpolicella-wine-75cl-463820.html"
-  },
-  {
-    "name": "Johnnie Walker Red Label Blended Scotch Whisky Triple Pack 3x1L",
-    "price_bhd": 20.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jw-red-label-triple-pack-3x1ltr-464493.html"
-  },
-  {
-    "name": "Bacardi Cuatro 4YO Rum 1L",
-    "price_bhd": 13.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/bacardi-cuatro-4yo-rum-1ltr-464545.html"
-  },
-  {
-    "name": "Dewar's White Label Blended Scotch Whisky 5cl",
-    "price_bhd": 3.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/dewars-white-label-whisky-5cl-464552.html"
-  },
-  {
-    "name": "Da Luca Prosecco Sparkling Wine 75cl",
-    "price_bhd": 6.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/da-luca-prosecco-sparkling-w-75cl-466083.html"
-  },
-  {
-    "name": "Don Juilo 1942 Tequila 75cl",
-    "price_bhd": 76.3,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/don-julio-1942-tequila-75cl-471648.html"
-  },
-  {
-    "name": "Los Vascos Cabernet Sauvignon Wine 75cl",
-    "price_bhd": 6.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/los-vascos-cabernet-sauvignon-wine-75cl-476414.html"
-  },
-  {
-    "name": "Los Vascos Chardonnay Wine 75cl",
-    "price_bhd": 6.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/los-vascos-chardonnay-wine-75cl-476415.html"
-  },
-  {
-    "name": "Johnnie Walker Double Black Blended Scotch Whisky Triple Pack 3x1L",
-    "price_bhd": 46.8,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jw-double-black-whisky-triple-3x1ltr-487500.html"
-  },
-  {
-    "name": "Jameson Triple Triple Irish Whiskey 1L",
-    "price_bhd": 17.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/jameson-tt-whiskey-1ltr-487540.html"
-  },
-  {
-    "name": "Mo\u00ebt & Chandon Grand Vintage Champagne 75cl",
-    "price_bhd": 35.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/moet-chandon-grnd-vintage-champagne-75cl-491089.html"
-  },
-  {
-    "name": "Mo\u00ebt & Chandon Nectar Imperial Champagne 75cl",
-    "price_bhd": 22.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/moet-chandon-nectar-imp-champagne-75cl-491091.html"
-  },
-  {
-    "name": "Miraval Cotes De Provence Rose Wine 75cl",
-    "price_bhd": 13.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/miraval-provence-rose-wine-75cl-491144.html"
-  },
-  {
-    "name": "Chateau Kefraya Les Breteches Wine 75cl",
-    "price_bhd": 6.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/les-bretech-de-chateau-kefraya-wine-75cl-491148.html"
-  },
-  {
-    "name": "Taittinger Brut Rose Champagne 75cl",
-    "price_bhd": 27.4,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/taittinger-brut-rose-champagne-75cl-491839.html"
-  },
-  {
-    "name": "Batasiolo Gavi Di Gavi Wine 75cl",
-    "price_bhd": 10.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/batasiolo-gavi-di-gavi-wine-75cl-505193.html"
-  },
-  {
-    "name": "Dom P\u00e9rignon Vintage Champagne 75cl",
-    "price_bhd": 90.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/dom-perignon-vintage-75cl-53202.html"
-  },
-  {
-    "name": "Grey Goose Original Vodka 1L",
-    "price_bhd": 23.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/greygoose-vodka-1ltr-181787.html"
-  },
-  {
-    "name": "Ch\u00e2teau Grand Barail Montagne Sait-Emilion 2022 Wine 75cl",
-    "price_bhd": 7.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-grand-barail-75cl-543291.html"
-  },
-  {
-    "name": "Glenfiddich 40YO Cumulative Time Single Malt Scotch Whisky 70cl",
-    "price_bhd": 1790.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/glenfiddich-40yo-malt-whisky-70cl-545455.html"
-  },
-  {
-    "name": "Talisker 10YO Single Malt Scotch Whisky 75cl",
-    "price_bhd": 34.6,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/talisker-10yo-single-malt-scotch-whisky-75cl-196935.html"
-  },
-  {
-    "name": "Johnnie Walker Blue Label Blended Scotch Whisky 1L",
-    "price_bhd": 123.7,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/johnnie-walker-blue-label-blended-scotch-whisky-1l-54235.html"
-  },
-  {
-    "name": "Aberfeldy 21YO Madeira Cask Single Malt Scotch Whisky 70cl",
-    "price_bhd": 93.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/aberfeldy-21yo-madeira-cask-70cl-556255.html"
-  },
-  {
-    "name": "Ch\u00e2teau Roquetaillade Le Bernet Blanc Graves Wine 75cl",
-    "price_bhd": 10.2,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-roquetaillade-le-bernet-blanc-graves-75cl-557135.html"
-  },
-  {
-    "name": "Ukiyo Japanese Blossom Gin 70cl",
-    "price_bhd": 18.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/ukiyo-japanese-blossom-gin-70cl-557391.html"
-  },
-  {
-    "name": "La Chapelle De La Mission Haut Brion 2021 Wine 75cl",
-    "price_bhd": 45.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/la-chapelle-de-la-mission-haut-brion-2021-75cl-551607.html"
-  },
-  {
-    "name": "Ch\u00e2teau Belair Lussac Sant-Emilion 2020 75cl",
-    "price_bhd": 9.1,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-bel-air-lussac-saint-emilion-2019-75cl-559152.html"
-  },
-  {
-    "name": "Clos Apalta 2020 Wine 75cl",
-    "price_bhd": 61.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/clos-apalta-2020-75cl-559155.html"
-  },
-  {
-    "name": "Cap Maritime South Coastal Pinot Noir Wine 75cl",
-    "price_bhd": 8.9,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/cap-maritime-coastal-pinot-noir-2023-75cl-559371.html"
-  },
-  {
-    "name": "Masi Nectar Costasera Amarone Classico 2020 Wine 75cl",
-    "price_bhd": 23.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/masi-nectar-costasera-amarone-classico-2018-75cl-559513.html"
-  },
-  {
-    "name": "Masi Mazzano Amarone della Valpolicella Classico Wine 75cl",
-    "price_bhd": 64.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/masi-mazzano-amarone-della-valpolicella-classico-2015-75cl-559514.html"
-  },
-  {
-    "name": "Ch\u00e2teau Mouton Rothschild Pauillac 2011 Wine 75cl",
-    "price_bhd": 363.0,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/chateau-mouton-rothschild-2011-75cl-542655.html"
-  },
-  {
-    "name": "Gaja Sperss Barolo 2019 Wine 75cl",
-    "price_bhd": 235.5,
-    "in_stock": true,
-    "url": "https://bdutyfree.com/arrival/gaja-sperss-barolo-2019-wine-75cl-576361.html"
+    "url": "https://bdutyfree.com/arrival/patron-silver-tequila-5cl-589908.html"
   }
 ]
