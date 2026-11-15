@@ -631,6 +631,7 @@
                 repairFavouriteNames();
                 resolvePendingSharedCodes();
                 applySearchFromUrl();
+                applyPlannerFromUrl();
             } catch (e) {
                 productsLoadFailed = true;
                 console.error("Could not load product data:", e);
@@ -1219,6 +1220,22 @@
                 params.delete("q");
                 const rest = params.toString();
                 window.history.replaceState({}, "", window.location.origin + window.location.pathname + (rest ? "?" + rest : ""));
+            } catch (e) {}
+        }
+
+        // Party planner links (2026-11-15): the Google-searchable page
+        // pour-choices.com/bahrain-party-planner/ links to /?planner=event,
+        // which opens the Drinks Planner once the prices have loaded (so
+        // after the age check). Also ?planner=weekly or monthly.
+        function applyPlannerFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const period = String(params.get("planner") || "").toLowerCase();
+                if (!period) return;
+                params.delete("planner");
+                const rest = params.toString();
+                window.history.replaceState({}, "", window.location.origin + window.location.pathname + (rest ? "?" + rest : ""));
+                openPlanner(["event", "weekly", "monthly"].includes(period) ? period : "event");
             } catch (e) {}
         }
 
