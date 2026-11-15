@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drinks Prices in Bahrain Compared | Pour Choices</title>
 <meta name="description" content="Compare drinks prices in Bahrain at BMMI, African &amp; Eastern, GBI Express and NHSC. Find the cheapest alcohol prices in Bahrain for beer, wine, whisky, gin and vodka, updated every week. Free.">
 <link rel="canonical" href="https://pour-choices.com/">
@@ -66,7 +66,7 @@
     .toast-fade-out { opacity: 0; transition: opacity 0.25s ease-in; }
 </style>
 </head>
-<body class="bg-obsidian text-white font-sans antialiased min-h-screen pb-24">
+<body style="padding-top: env(safe-area-inset-top, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px)" class="bg-obsidian text-white font-sans antialiased min-h-screen pb-24">
 
     <!-- 1. LEGAL AGE GATE OVERLAY (21+) -->
     <div id="age-gate" class="fixed inset-0 bg-obsidian z-50 flex flex-col justify-center items-center p-6 text-center">
@@ -353,11 +353,18 @@
          data/products.json the rest of the app uses; plans are saved in
          localStorage like favourites. Code: the Drinks Planner script
          block at the end of this page. -->
-    <div id="planner" class="fixed inset-0 bg-plannerBg z-50 hidden overflow-y-auto">
-        <div class="max-w-md md:max-w-2xl mx-auto px-4 pt-4 pb-24">
+    <div id="planner" style="padding-top: env(safe-area-inset-top, 0px)" class="fixed inset-0 bg-plannerBg z-50 hidden overflow-y-auto">
+        <!-- Always visible, however far down the page (John, 15 Nov 2026:
+             "no way to get back to the price comparison page"). The phone's
+             own back button or swipe also goes back. -->
+        <div style="position: sticky; top: 0; z-index: 10; background: rgba(6, 28, 41, 0.96); border-bottom: 1px solid rgba(22, 78, 99, 0.6)">
+            <div class="max-w-md md:max-w-2xl mx-auto px-4 py-2">
+                <button onclick="closePlanner()" class="text-[12px] font-bold text-cyanGlow bg-plannerCard border border-cyanGlow/40 rounded-full px-3 py-1.5">← Back to price comparison</button>
+            </div>
+        </div>
+        <div class="max-w-md md:max-w-2xl mx-auto px-4 pt-3 pb-24">
             <div class="flex justify-between items-center mb-1">
                 <h2 class="text-lg font-bold">🧮 Pour Choices Drinks Planner <span class="align-super text-[9px] bg-plannerBg border border-cyanGlow text-cyanGlow px-1.5 py-0.5 rounded-full ml-1 tracking-widest font-bold">BETA</span></h2>
-                <button onclick="closePlanner()" aria-label="Close" class="text-gray-300 text-xl leading-none px-2 py-1">✕</button>
             </div>
             <p class="text-[11px] text-gray-300 mb-3 leading-relaxed">Tell us what you need, or what you want to spend. Pour Choices finds the cheapest mix across BMMI, A&amp;E, GBI Express and NHSC, delivery charges included.</p>
 
@@ -442,7 +449,7 @@
     <!-- LIGHTWEIGHT TOAST NOTIFICATION (see showToast()): shows the "opening
          retailer" notice without blocking the page, unlike the alert() it
          replaces. -->
-    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-sm pointer-events-none flex flex-col items-center space-y-2"></div>
+    <div id="toast-container" style="top: calc(env(safe-area-inset-top, 0px) + 1rem)" class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-sm pointer-events-none flex flex-col items-center space-y-2"></div>
 
     <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end">
         <div class="bg-charcoal rounded-t-3xl p-6 text-center max-w-md mx-auto w-full border-t border-gray-800 transform translate-y-full transition-transform duration-300" id="feedback-modal-content">
@@ -2981,13 +2988,26 @@
             plannerLastResult = null;
             // A saved weekly/monthly plan is re-priced straight away.
             if (store.saved && store.saved[plannerPeriod]) runPlanner();
+            // So the phone's back button or swipe closes the planner.
+            try { if (!(history.state && history.state.planner)) history.pushState({ planner: true }, ""); } catch (e) {}
         }
+        let plannerIgnorePop = false;
         function closePlanner() {
+            closePlannerNow();
+            try { if (history.state && history.state.planner) { plannerIgnorePop = true; history.back(); } } catch (e) {}
+        }
+        function closePlannerNow() {
+            const el = document.getElementById("planner");
+            if (!el || el.classList.contains("hidden")) return;
             readPlannerInputs();
             saveDraft();
-            document.getElementById("planner").classList.add("hidden");
+            el.classList.add("hidden");
             document.body.style.overflow = "";
         }
+        window.addEventListener("popstate", () => {
+            if (plannerIgnorePop) { plannerIgnorePop = false; return; }
+            closePlannerNow();
+        });
         function setPlannerPeriod(period) {
             readPlannerInputs();
             saveDraft();
@@ -3025,11 +3045,30 @@
             const saved = store.saved && store.saved[plannerPeriod];
             const note = document.getElementById("planner-saved-note");
             if (saved) {
-                note.textContent = `💾 This is your saved ${PERIOD_LABELS[plannerPeriod]} plan. It is re-priced with the latest prices every time you open it.`;
+                note.innerHTML = `💾 This is your saved ${PERIOD_LABELS[plannerPeriod]} plan. It is re-priced with the latest prices every time you open it.
+                    <button onclick="deletePlannerPlan()" class="block mt-1.5 underline font-bold text-sky-200">🗑 Delete it and start a new plan</button>`;
                 note.classList.remove("hidden");
             } else {
                 note.classList.add("hidden");
             }
+        }
+        // A saved plan can be deleted, so the planner starts fresh (John,
+        // 15 Nov 2026: "once it's saved you can't get rid of it").
+        function deletePlannerPlan() {
+            if (!window.confirm(`Delete your saved ${PERIOD_LABELS[plannerPeriod]} plan and start a new one?`)) return;
+            const store = loadPlannerStore();
+            if (store.saved) delete store.saved[plannerPeriod];
+            if (store.drafts) delete store.drafts[plannerPeriod];
+            savePlannerStore(store);
+            plannerState = freshPlan(plannerPeriod);
+            plannerLastResult = null;
+            const res = document.getElementById("planner-results");
+            if (res) res.innerHTML = "";
+            renderPlannerControls();
+            renderPlannerInputs();
+            const sc = document.getElementById("planner");
+            if (sc) sc.scrollTop = 0;
+            showToast("Deleted. You can start a new plan.");
         }
         function setPillActive(btn, on, outline) {
             // Period row: filled amber. Mode row: amber outline, so the two
@@ -4322,7 +4361,7 @@
 
             // Actions
             html += `<div class="flex space-x-2 mt-3">
-                <button onclick="savePlannerPlan()" class="flex-1 bg-plannerCard border border-cyanGlow/50 text-cyanGlow font-bold py-2.5 rounded-xl text-xs">💾 Save as my ${PERIOD_LABELS[plannerPeriod]} plan</button>
+                <button id="pl-save-btn" onclick="savePlannerPlan()" class="flex-1 bg-plannerCard border border-cyanGlow/50 text-cyanGlow font-bold py-2.5 rounded-xl text-xs">💾 Save as my ${PERIOD_LABELS[plannerPeriod]} plan</button>
                 <button onclick="sharePlannerPlan()" class="flex-1 bg-cyanGlow text-obsidian font-bold py-2.5 rounded-xl text-xs">📤 Share list</button>
             </div>`;
 
@@ -4406,6 +4445,11 @@
             savePlannerStore(store);
             renderPlannerControls();
             renderPlannerResults();
+            // Say so on the button itself too: on an iPhone with Pour Choices
+            // added to the home screen, a message at the very top can sit
+            // under the clock and battery (John, 15 Nov 2026).
+            const sb = document.getElementById("pl-save-btn");
+            if (sb) { sb.textContent = "✓ Saved"; sb.classList.add("bg-cyanGlow/20"); }
             showToast(plannerPeriod === "event"
                 ? "Saved. Open the Drinks Planner any time to see it with the latest prices."
                 : `Saved as your ${PERIOD_LABELS[plannerPeriod]} plan. We'll tell you when it gets cheaper.`);
