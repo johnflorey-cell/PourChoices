@@ -347,6 +347,59 @@ Prices checked {esc(checked)}.</p>
     return page("Drinks Prices in Bahrain Compared | Pour Choices", desc, "/prices/", body)
 
 
+PARTY_PLANNER_PATH = "/bahrain-party-planner/"
+
+
+def party_planner_page() -> str:
+    """The Bahrain Party Planner landing page (added 2026-11-15, John's name
+    for it). The planner itself is part of the app (index.html); this page
+    is what Google can read, and its button opens the planner directly via
+    /?planner=event. No prices or dates on it, so it never goes stale."""
+    title = "Bahrain Party Planner: How Much Drink to Buy, Cheapest Mix | Pour Choices"
+    desc = ("Free Bahrain party planner. Tell it your guests and hours, or your budget, and Pour Choices "
+            "works out how much beer, wine and spirits to buy and the cheapest mix across BMMI, "
+            "African & Eastern, GBI Express and NHSC, delivery included.")
+    faq = [
+        ("How much alcohol do I need for a party?",
+         "Allow 1 drink per guest per hour if they drink lightly, 2 for an average crowd and 2.75 if they "
+         "drink generously, then add 20% spare so you never run short. A can of beer is one drink, a 75cl "
+         "bottle of wine is about 5 glasses and a 75cl bottle of spirits is about 16 single measures."),
+        ("Where is the cheapest place to buy drinks for a party in Bahrain?",
+         "It depends on what you buy. The Bahrain Party Planner checks BMMI, African & Eastern, GBI Express "
+         "and NHSC, then splits your list between shops only when that saves money after delivery charges "
+         "and minimum orders."),
+        ("Can I plan to a budget?",
+         "Yes. Enter your budget and what you'd like. If it costs more, the planner first picks cheaper drinks "
+         "so you keep your quantities, and only cuts quantities if it still doesn't fit."),
+    ]
+    faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq)
+    body = f"""
+<h1>Bahrain Party Planner</h1>
+<p class="lead">Planning a party, a barbecue or a birthday in Bahrain? Tell the Bahrain Party Planner how many
+guests you have and for how long, or how much you want to spend. It works out how much beer, wine and spirits
+to buy and finds the cheapest mix across BMMI, African &amp; Eastern, GBI Express and NHSC, with delivery
+charges and minimum orders included. Free to use.</p>
+<a class="btn" href="/?planner=event">Open the Bahrain Party Planner</a>
+<h2>How it works</h2>
+<ol>
+<li>Enter your guests and hours, or type the drinks you want: a type like lager or prosecco, or a brand like Heineken or Ballantine's.</li>
+<li>Choose Value, Mid or Premium, or set a budget.</li>
+<li>Get one shopping list per shop, with the total and delivery, and open each shop to order.</li>
+</ol>
+<p>It works for a weekly or monthly shop too, and tells you when your saved plan gets cheaper.</p>
+<h2>Questions</h2>
+{faq_html}
+<a class="btn" href="/?planner=event">Plan my party drinks</a>
+"""
+    ld = [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq],
+    }]
+    return page(title, desc, PARTY_PLANNER_PATH, body, ld)
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> int:
@@ -393,7 +446,10 @@ def main() -> int:
     for folder in ("price", "prices"):
         shutil.rmtree(ROOT / folder, ignore_errors=True)
 
-    urls = [f"{SITE}/", f"{SITE}/prices/"]
+    urls = [f"{SITE}/", f"{SITE}{PARTY_PLANNER_PATH}", f"{SITE}/prices/"]
+    pp = ROOT / PARTY_PLANNER_PATH.strip("/") / "index.html"
+    pp.parent.mkdir(parents=True, exist_ok=True)
+    pp.write_text(party_planner_page(), encoding="utf-8")
     cat_summary = []
     count = 0
     for cat in CATEGORY_ORDER:
