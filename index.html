@@ -44,6 +44,9 @@
         user-select: none;
     }
     body { -webkit-tap-highlight-color: transparent; background-color: #0F172A; }
+    .install-tab { color: #cbd5e1; }
+    .install-tab.active { background-color: #F59E0B; color: #0F172A; }
+    .install-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 9999px; background: #F59E0B; color: #0F172A; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
     .category-chip.active { background-color: #F59E0B; color: #0F172A; font-weight: 700; }
     .wine-subchip { background-color: transparent; color: #E5E7EB; border-color: rgba(245, 158, 11, 0.35); font-weight: 500; }
     .wine-subchip.active { background-color: rgba(245, 158, 11, 0.18); color: #F59E0B; border-color: #F59E0B; font-weight: 700; }
@@ -64,7 +67,7 @@
     <div id="age-gate" class="fixed inset-0 bg-obsidian z-50 flex flex-col justify-center items-center p-6 text-center">
         <div class="max-w-md w-full bg-charcoal p-8 rounded-2xl border border-gray-800 shadow-2xl">
             <img src="logo-bottle.svg" alt="" class="inline-block h-14 w-auto" style="height:56px;width:auto">
-            <h1 class="text-2xl font-bold mt-4 tracking-tight">Pour Choices <span>🇧🇭</span> <span class="align-super text-[9px] bg-charcoal border border-amberGold text-amberGold px-1.5 py-0.5 rounded-full ml-1 tracking-widest font-bold">BETA</span></h1>
+            <h1 class="text-2xl font-bold mt-4 tracking-tight">Pour Choices <span>🇧🇭</span></h1>
             <p class="text-emeraldGlow text-base mt-2 font-bold">Save money with Pour Choices</p>
             <p class="text-amberGold text-sm mt-1 uppercase tracking-widest font-bold">Bahrain&rsquo;s independent price index</p>
 
@@ -86,18 +89,20 @@
 
         <!-- HEADER WITH SUBTITLE BYLINE -->
         <header class="py-2 mb-4 border-b border-gray-800/60 pb-4">
-            <div class="flex justify-between items-center">
-                <div class="flex flex-col">
-                    <div class="flex items-center space-x-2">
-                        <img src="logo-bottle.svg" alt="" class="inline-block h-7 w-auto" style="height:28px;width:auto">
-                        <span class="font-bold tracking-tight text-xl uppercase">POUR CHOICES</span> <span class="text-lg" title="Bahrain">🇧🇭</span> <span class="align-super text-[9px] bg-charcoal border border-amberGold text-amberGold px-1.5 py-0.5 rounded-full ml-1 tracking-widest font-bold">BETA</span>
+            <!-- 2026-11-15: BETA badge removed; "Add to phone" sits in its place.
+                 Tier badge moved down beside the green line so the top row fits. -->
+            <div class="flex flex-col">
+                <div class="flex items-center space-x-2">
+                    <img src="logo-bottle.svg" alt="" class="inline-block h-7 w-auto" style="height:28px;width:auto">
+                    <span class="font-bold tracking-tight text-xl uppercase whitespace-nowrap">POUR CHOICES</span> <span class="text-lg" title="Bahrain">🇧🇭</span> <button id="add-to-phone-btn" onclick="openInstallGuide()" class="bg-amberGold text-obsidian text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg active:scale-95 transition whitespace-nowrap ml-1">Add to phone</button>
+                </div>
+                <div class="flex justify-between items-center mt-1">
+                    <span class="text-[13px] text-emeraldGlow font-bold leading-tight">Save money with Pour Choices</span>
+                    <div id="premium-badge" class="bg-charcoal text-[10px] text-gray-200 px-3 py-1 rounded-full border border-gray-800 flex items-center space-x-1 font-bold whitespace-nowrap">
+                        <span>🔴 Standard Tier</span>
                     </div>
-                    <span class="text-[13px] text-emeraldGlow mt-1 font-bold leading-tight">Save money with Pour Choices</span>
-                    <span class="text-[11px] text-amberGold font-bold uppercase tracking-widest leading-tight">Bahrain&rsquo;s independent price index</span>
                 </div>
-                <div id="premium-badge" class="bg-charcoal text-[10px] text-gray-200 px-3 py-1.5 rounded-full border border-gray-800 flex items-center space-x-1 font-bold">
-                    <span>🔴 Standard Tier</span>
-                </div>
+                <span class="text-[11px] text-amberGold font-bold uppercase tracking-widest leading-tight mt-0.5">Bahrain&rsquo;s independent price index</span>
             </div>
         </header>
 
@@ -190,9 +195,13 @@
 
         <!-- SAVE-TO-HOME-SCREEN BANNER: hidden by default, shown by JS only on a
              phone that hasn't already installed the app (see showInstallBanner()). -->
-        <button id="install-banner" onclick="handleInstallClick()" class="hidden w-full mb-3 text-[11px] text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl px-3 py-2.5 text-center leading-relaxed font-bold active:scale-[0.98] transition">
-            📲 Tap here to save this app to your home screen
-        </button>
+        <div id="install-banner" class="hidden w-full mb-3 flex items-stretch text-amberGold bg-amberGold/10 border border-amberGold/30 rounded-xl overflow-hidden">
+            <button onclick="handleInstallClick()" class="flex-1 text-left px-3 py-2.5 leading-snug active:scale-[0.99] transition">
+                <span class="block text-[12px] font-bold">📲 Add Pour Choices to your phone</span>
+                <span class="block text-[11px] text-gray-200 mt-0.5">One tap to open it like an app. <span class="underline text-amberGold font-bold">Show me how</span></span>
+            </button>
+            <button onclick="dismissInstallBanner()" aria-label="Hide" class="px-3 text-gray-400 text-base">✕</button>
+        </div>
 
         <!-- FAVOURITE PRICE-DROP BANNER: hidden by default, filled in and shown
              by checkFavouritePriceDrops() only when something on this visitor's
@@ -444,6 +453,75 @@
                 <p class="text-[10px] text-gray-400 mb-1">Let the other phone scan this code.</p>
             </div>
             <p id="share-modal-link" class="text-[10px] text-gray-500 break-all select-all"></p>
+        </div>
+    </div>
+
+    <!-- 6. ADD-TO-PHONE GUIDE (2026-11-15): step-by-step instructions for
+         iPhone and Android, opened by the header button, the banner, or a
+         link ending in ?install=1 (handy for Facebook posts). The right tab
+         opens automatically for the visitor's phone. -->
+    <div id="install-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex-col justify-end" onclick="if(event.target===this)closeInstallGuide()">
+        <div id="install-modal-content" class="bg-charcoal rounded-t-3xl px-5 pt-3 pb-5 text-left max-w-md mx-auto w-full max-h-[92vh] overflow-y-auto border-t border-gray-800 transform translate-y-full transition-transform duration-300">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mx-auto mb-3" onclick="closeInstallGuide()"></div>
+            <div class="flex items-center justify-between mb-1">
+                <h3 class="text-base font-bold">📲 Add Pour Choices to your phone</h3>
+                <button onclick="closeInstallGuide()" aria-label="Close" class="text-gray-400 text-lg leading-none px-2">✕</button>
+            </div>
+            <p class="text-[12px] text-gray-300 mb-3">It puts a Pour Choices icon on your home screen, so it opens like an app. Free, nothing to download from an app store.</p>
+
+            <!-- Shown only when the phone can install with one tap (Chrome on Android) -->
+            <button id="install-now-btn" onclick="installNow()" class="hidden w-full bg-amberGold text-obsidian font-bold py-3 rounded-xl text-sm mb-3 active:scale-[0.98] transition">Install now (one tap)</button>
+
+            <!-- Opened inside Facebook, Instagram etc: those can't add apps -->
+            <div id="install-inapp-note" class="hidden bg-amberGold/10 border border-amberGold/40 rounded-xl p-3 mb-3">
+                <p class="text-[12px] font-bold text-amberGold mb-1">First, open this page in your phone's own browser</p>
+                <p class="text-[12px] text-gray-200 mb-2">You've opened Pour Choices inside another app (like Facebook or Instagram), which can't add it to your home screen. Tap the <b>•••</b> menu at the top or bottom, then <b>Open in browser</b> (or <b>Open in Safari</b> / <b>Open in Chrome</b>). Or copy the link and paste it into your browser.</p>
+                <button onclick="copyInstallLink()" class="bg-amberGold text-obsidian font-bold text-[12px] px-3 py-1.5 rounded-lg">Copy link</button>
+            </div>
+
+            <!-- On a computer: scan to open on your phone first -->
+            <div id="install-desktop-note" class="hidden bg-obsidian border border-gray-800 rounded-xl p-3 mb-3 text-center">
+                <p class="text-[12px] text-gray-200 mb-2">You're on a computer. Scan this with your phone's camera to open Pour Choices there, then follow the steps below.</p>
+                <div class="bg-white rounded-xl p-2 inline-flex"><img src="qr-pour-choices.svg" alt="QR code for pour-choices.com" width="120" height="120" class="w-[120px] h-[120px]"></div>
+            </div>
+
+            <div class="flex bg-obsidian rounded-xl p-1 mb-3">
+                <button id="install-tab-ios" onclick="showInstallTab('ios')" class="install-tab flex-1 py-2 rounded-lg text-xs font-bold transition">🍏 iPhone / iPad</button>
+                <button id="install-tab-android" onclick="showInstallTab('android')" class="install-tab flex-1 py-2 rounded-lg text-xs font-bold transition">🤖 Android</button>
+            </div>
+
+            <!-- iPhone steps -->
+            <div id="install-steps-ios" class="hidden">
+                <p id="install-ios-browser-note" class="hidden text-[11px] text-sky-300 mb-2">Using Chrome on iPhone? The Share button is at the top, on the right of the web address. Then follow the same steps.</p>
+                <ol class="space-y-2.5">
+                    <li class="flex space-x-3"><span class="install-num">1</span><span class="text-[13px] text-gray-100">Open <b>pour-choices.com</b> in <b>Safari</b> (the blue compass app).</span></li>
+                    <li class="flex space-x-3"><span class="install-num">2</span><span class="text-[13px] text-gray-100">Tap the <b>Share</b> button
+                        <svg class="inline-block align-text-bottom mx-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Share icon"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>
+                        (a square with an arrow pointing up). It's at the bottom of the screen. If you can't see it, tap <b>•••</b> first.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">3</span><span class="text-[13px] text-gray-100">Scroll down the list and tap <b>Add to Home Screen</b> <span class="text-gray-400">(a square with a +)</span>. You may need to tap <b>View More</b> to see it.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">4</span><span class="text-[13px] text-gray-100">Tap <b>Add</b> in the top right corner.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">5</span><span class="text-[13px] text-gray-100">Done! Look for the <b>Pour Choices</b> bottle icon on your home screen.</span></li>
+                </ol>
+            </div>
+
+            <!-- Android steps -->
+            <div id="install-steps-android" class="hidden">
+                <p class="text-[12px] font-bold text-gray-200 mb-2">Using Chrome (most Android phones)</p>
+                <ol class="space-y-2.5 mb-4">
+                    <li class="flex space-x-3"><span class="install-num">1</span><span class="text-[13px] text-gray-100">Tap the <b>three dots ⋮</b> in the top right corner.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">2</span><span class="text-[13px] text-gray-100">Tap <b>Add to home screen</b> (it may say <b>Install app</b>).</span></li>
+                    <li class="flex space-x-3"><span class="install-num">3</span><span class="text-[13px] text-gray-100">Tap <b>Install</b> (or <b>Add</b>).</span></li>
+                    <li class="flex space-x-3"><span class="install-num">4</span><span class="text-[13px] text-gray-100">Done! Look for the <b>Pour Choices</b> bottle icon on your home screen.</span></li>
+                </ol>
+                <p class="text-[12px] font-bold text-gray-200 mb-2">Using Samsung Internet</p>
+                <ol class="space-y-2.5">
+                    <li class="flex space-x-3"><span class="install-num">1</span><span class="text-[13px] text-gray-100">Tap the <b>three lines ☰</b> at the bottom right.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">2</span><span class="text-[13px] text-gray-100">Tap <b>Add page to</b>, then <b>Home screen</b>.</span></li>
+                    <li class="flex space-x-3"><span class="install-num">3</span><span class="text-[13px] text-gray-100">Tap <b>Add</b>. Done!</span></li>
+                </ol>
+            </div>
+
+            <button onclick="closeInstallGuide()" class="w-full mt-4 bg-obsidian border border-gray-700 text-gray-200 font-bold py-2.5 rounded-xl text-sm">Got it</button>
         </div>
     </div>
 
@@ -1529,9 +1607,24 @@
             // banner right away instead of waiting for an event that will
             // never come. Android/Chrome gets the banner from that event
             // instead, once the browser itself says the app is installable.
-            if (isIosDevice() && !isStandaloneApp()) {
+            if (isMobileDevice() && !isStandaloneApp()) {
                 showInstallBanner();
             }
+            if (isStandaloneApp()) {
+                const addBtn = document.getElementById("add-to-phone-btn");
+                if (addBtn) addBtn.classList.add("hidden");
+            }
+            // A link ending in ?install=1 opens the guide straight away (for
+            // Facebook posts etc). The param is removed from the address bar.
+            try {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get("install") === "1") {
+                    params.delete("install");
+                    const qs = params.toString();
+                    history.replaceState(null, "", window.location.pathname + (qs ? "?" + qs : "") + window.location.hash);
+                    if (!isStandaloneApp()) setTimeout(openInstallGuide, 300);
+                }
+            } catch (e) {}
             // loadProducts() is the heaviest thing this page does (fetch +
             // parse + render ~2,900 products) and used to always start right
             // here, immediately on load -- including for a brand-new visitor
@@ -1576,7 +1669,13 @@
         }
 
         function isMobileDevice() {
-            return /iphone|ipad|ipod|android/i.test(window.navigator.userAgent);
+            return /iphone|ipad|ipod|android/i.test(window.navigator.userAgent) || isIosDevice();
+        }
+
+        // Pages opened from inside Facebook, Instagram, TikTok etc. run in
+        // that app's own built-in browser, which can't add to home screen.
+        function isInAppBrowser() {
+            return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|Snapchat|TikTok|musical_ly|BytedanceWebview|Twitter|LinkedInApp/i.test(window.navigator.userAgent);
         }
 
         function showInstallBanner() {
@@ -1615,25 +1714,91 @@
         // Belt-and-suspenders: if the browser's own native install UI is
         // used instead of our button, this still fires and clears the
         // banner/flag correctly.
-        window.addEventListener("appinstalled", () => { dismissInstallBanner(); });
-
-        async function handleInstallClick() {
-            if (deferredInstallPrompt) {
-                deferredInstallPrompt.prompt();
-                try { await deferredInstallPrompt.userChoice; } catch (e) { /* ignore */ }
-                deferredInstallPrompt = null;
-                dismissInstallBanner();
-                return;
-            }
-            // iOS Safari has no install-prompt API at all, so the only way to
-            // save the app there is the manual Share-sheet route.
-            if (isIosDevice()) {
-                alert("To save this app: tap the Share icon at the bottom of Safari, then tap 'Add to Home Screen'.");
-                dismissInstallBanner();
-                return;
-            }
-            alert("Look for \"Install app\" or \"Add to Home Screen\" in your browser's menu.");
+        window.addEventListener("appinstalled", () => {
             dismissInstallBanner();
+            const addBtn = document.getElementById("add-to-phone-btn");
+            if (addBtn) addBtn.classList.add("hidden");
+        });
+
+        // Banner tap: Chrome on Android can install in one tap; everyone
+        // else (iPhone, Samsung Internet, in-app browsers) gets the guide.
+        // The banner only goes away for good when the visitor taps its ✕,
+        // installs, or taps "Got it" in the guide.
+        async function handleInstallClick() {
+            if (deferredInstallPrompt && !isInAppBrowser()) {
+                const ok = await installNow();
+                if (ok) return;
+            }
+            openInstallGuide();
+        }
+
+        // Returns true if the visitor accepted the browser's install prompt.
+        async function installNow() {
+            if (!deferredInstallPrompt) { openInstallGuide(); return false; }
+            const promptEvent = deferredInstallPrompt;
+            deferredInstallPrompt = null;
+            let accepted = false;
+            try {
+                promptEvent.prompt();
+                const choice = await promptEvent.userChoice;
+                accepted = choice && choice.outcome === "accepted";
+            } catch (e) { /* ignore */ }
+            if (accepted) {
+                dismissInstallBanner();
+                closeInstallGuide(true);
+                showToast("Added! Look for Pour Choices on your home screen.");
+            }
+            const btn = document.getElementById("install-now-btn");
+            if (btn) btn.classList.add("hidden");
+            return accepted;
+        }
+
+        function showInstallTab(which) {
+            ["ios", "android"].forEach(k => {
+                const tab = document.getElementById("install-tab-" + k);
+                const steps = document.getElementById("install-steps-" + k);
+                if (tab) tab.classList.toggle("active", k === which);
+                if (steps) steps.classList.toggle("hidden", k !== which);
+            });
+        }
+
+        function openInstallGuide() {
+            const ua = window.navigator.userAgent;
+            const mobile = isMobileDevice();
+            const inApp = isInAppBrowser();
+            document.getElementById("install-inapp-note").classList.toggle("hidden", !inApp);
+            document.getElementById("install-desktop-note").classList.toggle("hidden", mobile);
+            document.getElementById("install-now-btn").classList.toggle("hidden", !(deferredInstallPrompt && !inApp));
+            // Chrome / Firefox / Edge on iPhone put Share at the top right.
+            document.getElementById("install-ios-browser-note").classList.toggle("hidden", !(isIosDevice() && /CriOS|FxiOS|EdgiOS/i.test(ua)));
+            showInstallTab(/android/i.test(ua) ? "android" : "ios");
+            const modal = document.getElementById("install-modal");
+            const content = document.getElementById("install-modal-content");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => { content.classList.remove("translate-y-full"); }, 10);
+        }
+
+        // "Got it" / ✕ also hides the banner for good (they've seen how).
+        function closeInstallGuide(skipDismiss) {
+            const modal = document.getElementById("install-modal");
+            const content = document.getElementById("install-modal-content");
+            if (!modal || modal.classList.contains("hidden")) return;
+            content.classList.add("translate-y-full");
+            setTimeout(() => { modal.classList.add("hidden"); modal.classList.remove("flex"); }, 300);
+            if (!skipDismiss && isMobileDevice()) dismissInstallBanner();
+        }
+
+        function copyInstallLink() {
+            const url = "https://pour-choices.com/";
+            const done = () => showToast("Link copied. Paste it into Safari or Chrome.");
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(done, () => window.prompt("Copy this link:", url));
+                    return;
+                }
+            } catch (e) {}
+            window.prompt("Copy this link:", url);
         }
 
         // --- Share (rebuilt 2026-10-05 around a QR code) --------------------------
