@@ -3531,10 +3531,12 @@
             sparklingonly: { label: "Sparkling only", w: [0, 0, 0, 1] },
         };
         const CROWD_SPLITS = {
+            // "Mostly" means three quarters (John, 15 Nov 2026: 5 mostly-wine
+            // guests got far too much beer for the wine).
             balanced: { beer: 0.40, wine: 0.35, spirits: 0.25 },
-            beer:     { beer: 0.60, wine: 0.25, spirits: 0.15 },
-            wine:     { beer: 0.25, wine: 0.60, spirits: 0.15 },
-            spirits:  { beer: 0.20, wine: 0.20, spirits: 0.60 },
+            beer:     { beer: 0.75, wine: 0.15, spirits: 0.10 },
+            wine:     { beer: 0.15, wine: 0.75, spirits: 0.10 },
+            spirits:  { beer: 0.15, wine: 0.15, spirits: 0.70 },
         };
         // Shares a whole number of bottles out by weights (largest
         // remainder), so the parts always add up to the total.
@@ -3555,9 +3557,17 @@
             const split = CROWD_SPLITS[plannerState.style] || CROWD_SPLITS.balanced;
             const pace = DRINKING_PACE[plannerState.pace] || DRINKING_PACE.average;
             const drinks = Math.ceil(guests * hours * pace.perHour * (1 + PARTY_SPARE));
-            const beerCans = Math.ceil(drinks * split.beer / 6) * 6;
-            const wineBottles = Math.ceil(drinks * split.wine / 5);
-            const spiritBottles = Math.ceil(drinks * split.spirits / 16);
+            // Drinks of each kind. A small share (under 3 beers or 5 spirit
+            // measures) isn't worth a six-pack or a whole bottle, so it goes
+            // to what they mostly drink instead.
+            const d = { beer: drinks * split.beer, wine: drinks * split.wine, spirits: drinks * split.spirits };
+            const main = Object.keys(d).sort((a, b) => d[b] - d[a])[0];
+            if (main !== "spirits" && d.spirits < 5) { d[main] += d.spirits; d.spirits = 0; }
+            if (main !== "beer" && d.beer < 3) { d[main] += d.beer; d.beer = 0; }
+            // Beer to the nearest six-pack (the 20% spare is already in).
+            const beerCans = d.beer > 0 ? Math.max(6, Math.round(d.beer / 6) * 6) : 0;
+            const wineBottles = Math.ceil(d.wine / 5 - 1e-9);
+            const spiritBottles = Math.ceil(d.spirits / 16 - 1e-9);
             const lines = [];
             if (beerCans) {
                 // Shared out in 6-can steps, so every line is whole six-packs.
@@ -3570,6 +3580,10 @@
                 // what they asked for, so 2 bottles don't get split 4 ways.
                 const w = (WINE_PREFS[plannerState.wine] || WINE_PREFS.mixed).w.slice();
                 if (wineBottles < 4 && (w[0] + w[1]) > 0) { if (w[2] < 0.5) w[2] = 0; if (w[3] < 0.5) w[3] = 0; }
+                // A kind that would come to less than most of a bottle is left
+                // out (no single rosé in a "mostly red" order of 9 bottles).
+                const wsum = w.reduce((a, b) => a + b, 0) || 1;
+                for (let k = 0; k < 4; k++) { if (w[k] > 0 && wineBottles * w[k] / wsum < 0.75 && w[k] < 0.5) w[k] = 0; }
                 const [red, white, rose, fizz] = shareOut(wineBottles, w);
                 if (red) lines.push({ cat: "red", qty: red });
                 if (white) lines.push({ cat: "white", qty: white });
@@ -3597,7 +3611,8 @@
             plannerState.lines.forEach(l => { tierFor[l.cat] = l.tier; });
             plannerState.lines = lines.map(l => ({ cat: l.cat, qty: l.qty, share: 0, tier: tierFor[l.cat] || plannerState.defaultTier || "mid", pick: 0 }));
             renderPlannerInputs();
-            showToast(`About ${drinks} drinks for ${guests} guests over ${hours} hours, including 20% spare${toastBottles ? `, plus ${toastBottles} bottle${toastBottles === 1 ? "" : "s"} of sparkling for the ${plannerState.welcome && plannerState.toast ? "welcome drink and toast" : plannerState.welcome ? "welcome drink" : "toast"}` : ""}. Check the list, then tap Find my best mix.`);
+            const parts = [beerCans ? `${beerCans} beers` : "", wineBottles ? `${wineBottles * 5} glasses of wine (${wineBottles} bottle${wineBottles === 1 ? "" : "s"})` : "", spiritBottles ? `spirits (${spiritBottles} bottle${spiritBottles === 1 ? "" : "s"})` : ""].filter(Boolean);
+            showToast(`About ${drinks} drinks for ${guests} guests over ${hours} hours, including 20% spare: ${parts.join(", ").replace(/, ([^,]*)$/, " and $1")}${toastBottles ? `, plus ${toastBottles} bottle${toastBottles === 1 ? "" : "s"} of sparkling for the ${plannerState.welcome && plannerState.toast ? "welcome drink and toast" : plannerState.welcome ? "welcome drink" : "toast"}` : ""}. Check the list, then tap Find my best mix.`);
         }
 
         function favouritesForPlanner() {
