@@ -333,10 +333,10 @@ Prices checked {esc(checked)}.</p>
 
 def index_page(cats: list[tuple[str, str, int]], total: int, checked: str) -> str:
     links = "".join(f'<a href="/prices/{s}/">{esc(n)} ({c})</a>' for s, n, c in cats)
-    desc = (f"Drinks prices in Bahrain compared: {total} drinks across BMMI, African & Eastern, "
+    desc = (f"Alcohol and drinks prices in Bahrain compared: {total} drinks across BMMI, African & Eastern, "
             f"GBI Express and NHSC. Find the cheapest alcohol prices in Bahrain for beer, wine, whisky, gin and more.")
     body = f"""
-<h1>Drinks prices in Bahrain, compared</h1>
+<h1>Alcohol and drinks prices in Bahrain, compared</h1>
 <p class="lead">Pour Choices checks the prices at BMMI, African &amp; Eastern, GBI Express and NHSC every week,
 so you can see which shop is cheapest before you buy. It is the easy way to check drinks and alcohol prices
 in Bahrain for beer, wine, whisky, gin, vodka and rum. {total} products in stock today.
@@ -344,7 +344,7 @@ Prices checked {esc(checked)}.</p>
 <div class="cats">{links}</div>
 <a class="btn" href="/">Open the Pour Choices app</a>
 """
-    return page("Drinks Prices in Bahrain Compared | Pour Choices", desc, "/prices/", body)
+    return page("Alcohol & Drinks Prices in Bahrain Compared | Pour Choices", desc, "/prices/", body)
 
 
 PARTY_PLANNER_PATH = "/bahrain-party-planner/"
