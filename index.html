@@ -5,13 +5,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Drinks Prices in Bahrain Compared | Pour Choices</title>
-<meta name="description" content="Compare drinks prices in Bahrain at BMMI, African &amp; Eastern, GBI Express and NHSC. Find the cheapest alcohol prices in Bahrain for beer, wine, whisky, gin and vodka, updated every week. Free.">
+<title>Alcohol &amp; Drinks Prices in Bahrain Compared | Pour Choices</title>
+<meta name="description" content="Compare alcohol and drinks prices in Bahrain at BMMI, African &amp; Eastern, GBI Express and NHSC. Find the cheapest alcohol prices in Bahrain for beer, wine, whisky, gin and vodka, updated every week. Free.">
 <link rel="canonical" href="https://pour-choices.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pour Choices">
-<meta property="og:title" content="Drinks Prices in Bahrain Compared | Pour Choices">
-<meta property="og:description" content="Drinks prices in Bahrain compared. See which shop is cheapest before you buy. Updated every week.">
+<meta property="og:title" content="Alcohol &amp; Drinks Prices in Bahrain Compared | Pour Choices">
+<meta property="og:description" content="Alcohol and drinks prices in Bahrain compared. See which shop is cheapest before you buy. Updated every week.">
 <meta property="og:url" content="https://pour-choices.com/">
 <meta property="og:image" content="https://pour-choices.com/icon-512-v2.png">
 <link rel="manifest" href="manifest.webmanifest?v=2">
@@ -337,7 +337,7 @@
 
         <!-- LEGAL FOOTER DISCLAIMER -->
         <footer class="mt-12 text-center text-[10px] text-gray-300 leading-relaxed px-4 pb-8">
-            <h2 class="text-xs font-bold text-gray-200 mb-1">Drinks prices in Bahrain, compared</h2>
+            <h2 class="text-xs font-bold text-gray-200 mb-1">Alcohol and drinks prices in Bahrain, compared</h2>
             <p class="mb-4">Pour Choices compares alcohol and drinks prices in Bahrain across BMMI, African &amp; Eastern, GBI Express and NHSC every week, so you can find the cheapest place to buy beer, wine, whisky, gin, vodka and rum in Bahrain before you shop.</p>
             Disclaimer: This application is an independent price-comparison directory, not a retail site. We are not affiliated with, authorized, or endorsed by BMMI, African &amp; Eastern, GBI Express, or NHSC. We do not sell, store, handle, or deliver alcohol items, and we are not a party to any purchase. Any purchase must be made directly with the relevant retailer, through their own website or store. All prices are for informational purposes only and may not reflect the retailer&rsquo;s current price; always confirm the price with the retailer before buying.
             <br><br><a href="/prices/" class="text-amberGold underline">Browse all drinks prices in Bahrain</a>
@@ -4065,19 +4065,6 @@
                 return { sol, plan };
             };
             const fits = (r) => r.plan && r.plan.total <= budget + 1e-9;
-            // What the whole list costs with every drink at Value, at Mid
-            // and at Premium, so a tight budget can say what each level
-            // would need (John, 16 Nov 2026).
-            const levelCosts = () => {
-                const keep = lines.map(l => l.tier), out = {};
-                ["value", "mid", "premium"].forEach(t => {
-                    lines.forEach(l => { l.tier = t; });
-                    const r = evalQ(want);
-                    out[t] = r.plan ? r.plan.total : null;
-                });
-                lines.forEach((l, i) => { l.tier = keep[i]; });
-                return out;
-            };
             const full = evalQ(want);
             const fullCost = full.plan ? full.plan.total : null;
             if (fits(full)) return { sol: full.sol, qtys: want, fullCost, fitsAll: true };
@@ -4095,7 +4082,7 @@
                         const tiers = lines.map(l => l.tier);
                         const favOff = lines.map(l => !!l.noFav);
                         lines.forEach((l, i) => { l.tier = origTiers[i]; l.noFav = false; });
-                        return { sol: cur.sol, qtys: want, fullCost, fitsAll: false, keptQty: true, tiers, favOff, origTiers, levels: levelCosts() };
+                        return { sol: cur.sol, qtys: want, fullCost, fitsAll: false, keptQty: true, tiers, favOff, origTiers };
                     }
                     let bestStep = null;
                     lines.forEach((l, i) => {
@@ -4170,7 +4157,7 @@
             const tiersUsed = lines.map(l => l.tier);
             const favOff = lines.map(l => !!l.noFav);
             lines.forEach((l, i) => { l.tier = origTiers[i]; l.noFav = false; });
-            return { sol: cur.sol, qtys: q, fullCost, fitsAll: false, valueCost, tiers: tiersUsed, favOff, origTiers, levels: s.keepQty !== false ? levelCosts() : null };
+            return { sol: cur.sol, qtys: q, fullCost, fitsAll: false, valueCost, tiers: tiersUsed, favOff, origTiers };
         }
         function minCostFor(line, qty) {
             const opts = lineOptions(line, qty).byShop;
@@ -4235,20 +4222,6 @@
             if (s.mode === "budget") {
                 const left = s.budget - plan.total;
                 html += `<p class="text-[11px] mt-1 ${left >= 0 ? "text-cyanGlow" : "text-red-400"} font-bold">${left >= 0 ? `${fmt(left)} BHD left from your ${fmt(s.budget)} BHD budget` : `${fmt(-left)} BHD over your budget`}</p>`;
-                // Tight budget, quantities kept: say plainly that the quality
-                // was lowered and what each level would need.
-                const bi = r.budgetInfo;
-                if (bi && bi.levels && !bi.fitsAll) {
-                    const lv = bi.levels;
-                    const need = [["Value", lv.value], ["Mid", lv.mid], ["Premium", lv.premium]]
-                        .filter(([n, c]) => c && c > s.budget + 1e-9 && (n !== "Value" || !bi.keptQty));
-                    const needText = need.map(([n, c], k) => k === 0 ? `${n} needs about ${fmt(c)} BHD` : `${n} about ${fmt(c)} BHD`).join(", ");
-                    const allValue = (bi.tiers || []).every(t => t === "value");
-                    const head = bi.keptQty
-                        ? (allValue ? "Your budget only stretches to Value." : "Your budget doesn't stretch to the quality you chose for everything, so some drinks are a level cheaper.")
-                        : "Your budget doesn't cover everything even at Value, so you get less of some drinks.";
-                    html += `<p class="text-[11px] mt-1 text-amber-300 font-bold">${head}${needText ? ` ${needText} for everything.` : ""}</p>`;
-                }
             }
             if (alt && alt !== plan && alt.filled === plan.filled) {
                 const diff = alt.total - plan.total;
@@ -4323,9 +4296,9 @@
                 const allIn = planB && planB.filled === r.items.length;
                 if (bi.fitsAll && allIn) note = `<p class="text-[10px] text-emeraldGlow mt-1">Everything you asked for fits your budget.</p>`;
                 else if (bi.fitsAll) note = `<p class="text-[10px] text-red-300 mt-1">It fits your budget, but the shop chosen doesn't have everything. See "Not at" below.</p>`;
-                else if (bi.keptQty) note = `<p class="text-[10px] text-emeraldGlow mt-1">You get everything you asked for, with cheaper drinks where shown (→).</p>`;
+                else if (bi.keptQty) note = `<p class="text-[10px] text-emeraldGlow mt-1">You get everything you asked for. To fit your budget we picked cheaper drinks where shown (→). Your list at your chosen quality would cost ${fmt(bi.fullCost)} BHD.</p>`;
                 else {
-                    if (bi.fullCost && !bi.levels) note += `<p class="text-[10px] text-gray-300 mt-1">Everything you asked for would cost ${fmt(bi.fullCost)} BHD.</p>`;
+                    if (bi.fullCost) note += `<p class="text-[10px] text-gray-300 mt-1">Everything you asked for would cost ${fmt(bi.fullCost)} BHD.</p>`;
                     if (bi.valueCost && bi.valueCost <= s.budget) note += `<p class="text-[10px] text-cyanGlow mt-1 font-bold">Tip: at Value quality the whole list fits, ${fmt(bi.valueCost)} BHD. Tap "Value" next to "Quality for all".</p>`;
                 }
                 html += `<div class="bg-plannerCard border border-cyan-900 rounded-2xl px-3 py-2 mb-3"><p class="text-[11px] font-bold text-white mb-1">What your ${fmt(s.budget)} BHD buys</p>${rowsB}${note}</div>`;
