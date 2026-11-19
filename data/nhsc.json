@@ -8,6 +8,14 @@
     "category": "Vodka"
   },
   {
+    "name": "ABSOLUT VODKA BLUE 75CL",
+    "price_bhd": 18.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Absolut-Vodka-75cl-Nhsc-Bahrain-blue?limit=100",
+    "retailer": "NHSC",
+    "category": "Vodka"
+  },
+  {
     "name": "AFTERSHOCK RED 70CL",
     "price_bhd": 13.2,
     "in_stock": true,
@@ -744,6 +752,14 @@
     "category": "Other Spirits"
   },
   {
+    "name": "GREY GOOSE VODKA 75CL",
+    "price_bhd": 66.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/GREY-GOOSE-VODKA-75CL-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Vodka"
+  },
+  {
     "name": "HAYMAN'S OLD TOM GIN 70CL",
     "price_bhd": 20.46,
     "in_stock": true,
@@ -880,22 +896,6 @@
     "category": "Whisky"
   },
   {
-    "name": "JAGERMEISTER 70CL",
-    "price_bhd": 19.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Jagermeister-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
-    "name": "JAMESON WHISKY 1 LTR",
-    "price_bhd": 33.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/JAMESON-WHISKY-1-LTR-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "JOHN LEE BOURBON 70CL",
     "price_bhd": 10.8,
     "in_stock": true,
@@ -968,7 +968,7 @@
     "category": "Other Spirits"
   },
   {
-    "name": "KONIKS TAIL PREMIUM POLISH VODKA 70CL",
+    "name": "KONIK'S TAIL PREMIUM POLISH VODKA 70CL",
     "price_bhd": 11.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Koniks-Tail-Premium-Polish-Vodka-Nhsc-Bahrain?limit=100",
@@ -1064,14 +1064,6 @@
     "category": "Whisky"
   },
   {
-    "name": "OCHO TEQUILA ANEJO LA LATILLA 40% 70CL",
-    "price_bhd": 29.2,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Tequila-Ocho-Anejo-La-Latilla-40-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "OCHO TEQUILA BLANCO 50CL",
     "price_bhd": 17.6,
     "in_stock": true,
@@ -1108,6 +1100,14 @@
     "price_bhd": 6.3,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/OLD-MONK-COFFEE-XO-RUM-NAKED-75CL-nhsc-bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Rum"
+  },
+  {
+    "name": "OLD MONK GOLD RESERVE 75CL",
+    "price_bhd": 6.6,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Old-Monk-Gold-Reserve-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Rum"
   },
@@ -1288,14 +1288,6 @@
     "category": "Whisky"
   },
   {
-    "name": "ROYAL STAG WHISKY 37.5CL",
-    "price_bhd": 3.3,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/Royal-Stag-Whisky-Nhsc-Bahrain-37?limit=100",
-    "retailer": "NHSC",
-    "category": "Whisky"
-  },
-  {
     "name": "SAINT JAMES RUM XO 240 YEARS ANNIVERSARY EDITION 70CL",
     "price_bhd": 165.0,
     "in_stock": true,
@@ -1408,14 +1400,6 @@
     "category": "Other Spirits"
   },
   {
-    "name": "TOP SHOTS G STAR FAIRY FLOSS 4 X 2.5CL",
-    "price_bhd": 4.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/Spirits-NHSC-bahrain/TOP-SHOTS-G-STAR-FAIRY-FLOSS-4X2-5CL-nhsc-bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Other Spirits"
-  },
-  {
     "name": "TOP SHOTS SNAKE BITE TEQUILA 4X2.5CL",
     "price_bhd": 4.0,
     "in_stock": true,
@@ -1440,10 +1424,26 @@
     "category": "Whisky"
   },
   {
+    "name": "CISK EXCEL 4.2% 24 X 50CL CANS",
+    "price_bhd": 26.4,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/cisk-excel-4?limit=100",
+    "retailer": "NHSC",
+    "category": "Beer"
+  },
+  {
     "name": "HEINEKEN 24 X 33CL BOTTLES",
     "price_bhd": 39.999,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/Heineken-24-x-33cl-Bottles-Nhsc-Bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Beer"
+  },
+  {
+    "name": "TIGER BEER 24 X 50CL CANS",
+    "price_bhd": 28.6,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/Beers-nhsc-bahrain/beers-and-ciders-nhsc-bahrain/TIGER-BEER-24-50CL-CANS-nhsc-bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Beer"
   },
@@ -2368,14 +2368,6 @@
     "category": "Wine"
   },
   {
-    "name": "RADIO BOKA TEMPRANILLO 75CL",
-    "price_bhd": 4.4,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Radio-Boca-Tempranillo-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
     "name": "RESERVE BANK CAPE WHITE BLEND 75CL",
     "price_bhd": 4.4,
     "in_stock": true,
@@ -2568,6 +2560,14 @@
     "category": "Wine"
   },
   {
+    "name": "TABLE MOUNTAIN CHARDONNAY 75CL",
+    "price_bhd": 3.0,
+    "in_stock": true,
+    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Chardonnay-Nhsc-Bahrain?limit=100",
+    "retailer": "NHSC",
+    "category": "Wine"
+  },
+  {
     "name": "TABLE MOUNTAIN CHENIN BLANC 75CL",
     "price_bhd": 3.0,
     "in_stock": true,
@@ -2576,10 +2576,10 @@
     "category": "Wine"
   },
   {
-    "name": "TABLE MOUNTAIN MERLOT 75CL",
+    "name": "TABLE MOUNTAIN SAUVIGNON BLANC 75CL",
     "price_bhd": 3.0,
     "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Merlot-Nhsc-Bahrain?limit=100",
+    "url": "https://www.nhscbahrain.com/wines-wine/Table-Mountain-Sauvignon-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
@@ -2628,14 +2628,6 @@
     "price_bhd": 5.0,
     "in_stock": true,
     "url": "https://www.nhscbahrain.com/wines-wine/Two-Oceans-Cabernet-Sauvignon-Merlot-Nhsc-Bahrain?limit=100",
-    "retailer": "NHSC",
-    "category": "Wine"
-  },
-  {
-    "name": "TWO OCEANS SAUVIGNON BLANC 75CL",
-    "price_bhd": 5.0,
-    "in_stock": true,
-    "url": "https://www.nhscbahrain.com/wines-wine/Two-Oceans-Sauvignon-Blanc-Nhsc-Bahrain?limit=100",
     "retailer": "NHSC",
     "category": "Wine"
   },
