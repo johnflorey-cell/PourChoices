@@ -632,6 +632,7 @@
                 resolvePendingSharedCodes();
                 applySearchFromUrl();
                 applyPlannerFromUrl();
+                ensurePairingTags();
             } catch (e) {
                 productsLoadFailed = true;
                 console.error("Could not load product data:", e);
@@ -713,7 +714,8 @@
             savingsSort: false,    // "Biggest saving" order: the default view, so free for everyone
             priceDropAlerts: true, // price-drop banner for favourites
             backInStockAlerts: true, // "Back in Stock" banner for favourites
-            planner: true,         // Drinks Planner (added 2026-11-14)
+            planner: false,        // Drinks Planner: opening it and the headline total are free (round 33, 20 Nov 2026), as a reason to subscribe
+            plannerDetail: true,   // Drinks Planner: shop-by-shop list, "Try another" bottle swaps, saved plans and sharing
         };
         function hasFeature(name) {
             return isPremium || PREMIUM_FEATURES[name] === false;
@@ -2941,20 +2943,127 @@
         ["gin", "vodka", "rum", "whisky", "tequila", "brandy"].forEach(k => { PLANNER_CATS[k].plainRe = FLAVOURED_RE; });
         ["red", "white", "rose"].forEach(k => { PLANNER_CATS[k].plainRe = SWEET_WINE_RE; });
         const TIER_LABELS = { value: "Value", mid: "Mid", premium: "Premium" };
+
+        // --- Food pairing: "What's on the menu?" (round 33, 20 Nov 2026) ----
+        // Every product carries pairing_tags (e.g. "bold_red", "wheat_beer"),
+        // stamped by scrapers/pairing_tags.py after each scrape from the
+        // rules in data/pairing_rules.json. If a product has no tags yet (the
+        // first week, before that script has run), the app tags it itself
+        // from the same rules file, so the two can never disagree.
+        // Labels for the tags, as a shopper reads them.
+        const PAIRING_TAG_LABELS = {
+            bold_red: "bold red", medium_red: "smooth medium red", light_red: "light, fruity red", italian_red: "Italian red",
+            crisp_white: "crisp, dry white", high_acid_white: "zesty white", off_dry_white: "off-dry white", aromatic_white: "aromatic white",
+            oaky_white: "rich Chardonnay-style white", dry_rose: "dry rosé", fruity_rose: "fruity rosé", sparkling: "dry sparkling",
+            sweet_sparkling: "sweet sparkling", fortified_wine: "port or sherry", crisp_lager: "crisp, cold lager", pilsner: "pilsner",
+            wheat_beer: "wheat beer", pale_ale: "pale ale", hoppy_ipa: "hoppy IPA", amber_ale: "amber ale", malty_beer: "malty beer",
+            dark_stout: "stout", cider: "cider", aged_whisky: "aged whisky or bourbon", single_malt: "single malt",
+            citrus_gin: "classic citrusy gin", botanical_gin: "botanical gin", spiced_rum: "spiced or dark rum", cream_liqueur: "cream or coffee liqueur",
+        };
+        // Tags that are meant to be a little sweet, so the planner's usual
+        // "no sweet wine for a plain red/white/rosé" rule doesn't apply.
+        const PAIRING_SWEET_TAGS = new Set(["off_dry_white", "fruity_rose", "sweet_sparkling"]);
+        // The 12 food buckets from "Pour Choices Bahrain Food Pairing
+        // Categories". Each drink line: [planner drink, pairing tags in order
+        // of preference (the next is used if none of the first is in stock),
+        // share of the money]. Shares add up to 1.
+        const MENU_PRESETS = {
+            bbq:      { emoji: "🥩", pill: "BBQ & grills", short: "BBQ", dishes: "Steaks, lamb chops, burgers, mixed grill, quzi",
+                        lines: [["red", ["bold_red"], 0.40], ["beer", ["malty_beer", "amber_ale", "crisp_lager"], 0.40], ["whisky", ["aged_whisky"], 0.20]] },
+            chicken:  { emoji: "🍗", pill: "Chicken & kebabs", short: "chicken & kebabs", dishes: "Shish tawook, shawarma, peri-peri, tandoori",
+                        lines: [["beer", ["crisp_lager"], 0.40], ["red", ["medium_red"], 0.30], ["rose", ["dry_rose"], 0.30]] },
+            seafood:  { emoji: "🐟", pill: "Fish & Shell", short: "fish & shell", dishes: "Grilled hammour, prawns, calamari, sushi, fish and chips",
+                        lines: [["white", ["crisp_white", "high_acid_white"], 0.40], ["beer", ["wheat_beer", "pilsner", "crisp_lager"], 0.25], ["sparkling", ["sparkling"], 0.20], ["gin", ["citrus_gin"], 0.15]] },
+            curry:    { emoji: "🍛", pill: "Creamy curry", short: "creamy curry", dishes: "Butter chicken, tikka masala, korma",
+                        lines: [["white", ["off_dry_white", "aromatic_white"], 0.40], ["beer", ["crisp_lager"], 0.40], ["rose", ["fruity_rose", "dry_rose"], 0.20]] },
+            spicy:    { emoji: "🌶️", pill: "Hot & spicy", short: "spicy food", dishes: "Vindaloo, Thai stir-fries, buffalo wings",
+                        lines: [["beer", ["crisp_lager"], 0.45], ["white", ["off_dry_white", "aromatic_white"], 0.25], ["red", ["light_red"], 0.15], ["rum", ["spiced_rum"], 0.15]] },
+            biryani:  { emoji: "🍚", pill: "Biryani & machboos", short: "biryani & machboos", dishes: "Machboos, biryani, kabsa, mandi",
+                        lines: [["beer", ["amber_ale", "malty_beer", "crisp_lager"], 0.40], ["white", ["aromatic_white"], 0.35], ["rose", ["dry_rose"], 0.25]] },
+            italian:  { emoji: "🍕", pill: "Pizza & pasta", short: "pizza & pasta", dishes: "Pizza, tomato pasta, alfredo, truffle pasta",
+                        lines: [["red", ["italian_red"], 0.45], ["beer", ["pilsner", "crisp_lager"], 0.35], ["white", ["oaky_white"], 0.20]] },
+            fried:    { emoji: "🍟", pill: "Fried party food", short: "fried party food", dishes: "Lechon kawali, crispy pata, fried chicken, sambousek",
+                        lines: [["sparkling", ["sparkling"], 0.30], ["beer", ["hoppy_ipa", "pale_ale", "pilsner", "crisp_lager"], 0.30], ["gin", ["citrus_gin"], 0.25], ["white", ["high_acid_white", "crisp_white"], 0.15]] },
+            asian:    { emoji: "🥢", pill: "Asian & Filipino", short: "Asian food", dishes: "Adobo, pancit, soy-glazed and sweet-and-sour dishes",
+                        lines: [["beer", ["crisp_lager"], 0.45], ["white", ["off_dry_white", "aromatic_white"], 0.25], ["red", ["light_red"], 0.15], ["cider", ["cider"], 0.15]] },
+            mezze:    { emoji: "🥗", pill: "Mezze & salads", short: "mezze", dishes: "Hummus, mutabbal, tabbouleh, fattoush, ceviche",
+                        lines: [["white", ["crisp_white"], 0.35], ["rose", ["dry_rose"], 0.25], ["sparkling", ["sparkling"], 0.20], ["gin", ["botanical_gin", "citrus_gin"], 0.20]] },
+            cheese:   { emoji: "🧀", pill: "Cheese boards", short: "cheese & charcuterie", dishes: "Cheddar, brie, cured meats, olives, nuts",
+                        lines: [["red", ["bold_red"], 0.40], ["sparkling", ["sparkling"], 0.20], ["port", ["fortified_wine"], 0.20], ["whisky", ["single_malt"], 0.20]] },
+            dessert:  { emoji: "🍰", pill: "Desserts & brunch", short: "dessert & brunch", dishes: "Kunafa, baklava, chocolate cake, brunch spreads",
+                        lines: [["sparkling", ["sweet_sparkling", "sparkling"], 0.40], ["port", ["fortified_wine"], 0.20], ["beer", ["dark_stout"], 0.20], ["liqueur", ["cream_liqueur"], 0.20]] },
+        };
+        const plainText = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        function productPairingTags(p) { return Array.isArray(p.pairing_tags) ? p.pairing_tags : (p._pairTags || []); }
+        let pairingRulesLoading = null;
+        function ensurePairingTags() {
+            if (!mockProducts.length || mockProducts.every(p => Array.isArray(p.pairing_tags))) return Promise.resolve();
+            if (pairingRulesLoading) return pairingRulesLoading;
+            pairingRulesLoading = (async () => {
+                try {
+                    const res = await fetch("data/pairing_rules.json", { cache: "no-cache" });
+                    const raw = await res.json();
+                    const re = (src) => src ? new RegExp(plainText(src), "i") : null;
+                    const rules = Object.entries(raw.tags).map(([tag, r]) => ({ tag, cats: new Set(r.categories || []), match: re(r.match), require: re(r.require), exclude: re(r.exclude), group: r.group, def: !!r.default }));
+                    // The scrapers file cider and alcohol-free beer as "Beer";
+                    // the app splits them once loaded, so map them back.
+                    const RAW_CAT = { "Cider": "Beer", "Non-Alcoholic Beer": "Beer" };
+                    mockProducts.forEach(p => {
+                        if (Array.isArray(p.pairing_tags)) return;
+                        const name = plainText(p.name), cat = RAW_CAT[p.category] || p.category;
+                        const ok = (r) => r.cats.has(cat) && !(r.require && !r.require.test(name)) && !(r.exclude && r.exclude.test(name));
+                        const found = rules.filter(r => ok(r) && r.match && r.match.test(name));
+                        rules.forEach(r => { if (r.def && !found.includes(r) && ok(r) && !found.some(f => f.group === r.group)) found.push(r); });
+                        p._pairTags = found.map(r => r.tag);
+                    });
+                    plannerPoolCache = { size: -1, pools: {}, flat: {} };
+                } catch (e) { pairingRulesLoading = null; console.warn("Pairing rules not loaded:", e); }
+            })();
+            return pairingRulesLoading;
+        }
+        // The pairing tag a line actually uses: the first of its tags with
+        // something in stock (null = nothing tagged in stock, plain pick).
+        // A tag only counts when there's a real choice: at least 3 drinks in
+        // stock across at least 2 shops (one pricey craft beer at one shop
+        // is not a choice). The last tag on the list just needs one.
+        function linePairTag(line) {
+            if (!line || !line.pair || !line.pair.length || line.brand || line.product) return null;
+            for (let i = 0; i < line.pair.length; i++) {
+                const tag = line.pair[i];
+                const all = ["value", "mid", "premium"].flatMap(t => plannerPool(line.cat, t, tag));
+                const uniq = [...new Set(all)];
+                if (!uniq.length) continue;
+                if (i === line.pair.length - 1) return tag;
+                const shops = new Set();
+                uniq.forEach(p => RETAILER_KEYS.forEach(k => { if (shopPrice(p, k) !== null) shops.add(k); }));
+                if (uniq.length >= 3 && shops.size >= 2) return tag;
+            }
+            return null;
+        }
+        function linePool(line, tier) { return plannerPool(line.cat, tier, linePairTag(line)); }
         // Beer and cider lines can be counted in cans (33cl each) or in
         // litres, the visitor's choice per line (2026-11-14).
-        const lineUnit = (l) => (PLANNER_CATS[l.cat].unit === "cans" && l.unitMode === "litres") ? "litres" : PLANNER_CATS[l.cat].unit;
-        const lineUnitL = (l) => lineUnit(l) === "litres" ? 1 : PLANNER_CATS[l.cat].unitL;
+        // An empty row (no drink chosen yet) counts as bottles, and as
+        // nothing, since its amount is 0.
+        const lineUnit = (l) => !PLANNER_CATS[l.cat] ? "bottles" : (PLANNER_CATS[l.cat].unit === "cans" && l.unitMode === "litres") ? "litres" : PLANNER_CATS[l.cat].unit;
+        const lineUnitL = (l) => lineUnit(l) === "litres" ? 1 : PLANNER_CATS[l.cat] ? PLANNER_CATS[l.cat].unitL : 0.75;
         const lineStep = (l) => lineUnit(l) === "cans" ? 6 : 1;
         const fmtL = (n) => (Math.round(n * 10) / 10).toString();
 
         const PERIOD_LABELS = { event: "event", weekly: "weekly", monthly: "monthly" };
         const DEFAULT_PLANS = {
-            event: { mode: "need", budget: 150, guests: "", hours: "", style: "balanced", pace: "average", wine: "mixed", wine: "mixed",
-                lines: [["beer", 48, "mid"], ["red", 4, "mid"], ["white", 3, "mid"], ["sparkling", 2, "mid"], ["gin", 1, "mid"], ["vodka", 1, "mid"]] },
-            weekly: { mode: "need", budget: 25, lines: [["beer", 12, "mid"], ["red", 2, "mid"]] },
-            monthly: { mode: "need", budget: 80, lines: [["beer", 48, "mid"], ["red", 4, "mid"], ["white", 2, "mid"], ["gin", 1, "mid"]] },
+            // No drinks filled in (John, 20 Nov 2026: a prefilled list was
+            // off-putting): the planner opens with one empty row to fill in.
+            event: { mode: "need", budget: 150, guests: "", hours: "", style: "balanced", pace: "average", wine: "mixed", lines: [] },
+            weekly: { mode: "need", budget: 25, lines: [] },
+            monthly: { mode: "need", budget: 80, lines: [] },
         };
+        // The lists the planner used to open with. A draft still exactly like
+        // one of these was never touched, so it opens empty now.
+        const OLD_DEFAULT_LINES = [
+            "beer:48,red:4,white:3,sparkling:2,gin:1,vodka:1", "beer:12,red:2", "beer:48,red:4,white:2,gin:1",
+        ];
+        const blankPlannerLine = () => ({ cat: "", qty: 0, share: 0, tier: (plannerState && plannerState.defaultTier) || "mid", pick: 0 });
 
         let plannerPeriod = "event";
         let plannerState = null;   // inputs for the current period
@@ -2972,7 +3081,7 @@
             return {
                 mode: d.mode, budget: d.budget, guests: d.guests || "", hours: d.hours || "", style: d.style || "balanced", pace: d.pace || "average", wine: d.wine || "mixed",
                 singleDelivery: false,
-                lines: d.lines.map(([cat, qty, tier]) => ({ cat, qty, share: 0, tier, pick: 0 })),
+                lines: d.lines.length ? d.lines.map(([cat, qty, tier]) => ({ cat, qty, share: 0, tier, pick: 0 })) : [blankPlannerLine()],
                 favQty: {},
             };
         }
@@ -2980,8 +3089,12 @@
             const store = loadPlannerStore();
             const saved = store.saved && store.saved[period];
             const draft = store.drafts && store.drafts[period];
-            const plan = draft || (saved && saved.plan) || freshPlan(period);
-            return JSON.parse(JSON.stringify(plan));
+            const untouched = draft && !(saved && saved.plan) && Array.isArray(draft.lines) && !draft.menus && !draft.menu
+                && OLD_DEFAULT_LINES.includes(draft.lines.map(l => `${l.cat}:${l.qty}`).join(","));
+            const plan = (!untouched && draft) || (saved && saved.plan) || freshPlan(period);
+            const copy = JSON.parse(JSON.stringify(plan));
+            if (!copy.lines || !copy.lines.length) copy.lines = [blankPlannerLine()];
+            return copy;
         }
         function saveDraft() {
             const store = loadPlannerStore();
@@ -3106,6 +3219,8 @@
                     <input id="pl-budget" type="number" inputmode="decimal" min="1" step="1" value="${escapeHTML(s.budget)}" class="w-full bg-plannerCard border border-cyan-900 text-white rounded-xl py-2.5 px-3 text-sm mb-3 focus:outline-none focus:border-cyanGlow">`;
             }
 
+            html += plannerMenuHTML();
+
             if (plannerPeriod === "event") {
                 html += `<details class="mb-3 bg-plannerCard border border-cyan-900 rounded-xl px-3 py-2" ${s.guests ? "open" : ""}>
                     <summary class="text-[11px] font-bold text-cyanGlow cursor-pointer">Not sure how much? Work it out from your guests ▾</summary>
@@ -3173,7 +3288,8 @@
                 </div>`;
             }
 
-            html += `<p class="text-[11px] font-bold text-gray-200 mb-1">${isBudget ? "What you'd like" : "What you need"}</p>`;
+            const anyDrink = s.lines.some(l => PLANNER_CATS[l.cat]);
+            html += `<div class="flex justify-between items-center mb-1"><p class="text-[11px] font-bold text-gray-200">${isBudget ? "What you'd like" : "What you need"}</p>${anyDrink ? `<button onclick="clearPlannerList()" class="text-[10px] text-gray-400 underline">Clear list</button>` : ""}</div>`;
             // Quality for every drink in one tap (each line can still be
             // changed on its own below). Highlighted when all lines match.
             const tiers = new Set(s.lines.map(l => l.tier));
@@ -3202,6 +3318,13 @@
         }
 
         function plannerLineHTML(l, i, isBudget) {
+            // Empty row: just the drink box, waiting for something to be typed.
+            if (!PLANNER_CATS[l.cat]) return `<div class="bg-plannerCard border border-cyan-900 rounded-xl px-2 py-2">
+                <div class="flex items-center space-x-1.5">
+                    <input list="pl-cat-list" value="" data-line="${i}" onchange="plannerCatTyped(${i}, this)" oninput="plannerSuggest(this.value)" placeholder="Type a drink or brand, e.g. lager, red wine, Heineken" class="flex-1 min-w-0 bg-plannerBg border border-cyanGlow/50 text-white rounded-lg py-1.5 px-2 text-xs">
+                    ${plannerState.lines.length > 1 ? `<button onclick="removePlannerLine(${i})" aria-label="Remove" class="text-gray-400 text-sm px-1">✕</button>` : ""}
+                </div>
+            </div>`;
             const cat = PLANNER_CATS[l.cat] || PLANNER_CATS.beer;
             const exact = l.product ? mockProducts.find(p => p.name === l.product) : null;
             const catText = l.brand ? `${cat.emoji} ${l.brand} (${cat.label.toLowerCase()})` : exact ? `${cat.emoji} ${exact.name.replace(/\s*\[.*$/, "")}` : `${cat.emoji} ${cat.label}`;
@@ -3228,7 +3351,7 @@
                         : !brandHasLevels(l) ? `<span class="text-[10px] text-gray-400 leading-tight">Cheapest in stock</span>`
                         : `<select data-line="${i}" data-field="tier" class="pl-line w-[96px] bg-plannerBg border border-cyan-900 text-white rounded-lg py-1.5 px-1 text-xs">${tierOptions}</select>`}
                     ${litresHint}
-                </div>
+                </div>${(!exact && !l.brand && !favCoverOn) ? linePairHintHTML(l) : ""}
             </div>`;
         }
 
@@ -3452,9 +3575,13 @@
         }
         function plannerCatChanged(i, value) {
             readPlannerInputs();
-            if (plannerState.lines[i]) { plannerState.lines[i].product = null; plannerState.lines[i].brand = null; plannerState.lines[i].brandWords = null; }
+            if (plannerState.lines[i]) { plannerState.lines[i].product = null; plannerState.lines[i].brand = null; plannerState.lines[i].brandWords = null; plannerState.lines[i].pair = null; }
             const before = plannerState.lines[i] && PLANNER_CATS[plannerState.lines[i].cat];
-            if (before && PLANNER_CATS[value] && before.unit !== PLANNER_CATS[value].unit) {
+            if (!before && plannerState.lines[i] && PLANNER_CATS[value]) {
+                // An empty row: start from one pack or one bottle.
+                plannerState.lines[i].qty = { cans: 6, bottles: 1, litres: 3, boxes: 1 }[PLANNER_CATS[value].unit] || 1;
+                plannerState.lines[i].unitMode = "cans";
+            } else if (before && PLANNER_CATS[value] && before.unit !== PLANNER_CATS[value].unit) {
                 // Cans and bottles don't mean the same amount: start again.
                 plannerState.lines[i].qty = { cans: 24, bottles: 1, litres: 3, boxes: 1 }[PLANNER_CATS[value].unit] || 1;
                 plannerState.lines[i].unitMode = "cans";
@@ -3481,9 +3608,8 @@
         }
         function addPlannerLine() {
             readPlannerInputs();
-            const used = new Set(plannerState.lines.map(l => l.cat));
-            const next = PLANNER_CAT_ORDER.find(k => !used.has(k)) || "beer";
-            plannerState.lines.push({ cat: next, qty: PLANNER_CATS[next].unit === "cans" ? 24 : 1, share: 10, tier: plannerState.defaultTier || "mid", pick: 0 });
+            // An empty row, unless there's one already waiting.
+            if (!plannerState.lines.some(l => !PLANNER_CATS[l.cat])) plannerState.lines.push(blankPlannerLine());
             renderPlannerInputs();
             // Put the cursor in the new line's drink box, ready to type.
             const boxes = document.querySelectorAll('#pl-lines input[list="pl-cat-list"]');
@@ -3493,7 +3619,176 @@
         function removePlannerLine(i) {
             readPlannerInputs();
             plannerState.lines.splice(i, 1);
+            if (!plannerState.lines.length) plannerState.lines.push(blankPlannerLine());
             renderPlannerInputs();
+        }
+        // Start the list again with one empty row.
+        function clearPlannerList() {
+            readPlannerInputs();
+            plannerState.lines = [blankPlannerLine()];
+            delete plannerState.menu; delete plannerState.menus; delete plannerState.preMenuLines;
+            plannerState.favQty = {};
+            plannerLastResult = null;
+            const res = document.getElementById("planner-results");
+            if (res) res.innerHTML = "";
+            renderPlannerInputs();
+        }
+
+        // --- "What's on the menu?" (round 33, 20 Nov 2026) --------------------
+        // One row of small pills that swipes sideways, so it takes a single
+        // line of the screen. Several can be picked at once (John, 20 Nov
+        // 2026: a weekly or monthly shop covers different meals), up to 4.
+        // Each tap rebuilds the drinks list for all the foods picked; Clear
+        // puts the visitor's own list back.
+        const MENU_MAX = 4;
+        function plannerMenus(s) {
+            s = s || plannerState;
+            // Plans saved before several menus were allowed had one "menu".
+            if (s.menu && !s.menus) { s.menus = [s.menu]; delete s.menu; }
+            return (s.menus || []).filter(k => MENU_PRESETS[k]);
+        }
+        // "seafood, curry and pizza & pasta" (no comma before "and").
+        function menuNames(keys) {
+            const n = keys.map(k => MENU_PRESETS[k].short);
+            return n.length <= 1 ? (n[0] || "") : n.slice(0, -1).join(", ") + " and " + n[n.length - 1];
+        }
+        function plannerMenuHTML() {
+            const s = plannerState;
+            const picked = plannerMenus(s);
+            const pills = Object.keys(MENU_PRESETS).map(k => {
+                const m = MENU_PRESETS[k], on = picked.includes(k);
+                return `<button onclick="applyMenuPreset('${k}')" data-menu="${k}" class="pl-menu-pill shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-full text-[11px] border transition ${on ? "bg-cyanGlow/15 text-cyanGlow border-cyanGlow font-bold" : "bg-plannerCard text-gray-200 border-cyan-900"}">${on ? "✓ " : ""}${m.emoji} ${m.pill}</button>`;
+            }).join("");
+            const many = plannerPeriod !== "event";
+            return `<div class="mb-3">
+                <p class="text-[11px] font-bold text-gray-200 mb-1">🍽️ What's on the menu? <span class="font-normal text-gray-400">Optional. ${many ? "Pick all the meals you're planning, " : "Pick one or more, "}swipe for more</span></p>
+                <div id="pl-menu-row" class="flex space-x-1.5 overflow-x-auto pb-1" style="-ms-overflow-style: none; scrollbar-width: none;">${pills}</div>
+                ${picked.length ? `<p class="text-[10px] text-gray-300 mt-1 leading-snug">${picked.length === 1 ? escapeHTML(MENU_PRESETS[picked[0]].dishes) + ". " : `Drinks for ${escapeHTML(menuNames(picked))}, the money shared equally between them. `}Your list below now has drinks that go with ${picked.length === 1 ? "it" : "them"}. <button onclick="clearMenuPreset()" class="underline text-cyanGlow font-bold">Clear</button></p>` : ""}
+            </div>`;
+        }
+        function linePairHintHTML(l) {
+            if (!l.pair || !l.pair.length || !(l.qty > 0)) return "";
+            const forWhat = (l.menus || []).filter(k => MENU_PRESETS[k]);
+            const tag = linePairTag(l);
+            const cat = PLANNER_CATS[l.cat];
+            return tag
+                ? `<p class="text-[10px] text-emerald-300 leading-tight pl-0.5">🍽️ A ${PAIRING_TAG_LABELS[tag]}${forWhat.length ? ` for ${escapeHTML(menuNames(forWhat))}` : ""}</p>`
+                : `<p class="text-[10px] text-gray-400 leading-tight pl-0.5">🍽️ No ${PAIRING_TAG_LABELS[l.pair[0]]} in stock this week, so the best-value ${cat.label.toLowerCase()}</p>`;
+        }
+        async function applyMenuPreset(key) {
+            readPlannerInputs();
+            const s = plannerState;
+            if (!MENU_PRESETS[key]) return;
+            let picked = plannerMenus(s).slice();
+            if (picked.includes(key)) picked = picked.filter(k => k !== key);
+            else if (picked.length >= MENU_MAX) { showToast(`Up to ${MENU_MAX} menus at a time. Untick one first.`); return; }
+            else picked.push(key);
+            if (!picked.length) { clearMenuPreset(); return; }
+            await ensurePairingTags();
+            // Remember the visitor's own list once, so Clear can put it back.
+            if (!s.preMenuLines) s.preMenuLines = JSON.parse(JSON.stringify(s.lines));
+            // How much to share out: the budget (less a little for delivery)
+            // in budget mode, otherwise what the visitor's own list costs.
+            let money = 0;
+            if (s.mode === "budget" && s.budget > 0) money = s.budget * 0.92;
+            else money = s.preMenuLines.reduce((sum, l) => sum + ((l.qty || 0) > 0 ? estimateLineCost(l) : 0), 0);
+            if (!(money > 0)) money = (DEFAULT_PLANS[plannerPeriod] || DEFAULT_PLANS.event).budget;
+            const tierCounts = {};
+            s.preMenuLines.forEach(l => { tierCounts[l.tier] = (tierCounts[l.tier] || 0) + 1; });
+            const tier = s.defaultTier || Object.keys(tierCounts).sort((a, b) => tierCounts[b] - tierCounts[a])[0] || "mid";
+            // Every picked menu gets an equal share of the money. The same
+            // drink in the same style for two menus becomes one line (e.g. a
+            // crisp lager for chicken and for curry); a different style stays
+            // its own line (a crisp white for seafood, an off-dry white for
+            // curry).
+            const merged = new Map();
+            picked.forEach(mk => MENU_PRESETS[mk].lines.forEach(([catKey, tags, share]) => {
+                // Merged by the style actually in stock this week, so "wheat
+                // beer, else lager" for fish and "lager" for curry become one
+                // lager line when there's no wheat beer.
+                const used = PLANNER_CATS[catKey] ? linePairTag({ cat: catKey, pair: tags }) : null;
+                const id = catKey + "|" + (used || tags.join("/"));
+                const x = merged.get(id) || { catKey, tags: used ? [used] : tags, share: 0, menus: [] };
+                x.share += share / picked.length;
+                if (!x.menus.includes(mk)) x.menus.push(mk);
+                merged.set(id, x);
+            }));
+            // A drink with nothing suitable in stock is left out (no lager
+            // with chocolate cake), a drink whose single bottle costs far more
+            // than its share drops a quality level, and if even Value is too
+            // dear it is left out. The shares of what's left are shared out
+            // again.
+            const tierOrder = ["premium", "mid", "value"];
+            let kept = [...merged.values()].filter(x => PLANNER_CATS[x.catKey] && linePairTag({ cat: x.catKey, pair: x.tags }));
+            let lines = [];
+            for (let round = 0; round < 12 && kept.length; round++) {
+                const total = kept.reduce((a, x) => a + x.share, 0) || 1;
+                lines = [];
+                const tooDear = [];
+                kept.forEach(x => {
+                    const cat = PLANNER_CATS[x.catKey];
+                    const step = cat.unit === "cans" ? 6 : 1;
+                    // Price of one can/bottle/box, from a typical buy (24 cans,
+                    // or 1 bottle).
+                    const probeQty = cat.unit === "cans" ? 24 : 1;
+                    const slice = money * x.share / total;
+                    let made = null;
+                    for (const t of tierOrder.slice(tierOrder.indexOf(tier))) {
+                        const probe = { cat: x.catKey, qty: probeQty, share: 0, tier: t, pick: 0, pair: x.tags.slice(), menus: x.menus.slice() };
+                        // Priced from the drinks that really pair, not the
+                        // "closest" stand-ins used at shops without one.
+                        const opts = Object.values(lineOptions(probe).byShop);
+                        const paired = opts.filter(o => !o.fallback);
+                        const costs = (paired.length ? paired : opts).map(o => o.cost);
+                        const unitCost = costs.length ? Math.min(...costs) / probeQty : 0;
+                        if (!(unitCost > 0)) continue;
+                        const qty = Math.round(slice / unitCost / step) * step;
+                        if (qty >= step) { made = { ...probe, qty }; break; }
+                    }
+                    if (made) lines.push(made); else tooDear.push(x);
+                });
+                if (!tooDear.length || kept.length - tooDear.length < 1) break;
+                // Leave out the one furthest from fitting, then try again.
+                tooDear.sort((a, b) => a.share - b.share);
+                kept = kept.filter(x => x !== tooDear[0]);
+            }
+            if (!lines.length) { showToast("Nothing for that menu is in stock right now."); return; }
+            s.menus = picked;
+            delete s.menu;
+            s.lines = lines;
+            plannerLastResult = null;
+            const res = document.getElementById("planner-results");
+            if (res) res.innerHTML = "";
+            const row = document.getElementById("pl-menu-row");
+            const keepScroll = row ? row.scrollLeft : 0;
+            renderPlannerInputs();
+            const row2 = document.getElementById("pl-menu-row");
+            if (row2) row2.scrollLeft = keepScroll;
+            const left = picked.filter(mk => !lines.some(l => (l.menus || []).includes(mk)));
+            showToast(`Drinks for ${menuNames(picked)}${s.mode === "budget" ? `, sized for your ${fmt(s.budget)} BHD budget` : ", for about what your list cost"}.${left.length ? ` The budget is too small to cover ${menuNames(left)} as well.` : ""} Change anything, then tap Find my best mix.`);
+        }
+        function clearMenuPreset() {
+            readPlannerInputs();
+            const s = plannerState;
+            if (s.preMenuLines && s.preMenuLines.length) s.lines = s.preMenuLines;
+            else s.lines.forEach(l => { l.pair = null; l.menus = null; });
+            delete s.menu; delete s.menus; delete s.preMenuLines;
+            plannerLastResult = null;
+            const res = document.getElementById("planner-results");
+            if (res) res.innerHTML = "";
+            renderPlannerInputs();
+            showToast("Menus cleared. Your own list is back.");
+        }
+        // The note under a recommended bottle: why it suits the food.
+        function pairNoteHTML(line, p) {
+            if (!line || !line.pair || !line.pair.length) return "";
+            const forWhat = (line.menus || []).filter(k => MENU_PRESETS[k]);
+            if (!forWhat.length) return "";
+            const tags = productPairingTags(p);
+            const tag = line.pair.find(t => tags.includes(t));
+            return tag
+                ? `<br><span class="text-emerald-300">🍽️ Pairs with ${escapeHTML(menuNames(forWhat))}: ${PAIRING_TAG_LABELS[tag]}</span>`
+                : `<br><span class="text-gray-400">🍽️ No ${PAIRING_TAG_LABELS[line.pair[0]]} here, so the closest match</span>`;
         }
 
         // Guest-based suggestion (rates set by John, 14 Nov 2026).
@@ -3638,14 +3933,17 @@
         // stock in that drink). Rebuilt whenever the catalogue changes.
         let plannerPoolCache = { size: -1, pools: {}, flat: {} };
         const PLANNER_MIN_FOR_LEVELS = 15;
-        function plannerPool(catKey, tier) {
+        function plannerPool(catKey, tier, tag) {
             if (plannerPoolCache.size !== mockProducts.length) plannerPoolCache = { size: mockProducts.length, pools: {}, flat: {} };
-            const key = catKey + "|" + tier;
+            // tag (optional): only products with that food-pairing tag.
+            const sfx = tag ? "|" + tag : "";
+            const key = catKey + "|" + tier + sfx;
             if (plannerPoolCache.pools[key]) return plannerPoolCache.pools[key];
             const cat = PLANNER_CATS[catKey];
             const minVol = cat.minVol || 0.1;
+            const usePlain = cat.plainRe && !(tag && PAIRING_SWEET_TAGS.has(tag));
             const all = mockProducts
-                .filter(p => cat.match(p) && (cat.allowNonAlc || !isNonAlc(p)) && !MIXER_RE.test(p.name || "") && !(cat.spirit && PREMIX_RE.test(p.name || "")) && !(cat.plainRe && cat.plainRe.test(p.name || "")) && p.volume_litres >= minVol)
+                .filter(p => cat.match(p) && (!tag || productPairingTags(p).includes(tag)) && (cat.allowNonAlc || !isNonAlc(p)) && !MIXER_RE.test(p.name || "") && !(cat.spirit && PREMIX_RE.test(p.name || "")) && !(usePlain && cat.plainRe.test(p.name || "")) && p.volume_litres >= minVol)
                 .map(p => ({ p, best: bestShopPrice(p) }))
                 .filter(x => x.best !== null)
                 .map(x => ({ p: x.p, ppl: x.best / x.p.volume_litres }))
@@ -3664,14 +3962,14 @@
             // wine): no quality levels, just the cheapest (John, 15 Nov
             // 2026: "take the cheapest, as this is a money saving app").
             if (n < PLANNER_MIN_FOR_LEVELS) {
-                plannerPoolCache.flat[catKey] = true;
-                ["value", "mid", "premium"].forEach(t => { plannerPoolCache.pools[catKey + "|" + t] = all.map(x => x.p); });
+                plannerPoolCache.flat[catKey + sfx] = true;
+                ["value", "mid", "premium"].forEach(t => { plannerPoolCache.pools[catKey + "|" + t + sfx] = all.map(x => x.p); });
                 return plannerPoolCache.pools[key];
             }
             const pools = { value: all.slice(0, cut1 || n), mid: all.slice(cut1, cut2 || n), premium: all.slice(cut2) };
             if (!pools.mid.length) pools.mid = all;
             if (!pools.premium.length) pools.premium = all;
-            Object.keys(pools).forEach(t => { plannerPoolCache.pools[catKey + "|" + t] = pools[t].map(x => x.p); });
+            Object.keys(pools).forEach(t => { plannerPoolCache.pools[catKey + "|" + t + sfx] = pools[t].map(x => x.p); });
             return plannerPoolCache.pools[key];
         }
 
@@ -3696,7 +3994,7 @@
             const needL = qty * lineUnitL(line);
             const capL = lineCapL(line, needL);
             const cn = lineUnit(line) === "cans" ? qty : undefined;
-            const allTiers = () => ["value", "mid", "premium"].flatMap(t => plannerPool(line.cat, t));
+            const allTiers = () => ["value", "mid", "premium"].flatMap(t => linePool(line, t));
             if (line.brandWords && line.brandWords.length) {
                 const pools = brandPools(line);
                 const perB = cat.perItem ? qty : undefined;
@@ -3724,7 +4022,7 @@
             }
             const minV = lineUnit(line) === "bottles" ? FULL_BOTTLE_L : 0;
             const per = cat.perItem ? qty : undefined;
-            let out = lineCandidatesFrom(plannerPool(line.cat, line.tier), needL, capL, minV, per, cn);
+            let out = lineCandidatesFrom(linePool(line, line.tier), needL, capL, minV, per, cn);
             if (!out.length) out = lineCandidatesFrom(allTiers(), needL, capL, minV, per, cn).map(c => ({ ...c, nearest: "quality" }));
             if (!out.length && !per) out = lineCandidatesFrom(allTiers(), needL, Infinity, minV, undefined, cn).map(c => ({ ...c, nearest: "size" }));
             if (!out.length && minV) out = lineCandidatesFrom(allTiers(), needL, Infinity, 0, undefined, cn).map(c => ({ ...c, nearest: "small" }));
@@ -3780,7 +4078,7 @@
         // A brand with only one kind (Heineken, Baileys) has no quality
         // levels to show.
         function brandHasLevels(line) {
-            if (!(line.brandWords && line.brandWords.length)) { plannerPool(line.cat, "value"); return !plannerPoolCache.flat[line.cat]; }
+            if (!(line.brandWords && line.brandWords.length)) { const tg = linePairTag(line); plannerPool(line.cat, "value", tg); return !plannerPoolCache.flat[line.cat + (tg ? "|" + tg : "")]; }
             const bp = brandPools(line);
             return bp.value !== bp.mid || bp.mid !== bp.premium;
         }
@@ -3840,6 +4138,7 @@
         // Per line: the cheapest option at each shop. A line the user has
         // swapped ("Try another") is pinned to that one product.
         function lineOptions(line, qtyOverride) {
+            if (!PLANNER_CATS[line.cat]) return { byShop: {}, count: 0 };
             const cands = lineCandidates(line, qtyOverride);
             const pick = Math.min(line.pick || 0, Math.max(0, Math.min(cands.length, 6) - 1));
             const use = (line.pick || 0) > 0 ? cands.slice(pick, pick + 1) : cands;
@@ -3874,9 +4173,14 @@
                     const qty = qtyOverride !== undefined ? qtyOverride : line.qty;
                     const needL = qty * lineUnitL(line);
                     const capL = lineCapL(line, needL);
-                    const all = (line.brandWords && line.brandWords.length) ? brandPools(line).all : ["value", "mid", "premium"].flatMap(t => plannerPool(line.cat, t));
+                    const plainAll = (line.brandWords && line.brandWords.length) ? brandPools(line).all : ["value", "mid", "premium"].flatMap(t => plannerPool(line.cat, t));
                     const minV = lineUnit(line) === "bottles" ? FULL_BOTTLE_L : 0;
-                    [[capL, "quality", minV], [Infinity, "size", minV], [Infinity, "small", 0]].forEach(([cap, why, mv]) => {
+                    // A food-paired line tries other drinks with the same
+                    // pairing first, then any drink of that type.
+                    const pairTag = linePairTag(line);
+                    const passes = pairTag ? [[["value", "mid", "premium"].flatMap(t => plannerPool(line.cat, t, pairTag)), ["quality"]], [plainAll, null]] : [[plainAll, null]];
+                    passes.forEach(([all, onlyWhy]) => [[capL, "quality", minV], [Infinity, "size", minV], [Infinity, "small", 0]].forEach(([cap, why, mv]) => {
+                        if (onlyWhy && !onlyWhy.includes(why)) return;
                         if (cat.perItem && why !== "quality") return;
                         lineCandidatesFrom(all, needL, cap, mv, cat.perItem ? qty : undefined, lineUnit(line) === "cans" ? qty : undefined).forEach(c => {
                             missing.forEach(k => {
@@ -3888,7 +4192,7 @@
                             });
                         });
                         missing.forEach(k => { if (byShop[k]) byShop[k].fallbackLevel = "done"; });
-                    });
+                    }));
                 }
             }
             return { byShop, count: cands.length };
@@ -3899,6 +4203,7 @@
             return { byShop, count: 1 };
         }
         function estimateLineCost(line) {
+            if (!PLANNER_CATS[line.cat]) return 0;
             const opts = lineOptions(line).byShop;
             const costs = Object.values(opts).map(o => o.cost);
             return costs.length ? Math.min(...costs) : 0;
@@ -4173,6 +4478,7 @@
             let sol, qtys = null, budgetInfo = null;
             if (s.mode === "budget") {
                 if (!(s.budget > 0)) { showToast("Enter your budget first."); return; }
+                if (!buildItems().length) { showToast("Add at least one drink with a quantity."); return; }
                 const res = solveBudget();
                 sol = res.sol; qtys = res.qtys;
                 budgetInfo = res;
@@ -4219,6 +4525,7 @@
                 <p class="text-[11px] text-gray-300">${(alt && alt !== plan && alt.filled === plan.filled && alt.total < plan.total && !(plannerState.singleDelivery && plan.shops.length === 1)) ? (plan.shops.length === 1 ? `Best match, one ${dWord}` : `Best match, ${plan.shops.length} ${dWord === "shop" ? "shops" : "deliveries"}`) : plan.shops.length === 1 ? (plannerState.singleDelivery ? `Cheapest with one ${dWord}` : `Cheapest overall, one ${dWord}`) : `Cheapest overall, ${plan.shops.length} ${dWord === "shop" ? "shops" : "deliveries"}`}</p>
                 <p class="text-2xl font-extrabold text-emeraldGlow">${fmt(plan.total)} <span class="text-sm font-bold">BHD</span></p>
                 <p class="text-[11px] text-gray-200">${shopNames.join(" + ")} · ${plan.belowMin.length === plan.shops.length ? "too small to deliver" : plan.fees > 0 ? "delivery " + fmt(plan.fees) + " BHD" : plan.belowMin.length ? "no delivery charge" : "delivery free"}</p>`;
+            if (plannerMenus(s).length) html += `<p class="text-[11px] text-emerald-300 mt-1">🍽️ Matched to ${escapeHTML(menuNames(plannerMenus(s)))}</p>`;
             if (s.mode === "budget") {
                 const left = s.budget - plan.total;
                 html += `<p class="text-[11px] mt-1 ${left >= 0 ? "text-cyanGlow" : "text-red-400"} font-bold">${left >= 0 ? `${fmt(left)} BHD left from your ${fmt(s.budget)} BHD budget` : `${fmt(-left)} BHD over your budget`}</p>`;
@@ -4289,7 +4596,9 @@
                     } else if (inPlan && u === "bottles" && gotBottles !== got) {
                         gotText = `${gotBottles} bottle${gotBottles === 1 ? "" : "s"} (you asked for ${want})`;
                     }
-                    return `<div class="flex justify-between text-[11px] py-0.5"><span class="text-gray-200">${cat.emoji} ${l.brand ? escapeHTML(l.brand) : cat.label}${brandHasLevels(l) ? ` (${TIER_LABELS[l.tier]})` : ""}${tierNote}</span><span class="${colour} font-bold whitespace-nowrap ml-2">${gotText}</span></div>`;
+                    const pairTagB = linePairTag(l);
+                    const pairWord = pairTagB ? ` <span class="text-emerald-300">· ${PAIRING_TAG_LABELS[pairTagB]}</span>` : "";
+                    return `<div class="flex justify-between text-[11px] py-0.5"><span class="text-gray-200">${cat.emoji} ${l.brand ? escapeHTML(l.brand) : cat.label}${brandHasLevels(l) ? ` (${TIER_LABELS[l.tier]})` : ""}${pairWord}${tierNote}</span><span class="${colour} font-bold whitespace-nowrap ml-2">${gotText}</span></div>`;
                 }).join("");
                 let note = "";
                 const planB = chosenPlan(r.sol);
@@ -4302,6 +4611,21 @@
                     if (bi.valueCost && bi.valueCost <= s.budget) note += `<p class="text-[10px] text-cyanGlow mt-1 font-bold">Tip: at Value quality the whole list fits, ${fmt(bi.valueCost)} BHD. Tap "Value" next to "Quality for all".</p>`;
                 }
                 html += `<div class="bg-plannerCard border border-cyan-900 rounded-2xl px-3 py-2 mb-3"><p class="text-[11px] font-bold text-white mb-1">What your ${fmt(s.budget)} BHD buys</p>${rowsB}${note}</div>`;
+            }
+
+            // Standard tier (once FREE_MODE is off): the headline and the
+            // budget summary above stay visible; the shop-by-shop list, bottle
+            // swaps, saving and sharing are part of Full Directory Access.
+            if (!hasFeature("plannerDetail")) {
+                html += `<div class="bg-plannerCard border border-cyanGlow/40 rounded-2xl px-4 py-3 mb-3 text-center">
+                    <p class="text-sm font-bold text-cyanGlow">🔒 See exactly what to buy, and where</p>
+                    <p class="text-[11px] text-gray-200 mt-1 leading-relaxed">The bottle-by-bottle list for each shop${plannerMenus(s).length ? ", why each drink suits your food," : ""} swapping bottles, and saving or sharing your plan come with Full Directory Access: ${YEARLY_PRICE_BHD} BHD a year.</p>
+                    <button onclick="openPaywallModal()" class="mt-2 w-full bg-cyanGlow text-obsidian font-bold py-2.5 rounded-xl text-xs">Unlock for ${YEARLY_PRICE_BHD} BHD a year</button>
+                </div>`;
+                html += `<p class="text-[10px] text-gray-400 mt-3 leading-relaxed">Prices are from the latest weekly update and only in-stock items are used. Pour Choices does not sell or deliver anything: you order directly from each shop.</p>`;
+                el.innerHTML = html;
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                return;
             }
 
             // Shopping list, by shop
@@ -4342,7 +4666,7 @@
                     const canCl = Math.round(p.volume_litres / packCount(p) * 100);
                     const litresNote = isBoxLine ? ` · <span class="text-cyan-200">${fmtL(gotL)} L in total</span>` : it.unit === "cans" ? (gotCans !== it.qty ? ` · <span class="text-cyan-200">${gotCans} × ${canCl}cl</span>` : "") : isBoxLine ? ` · <span class="text-cyan-200">${fmtL(gotL)} L in total</span>` : isCanLine && a.nearest !== "size" && Math.abs(gotL - askedL) > askedL * 0.05 ? ` · <span class="text-cyan-200">${fmtL(gotL)} L${it.unit === "cans" ? `, about ${Math.round(gotL / 0.33)} cans' worth` : ""}</span>` : "";
                     const asked = it.lineIndex !== undefined
-                        ? `<span class="text-gray-400">for ${it.qty} ${unitWord(it.unit, it.qty)} · ${it.label}${nearestNote}</span>${litresNote}`
+                        ? `<span class="text-gray-400">for ${it.qty} ${unitWord(it.unit, it.qty)} · ${it.label}${nearestNote}${pairNoteHTML(plannerState.lines[it.lineIndex], p)}</span>${litresNote}`
                         : it.autoFav ? `<span class="text-cyanGlow">★ your favourite</span> <span class="text-gray-400">${escapeHTML(it.forText)}</span>`
                         : `<span class="text-cyanGlow">★ extra favourite</span>`;
                     html += `<div class="py-1.5 border-t border-cyan-900/70">
@@ -4526,6 +4850,7 @@
             if (!r || !r.sol || !r.sol.best) return;
             const plan = chosenPlan(r.sol);
             const lines = [`My drinks plan from Pour Choices: ${fmt(plan.total)} BHD`];
+            if (plannerMenus().length) lines.push(`Matched to ${menuNames(plannerMenus())}`);
             plan.shops.forEach(k => {
                 lines.push("");
                 lines.push(`${RETAILER_SHORT_LABELS[k]} (${fmt(plan.subtotal[k] + plan.delivery[k])} BHD)`);
