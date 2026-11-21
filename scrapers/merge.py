@@ -1117,6 +1117,16 @@ def main():
 
     update_price_history(products)  # stamps price_trend/etc onto each row before it's written below
 
+    # Food pairing tags for the Drinks Planner's "What's on the menu?"
+    # choice (round 33, 20 Nov 2026). Rules live in data/pairing_rules.json.
+    # Wrapped so a mistake in the rules file can never stop prices updating.
+    try:
+        import pairing_tags
+        pairing_tags.tag_products(products)
+        print(f"Pairing tags added to {sum(1 for p in products if p.get('pairing_tags'))} products")
+    except Exception as e:
+        print(f"Pairing tags skipped: {e}")
+
     out_path = DATA_DIR / "products.json"
     out_path.write_text(json.dumps(products, indent=2))
     print(f"Merged into {len(products)} products -> {out_path}")
