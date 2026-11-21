@@ -3211,6 +3211,7 @@
         // --- Inputs --------------------------------------------------------------
         function renderPlannerInputs() {
             const s = plannerState;
+            syncLinePairing();
             const isBudget = s.mode === "budget";
             let html = "";
 
@@ -3333,7 +3334,7 @@
             const favCover = (!exact && !l.brand && plannerState.favFirst !== false && !(l.pick > 0) && (l.qty || 0) > 0) ? matchingFavourites(l) : [];
             const favCoverOn = favCover.length > 0;
             const tierOptions = Object.keys(TIER_LABELS).map(t => `<option value="${t}" ${t === l.tier ? "selected" : ""}>${TIER_LABELS[t]}</option>`).join("");
-            const amount = `<div class="flex items-center"><input data-line="${i}" data-field="qty" type="number" inputmode="numeric" min="0" step="1" value="${Number(l.qty || 0)}" onchange="readPlannerInputs(); renderPlannerInputs()" class="pl-line w-14 bg-plannerBg border border-cyan-900 text-white rounded-lg py-1.5 px-2 text-xs text-center">${cat.unit === "cans"
+            const amount = `<div class="flex items-center"><input data-line="${i}" data-field="qty" type="number" inputmode="numeric" min="0" step="1" value="${Number(l.qty) > 0 ? Number(l.qty) : ""}" placeholder="Qty" onchange="readPlannerInputs(); renderPlannerInputs()" class="pl-line w-14 bg-plannerBg border border-cyanGlow/50 text-white rounded-lg py-1.5 px-2 text-xs text-center">${cat.unit === "cans"
                     ? `<select data-line="${i}" data-field="unitMode" onchange="plannerUnitChanged(${i}, this.value)" class="pl-line ml-1 bg-plannerBg border border-cyan-900 text-gray-200 rounded-lg py-1 px-0.5 text-[10px]"><option value="cans" ${lineUnit(l) === "cans" ? "selected" : ""}>cans</option><option value="litres" ${lineUnit(l) === "litres" ? "selected" : ""}>litres</option></select>`
                     : `<span class="text-[10px] text-gray-400 ml-1 w-10">${cat.unit}</span>`}</div>`;
             // Two rows: the drink on its own full-width row (so long names
@@ -3578,8 +3579,9 @@
             if (plannerState.lines[i]) { plannerState.lines[i].product = null; plannerState.lines[i].brand = null; plannerState.lines[i].brandWords = null; plannerState.lines[i].pair = null; }
             const before = plannerState.lines[i] && PLANNER_CATS[plannerState.lines[i].cat];
             if (!before && plannerState.lines[i] && PLANNER_CATS[value]) {
-                // An empty row: start from one pack or one bottle.
-                plannerState.lines[i].qty = { cans: 6, bottles: 1, litres: 3, boxes: 1 }[PLANNER_CATS[value].unit] || 1;
+                // An empty row: the amount stays empty for the visitor to
+                // fill in (John, 21 Nov 2026: nothing prefilled).
+                plannerState.lines[i].qty = 0;
                 plannerState.lines[i].unitMode = "cans";
             } else if (before && PLANNER_CATS[value] && before.unit !== PLANNER_CATS[value].unit) {
                 // Cans and bottles don't mean the same amount: start again.
@@ -3634,23 +3636,62 @@
             renderPlannerInputs();
         }
 
-        // --- "What's on the menu?" (round 33, 20 Nov 2026) --------------------
-        // One row of small pills that swipes sideways, so it takes a single
-        // line of the screen. Several can be picked at once (John, 20 Nov
-        // 2026: a weekly or monthly shop covers different meals), up to 4.
-        // Each tap rebuilds the drinks list for all the foods picked; Clear
-        // puts the visitor's own list back.
+        // --- "What's on the menu?" (round 33, 20-21 Nov 2026) ------------------
+        // One row of small pills that swipes sideways. Up to 4 meals can be
+        // picked (John, 20 Nov: a weekly or monthly shop covers different
+        // meals). Picking a meal never adds drinks or amounts (John, 21 Nov:
+        // the visitor builds the list). It only changes which bottles the
+        // planner picks for the drinks the visitor adds, e.g. a red wine row
+        // becomes a bold red when BBQ is picked. Under the pills, small
+        // "+ Red wine" buttons add an empty row of a drink that suits.
         const MENU_MAX = 4;
+        // Which of the visitor's drinks a menu's drink applies to.
+        const MENU_CAT_FAMILY = {
+            beer: ["beer", "lager", "ale", "stout"], red: ["red", "boxred"], white: ["white", "boxwhite"], rose: ["rose", "boxrose"],
+            sparkling: ["sparkling", "champagne", "prosecco"], port: ["port", "sherry"],
+        };
+        const menuFamily = (catKey) => MENU_CAT_FAMILY[catKey] || [catKey];
         function plannerMenus(s) {
             s = s || plannerState;
             // Plans saved before several menus were allowed had one "menu".
             if (s.menu && !s.menus) { s.menus = [s.menu]; delete s.menu; }
             return (s.menus || []).filter(k => MENU_PRESETS[k]);
         }
-        // "seafood, curry and pizza & pasta" (no comma before "and").
+        // "fish & shell, creamy curry and pizza & pasta" (no comma before "and").
         function menuNames(keys) {
             const n = keys.map(k => MENU_PRESETS[k].short);
             return n.length <= 1 ? (n[0] || "") : n.slice(0, -1).join(", ") + " and " + n[n.length - 1];
+        }
+        // The styles that suit a drink for the picked meals, in order:
+        // [{ tags, menus }], one per different style. E.g. white wine for
+        // fish & shell and curry: crisp white, then off-dry white.
+        function menuStylesFor(catKey) {
+            const out = [];
+            plannerMenus().forEach(mk => MENU_PRESETS[mk].lines.forEach(([mc, tags]) => {
+                if (!menuFamily(mc).includes(catKey)) return;
+                const used = linePairTag({ cat: catKey, pair: tags }) || tags[0];
+                const same = out.find(o => o.used === used);
+                if (same) { if (!same.menus.includes(mk)) same.menus.push(mk); }
+                else out.push({ used, tags: tags.slice(), menus: [mk] });
+            }));
+            return out;
+        }
+        // Gives each of the visitor's rows its food style. Two rows of the
+        // same drink get the first and second style (one crisp white for the
+        // fish, one off-dry white for the curry).
+        function syncLinePairing() {
+            const s = plannerState;
+            const seen = {};
+            s.lines.forEach(l => {
+                l.pair = null; l.menus = null;
+                if (!PLANNER_CATS[l.cat] || l.brand || l.product) return;
+                const styles = menuStylesFor(l.cat);
+                if (!styles.length) return;
+                const n = seen[l.cat] || 0;
+                seen[l.cat] = n + 1;
+                const st = styles[Math.min(n, styles.length - 1)];
+                l.pair = st.tags; l.menus = st.menus;
+            });
         }
         function plannerMenuHTML() {
             const s = plannerState;
@@ -3659,20 +3700,34 @@
                 const m = MENU_PRESETS[k], on = picked.includes(k);
                 return `<button onclick="applyMenuPreset('${k}')" data-menu="${k}" class="pl-menu-pill shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-full text-[11px] border transition ${on ? "bg-cyanGlow/15 text-cyanGlow border-cyanGlow font-bold" : "bg-plannerCard text-gray-200 border-cyan-900"}">${on ? "✓ " : ""}${m.emoji} ${m.pill}</button>`;
             }).join("");
-            const many = plannerPeriod !== "event";
+            // "+ Red wine" buttons: drinks that suit the picked meals and
+            // aren't on the list yet. Each adds a row, nothing more.
+            let adds = "";
+            if (picked.length) {
+                const have = new Set(s.lines.filter(l => PLANNER_CATS[l.cat]).map(l => l.cat));
+                const want = [];
+                picked.forEach(mk => MENU_PRESETS[mk].lines.forEach(([mc, tags]) => {
+                    if (!PLANNER_CATS[mc] || want.includes(mc)) return;
+                    if (menuFamily(mc).some(c => have.has(c))) return;
+                    if (!linePairTag({ cat: mc, pair: tags })) return; // nothing suitable in stock
+                    want.push(mc);
+                }));
+                adds = `<p class="text-[10px] text-gray-300 mt-1 leading-snug">Drinks you add below are picked to suit ${escapeHTML(menuNames(picked))}. <button onclick="clearMenuPreset()" class="underline text-cyanGlow font-bold">Clear</button></p>`
+                    + (want.length ? `<div class="flex flex-wrap gap-1 mt-1">${want.map(c => `<button onclick="addMenuDrink('${c}')" class="text-[10px] px-2 py-1 rounded-full border border-emerald-700 text-emerald-300 bg-plannerCard">+ ${PLANNER_CATS[c].emoji} ${PLANNER_CATS[c].label.replace(" (any)", "")}</button>`).join("")}</div>` : "");
+            }
             return `<div class="mb-3">
-                <p class="text-[11px] font-bold text-gray-200 mb-1">🍽️ What's on the menu? <span class="font-normal text-gray-400">Optional. ${many ? "Pick all the meals you're planning, " : "Pick one or more, "}swipe for more</span></p>
+                <p class="text-[11px] font-bold text-gray-200 mb-1">🍽️ What's on the menu? <span class="font-normal text-gray-400">Optional. ${plannerPeriod !== "event" ? "Pick all the meals you're planning, " : "Pick one or more, "}swipe for more</span></p>
                 <div id="pl-menu-row" class="flex space-x-1.5 overflow-x-auto pb-1" style="-ms-overflow-style: none; scrollbar-width: none;">${pills}</div>
-                ${picked.length ? `<p class="text-[10px] text-gray-300 mt-1 leading-snug">${picked.length === 1 ? escapeHTML(MENU_PRESETS[picked[0]].dishes) + ". " : `Drinks for ${escapeHTML(menuNames(picked))}, the money shared equally between them. `}Your list below now has drinks that go with ${picked.length === 1 ? "it" : "them"}. <button onclick="clearMenuPreset()" class="underline text-cyanGlow font-bold">Clear</button></p>` : ""}
+                ${adds}
             </div>`;
         }
         function linePairHintHTML(l) {
-            if (!l.pair || !l.pair.length || !(l.qty > 0)) return "";
+            if (!l.pair || !l.pair.length) return "";
             const forWhat = (l.menus || []).filter(k => MENU_PRESETS[k]);
             const tag = linePairTag(l);
             const cat = PLANNER_CATS[l.cat];
             return tag
-                ? `<p class="text-[10px] text-emerald-300 leading-tight pl-0.5">🍽️ A ${PAIRING_TAG_LABELS[tag]}${forWhat.length ? ` for ${escapeHTML(menuNames(forWhat))}` : ""}</p>`
+                ? `<p class="text-[10px] text-emerald-300 leading-tight pl-0.5">🍽️ ${/^[aeiou]/i.test(PAIRING_TAG_LABELS[tag]) ? "An" : "A"} ${PAIRING_TAG_LABELS[tag]}${forWhat.length ? ` for ${escapeHTML(menuNames(forWhat))}` : ""}</p>`
                 : `<p class="text-[10px] text-gray-400 leading-tight pl-0.5">🍽️ No ${PAIRING_TAG_LABELS[l.pair[0]]} in stock this week, so the best-value ${cat.label.toLowerCase()}</p>`;
         }
         async function applyMenuPreset(key) {
@@ -3681,81 +3736,11 @@
             if (!MENU_PRESETS[key]) return;
             let picked = plannerMenus(s).slice();
             if (picked.includes(key)) picked = picked.filter(k => k !== key);
-            else if (picked.length >= MENU_MAX) { showToast(`Up to ${MENU_MAX} menus at a time. Untick one first.`); return; }
+            else if (picked.length >= MENU_MAX) { showToast(`Up to ${MENU_MAX} meals at a time. Untick one first.`); return; }
             else picked.push(key);
-            if (!picked.length) { clearMenuPreset(); return; }
             await ensurePairingTags();
-            // Remember the visitor's own list once, so Clear can put it back.
-            if (!s.preMenuLines) s.preMenuLines = JSON.parse(JSON.stringify(s.lines));
-            // How much to share out: the budget (less a little for delivery)
-            // in budget mode, otherwise what the visitor's own list costs.
-            let money = 0;
-            if (s.mode === "budget" && s.budget > 0) money = s.budget * 0.92;
-            else money = s.preMenuLines.reduce((sum, l) => sum + ((l.qty || 0) > 0 ? estimateLineCost(l) : 0), 0);
-            if (!(money > 0)) money = (DEFAULT_PLANS[plannerPeriod] || DEFAULT_PLANS.event).budget;
-            const tierCounts = {};
-            s.preMenuLines.forEach(l => { tierCounts[l.tier] = (tierCounts[l.tier] || 0) + 1; });
-            const tier = s.defaultTier || Object.keys(tierCounts).sort((a, b) => tierCounts[b] - tierCounts[a])[0] || "mid";
-            // Every picked menu gets an equal share of the money. The same
-            // drink in the same style for two menus becomes one line (e.g. a
-            // crisp lager for chicken and for curry); a different style stays
-            // its own line (a crisp white for seafood, an off-dry white for
-            // curry).
-            const merged = new Map();
-            picked.forEach(mk => MENU_PRESETS[mk].lines.forEach(([catKey, tags, share]) => {
-                // Merged by the style actually in stock this week, so "wheat
-                // beer, else lager" for fish and "lager" for curry become one
-                // lager line when there's no wheat beer.
-                const used = PLANNER_CATS[catKey] ? linePairTag({ cat: catKey, pair: tags }) : null;
-                const id = catKey + "|" + (used || tags.join("/"));
-                const x = merged.get(id) || { catKey, tags: used ? [used] : tags, share: 0, menus: [] };
-                x.share += share / picked.length;
-                if (!x.menus.includes(mk)) x.menus.push(mk);
-                merged.set(id, x);
-            }));
-            // A drink with nothing suitable in stock is left out (no lager
-            // with chocolate cake), a drink whose single bottle costs far more
-            // than its share drops a quality level, and if even Value is too
-            // dear it is left out. The shares of what's left are shared out
-            // again.
-            const tierOrder = ["premium", "mid", "value"];
-            let kept = [...merged.values()].filter(x => PLANNER_CATS[x.catKey] && linePairTag({ cat: x.catKey, pair: x.tags }));
-            let lines = [];
-            for (let round = 0; round < 12 && kept.length; round++) {
-                const total = kept.reduce((a, x) => a + x.share, 0) || 1;
-                lines = [];
-                const tooDear = [];
-                kept.forEach(x => {
-                    const cat = PLANNER_CATS[x.catKey];
-                    const step = cat.unit === "cans" ? 6 : 1;
-                    // Price of one can/bottle/box, from a typical buy (24 cans,
-                    // or 1 bottle).
-                    const probeQty = cat.unit === "cans" ? 24 : 1;
-                    const slice = money * x.share / total;
-                    let made = null;
-                    for (const t of tierOrder.slice(tierOrder.indexOf(tier))) {
-                        const probe = { cat: x.catKey, qty: probeQty, share: 0, tier: t, pick: 0, pair: x.tags.slice(), menus: x.menus.slice() };
-                        // Priced from the drinks that really pair, not the
-                        // "closest" stand-ins used at shops without one.
-                        const opts = Object.values(lineOptions(probe).byShop);
-                        const paired = opts.filter(o => !o.fallback);
-                        const costs = (paired.length ? paired : opts).map(o => o.cost);
-                        const unitCost = costs.length ? Math.min(...costs) / probeQty : 0;
-                        if (!(unitCost > 0)) continue;
-                        const qty = Math.round(slice / unitCost / step) * step;
-                        if (qty >= step) { made = { ...probe, qty }; break; }
-                    }
-                    if (made) lines.push(made); else tooDear.push(x);
-                });
-                if (!tooDear.length || kept.length - tooDear.length < 1) break;
-                // Leave out the one furthest from fitting, then try again.
-                tooDear.sort((a, b) => a.share - b.share);
-                kept = kept.filter(x => x !== tooDear[0]);
-            }
-            if (!lines.length) { showToast("Nothing for that menu is in stock right now."); return; }
-            s.menus = picked;
-            delete s.menu;
-            s.lines = lines;
+            if (picked.length) s.menus = picked; else delete s.menus;
+            delete s.menu; delete s.preMenuLines;
             plannerLastResult = null;
             const res = document.getElementById("planner-results");
             if (res) res.innerHTML = "";
@@ -3764,20 +3749,22 @@
             renderPlannerInputs();
             const row2 = document.getElementById("pl-menu-row");
             if (row2) row2.scrollLeft = keepScroll;
-            const left = picked.filter(mk => !lines.some(l => (l.menus || []).includes(mk)));
-            showToast(`Drinks for ${menuNames(picked)}${s.mode === "budget" ? `, sized for your ${fmt(s.budget)} BHD budget` : ", for about what your list cost"}.${left.length ? ` The budget is too small to cover ${menuNames(left)} as well.` : ""} Change anything, then tap Find my best mix.`);
+        }
+        function addMenuDrink(catKey) {
+            readPlannerInputs();
+            const s = plannerState;
+            const blank = s.lines.findIndex(l => !PLANNER_CATS[l.cat]);
+            const i = blank >= 0 ? blank : s.lines.push(blankPlannerLine()) - 1;
+            plannerCatChanged(i, catKey);
         }
         function clearMenuPreset() {
             readPlannerInputs();
             const s = plannerState;
-            if (s.preMenuLines && s.preMenuLines.length) s.lines = s.preMenuLines;
-            else s.lines.forEach(l => { l.pair = null; l.menus = null; });
             delete s.menu; delete s.menus; delete s.preMenuLines;
             plannerLastResult = null;
             const res = document.getElementById("planner-results");
             if (res) res.innerHTML = "";
             renderPlannerInputs();
-            showToast("Menus cleared. Your own list is back.");
         }
         // The note under a recommended bottle: why it suits the food.
         function pairNoteHTML(line, p) {
@@ -4473,6 +4460,7 @@
         // --- Run and show ----------------------------------------------------
         function runPlanner() {
             readPlannerInputs();
+            syncLinePairing();
             saveDraft();
             const s = plannerState;
             let sol, qtys = null, budgetInfo = null;
