@@ -1,0 +1,238 @@
+{
+  "_about": "Food pairing tags for Pour Choices (round 33, 20 Nov 2026). Read by scrapers/pairing_tags.py after each scrape (stamps 'pairing_tags' onto every product in data/products.json) and by index.html as a fallback when a product has no tags yet. One rules file, so the app and the scraper can never disagree. Each tag: 'categories' = the scraped category the product must be in; 'match' = words in the name (case does not matter); 'exclude' = words that rule it out; 'default' = true means every product in those categories gets this tag unless it matched another tag in the same 'group'. Accents are removed from names and rules before matching (rosé -> rose), so the regular expressions behave the same in Python and JavaScript. Labels shown to shoppers and the menu presets live in index.html.",
+  "version": 1,
+  "tags": {
+    "bold_red": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(shiraz|syrah|malbec|cabernet|cab sauv|zinfandel|primitivo|petite sirah|pinotage|carm[eé]n[eè]re|tannat|mourv[eè]dre|amarone|barolo|barbaresco|brunello|ripasso|appassimento|ch[aâ]teauneuf|douro|toro|ribera del duero|priorat|bold|full[ -]bodied)\\b",
+      "exclude": "\\b(ros[eé]|rosado|rosato|blush|white zinfandel|blanc de noirs|sweet)\\b"
+    },
+    "medium_red": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(merlot|rioja|tempranillo|grenache|garnacha|c[oô]tes du rh[oô]ne|rh[oô]ne|bordeaux|m[eé]doc|saint[ -][eé]milion|st[ -][eé]milion|claret|montepulciano|valpolicella|chianti|sangiovese|corbi[eè]res|minervois|languedoc|red blend|tinto|rosso)\\b",
+      "exclude": "\\b(ros[eé]|rosado|rosato|blush|sweet)\\b"
+    },
+    "light_red": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(pinot noir|pinot nero|sp[aä]tburgunder|gamay|beaujolais|bourgogne rouge|burgundy|fleurie|morgon|frappato|zweigelt|dolcetto|cinsault|light red)\\b",
+      "exclude": "\\b(ros[eé]|rosado|rosato|blush|blanc|sparkling|brut|sweet)\\b"
+    },
+    "italian_red": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(chianti|sangiovese|montepulciano|barbera|nero d'?avola|valpolicella|primitivo|brunello|barolo|barbaresco|aglianico|negroamaro|amarone|ripasso|appassimento|toscana|tuscany|rosso|puglia|sicilia|italian red)\\b",
+      "exclude": "\\b(ros[eé]|rosato|blush|bianco|sweet|dolce)\\b"
+    },
+    "crisp_white": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(sauvignon blanc|sauvignon|pinot grigio|albari[nñ]o|verdejo|picpoul|muscadet|vinho verde|sancerre|chablis|soave|gavi|vermentino|gr[uü]ner|assyrtiko|frascati|orvieto|trebbiano|entre[ -]deux[ -]mers|colombard|macabeo|airen|dry white|crisp)\\b",
+      "exclude": "\\b(ros[eé]|blush|sweet|cabernet)\\b"
+    },
+    "high_acid_white": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(sauvignon blanc|chablis|riesling|albari[nñ]o|gr[uü]ner|muscadet|picpoul|vinho verde|assyrtiko|sancerre|marlborough)\\b",
+      "exclude": "\\b(ros[eé]|blush|sweet|cabernet)\\b"
+    },
+    "off_dry_white": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(riesling|gew[uü]rztraminer|chenin|moscato|muscat|semi[ -]sweet|medium[ -]sweet|medium[ -]dry|off[ -]dry|demi[ -]sec|liebfraumilch|spätlese|spatlese|kabinett|torront[eé]s)\\b",
+      "exclude": "\\b(ros[eé]|blush|red|rouge|sparkling|spumante|asti)\\b"
+    },
+    "aromatic_white": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(pinot gris|pinot grigio|chenin|viognier|torront[eé]s|gew[uü]rztraminer|albari[nñ]o|muscat|fiano|gr[uü]ner|riesling|semillon|s[eé]millon|marsanne|roussanne)\\b",
+      "exclude": "\\b(ros[eé]|blush|red|rouge|sparkling|spumante)\\b"
+    },
+    "oaky_white": {
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(chardonnay|chablis|bourgogne blanc|white burgundy|meursault|pouilly[ -]fuiss[eé]|m[aâ]con|oak|oaked|white rioja|rioja blanco)\\b",
+      "exclude": "\\b(ros[eé]|blush|sparkling|brut|unoaked)\\b"
+    },
+    "dry_rose": {
+      "group": "rose",
+      "default": true,
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(provence|c[oô]tes de provence|whispering angel|miraval|dry ros[eé]|rosado|rosato|pinot noir ros[eé]|grenache ros[eé])\\b",
+      "require": "\\b(ros[eé]|rosado|rosato|blush)\\b",
+      "exclude": "\\b(sweet|white zinfandel|blush|sparkling|brut|moscato)\\b"
+    },
+    "fruity_rose": {
+      "group": "rose",
+      "categories": [
+        "Wine",
+        "Box Wine"
+      ],
+      "match": "\\b(white zinfandel|blush|sweet|moscato|medium|fruity|pink)\\b",
+      "require": "\\b(ros[eé]|rosado|rosato|blush|white zinfandel|pink)\\b",
+      "exclude": "\\b(sparkling|brut|liqueur|cr[eè]me)\\b"
+    },
+    "sparkling": {
+      "group": "fizz",
+      "default": true,
+      "categories": [
+        "Champagne"
+      ],
+      "match": "\\b(brut|extra dry|dry|champagne|prosecco|cava|cr[eé]mant|franciacorta|trentodoc)\\b",
+      "exclude": "\\b(water|sweet|doux|dolce|demi[ -]sec|moscato|asti|amabile|rosso|semi[ -]?seco|non[ -]alcoholic|alcohol[ -]free|0\\.0)\\b"
+    },
+    "sweet_sparkling": {
+      "group": "fizz",
+      "categories": [
+        "Champagne"
+      ],
+      "match": "\\b(sweet|doux|dolce|demi[ -]sec|moscato|asti|amabile|rosso|semi[ -]?seco|lambrusco|rich)\\b",
+      "exclude": "\\b(water|non[ -]alcoholic|alcohol[ -]free|0\\.0)\\b"
+    },
+    "fortified_wine": {
+      "group": "fortified",
+      "default": true,
+      "categories": [
+        "Fortified"
+      ],
+      "match": "\\b(port|porto|tawny|ruby|lbv|sherry|oloroso|amontillado|pedro xim[eé]nez|px|madeira|marsala|cream)\\b",
+      "exclude": "\\b(vermouth|martini|cinzano|aperitif)\\b"
+    },
+    "crisp_lager": {
+      "group": "beer",
+      "default": true,
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(lager|pils\\w*|helles|premium|light|lite|export)\\b",
+      "exclude": "\\b(stout|porter|ale|ipa|wheat|weiss\\w*|weizen|witbier|blanche|dunkel|bock|cider|cidre|perry|strong|super|non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "pilsner": {
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(pils|pilsner|pilsener|budvar|urquell|bitburger|warsteiner|jever|krombacher|peroni|moretti|stella|beck'?s|veltins|radeberger|holsten)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "wheat_beer": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(wheat|weiss\\w*|weizen|hefe\\w*|witbier|wit|blanche|hoegaarden|blue moon|erdinger|paulaner|franziskaner|schneider|edelweiss|benediktiner weiss\\w*|kronenbourg 1664 blanc)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "pale_ale": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(pale ale|apa|ipa|session|golden ale|blonde ale|craft|brewdog|sierra nevada|goose island)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "hoppy_ipa": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(ipa|india pale|neipa|hazy|punk|double ipa|hop\\w*)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "amber_ale": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(amber|red ale|irish red|bitter|ale|ales|kilkenny|newcastle|london pride|bombardier|old speckled|marston'?s|abbot|spitfire|fuller'?s|smithwick'?s|leffe|grimbergen)\\b",
+      "exclude": "\\b(ipa|pale ale|stout|porter|wheat|non[ -]alcoholic|alcohol[ -]free|0\\.0|zero|ginger)\\b"
+    },
+    "malty_beer": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(amber|bock|doppelbock|dunkel|brown ale|scotch ale|m[aä]rzen|abbey|dubbel|tripel|trappist|leffe|grimbergen|chimay|kilkenny|newcastle|red ale|irish red|vienna|dark lager|schwarz\\w*|munich)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "dark_stout": {
+      "group": "beer",
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(stout|porter|guinness|murphy'?s|beamish|dark|schwarz\\w*)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "cider": {
+      "categories": [
+        "Beer"
+      ],
+      "match": "\\b(ciders?|cidre|sidra|perry)\\b",
+      "exclude": "\\b(non[ -]alcoholic|alcohol[ -]free|0\\.0|zero)\\b"
+    },
+    "aged_whisky": {
+      "categories": [
+        "Whisky"
+      ],
+      "match": "\\b(\\d{2}\\s*(y\\.?o\\.?|yrs?|years?)|1[0-9]|2[0-9]|black label|double black|gold label|green label|blue label|reserve|reserva|special reserve|aged|oak|cask|bourbon|tennessee|jack daniel'?s|jim beam|maker'?s mark|wild turkey|woodford|buffalo trace|bulleit|four roses|knob creek|gentleman jack|single malt|glen\\w+|macallan|chivas)\\b",
+      "exclude": "\\b(honey|apple|fire|cinnamon|cream|liqueur|cola|premix)\\b"
+    },
+    "single_malt": {
+      "categories": [
+        "Whisky"
+      ],
+      "match": "\\b(single malt|glen\\w+|macallan|laphroaig|ardbeg|lagavulin|talisker|bowmore|balvenie|dalmore|aberlour|highland park|oban|cardhu|singleton|bruichladdich|auchentoshan|springbank|caol ila|dalwhinnie|cragganmore|tomatin|tamdhu|deanston|benriach|ardmore|craigellachie|aultmore|amrut|paul john|yamazaki|hakushu|kavalan|monkey shoulder|jura|arran|old pulteney|knockando|mortlach|kilchoman)\\b",
+      "exclude": "\\b(cream|liqueur)\\b"
+    },
+    "citrus_gin": {
+      "categories": [
+        "Gin"
+      ],
+      "match": "\\b(london dry|tanqueray|beefeater|gordon'?s|bombay|sipsmith|plymouth|ford'?s|greenall'?s|malfy|no\\.? ?3|bulldog|citrus|tanqueray (ten|10)|sevilla)\\b",
+      "exclude": "\\b(pink|sloe|rhubarb|strawberry|raspberry|premix|tonic|can)\\b"
+    },
+    "botanical_gin": {
+      "categories": [
+        "Gin"
+      ],
+      "match": "\\b(hendrick'?s|botanist|monkey 47|roku|gin mare|nordes|aviation|drumshanbo|gunpowder|bloom|whitley neill|silent pool|caorunn|brockmans|opihr|bombay sapphire|bombay bramble|tanqueray (ten|10)|sipsmith|cotswolds|four pillars|ki no bi|etsu|nikka coffey gin|portobello|edinburgh|isle of harris|procera|botanical)\\b",
+      "exclude": "\\b(premix|tonic|can|sloe)\\b"
+    },
+    "spiced_rum": {
+      "categories": [
+        "Rum"
+      ],
+      "match": "\\b(spiced|kraken|sailor jerry|bumbu|old monk|dark|black|myers'?s|gosling'?s|captain morgan (original|spiced|black)|don papa|pusser'?s|chairman'?s reserve|el dorado|diplomatico|plantation)\\b",
+      "exclude": "\\b(premix|cola|can|white|silver|blanco)\\b"
+    },
+    "cream_liqueur": {
+      "categories": [
+        "Other Spirits"
+      ],
+      "match": "\\b(baileys|cream|amarula|sheridan'?s|carolans|kahl[uú]a|tia maria|frangelico|disaronno|amaretto|advocaat|mozart|coffee liqueur|espresso)\\b",
+      "exclude": "\\b(cream of tartar|soda)\\b"
+    }
+  }
+}
